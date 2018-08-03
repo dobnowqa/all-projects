@@ -1,9 +1,5 @@
 package com.pages;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-
 import com.base.TestBase;
 import com.util.Constants;
 
@@ -19,13 +15,13 @@ public class ElectricalSOWPage extends TestBase {
 		if(!sow.equals("")){
 			System.out.println(convertedTimestamp() + " **************** Scope Of Work Elctrical");
 //			loginToPortal(OR_PROPERTIES.getProperty("electrical_user_email"));
-			filterJob(OR_PROPERTIES.getProperty("electrical_user_email"),JOB_NUMBER.getProperty("job_number"));
+//			filterJob(OR_PROPERTIES.getProperty("electrical_user_email"),JOB_NUMBER.getProperty("job_number"));
 			test = rep.startTest("Scope Of Work");
 			waitUntilISpinnersInvisible();
 			click(Constants.el_scope_of_work_tab);
 			waitUntilISpinnersInvisible();
 			waitUntilElementVisible(Constants.el_select_category_of_work, 30);
-			if(sow.contains("New Installation")) {
+			if(sow.contains("Emergency Lighting")) {
 				scrollAllWayUp();
 				waitUntilElementVisible("//*[@id='toggle-chk1']", 30);
 				check(Constants.el_sow_service_work);
@@ -75,7 +71,7 @@ public class ElectricalSOWPage extends TestBase {
 				click(Constants.global_notification_ok_button);
 				waitInvisible(Constants.global_notification_ok_button);
 			}
-			if(sow.equals("Field Sign Inspection")){
+			if(sow.contains("Field Sign Inspection")){
 				select(Constants.el_select_category_of_work, sow);
 				if(CONFIG.getProperty("env").contains("8085"))
 					type(Constants.el_job_number_field, "B00007126");

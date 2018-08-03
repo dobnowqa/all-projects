@@ -838,6 +838,10 @@ public class Constants {
 	
 	public static final String search_and_add_button = "//div[@id='addressSearchButton']/button";
 	public static final String device_list_checkbox = "//input[@ng-model='device.IsSelected']";
+	public static final String green_device = "//button[@class='btn-circle2 pull-right devActive']";
+	
+	public static final String cannot_find_adress = "//p[@id='desc'][contains(.,'Cannot find BIN for the address entered.')]";
+	
 	public static final String add_device_button_disabled = "//button[@ng-click='creatExistingDevice(frmAlterationDevicePopup)'][@disabled='disabled']";
 	
 	public static final String add_device_button = "//button[@ng-click='creatExistingDevice(frmAlterationDevicePopup)']";
@@ -848,6 +852,14 @@ public class Constants {
 	public static final String replace_passenger_with_freight = "//input[@id='rdPassengerToFreight'][value='false']";
 
 	public static final String device_number = "//input[@id='txtDeviceSearch']";
+	
+	public static final String car_hoist_opening = "//select[@id='carHoistOpeningOptions']";
+	public static final String car_hoist_located = "//select[@id='carHoistLocatedOptions']";
+	public static final String car_hoist = "//select[@id='carHoistOptions']";
+	public static final String car_govenor = "//input[@id='txtdeviceCarGovernorLocation']";
+	public static final String tripping_speed = "//input[@id='txtdeviceCarGovernorTrippingSpeed']";
+	public static final String car_govenor_type = "//select[@id='devicCarGovernorType']";
+	
 	
 	public static final String add_new_device_link = "//button[contains(.,'Add New Device')]";
 	public static final String save_device_button = "//span[@class='fa fa-save']";
@@ -919,6 +931,8 @@ public class Constants {
 	public static final String elevator_control = "//select[@id='deviceGIElevatorControl']";
 	public static final String mode_of_operation = "//select[@id='deviceGIModeOperation']";
 	public static final String device_configuration = "//select[@id='deviceGIConfiguration']";
+	public static final String car_to_counter_ration = "//input[@id='txtdeviceCarToCounterweightRatio']";
+	
 	
 	
 	public static final String load_weightholding_device_yes = "//input[@id='rdbdeviceGILoadweighingdevice'][@value='1']";
@@ -1018,34 +1032,34 @@ public class Constants {
 	public static final String total_floor_area = "//input[@id='txtTotalFloorArea']";
 	public static final String building_stories = "//input[@id='txtBuildingStories']";
 	public static final String new_building_app_no = "//input[@id='rdFeeNewBuildingApplicationSubmitPermit2'][@value='false']";
-	public static final String job_description = "//textarea[@id='txtPWJobDesc']";	
+	public static final String job_description = "//textarea[@id='txtPWJobDesc']";		
+	// Host
+	public static final String host_car_manufacturer = "(//input[@id='txtdeviceHoistCarManufacturer'])[1]";	
+	public static final String hoist_number_numberr = "//input[@id='txtdeviceModelnumber']";
+	public static final String host_mast_manufacturer = "(//input[@id='txtdeviceHoistCarManufacturer'])[2]";
+	public static final String hoist_car_weight = "//input[@id='txtdeviceEmptyhoistcarweight']";
+	public static final String hoist_capacity = "//input[@id='txtdeviceEmptyHoistcapacity']";
+	public static final String safe_capacity = "//input[@id='txtSafteyCapacity']";
+	public static final String safety_serial_number = "//input[@id='txtdeviceHoistsafetySerialNumber']";
+	public static final String hoist_counterweighted_no = "//input[@id='rdbdeviceHoistcounterweighted'][@value='2']";
 	// documents
-//	driver.findElement(By.CssSelector("a[title='MyServices']")).findElement(By.xpath(".//span[text()='Issues Management']")).click();
-
-	
+//	driver.findElement(By.CssSelector("a[title='MyServices']")).findElement(By.xpath(".//span[text()='Issues Management']")).click();	
 	public static final String applicant_sign_elv = "//input[@id='DesignApplicantStatementsMainCheck']";
 	public static final String design_pro_sign_elv = "//input[@id='DesignProfessionalMainCheck']";
 	public static final String replacement_modification_statement = "//input[@id='PERAstatementsMainCheck']";
-
 	public static final String fee_exempion_request_non_profit_yes = "//input[@id='rblPWFeeExceptReqNonPro'][@value='true']";
 	public static final String fee_exempion_request_nycha_no = "//input[@id='rblPWFeeExceptReqPro'][@value='false']";
-	public static final String owner_sign_elv = "//input[@id='OwnerStatementsMainCheck']";
-	
-	public static final String inspecting_director_sign_elv = "//input[@id='InspectingDirectorStatementsMainCheck']";
-	
-	public static final String did_agency_director_perform_inspection = "//input[@id='rdAgencyDirectorPerformedInspection'][@value='";
-	
-	
-	public static final String permit_not_issued_link = "//a[@title='Permit is not yet issued']";
-	
+	public static final String owner_sign_elv = "//input[@id='OwnerStatementsMainCheck']";	
+	public static final String inspecting_director_sign_elv = "//input[@id='InspectingDirectorStatementsMainCheck']";	
+	public static final String did_agency_director_perform_inspection = "//input[@id='rdAgencyDirectorPerformedInspection'][@value='";	
+	public static final String permit_not_issued_link = "//a[@title='Permit is not yet issued']";	
 	public static final String crm_loading_image = "//img[@id='loading'][@alt='']";
 	public static final String crm_close_modal_button = "//button[@id='butBegin'][@class='ms-crm-RefreshDialog-Button'][contains(.,'Close')]";
 	public static final String crm_top_nav_search_button = "//*[@id='findCriteriaImg']"; //*[@title='Start search']"; 
 	public static final String crm_save_button = "//img[contains(@alt,'Save')]"; //li[@title='Save (CTRL+S) Save the Form']"; 
 	public static final String crm_work_permits_label = "//div[@id='customSectionBarr'][contains(.,'Work Permits')]";
 	public static final String crm_permit_not_yet_issued_link = "//*[@id='dobnyc_task_clickheretogotoworkpermit']/div[1]/span[1]";
-	public static final String crm_certificate_of_insurance_link = "//a[starts-with(@id,'gridBodyTable_lookup_{')]";
-	
+	public static final String crm_certificate_of_insurance_link = "//a[starts-with(@id,'gridBodyTable_lookup_{')]";	
 	public static final String crm_documents_total = "//span[@id='Documents_ItemsTotal']";
 	public static final String crm_load_next_page_arrow = "//*[@class='ms-crm-ImageStrip-page_R1']";
 	public static final String crm_need_action_label = "//nobr[text()='Need Action']";
