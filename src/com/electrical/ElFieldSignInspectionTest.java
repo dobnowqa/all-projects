@@ -14,10 +14,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.openqa.selenium.support.PageFactory;
 import com.pages.ElectricalDashboardPage;
-import com.pages.ElectricalGIPage;
+import com.pages.ElectricalPage;
 import com.pages.ElectricalSOWPage;
-import com.pages.ElectricalDocsPage;
-import com.pages.ElectricalSignaturesPage;
 import com.relevantcodes.extentreports.LogStatus;
 import com.base.TestBase;
 
@@ -64,23 +62,24 @@ public class ElFieldSignInspectionTest extends TestBase {
 		test = rep.startTest("Test Data");
 		test.log(LogStatus.INFO, data.toString());
 		System.out.println("BEGIN " + convertedTimestamp() + " **************** " + data.get("description"));
-		ElectricalGIPage gi = PageFactory.initElements(driver, ElectricalGIPage.class);
 		ElectricalDashboardPage dash = PageFactory.initElements(driver, ElectricalDashboardPage.class);
 		ElectricalSOWPage sow = PageFactory.initElements(driver, ElectricalSOWPage.class);
-		ElectricalSignaturesPage signature = PageFactory.initElements(driver, ElectricalSignaturesPage.class);
-		ElectricalDocsPage docs = PageFactory.initElements(driver, ElectricalDocsPage.class);
+		ElectricalPage el = PageFactory.initElements(driver, ElectricalPage.class);
+		
+		
+		
 		
 		loginToPortal(user);
 		dash.jobFiling(data.get("work_type"));
-		gi.locationInfo(data.get("address"),data.get("description"),data.get("calendar"),data.get("joint_venue"),data.get("use_type"));
-		gi.applicantInfo(data.get("applicant_info"));
-		gi.ownerInfo(data.get("owner_info"));
-		gi.additionalInfo(data.get("additional_info"));
-		gi.saveGI(data.get("save_gi"));
+		el.locationInfo(data.get("address"),data.get("description"),data.get("calendar"),data.get("joint_venue"),data.get("use_type"));
+		el.applicantInfo(data.get("applicant_info"));
+		el.ownerInfo(data.get("owner_info"));
+		el.additionalInfo(data.get("additional_info"));
+		el.saveGI(data.get("save_gi"));
 		sow.workDescription(data.get("sow"));
-		signature.signaturesEl(data.get("sign"));
-		docs.uploadDocumentsEl(data.get("documents"));
-		gi.previewToFile(data.get("preview_to_file"));
+		el.signaturesEl(data.get("sign"));
+		el.uploadDocumentsEl(data.get("documents"));
+		el.previewToFile(data.get("preview_to_file"));
 		successMessage(data.get("description"));
 		
 	}

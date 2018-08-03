@@ -13,13 +13,10 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.openqa.selenium.support.PageFactory;
-import com.pages.ElectricalGIPage;
+import com.pages.ElectricalPage;
 import com.pages.ElectricalSOWPage;
-import com.pages.ElectricalDocsPage;
-import com.pages.ElectricalSignaturesPage;
 import com.relevantcodes.extentreports.LogStatus;
 import com.base.TestBase;
-import com.pages.DobDashboardPage;
 import com.pages.ElectricalDashboardPage;
 
 public class ElOnOtherSubsTest extends TestBase {
@@ -66,19 +63,19 @@ public class ElOnOtherSubsTest extends TestBase {
 		test = rep.startTest("Test Data");
 		test.log(LogStatus.INFO, data.toString());
 		System.out.println("BEGIN " + convertedTimestamp() + " **************** " + data.get("description"));
-		ElectricalDashboardPage dashel = PageFactory.initElements(driver, ElectricalDashboardPage.class);
-		ElectricalGIPage gi = PageFactory.initElements(driver, ElectricalGIPage.class);
+		ElectricalDashboardPage dash = PageFactory.initElements(driver, ElectricalDashboardPage.class);
 		ElectricalSOWPage sow = PageFactory.initElements(driver, ElectricalSOWPage.class);
-		ElectricalSignaturesPage signature = PageFactory.initElements(driver, ElectricalSignaturesPage.class);
-		ElectricalDocsPage docs = PageFactory.initElements(driver, ElectricalDocsPage.class);
+		ElectricalPage el = PageFactory.initElements(driver, ElectricalPage.class);
 		
-		dashel.subsFilingAction(OR_PROPERTIES.getProperty("user_email"), data.get("filter"));
-		dashel.selectWorkTypeSubs(data.get("work_type_subs"));
-		gi.subsFiling(data.get("owner_info_subs"));
-		sow.workDescription(data.get("sow_subs"));
-		signature.signaturesEl(data.get("sign_subs"));
-		docs.uploadDocumentsEl(data.get("documents_subs"));
-		gi.previewToFile(data.get("preview_to_file_subs"));
+		
+		dash.subsFilingAction(OR_PROPERTIES.getProperty("user_email"), data.get("filter"));
+		dash.selectWorkTypeSubs(data.get("work_type_subs"));
+		el.subsFiling(data.get("owner_info_subs"));
+		filterJob(user);		
+		sow.workDescription(data.get("sow"));
+		el.uploadDocumentsEl(data.get("documents_subs"));
+		el.signaturesEl(data.get("sign"));
+		el.previewToFile(data.get("preview_to_file_subs"));
 		successMessage(data.get("description"));
 	}
 

@@ -17,10 +17,10 @@ import com.pages.ElevatorsPage;
 import com.relevantcodes.extentreports.LogStatus;
 
 
-public class ElevMovingWalk extends TestBase {
+public class ElevPersonnelHoist extends TestBase {
 
 	Xls_Reader xlsx = new Xls_Reader(Constants.testCasesesElevator);
-	String testname = "ElevMovingWalk";
+	String testname = "ElevPersonnelHoist";
 
 	@BeforeSuite
 	public void BeforeSuite() {
@@ -62,13 +62,17 @@ public class ElevMovingWalk extends TestBase {
 		test.log(LogStatus.INFO, data.toString());
 
 		
-		elv.signatures(data.get("signatures"));
 
 		
 		dash.jobFilingElev(data.get("work_type"));
 		elv.generalInfo(data.get("address"));
 		elv.deviceInfo(data.get("device_info"));
-		elv.escalatorInfo(data.get("device_info"));
+		elv.machineRoom(data.get("machine_room"));
+		elv.deviceGeneralinfo(data.get("device_general_info"));
+		elv.carsCounterweight(data.get("cars_counterweight"));
+		elv.hoistwayOpeneing(data.get("hoistway_opening"));
+		elv.pitAndBuffers(data.get("pit_and_buffers"));
+		elv.personelHoistInfo();		
 		elv.insuranceFeeInfo(data.get("insurance_fee"));
 		elv.documents(data.get("documents"));
 		elv.signatures(data.get("signatures"));

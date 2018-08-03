@@ -14,15 +14,9 @@ import org.testng.annotations.BeforeSuite;
 import org.openqa.selenium.support.PageFactory;
 import com.pages.DobPW1Page;
 import com.pages.DobSignaturesPage;
-import com.pages.ElectricalDashboardPage;
 import com.base.TestBase;
-import com.pages.CrmTaskFormPage;
 import com.pages.DobDashboardPage;
 import com.pages.DobDocumentsPage;
-import com.pages.ElectricalGIPage;
-import com.pages.ElectricalSOWPage;
-import com.pages.ElectricalDocsPage;
-import com.pages.ElectricalSignaturesPage;
 import com.relevantcodes.extentreports.LogStatus;
 
 public class CcOnElSubsTest extends TestBase {

@@ -13,13 +13,8 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.openqa.selenium.support.PageFactory;
-
 import com.pages.DobDashboardPage;
-import com.pages.ElectricalDashboardPage;
-import com.pages.ElectricalGIPage;
-import com.pages.ElectricalSOWPage;
-import com.pages.ElectricalDocsPage;
-import com.pages.ElectricalSignaturesPage;
+import com.pages.ElectricalPage;
 import com.relevantcodes.extentreports.LogStatus;
 import com.base.TestBase;
 
@@ -67,17 +62,16 @@ public class ElPaaTest extends TestBase {
 		test.log(LogStatus.INFO, data.toString());
 		System.out.println("BEGIN " + convertedTimestamp() + " **************** " + data.get("description"));
 		DobDashboardPage dash = PageFactory.initElements(driver, DobDashboardPage.class);
-		ElectricalGIPage gi = PageFactory.initElements(driver, ElectricalGIPage.class);
-		ElectricalSignaturesPage signature = PageFactory.initElements(driver, ElectricalSignaturesPage.class);
-		ElectricalDocsPage docs = PageFactory.initElements(driver, ElectricalDocsPage.class);
+		ElectricalPage el = PageFactory.initElements(driver, ElectricalPage.class);
 		
+
 		
 		dash.paa(data.get("filter"));
-		gi.pAa(data.get("paa"), data.get("description"));
+		el.pAa(data.get("paa"), data.get("description"));
 		addToProps("job_number", text(Constants.el_job_label).trim().substring(0, 9));
-		docs.uploadDocumentsEl(data.get("documents"));
-		signature.signaturesEl(data.get("sign"));
-		gi.previewToFile(data.get("preview_to_file"));
+		el.uploadDocumentsEl(data.get("documents"));
+		el.signaturesEl(data.get("sign"));
+		el.previewToFile(data.get("preview_to_file"));
 		successMessage(data.get("description"));
 	}
 
