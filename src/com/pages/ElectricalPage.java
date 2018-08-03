@@ -474,7 +474,7 @@ public class ElectricalPage extends TestBase {
 			if (!upload_file.equals("")) {
 				System.out.println(convertedTimestamp() + " **************** " + "Upload Documents Electrical");
 //				loginToPortal(OR_PROPERTIES.getProperty("electrical_user_email"));
-				filterJob(OR_PROPERTIES.getProperty("electrical_user_email"), JOB_NUMBER.getProperty("job_number"));
+//				filterJob(OR_PROPERTIES.getProperty("electrical_user_email"), JOB_NUMBER.getProperty("job_number"));
 				test = rep.startTest("Upload Documents");
 				waitUntilISpinnersInvisible();
 				click(Constants.documents_step);
