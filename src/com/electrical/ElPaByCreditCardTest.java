@@ -15,7 +15,6 @@ import org.testng.annotations.BeforeSuite;
 import org.openqa.selenium.support.PageFactory;
 import com.pages.ElectricalDashboardPage;
 import com.pages.ElectricalPage;
-import com.pages.ElectricalSOWPage;
 import com.relevantcodes.extentreports.LogStatus;
 import com.base.TestBase;
 import com.pages.CityPayPage;
@@ -64,7 +63,6 @@ public class ElPaByCreditCardTest extends TestBase {
 		test.log(LogStatus.INFO, data.toString());
 		System.out.println("BEGIN " + convertedTimestamp() + " **************** " + data.get("description"));
 		ElectricalDashboardPage dash = PageFactory.initElements(driver, ElectricalDashboardPage.class);
-		ElectricalSOWPage sow = PageFactory.initElements(driver, ElectricalSOWPage.class);
 		ElectricalPage el = PageFactory.initElements(driver, ElectricalPage.class);
 		
 
@@ -76,7 +74,7 @@ public class ElPaByCreditCardTest extends TestBase {
 		el.ownerInfo(data.get("owner_info"));
 		el.additionalInfo(data.get("additional_info"));
 		el.saveGI(data.get("save_gi"));
-		sow.workDescription(data.get("sow"));
+		el.workDescription(data.get("sow"));
 		setConfigBrowser("IE");
 	}
 

@@ -14,7 +14,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.openqa.selenium.support.PageFactory;
 import com.pages.ElectricalPage;
-import com.pages.ElectricalSOWPage;
 import com.relevantcodes.extentreports.LogStatus;
 import com.base.TestBase;
 import com.pages.ElectricalDashboardPage;
@@ -64,7 +63,6 @@ public class ElOnOtherSubsTest extends TestBase {
 		test.log(LogStatus.INFO, data.toString());
 		System.out.println("BEGIN " + convertedTimestamp() + " **************** " + data.get("description"));
 		ElectricalDashboardPage dash = PageFactory.initElements(driver, ElectricalDashboardPage.class);
-		ElectricalSOWPage sow = PageFactory.initElements(driver, ElectricalSOWPage.class);
 		ElectricalPage el = PageFactory.initElements(driver, ElectricalPage.class);
 		
 		
@@ -72,7 +70,7 @@ public class ElOnOtherSubsTest extends TestBase {
 		dash.selectWorkTypeSubs(data.get("work_type_subs"));
 		el.subsFiling(data.get("owner_info_subs"));
 		filterJob(user);		
-		sow.workDescription(data.get("sow"));
+		el.workDescription(data.get("sow"));
 		el.uploadDocumentsEl(data.get("documents_subs"));
 		el.signaturesEl(data.get("sign"));
 		el.previewToFile(data.get("preview_to_file_subs"));

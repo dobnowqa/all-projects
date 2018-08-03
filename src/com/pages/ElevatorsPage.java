@@ -226,8 +226,8 @@ public class ElevatorsPage extends TestBase {
 						waitInvisible(Constants.ok_button);
 						if(count(Constants.device_details_arrow_down) > 1) 
 							click(Constants.device_details_arrow_down);
-						scrollToElement("//i[@class='glyphicon pull-right v-pad-10 glyphicon-chevron-right'][@id='8']");
-						actionClick("//i[@class='glyphicon pull-right v-pad-10 glyphicon-chevron-right'][@id='8']");
+						scrollToElement("//i[contains(@class,'glyphicon pull-right')][@id='8']");
+						actionClick("//i[contains(@class,'glyphicon pull-right')][@id='8']");
 						break;
 					}
 				}				
@@ -263,8 +263,8 @@ public class ElevatorsPage extends TestBase {
 					waitInvisible(Constants.ok_button);
 					if(count(Constants.device_details_arrow_down) > 1) 
 						click(Constants.device_details_arrow_down);
-					scrollToElement("//i[@class='glyphicon pull-right v-pad-10 glyphicon-chevron-right'][@id='2']");
-					actionClick("//i[@class='glyphicon pull-right v-pad-10 glyphicon-chevron-right'][@id='2']");
+					scrollToElement("//i[contains(@class,'glyphicon pull-right')][@id='2']");
+					actionClick("//i[contains(@class,'glyphicon pull-right')][@id='2']");
 					break;
 				}
 			}
@@ -317,8 +317,8 @@ public class ElevatorsPage extends TestBase {
 					waitInvisible(Constants.ok_button);
 					if(count(Constants.device_details_arrow_down) > 1) 
 						click(Constants.device_details_arrow_down);
-					scrollToElement("//i[@class='glyphicon pull-right v-pad-10 glyphicon-chevron-right'][@id='2']");
-					actionClick("//i[@class='glyphicon pull-right v-pad-10 glyphicon-chevron-right'][@id='2']");
+					scrollToElement("//i[contains(@class,'glyphicon pull-right')][@id='2']");
+					actionClick("//i[contains(@class,'glyphicon pull-right')][@id='2']");
 					break;
 				}
 			}
@@ -361,8 +361,8 @@ public class ElevatorsPage extends TestBase {
 					waitInvisible(Constants.ok_button);
 /*					if(count(Constants.device_details_arrow_down) > 1) 
 						click(Constants.device_details_arrow_down);
-					scrollToElement("//i[@class='glyphicon pull-right v-pad-10 glyphicon-chevron-right'][@id='3']");
-					actionClick("//i[@class='glyphicon pull-right v-pad-10 glyphicon-chevron-right'][@id='3']");*/
+					scrollToElement("//i[contains(@class,'glyphicon pull-right')][@id='3']");
+					actionClick("//i[contains(@class,'glyphicon pull-right')][@id='3']");*/
 					if(count(Constants.device_details_arrow_down) > 1) 
 					break;
 				}
@@ -406,8 +406,8 @@ public class ElevatorsPage extends TestBase {
 					waitInvisible(Constants.ok_button);
 					if(count(Constants.device_details_arrow_down) > 1) 
 						click(Constants.device_details_arrow_down);
-					scrollToElement("//i[@class='glyphicon pull-right v-pad-10 glyphicon-chevron-right'][@id='2']");
-					actionClick("//i[@class='glyphicon pull-right v-pad-10 glyphicon-chevron-right'][@id='2']");
+					scrollToElement("//i[contains(@class,'glyphicon pull-right')][@id='2']");
+					actionClick("//i[contains(@class,'glyphicon pull-right')][@id='2']");
 					break;
 				}
 			}
@@ -468,8 +468,8 @@ public class ElevatorsPage extends TestBase {
 					waitInvisible(Constants.ok_button);
 					if(count(Constants.device_details_arrow_down) > 1) 
 						click(Constants.device_details_arrow_down);
-					scrollToElement("//i[@class='glyphicon pull-right v-pad-10 glyphicon-chevron-right'][@id='3']");
-					actionClick("//i[@class='glyphicon pull-right v-pad-10 glyphicon-chevron-right'][@id='3']");
+					scrollToElement("//i[contains(@class,'glyphicon pull-right')][@id='3']");
+					actionClick("//i[contains(@class,'glyphicon pull-right')][@id='3']");
 					break;
 				}
 			}
@@ -570,8 +570,8 @@ public class ElevatorsPage extends TestBase {
 					waitInvisible(Constants.ok_button);
 					if(count(Constants.device_details_arrow_down) > 1) 
 						click(Constants.device_details_arrow_down);
-					scrollToElement("//i[@class='glyphicon pull-right v-pad-10 glyphicon-chevron-right'][@id='4']");
-					actionClick("//i[@class='glyphicon pull-right v-pad-10 glyphicon-chevron-right'][@id='4']");
+					scrollToElement("//i[contains(@class,'glyphicon pull-right')][@id='4']");
+					actionClick("//i[contains(@class,'glyphicon pull-right')][@id='4']");
 					break;
 				}
 			}
@@ -613,8 +613,8 @@ public class ElevatorsPage extends TestBase {
 					waitInvisible(Constants.ok_button);
 					if(count(Constants.device_details_arrow_down) > 1) 
 						click(Constants.device_details_arrow_down);
-					scrollToElement("//i[@class='glyphicon pull-right v-pad-10 glyphicon-chevron-right'][@id='5']");
-					actionClick("//i[@class='glyphicon pull-right v-pad-10 glyphicon-chevron-right'][@id='5']");
+					scrollToElement("//i[contains(@class,'glyphicon pull-right')][@id='5']");
+					actionClick("//i[contains(@class,'glyphicon pull-right')][@id='5']");
 					break;
 				} 
 				else if (cars_counterweights.contains("Personnel Hoist")) { // Personnel Hoist
@@ -653,8 +653,8 @@ public class ElevatorsPage extends TestBase {
 					waitInvisible(Constants.ok_button);
 					if(count(Constants.device_details_arrow_down) > 1) 
 						click(Constants.device_details_arrow_down);
-					scrollToElement("//i[@class='glyphicon pull-right v-pad-10 glyphicon-chevron-right'][@id='5']");
-					actionClick("//i[@class='glyphicon pull-right v-pad-10 glyphicon-chevron-right'][@id='5']");
+					scrollToElement("//i[contains(@class,'glyphicon pull-right')][@id='5']");
+					actionClick("//i[contains(@class,'glyphicon pull-right')][@id='5']");
 					break;
 				}
 			}
@@ -689,8 +689,8 @@ public class ElevatorsPage extends TestBase {
 						waitInvisible(Constants.ok_button);
 						if(count(Constants.device_details_arrow_down) > 1) 
 							click(Constants.device_details_arrow_down);
-						scrollToElement("//i[@class='glyphicon pull-right v-pad-10 glyphicon-chevron-right'][@id='6']");
-						actionClick("//i[@class='glyphicon pull-right v-pad-10 glyphicon-chevron-right'][@id='6']");
+						scrollToElement("//i[contains(@class,'glyphicon pull-right')][@id='6']");
+						actionClick("//i[contains(@class,'glyphicon pull-right')][@id='6']");
 						break;	
 					}
 				}
@@ -738,8 +738,8 @@ public class ElevatorsPage extends TestBase {
 					waitInvisible(Constants.ok_button);
 					if(count(Constants.device_details_arrow_down) > 1) 
 						click(Constants.device_details_arrow_down);
-					scrollToElement("//i[@class='glyphicon pull-right v-pad-10 glyphicon-chevron-right'][@id='6']");
-					actionClick("//i[@class='glyphicon pull-right v-pad-10 glyphicon-chevron-right'][@id='6']");
+					scrollToElement("//i[contains(@class,'glyphicon pull-right')][@id='6']");
+					actionClick("//i[contains(@class,'glyphicon pull-right')][@id='6']");
 					break;
 				}
 			}
@@ -811,13 +811,15 @@ public class ElevatorsPage extends TestBase {
 	
 	// Pit and Buffers
 	public void personelHoistInfo() {
-//				String[] data = pit_and_buffers.split(" :: ");
+//		String[] data = pit_and_buffers.split(" :: ");
 		System.out.println(convertedTimestamp() + " **************** personelHoistInfo");
 		filterJob(OR_PROPERTIES.getProperty("elevator_applicant_email"));
 		test = rep.startTest("personelHoistInfo");
 		waitUntilISpinnersInvisible();
 		waitForPageToLoad();
 		for (int i = 1; i <= 20; i++) {
+			scrollToElement("//i[contains(@class,'glyphicon pull-right')][@id='7']");
+			actionClick("//i[contains(@class,'glyphicon pull-right')][@id='7']");
 			type(Constants.host_car_manufacturer, "NISSAN");
 			type(Constants.hoist_number_numberr, "X5");
 			type(Constants.host_mast_manufacturer, "Most");
