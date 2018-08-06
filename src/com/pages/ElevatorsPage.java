@@ -813,7 +813,7 @@ public class ElevatorsPage extends TestBase {
 	public void personelHoistInfo() {
 //		String[] data = pit_and_buffers.split(" :: ");
 		System.out.println(convertedTimestamp() + " **************** personelHoistInfo");
-		filterJob(OR_PROPERTIES.getProperty("elevator_applicant_email"));
+//		filterJob(OR_PROPERTIES.getProperty("elevator_applicant_email"));
 		test = rep.startTest("personelHoistInfo");
 		waitUntilISpinnersInvisible();
 		waitForPageToLoad();
