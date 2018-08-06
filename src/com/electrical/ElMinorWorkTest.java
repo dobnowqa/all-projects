@@ -64,17 +64,17 @@ public class ElMinorWorkTest extends TestBase {
 		ElectricalDashboardPage dash = PageFactory.initElements(driver, ElectricalDashboardPage.class);
 		ElectricalPage el = PageFactory.initElements(driver, ElectricalPage.class);
 		
+
 		
-		
-		loginToPortal(OR_PROPERTIES.getProperty("electrical_user_email"));
+		loginToPortal(user);
 		dash.jobFiling(data.get("work_type"));
 		el.locationInfo(data.get("address"),data.get("description"),data.get("calendar"),data.get("joint_venue"),data.get("use_type"));
 		el.applicantInfo(data.get("applicant_info"));
 		el.ownerInfo(data.get("owner_info"));
 		el.saveGI(data.get("save_gi"));
 		el.workDescription(data.get("sow"));
-		el.signaturesEl(data.get("sign"));
-		el.uploadDocumentsEl(data.get("documents"));
+		el.uploadDocuments(data.get("documents"));
+		el.signatures(data.get("sign"));
 		el.previewToFile(data.get("preview_to_file"));
 		successMessage(data.get("description"));
 	}

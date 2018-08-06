@@ -8,10 +8,10 @@ import com.base.TestBase;
 import com.util.Constants;
 
 public class ElectricalPage extends TestBase {
-	WebDriver driver;
+/*	WebDriver driver;
 	public ElectricalPage(WebDriver dr) {
 		driver = dr;
-	}
+	}*/
 	
 // Location Info
 	@FindBy(xpath=Constants.el_gi_house_number)
@@ -62,10 +62,7 @@ public class ElectricalPage extends TestBase {
 	public WebElement el_gi_applicant_email;
 	@FindBy(xpath=Constants.el_gi_applicant_license_type)
 	public WebElement el_gi_applicant_license_type;
-	@FindBy(xpath=Constants.el_gi_owner_email)
-	public WebElement el_gi_owner_email;	
-	@FindBy(xpath=Constants.el_gi_owner_type)
-	public WebElement el_gi_owner_type;
+/**/
 	
 	
 // 1. Location Info	
@@ -318,43 +315,6 @@ public class ElectricalPage extends TestBase {
 		 	}
 		}
 	
-		public void previewToFile(String preview_to_file) {
-			if(!preview_to_file.equals("")){
-				System.out.println(convertedTimestamp() + " **************** " + "Preview To File GI");
-//				filterJob(OR_PROPERTIES.getProperty("electrical_user_email"),JOB_NUMBER.getProperty("job_number"));
-				test = rep.startTest("Preview To File GI");
-				waitUntilISpinnersInvisible();
-				click(Constants.preview_to_file_button_el);
-				waitTime(3000L);
-				waitVisible(Constants.application_preview_label);
-				waitVisible(Constants.return_to_filing_view);
-				waitVisible("//div[@class='hidden-xs col-md-2 pull-right']");
-				if (count("//*[contains(text(),'Getting Preview... 0%')]") > 0) {
-					click(Constants.return_to_filing_view);
-					waitInvisible(Constants.return_to_filing_view);
-					wait(1);
-					click(Constants.preview_resubmit_button);
-					waitUntilISpinnersInvisible();
-					wait(2);
-				}
-				for (int i = 1; i <= 50; i++) {
-					click(Constants.click_go_next_button);
-					wait(1);
-					if (count(Constants.final_legal_contect_checkbox) > 0)
-						break;
-				}
-				check(Constants.final_legal_contect_checkbox);
-				click(Constants.file_button);
-				waitTime(3000L);
-				waitUntilElementVisible(Constants.global_notification_ok_button, 60);
-				assertNotification(TEXT_PROPERTIES.getProperty("filing_message_el"), "filing_message_el");
-				verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("filing_message_el"));
-				click(Constants.global_notification_ok_button);
-				waitInvisible(Constants.global_notification_ok_button);
-//				elementTextContains("//span[@class='portal-fonts ng-binding']", "Complete");
-			}
-		}	
-
 /*		public boolean assertFilingStatus(String assert_filing_status) {
 			if(!assert_filing_status.equals("")){
 				waitInvisible(Constants.global_notification_ok_button, 60);
@@ -555,35 +515,14 @@ public class ElectricalPage extends TestBase {
 			}
 		}
 		
-	// SIGNATURES
-		public void signaturesEl(String signatures) {	
-			if(!signatures.equals("")){
-				System.out.println(convertedTimestamp() + " **************** signaturesEl");
-//				filterJob(OR_PROPERTIES.getProperty("electrical_user_email"),JOB_NUMBER.getProperty("job_number"));
-				test = rep.startTest("signaturesEl");
-				waitUntilISpinnersInvisible();
-				click(Constants.ss_statement_signatures_step);
-				check(Constants.el_i_undersigned);
-				scrollDown();
-				check(Constants.el_this_electrical_permit_involves);
-//				click(Constants.el_application_involve_new_or_amended_yes);
-				check(Constants.el_this_electrical_permit_includes);
-				click(Constants.global_save_step_button);
-				waitUntilElementVisible(Constants.global_loading_spinner_subs, 30);
-				waitUntilISpinnersInvisible();
-				waitUntilElementVisible(Constants.global_notification_ok_button, 30);
-				assertNotification(TEXT_PROPERTIES.getProperty("job_filing_saved"), "job_filing_saved ss");
-				click(Constants.global_notification_ok_button);
-			}
-		}
-		
-		public void uploadDocumentsEl(String upload_file) {
+		public void uploadDocuments(String upload_file) {
 			if (!upload_file.equals("")) {
-				System.out.println(convertedTimestamp() + " **************** " + "Upload Documents Electrical");
+				System.out.println(convertedTimestamp() + " **************** uploadDocuments");
 //				loginToPortal(OR_PROPERTIES.getProperty("electrical_user_email"));
 //				filterJob(OR_PROPERTIES.getProperty("electrical_user_email"), JOB_NUMBER.getProperty("job_number"));
-				test = rep.startTest("Upload Documents");
+				test = rep.startTest("uploadDocuments");
 				waitUntilISpinnersInvisible();
+				waitForPageToLoad();
 				click(Constants.documents_step);
 				scrollUp();
 				waitUntilElementVisible(Constants.el_first_document, 30);
@@ -608,6 +547,63 @@ public class ElectricalPage extends TestBase {
 			}
 		}
 		
+		// SIGNATURES
+		public void signatures(String signatures) {	
+			if(!signatures.equals("")){
+				System.out.println(convertedTimestamp() + " **************** signaturesEl");
+//				filterJob(OR_PROPERTIES.getProperty("electrical_user_email"),JOB_NUMBER.getProperty("job_number"));
+				test = rep.startTest("signaturesEl");
+				waitUntilISpinnersInvisible();
+				waitForPageToLoad();
+				click(Constants.ss_statement_signatures_step);
+				check(Constants.el_i_undersigned);
+				scrollDown();
+				check(Constants.el_this_electrical_permit_involves);
+//				click(Constants.el_application_involve_new_or_amended_yes);
+				check(Constants.el_this_electrical_permit_includes);
+				click(Constants.global_save_step_button);
+				waitUntilElementVisible(Constants.global_loading_spinner_subs, 30);
+				waitUntilISpinnersInvisible();
+				waitUntilElementVisible(Constants.global_notification_ok_button, 30);
+				assertNotification(TEXT_PROPERTIES.getProperty("job_filing_saved"), "job_filing_saved ss");
+				click(Constants.global_notification_ok_button);
+			}
+		}
 		
-		
+		public void previewToFile(String preview_to_file) {
+			if(!preview_to_file.equals("")){
+				System.out.println(convertedTimestamp() + " **************** Preview To File GI");
+				filterJob(OR_PROPERTIES.getProperty("electrical_user_email"), JOB_NUMBER.getProperty("job_number"));
+				test = rep.startTest("Preview To File GI");
+				waitUntilISpinnersInvisible();
+				click(Constants.preview_to_file_button_el);
+				waitTime(3000L);
+				waitVisible(Constants.application_preview_label);
+				waitVisible(Constants.return_to_filing_view);
+				waitVisible("//div[@class='hidden-xs col-md-2 pull-right']");
+				if (count("//*[contains(text(),'Getting Preview... 0%')]") > 0) {
+					click(Constants.return_to_filing_view);
+					waitInvisible(Constants.return_to_filing_view);
+					wait(1);
+					click(Constants.preview_resubmit_button);
+					waitUntilISpinnersInvisible();
+					wait(2);
+				}
+				for (int i = 1; i <= 50; i++) {
+					click(Constants.click_go_next_button);
+					wait(1);
+					if (count(Constants.final_legal_contect_checkbox) > 0)
+						break;
+				}
+				check(Constants.final_legal_contect_checkbox);
+				click(Constants.file_button);
+				waitTime(3000L);
+				waitUntilElementVisible(Constants.global_notification_ok_button, 60);
+				assertNotification(TEXT_PROPERTIES.getProperty("filing_message_el"), "filing_message_el");
+				verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("filing_message_el"));
+				click(Constants.global_notification_ok_button);
+				waitInvisible(Constants.global_notification_ok_button);
+//				elementTextContains("//span[@class='portal-fonts ng-binding']", "Complete");
+			}
+		}	
 }

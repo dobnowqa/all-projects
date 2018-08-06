@@ -70,12 +70,10 @@ public class ElOnElSubsTest extends TestBase {
 		dashel.selectWorkTypeSubs(data.get("work_type_subs"));
 		el.subsFiling(data.get("owner_info_subs"));
 		el.workDescription(data.get("sow"));
-
-		el.uploadDocumentsEl(data.get("documents_subs"));
-		el.signaturesEl(data.get("sign"));
+		el.uploadDocuments(data.get("documents_subs"));
+		el.signatures(data.get("sign"));
 		el.previewToFile(data.get("preview_to_file_subs"));
-		successMessage(data.get("description"));
-		
+		successMessage(data.get("description"));		
 	}
 
 }

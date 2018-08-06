@@ -66,6 +66,7 @@ public class ElLegalizationMinorTest extends TestBase {
 		ElectricalPage el = PageFactory.initElements(driver, ElectricalPage.class);
 				
 
+
 		
 		loginToPortal(user);
 		dash.jobFiling(data.get("work_type"));
@@ -76,11 +77,10 @@ public class ElLegalizationMinorTest extends TestBase {
 		el.calendar(data.get("calendar"));
 		el.saveGI(data.get("save_gi"));
 		el.workDescription(data.get("sow"));
-		el.signaturesEl(data.get("sign"));
 		verifyText("//span[contains(.,'Legalization Filing Fee')]", "$150.00");
-		el.uploadDocumentsEl(data.get("documents"));
+		el.uploadDocuments(data.get("documents"));
+		el.signatures(data.get("sign"));
 		setConfigBrowser("IE");
-		initConfigurations();
 	}
 
 	// PAY NOW
@@ -88,7 +88,6 @@ public class ElLegalizationMinorTest extends TestBase {
 	public void PayNow(Hashtable<String, String> data) {
 		CityPayPage pay = PageFactory.initElements(driver, CityPayPage.class);
 		pay.cityPay(data.get("pay_now"));
-		setConfigBrowser("Chrome");
 	}
 
 	// FILE

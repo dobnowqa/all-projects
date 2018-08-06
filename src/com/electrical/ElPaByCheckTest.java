@@ -67,7 +67,7 @@ public class ElPaByCheckTest extends TestBase {
 		
 
 		
-		loginToPortal(OR_PROPERTIES.getProperty("electrical_user_email"));
+		loginToPortal(user);
 		dash.jobFiling(data.get("work_type"));
 		el.locationInfo(data.get("address"),data.get("description"),data.get("calendar"),data.get("joint_venue"),data.get("use_type"));
 		el.applicantInfo(data.get("applicant_info"));
@@ -76,7 +76,6 @@ public class ElPaByCheckTest extends TestBase {
 		el.saveGI(data.get("save_gi"));
 		el.workDescription(data.get("sow"));
 		setConfigBrowser("IE");
-		initConfigurations();
 	}
 
 	// PAY NOW / CITY PAY

@@ -75,8 +75,8 @@ public class ElFieldSignInspectionTest extends TestBase {
 		el.additionalInfo(data.get("additional_info"));
 		el.saveGI(data.get("save_gi"));
 		el.workDescription(data.get("sow"));
-		el.signaturesEl(data.get("sign"));
-		el.uploadDocumentsEl(data.get("documents"));
+		el.uploadDocuments(data.get("documents"));
+		el.signatures(data.get("sign"));
 		el.previewToFile(data.get("preview_to_file"));
 		successMessage(data.get("description"));
 		

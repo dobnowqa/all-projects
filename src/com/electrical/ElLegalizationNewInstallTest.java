@@ -52,6 +52,8 @@ public class ElLegalizationNewInstallTest extends TestBase {
 	}
 
 	Xls_Reader xlsx = new Xls_Reader(Constants.testCasesesEctrical);
+	CityPayPage pay = new CityPayPage();
+//	ElectricalPage el = new ElectricalPage();
 
 	@Test(priority = 1, dataProvider = "getTestData")
 	public void GI(Hashtable<String, String> data) {
@@ -77,23 +79,20 @@ public class ElLegalizationNewInstallTest extends TestBase {
 		el.calendar(data.get("calendar"));
 		el.saveGI(data.get("save_gi"));
 		el.workDescription(data.get("sow"));
-		el.signaturesEl(data.get("sign"));
 		verifyText("//span[contains(.,'Legalization Filing Fee')]", "$520.00");
-		el.uploadDocumentsEl(data.get("documents"));
+		el.uploadDocuments(data.get("documents"));
+		el.signatures(data.get("sign"));
 		setConfigBrowser("IE");
-		initConfigurations();
 	}
 
 	// PAY NOW
 	@Test(priority = 2, dataProvider = "getTestData", dependsOnMethods = {"GI"})
 	public void PayNow(Hashtable<String, String> data) {
-		CityPayPage pay = PageFactory.initElements(driver, CityPayPage.class);
-		setConfigBrowser("IE");
 		pay.cityPay(data.get("pay_now"));
 	}
 		
 	// FILE
-	@Test(priority = 7, dataProvider = "getTestData", dependsOnMethods = {"PayNow"})
+	@Test(priority = 3, dataProvider = "getTestData", dependsOnMethods = {"PayNow"})
 	public void PreviewToFile(Hashtable<String, String> data) {
 		ElectricalPage el = PageFactory.initElements(driver, ElectricalPage.class);
 		el.previewToFile(data.get("preview_to_file"));

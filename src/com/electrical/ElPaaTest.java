@@ -69,8 +69,8 @@ public class ElPaaTest extends TestBase {
 		dash.paa(data.get("filter"));
 		el.pAa(data.get("paa"), data.get("description"));
 		addToProps("job_number", text(Constants.el_job_label).trim().substring(0, 9));
-		el.uploadDocumentsEl(data.get("documents"));
-		el.signaturesEl(data.get("sign"));
+		el.uploadDocuments(data.get("documents"));
+		el.signatures(data.get("sign"));
 		el.previewToFile(data.get("preview_to_file"));
 		successMessage(data.get("description"));
 	}

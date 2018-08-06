@@ -12,7 +12,17 @@
     </classes>
 </test>
 
+<test name="ElLegalizationMinorTest">
+    <classes>
+        <class name="com.electrical.ElLegalizationMinorTest"></class>  
+    </classes>
+</test>
 
+<test name="ElLegalizationNewInstallTest">
+    <classes>
+        <class name="com.electrical.ElLegalizationNewInstallTest"></class>  
+    </classes>
+</test>
 
 <test name="ElMinorWorkTest">
     <classes>
@@ -71,17 +81,7 @@
 
 
 
-<test name="ElLegalizationMinorTest">
-    <classes>
-        <class name="com.electrical.ElLegalizationMinorTest"></class>  
-    </classes>
-</test>
 
-<test name="ElLegalizationNewInstallTest">
-    <classes>
-        <class name="com.electrical.ElLegalizationNewInstallTest"></class>  
-    </classes>
-</test>
 
 
 

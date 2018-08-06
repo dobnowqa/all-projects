@@ -67,7 +67,7 @@ public class ElPaByCreditCardTest extends TestBase {
 		
 
 		
-		loginToPortal(OR_PROPERTIES.getProperty("electrical_user_email"));
+		loginToPortal(user);
 		dash.jobFiling(data.get("work_type"));
 		el.locationInfo(data.get("address"),data.get("description"),data.get("calendar"),data.get("joint_venue"),data.get("use_type"));
 		el.applicantInfo(data.get("applicant_info"));
