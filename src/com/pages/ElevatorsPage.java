@@ -10,8 +10,6 @@ import com.util.Constants;
 
 public class ElevatorsPage extends TestBase {
 
-//	public String pagesource = driver.getPageSource();
-
 	public void generalInfo(String address) {
 		if (!address.equals("")) {
 			String[] data = address.split(" :: ");
@@ -89,45 +87,62 @@ public class ElevatorsPage extends TestBase {
 				String new_address = String.valueOf(randomNumberOf(3333));
 				type(Constants.search_by_house, new_address);
 				type(Constants.search_by_street, data[1]);
-				select(Constants.search_by_borough, data[2]);
+				select(Constants.search_by_borough, data[2]);				
+/*				type(Constants.search_by_house, "1920"); // 1578 1920
+				type(Constants.search_by_street, "BROADWAY ");
+				select(Constants.search_by_borough, "MANHATTAN");*/
 				wait(1);
+				waitVisible(Constants.search_and_add_button);
 				click(Constants.search_and_add_button);
 				waitUntilISpinnersInvisible();
 				waitForPageToLoad();
-				if (count(Constants.ok_button) > 0) {
+				if (count(Constants.ok_button) > 0)
+					clickButton("OK");
+				waitInvisible(Constants.ok_button);
+/*				if (count(Constants.cannot_find_adress) > 0) {
 					clickButton("OK");
 					waitInvisible(Constants.ok_button);
-				}
-				if (count(Constants.cannot_find_adress) > 0) {
-					clickButton("OK");
-					waitInvisible(Constants.ok_button);
-				}
-				if (count(Constants.green_device) > 0) {
-					int number_of_green = count(Constants.green_device) / 2;
-					for (int b = 1; b <= number_of_green; b++) {
-						String device_id = text("(//button[@class='btn-circle2 pull-right devActive'])[" + b + "]/..");
-						String device_xpath = "//input[@id='" + device_id + "']";
-						check(device_xpath);
-						wait(2);
-						if (count(Constants.cannot_use_device_message) > 0) {
-							clickButton("OK");
-							waitInvisible(Constants.ok_button);
-						}
-						if (count(Constants.add_device_button_disabled) == 0) {
-							click(Constants.add_device_button);
-							waitInvisible(Constants.add_device_button);
-						}
-						wait(1);
-						if (count(Constants.device_added_message) > 0) {
-							clickButton("OK");
-							waitInvisible(Constants.ok_button);
-							break;
-						}
+				}*/
+				waitUntilISpinnersInvisible();
+				waitForPageToLoad();
+				if (count(Constants.device_checkbox) > 1) {
+					int total_checkboxes = count(Constants.device_checkbox);
+					int total_disabled = count(Constants.device_checkbox+ "[@disabled='disabled']");
+					int total_green = total_checkboxes - total_disabled;
+					System.out.println(total_green);
+					if(total_green > 0) {
+						for (int b = 1; b <= total_green; b++) {
+							String device_id = text("(+green_circle+)[" + b + "]/..");
+							String device_xpath = "//input[@id='" +device_id+ "']";
+							check(device_xpath);
+							wait(2);
+							if (count(Constants.cannot_use_device_message) > 0) {
+								clickButton("OK");
+								waitInvisible(Constants.ok_button);
+							}
+							if (count(Constants.add_device_button_disabled) == 0) {
+								click(Constants.add_device_button);
+								waitInvisible(Constants.add_device_button);
+							}
+							wait(1);
+							if (count(Constants.device_added_message) > 0) {
+								clickButton("OK");
+								waitInvisible(Constants.ok_button);
+								break;
+							}
 
+						}
 					}
+/*					int number = count(Constants.green_circle);
+					for(int a=1; a<number; a++) {							
+						String color = driver.findElement(By.xpath("(//button[@class='btn-circle2 pull-right devActive'])[" +a+ "]")).getCssValue("background-color");
+						System.out.println(color);
+						String hex = Color.fromString(color).asHex();
+						System.out.println(hex);
+					}*/
 				}
 				if (count(Constants.global_cancel_button) > 0) {
-					click(Constants.global_cancel_button);
+						click(Constants.global_cancel_button);
 					waitInvisible(Constants.global_cancel_button);
 				}
 				if (count(Constants.trash_can_icon) > 0)
@@ -136,26 +151,25 @@ public class ElevatorsPage extends TestBase {
 			select(Constants.building_code, "2014 ");
 			email(user);
 			select(Constants.pw1_2_license_type, OR_PROPERTIES.getProperty("elevator_applicant_lisence_type"));
-			select(Constants.select_business, "DIR BUS NAME");
+			if(count(Constants.select_business) > 0)
+				select(Constants.select_business, "DIR BUS NAME");
 			for (int i = 1; i < 100; i++) {
 				send(Constants.designer_email, user.toUpperCase());
 				wait(1);
-				if (count(Constants.email_xpath_part1 + user.toUpperCase() + Constants.email_xpath_part2) > 0) {
-					click(Constants.email_xpath_part1 + user.toUpperCase() + Constants.close_xpath);
+				if (count(Constants.email_xpath_part1 +user.toUpperCase()+ Constants.email_xpath_part2) > 0) {
+					click(Constants.email_xpath_part1 +user.toUpperCase()+ Constants.close_xpath);
 					wait(1);
 					break;
 				}
 			}
 			select(Constants.designer_license_type, OR_PROPERTIES.getProperty("professional_engineer"));
 			for (int i = 1; i < 100; i++) {
-				send(Constants.owner_email, OR_PROPERTIES.getProperty("elevator_applicant_email").toUpperCase());
+				send(Constants.owner_email, user.toUpperCase());
 				wait(1);
 				if (count(Constants.email_xpath_part1
 						+ OR_PROPERTIES.getProperty("elevator_applicant_email").toUpperCase()
 						+ Constants.email_xpath_part2) > 0) {
-					click(Constants.email_xpath_part1
-							+ OR_PROPERTIES.getProperty("elevator_applicant_email").toUpperCase()
-							+ Constants.email_xpath_part2);
+					click(Constants.email_xpath_part1 +user.toUpperCase()+ Constants.email_xpath_part2);
 					wait(1);
 					break;
 				}
@@ -272,8 +286,9 @@ public class ElevatorsPage extends TestBase {
 	}
 	public void deviceInfo2(String device_info) {
 		if (!device_info.equals("")) {
+			String[] data = device_info.split(" :: ");
 			System.out.println(convertedTimestamp() +" **************** deviceInfo2");
-//			filterJob(OR_PROPERTIES.getProperty("elevator_applicant_email"));
+//			filterJob(user);
 			test = rep.startTest("deviceInfo2");	
 			click(Constants.open_device_details_tab);
 //			click(Constants.add_new_device_link);
@@ -284,7 +299,6 @@ public class ElevatorsPage extends TestBase {
 				verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("device_added"));
 				click(Constants.yes_button);
 				waitInvisible(Constants.yes_button);*/
-				String[] data = device_info.split(" :: ");
 				select(Constants.elevator_type, data[0]);
 				select(Constants.elevator_sub_type, data[1]);
 				if(device_info.contains("alteration"))
@@ -312,6 +326,89 @@ public class ElevatorsPage extends TestBase {
 					click(Constants.global_save_step_button);
 					waitUntilISpinnersInvisible();
 					waitVisible(Constants.ok_button);
+					verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
+					click(Constants.ok_button);
+					waitInvisible(Constants.ok_button);
+					if(count(Constants.device_details_arrow_down) > 1) 
+						click(Constants.device_details_arrow_down);
+					scrollToElement("//i[contains(@class,'glyphicon pull-right')][@id='2']");
+					actionClick("//i[contains(@class,'glyphicon pull-right')][@id='2']");
+					break;
+				}
+			}
+		}
+	}
+	public void deviceInfoAlteration(String device_info) {
+		if (!device_info.equals("")) {
+			String[] data = device_info.split(" :: ");
+			System.out.println(convertedTimestamp() +" **************** deviceInfoAlteration");
+//			filterJob(OR_PROPERTIES.getProperty("elevator_applicant_email"));
+			test = rep.startTest("deviceInfoAlteration");
+			click(Constants.open_device_details_tab);
+/*			clickAndWait(Constants.add_new_device_link, Constants.yes_button);
+//			waitVisible(Constants.yes_button);
+			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("device_added"));
+			click(Constants.yes_button);
+			waitInvisible(Constants.yes_button);*/
+			for (int i = 1; i <= 20; i++) {
+				waitUntilISpinnersInvisible();
+				waitForPageToLoad();
+				if (device_info.contains("Accessibility Lift")) { // Accessibility Lift			
+//					type(Constants.access_lyft_numbers, data[1]);
+					select(Constants.accessibility_lift, data[2]);
+					wait(1);
+					select(Constants.accessibility_lift_type, data[3]);				
+					radio(Constants.conjunction_with_mta + "[@value='" +data[4]+ "']");
+					radio(Constants.private_residence_lyft + "[@value='" +data[5]+ "']");	
+				}
+				else if (device_info.contains("Conveyor")) // Conveyor			
+					select(Constants.conveyor_type, data[2]);				
+				else if (device_info.contains("Dumbwaiter")) // Dumbwaiter			
+					radio(Constants.private_residence_no);		
+				else if (device_info.contains("Escalator") || device_info.contains("Moving Walk"))  { // Escalator / Moving Walk					
+					radio(Constants.in_conjunction_with_mta);	
+					type(Constants.device_job_description, convertedTimestamp());
+					if (count(Constants.completed_checkmark) >= 1) {
+						click(Constants.global_save_step_button);
+						waitUntilISpinnersInvisible();
+						waitUntilElementVisible(Constants.ok_button, 30);
+						verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
+						click(Constants.ok_button);
+						waitInvisible(Constants.ok_button);
+						if(count(Constants.device_details_arrow_down) > 1) 
+							click(Constants.device_details_arrow_down);
+						scrollToElement("//i[contains(@class,'glyphicon pull-right')][@id='8']");
+						actionClick("//i[contains(@class,'glyphicon pull-right')][@id='8']");
+						break;
+					}
+				}				
+				else if (device_info.contains("Personnel Hoist")) { // Personnel Hoist
+					select(Constants.car_hoist_opening, data[1]);	
+					select(Constants.car_hoist_located, data[2]);
+					select(Constants.car_hoist, data[3]);
+				}
+				else {
+					select(Constants.elevator_type, data[1]);
+					wait(1);
+					select(Constants.elevator_sub_type, data[2]);
+					radio(Constants.only_elevator_in_building_no);
+					radio(Constants.elevator_part_of_destination_dispatch_system_no);
+					radio(Constants.an_occupant_evacuation_no);
+					radio(Constants.fire_service_access_no);
+					radio(Constants.building_meets_stretcher_car_no);
+					radio(Constants.device_used_in_conjunction_with_mta_no);
+					radio(Constants.device_conforming_with_seismic_no);
+					radio(Constants.device_installed_In_ne_hoistway_no);
+					radio(Constants.device_equipped_with_fire_fmergency_no);
+					radio(Constants.is_this_loft_law_building_no);
+				}				
+				
+				type(Constants.device_job_description, convertedTimestamp());
+				// click(Constants.device_information_label);
+				if (count(Constants.completed_checkmark) >= 1) {
+					click(Constants.global_save_step_button);
+					waitUntilISpinnersInvisible();
+					waitUntilElementVisible(Constants.ok_button, 30);
 					verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
 					click(Constants.ok_button);
 					waitInvisible(Constants.ok_button);

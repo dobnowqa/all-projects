@@ -76,6 +76,7 @@ public class PlSpSdNew extends TestBase {
 
 
 		
+		
 		dash.selectWorkTypePlumbing(data.get("work_type"));
 		pw1.locationImfo(data.get("address"));
 		type(Constants.pw1_1_apt_suite_number, testname);
@@ -97,10 +98,10 @@ public class PlSpSdNew extends TestBase {
 		tr1.specialInspectorSignaturePlumbing(data.get("tr1"));
 		tr8.energyCodeProgressPlumbing(data.get("tr8"));
 		tr8.energyCodeSignaturePlumbing(data.get("tr8"));
-		signature.applicantStatementsSignature(data.get("signatures"));
-		signature.ownerSignature(data.get("owner_signature"));
 		docs.uploadDocuments(data.get("documents"));
-//		pw1.previewToFile(data.get("preview_to_file"));
+		signature.applicantStatementsSignature(data.get("signatures"));
+		signature.ownerSignature(data.get("owner_signature"));	
+		pw1.previewToFile(data.get("preview_to_file"));
 		successMessage(data.get("description"));
 	}
 

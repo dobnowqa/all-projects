@@ -89,7 +89,7 @@ public class DobSignaturesPage extends TestBase {
 	public void applicantSignature(String statements_signatures) {	
 		if(!statements_signatures.equals("")){
 			System.out.println(convertedTimestamp() + " **************** " + "applicantSignature");
-			filterJob(user);	
+//			filterJob(user);	
 			test = rep.startTest("Applicant Sign");
 			click(Constants.ss_statement_signatures_step);
 			wait(2);

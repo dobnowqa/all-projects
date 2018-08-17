@@ -14,7 +14,7 @@ public class DobPW2Page extends TestBase {
 		if(!pw2.equals("")){
 			String[] data = pw2.split(" :: ");
 			System.out.println(convertedTimestamp() + " **************** workPermit");
-			filterJob(OR_PROPERTIES.getProperty("user_email"));
+			filterJob(user);
 			test = rep.startTest("PW2");
 			test.log(LogStatus.INFO, "workPermit PE2");
 			click(Constants.pw2_work_permit_step);
@@ -81,6 +81,15 @@ public class DobPW2Page extends TestBase {
 				waitVisible(Constants.ok_button);
 				verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("work_permit_saved"));
 				clickButton("OK");
+				waitInvisible(Constants.ok_button);
+			}			
+				if(count("//button[@disabled='disabled'][text()='File']") == 0){
+				click(Constants.pw2_file_button);
+//				clickButton("File");
+				waitVisible(Constants.ok_button);
+				verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("work_permit_submitted_for_review"));
+				clickButton("OK");
+				waitInvisible(Constants.ok_button);
 			}
 		}
 		reportPass("workPermit");

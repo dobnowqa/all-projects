@@ -218,39 +218,28 @@ public class CrmTaskFormPage extends TestBase {
 				}
 			}
 		}
+		navigate(crm_url);
 	}
 	
-	// 021 ACTION		
-	public void cpeActions(String cpe) {
-		if (!cpe.equals("")) {
-			String[] data = cpe.split(" :: ");
-			System.out.println(convertedTimestamp() + " **************** cpeActions " +data[0]+ " Assign to "+data[2]+ " " +data[3]);
-			for (int i = 1; i <= 10; i++) {
+	// 011 ASSIGN
+	public void qaSuper(String cpe_acpe) {
+		if (!cpe_acpe.equals("")) {
+			String[] data = cpe_acpe.split(" :: ");
+			System.out.println(convertedTimestamp() + " **************** qaSuperProfCert ----- " + data[0]+ " Assign to " +data[1]);
+			for (int i = 1; i <= 5; i++) {
 				loginToCrm(data[0]);
 				searchForJobCrm();
-				test = rep.startTest(data[0]+ " Assign to " +data[2]+ " " +data[3]);
-				test.log(LogStatus.INFO, " " +data[0]+ " Assign to " +data[2]+ " " +data[3]);
+				test = rep.startTest(data[0]+ " Assign to " +data[1]);
+				test.log(LogStatus.INFO, data[0]+ " Assign to " +data[1]);
 				waitForPageToLoad();
-				driver.switchTo().frame("contentIFrame0");
-				waitVisible(Constants.is_the_job_application_complete_list);
-				scrollToElement(Constants.is_the_job_application_complete_list);
-				click(Constants.is_the_job_application_complete_list);
-				select(Constants.is_the_job_application_complete_select, data[1]);
+				driver.switchTo().frame("contentIFrame0");				
+				waitVisible(Constants.assign_to_qa_administrator_label);
+				scrollToElement(Constants.assign_to_qa_administrator_label);
+				click(Constants.assign_to_qa_administrator_label);				
+				click(Constants.assign_to_qa_administrator_field);
+				click(Constants.assign_to_qa_administrator_image);
+				doubleclick(Constants.span_text +data[1]+ Constants.close_xpath); // select QA Admin
 				ifAlertExistAccept();
-				if (cpe.contains("Yes")) { // Yes == "Is the Job Application Complete ?"
-					click(Constants.cpe_acpe_primary_pe_field);
-					click(Constants.cpe_acpe_find_primary_pe_image);
-					doubleclick(Constants.span_text +data[2]+ Constants.close_xpath); // select Primary PE
-//					doubleclick("//span[text()='Assign to Primary Plan Examiner']/following::span[text()='" +data[2]+ Constants.close_xpath);
-					ifAlertExistAccept();
-					if (!data[3].equals("null")) {
-						click(Constants.cpe_acpe_secondary_pe_field);
-						click(Constants.cpe_acpe_find_secondary_pe_image);
-						doubleclick("(" +Constants.span_text +data[3]+ Constants.close_xpath+ ")[2]"); // select Secondary PE
-					}
-//						doubleclick("//span[text()='Assign to Secondary Plan Examiner']/following::span[text()='" +data[3]+ Constants.close_xpath);
-					ifAlertExistAccept();
-				}
 				driver.switchTo().defaultContent();
 				click(Constants.submit_button);
 				ifAlertExistAccept();
@@ -258,11 +247,140 @@ public class CrmTaskFormPage extends TestBase {
 				driver.switchTo().frame("contentIFrame0");
 				ifAlertExistAccept();
 				if (count(Constants.crm_completed_message) > 0) {
-					reportPass("cpeAssign");
+					reportPass("centralAssigner");
 					break;
 				}
 			}
 		}
+		navigate(crm_url);
+	}
+	
+	public void qaAdmin(String qa_admin) {
+		if (!qa_admin.equals("")) {
+			String[] data = qa_admin.split(" :: ");
+			System.out.println(convertedTimestamp() + " **************** qaAdmin " +data[0]);
+			for (int i = 1; i <= 5; i++) {
+				loginToCrm(data[0]);
+				searchForJobCrm();
+				test = rep.startTest("qaAdmin");
+				test.log(LogStatus.INFO, "qaAdmin " +qa_admin);
+				waitForPageToLoad();
+				driver.switchTo().frame("contentIFrame0");
+				scrollToElement(Constants.qa_descision_field);
+				click(Constants.qa_descision_field);
+				select(Constants.qa_decision, data[1]);
+				ifAlertExistAccept();
+				select(Constants.approved_plans_uploaded, data[2]);
+				ifAlertExistAccept();
+				driver.switchTo().defaultContent();
+				click(Constants.submit_button);
+				ifAlertExistAccept();
+				waitInvisible(Constants.submit_button);
+				waitForPageToLoad();
+				driver.switchTo().frame("contentIFrame0");
+				if (count(Constants.crm_completed_message) > 0) {
+					reportPass("qaAction");
+					break;
+				}
+			}
+		}
+		navigate(crm_url);
+	}
+	
+	// 001 ACTION		
+	public void cpeActions(String cpe) {
+		if (!cpe.equals("")) {
+			String[] data = cpe.split(" :: ");
+			System.out.println(convertedTimestamp() + " **************** cpeActions " +cpe);
+			for (int i = 1; i <= 10; i++) {
+				loginToCrm(data[0]);
+				searchForJobCrm();
+				test = rep.startTest("cpeActions");
+				test.log(LogStatus.INFO, "cpeActions " +cpe);
+				waitForPageToLoad();
+				waitDocStatus();
+				if(!data[1].contains("null")) {
+					waitVisible(Constants.is_the_job_application_complete_list);
+					scrollToElement(Constants.is_the_job_application_complete_list);
+					click(Constants.is_the_job_application_complete_list);
+					select(Constants.is_the_job_application_complete_select, data[1]);
+					ifAlertExistAccept();
+				}
+				if(!data[2].contains("null")) { // Yes == "Is the Job Application Complete ?"
+					click(Constants.cpe_acpe_primary_pe_field);
+					click(Constants.cpe_acpe_find_primary_pe_image);
+					doubleclick(Constants.span_text +data[2]+ Constants.close_xpath); // select Primary PE
+//					doubleclick("//span[text()='Assign to Primary Plan Examiner']/following::span[text()='" +data[2]+ Constants.close_xpath);
+					ifAlertExistAccept();
+				}
+				if (!data[3].contains("null")) {
+					click(Constants.cpe_acpe_secondary_pe_field);
+					click(Constants.cpe_acpe_find_secondary_pe_image);
+					doubleclick("(" +Constants.span_text +data[3]+ Constants.close_xpath+ ")[2]"); // select Secondary PE
+					ifAlertExistAccept();
+				}
+				if (!data[4].contains("null")) {
+					click(Constants.cpe_actions_field);
+					select(Constants.cpe_actions, data[4]);
+					ifAlertExistAccept();
+				}		
+				waitUntilISpinnersInvisible();
+				waitForPageToLoad();
+				driver.switchTo().defaultContent();
+				click(Constants.submit_button);
+				ifAlertExistAccept();
+				waitInvisible(Constants.submit_button);
+				driver.switchTo().frame("contentIFrame0");
+				ifAlertExistAccept();
+				if (count(Constants.crm_completed_message) > 0) {
+					reportPass("cpeActions");
+					break;
+				}
+			}
+		}
+	}
+	
+	public void peActions(String action) {
+		if (!action.equals("")) {
+			String[] data = action.split(" :: ");
+			System.out.println(convertedTimestamp() + " **************** primaryPeAction " +action);
+			for (int i = 1; i <= 10; i++) {
+				loginToCrm(data[0]);
+				searchForJobCrm();
+				waitForPageToLoad();
+				test = rep.startTest("peActions");
+				test.log(LogStatus.INFO, "peActions " +action);
+				driver.switchTo().frame("contentIFrame0");
+				waitVisible(Constants.appoitment_required_list);
+				scrollToElement(Constants.appoitment_required_list);
+				click(Constants.appoitment_required_list);
+				select(Constants.apt_required, data[1]);
+				ifAlertExistAccept();
+				click(Constants.plan_examiner_action_list);
+				select(Constants.job_approved, data[2]);
+				ifAlertExistAccept();
+				wait(1);
+				ifAlertExistAccept();
+				waitUntilISpinnersInvisible();
+				waitForPageToLoad();
+//				click(Constants.approved_plans_uploaded_list);
+				select(Constants.approved_plans_uploaded, data[3]);
+				ifAlertExistAccept();
+/*				click(Constants.crm_comments_area);
+				wait(1);
+				type(Constants.crm_comments_box, action);*/
+				driver.switchTo().defaultContent();
+				click(Constants.submit_button);
+				ifAlertExistAccept();
+				waitInvisible(Constants.submit_button);
+				driver.switchTo().frame("contentIFrame0");
+				if (count(Constants.crm_completed_message) > 0) {
+					reportPass("peActions");
+					break;
+				}
+			}
+		}
+		navigate(crm_url);
 	}
 	
 	public void primaryPeAction(String action) {
@@ -274,6 +392,7 @@ public class CrmTaskFormPage extends TestBase {
 				searchForJobCrm();
 				waitForPageToLoad();
 				test = rep.startTest("primaryPeAction " +action);
+				test.log(LogStatus.INFO, "primaryPeAction " +action);
 				driver.switchTo().frame("contentIFrame0");
 				waitVisible(Constants.appoitment_required_list);
 				scrollToElement(Constants.appoitment_required_list);
@@ -304,52 +423,6 @@ public class CrmTaskFormPage extends TestBase {
 	}
 	
 	
-	public void XassignAvhToSelf(String qa_superviser_ahv) {
-		if (!qa_superviser_ahv.equals("")) {
-			String[] data = qa_superviser_ahv.split(" :: ");
-			System.out.println(convertedTimestamp() + " **************** " +data[0]+" assign to "+data[0]);
-//			for (int i = 1; i <= 5; i++) {
-				loginToCrm(data[0]);
-				setWindowfocus();
-				waitForPageToLoad();
-				waitVisible(Constants.crm_top_nav_search_button);
-				driver.switchTo().frame("contentIFrame0").switchTo().frame("dashboardFrame");
-				
-/*				click(Constants.search_for_records_one);
-				type(Constants.search_for_records_one_field, "*" + JOB_NUMBER.getProperty("job_number").substring(2));
-				click(Constants.search_for_records_one_image);*/
-				
-/*				click("//span[@class='ms-crm-View-Name ms-crm-ViewSelector-title-subGrid-lite ms-crm-TextAutoEllipsis']");
-				click("(//span[@class='ms-crm-VS-MenuItem-Title ms-crm-VS-MenuItem-Title-Rest'])[2]");*/
-				waitForPageToLoad();
-				type(Constants.search_for_records_one_field, "*" +JOB_NUMBER.getProperty("job_number").substring(1));
-				click(Constants.search_for_records_one_image);
-				click(Constants.search_results_job_subject);
-				ifAlertExistAccept();
-				waitVisible(Constants.crm_top_nav_search_button);
-				waitForPageToLoad();
-				driver.switchTo().frame("contentIFrame0");
-				scrollToElement(Constants.crm_comments_area);			
-				click(Constants.crm_comments_area);
-				wait(1);
-				type(Constants.crm_comments_box,"assignAvhToSelf");
-				click("//div[@jawsreadlabel='dobnyc_pendingqaahvaction_c']");
-				select("//select[@id='dobnyc_pendingqaahvaction_i']", "Assign to Self");
-				driver.switchTo().defaultContent();
-				click(Constants.submit_button);
-				ifAlertExistAccept();
-				waitInvisible(Constants.submit_button);
-				driver.switchTo().frame("contentIFrame0");
-				waitInvisible(Constants.submit_button);
-				ifAlertExistAccept();
-/*				if (count(Constants.crm_completed_message) > 0)
-					break;
-			}*/
-			// ASSERT STATUS
-//			assertFilingStatus(TEXT_PROPERTIES.getProperty("permit_entire"));
-		}
-	}
-	
 	// Plan Examiner ACTION
 	public void cpeAssignToSelfElv(String action) {
 		if (!action.equals("")) {
@@ -359,7 +432,7 @@ public class CrmTaskFormPage extends TestBase {
 				loginToCrm(data[0]);
 				searchForJobCrm();
 				test = rep.startTest("cpeAssignToSelfElv");
-				test.log(LogStatus.INFO, action+" cpeAssignToSelf");
+				test.log(LogStatus.INFO, "cpeAssignToSelf " +action);
 				waitForPageToLoad();
 				driver.switchTo().frame("contentIFrame0");
 				scrollToElement(Constants.action_cpe_action_list);
@@ -511,14 +584,22 @@ public class CrmTaskFormPage extends TestBase {
 		if (!user_name.equals("")) {
 			String[] data = user_name.split(" :: ");
 			System.out.println(convertedTimestamp() + " **************** viewAcceptDocuments " + data[0]);
-			loginToCrm(data[0]);
+//			loginToCrm(data[0]);
 			searchForJobCrm();
 			test = rep.startTest("viewAcceptDocuments");
 			test.log(LogStatus.INFO, "viewAcceptDocuments");
 			waitForPageToLoad();
+			driver.switchTo().frame("contentIFrame0");			
+			for (int a = 1; a <= 50; a++) {	
+				click("(//label[@class='ms-crm-List-Sortable'][text()='Document Status'])[1]");
+				wait(1);
+				if(count("//img[@alt='The data is sorted in descending order on this column']") > 0)
+					break;
+			}
+			driver.switchTo().defaultContent();
 			waitDocStatus();
 			if (count(Constants.crm_document_status_submitted) > 0) {
-				for (int i = 1; i <= 20; i++) {
+				for (int i = 1; i <= 50; i++) {		
 					doubleclick(Constants.crm_document_status_submitted);
 					wait(3);
 					driver.switchTo().defaultContent();
@@ -546,14 +627,23 @@ public class CrmTaskFormPage extends TestBase {
 					driver.switchTo().frame("contentIFrame0");
 					waitVisible(Constants.label_job_filing);
 					waitClickableOr("//nobr[text()='Accepted']", "//nobr[text()='Submitted']");
+					
+					
+					for (int a = 1; a <= 50; a++) {	
+						click("(//label[@class='ms-crm-List-Sortable'][text()='Document Status'])[1]");
+						wait(1);
+						if(count("//img[@alt='The data is sorted in descending order on this column']") > 0)
+							break;
+					}
+					
 					if (count(Constants.crm_document_status_submitted) == 0) {
 						reportPass("viewAcceptDocuments");
 						break;
 					}
 				}
 			}
-			// viewAcceptDocs(); IN CASE OF MORE THEN 4 DOCUMENTS
 		}
+		navigate(crm_url);
 	}
 
 	public void adressObjections(String objections) {
@@ -631,8 +721,8 @@ public class CrmTaskFormPage extends TestBase {
 			for (int i = 1; i <= 10; i++) {
 				loginToCrm(data[0]);
 				searchForJobCrm();
-				test = rep.startTest(data[0]+ " Assign to " +data[2]+ " " +data[3]);
-				test.log(LogStatus.INFO, " " +data[0]+ " Assign to " +data[2]+ " " +data[3]);
+				test = rep.startTest("cpeAssign");
+				test.log(LogStatus.INFO, "cpeAssign " +data[0]+ " Assign to " +data[2]+ " " +data[3]);
 				waitForPageToLoad();
 				driver.switchTo().frame("contentIFrame0");
 				waitVisible(Constants.is_the_job_application_complete_list);
@@ -837,7 +927,7 @@ public class CrmTaskFormPage extends TestBase {
 			assertFilingStatus("Permit Entire");
 		}
 	}
-	public void qaSuperviser(String qa_superviser) {
+	public void qaSuperviser(String qa_superviser) {	
 		if (!qa_superviser.equals("")) {
 			String[] data = qa_superviser.split(" :: ");
 			System.out.println(convertedTimestamp() + " **************** qaSuperviser " + qa_superviser);
@@ -1108,6 +1198,7 @@ public class CrmTaskFormPage extends TestBase {
 				scrollToElement(Constants.qa_action_label + Constants.following + Constants.first_action);
 				click(Constants.qa_action_label + Constants.following + Constants.first_action);
 				select(Constants.qa_action_select, data[1]);
+				wait(5);
 				ifAlertExistAccept();
 				wait(2);
 				if (text(Constants.qa_action_label + Constants.following + Constants.first_action).contains("Permit Issued"))
@@ -1125,7 +1216,39 @@ public class CrmTaskFormPage extends TestBase {
 		}
 	}
 
-	
+	public void crmTr(String tr) {
+		if (!tr.equals("")) {
+			String[] data = tr.split(" :: ");
+			System.out.println(convertedTimestamp() + " **************** crmTr");
+			loginToCrm("BUILD001");
+			searchForJobCrm();
+			waitUntilISpinnersInvisible();
+			waitForPageToLoad();			
+			switchFrame("contentIFrame0");
+			for (int i=1; i < 20; i++) {
+				click(Constants.job_filing_link);
+				waitInvisible(Constants.job_filing_link);
+				if (count(Constants.job_filing_link) < 1) 
+					break;
+			}	
+			ifAlertExistAccept();
+			waitVisible(Constants.qa_admin_application_highlights_label);
+			waitVisible(Constants.qa_admin_tr1_tab);
+			for (int i = 1; i <= 20; i++) {
+				click(Constants.qa_admin_tr1_tab);
+				wait(5);
+				if(getElement("//span[contains(text(),'" +tr+ "')]").isDisplayed() == true)
+					break;
+				refreshPage();
+				switchFrame("contentIFrame0");
+			}
+			rightClick("//span[contains(text(),'" +tr+ "')]");
+			wait(1);
+			new Actions(driver).sendKeys(Keys.ENTER).build().perform();
+			waitUntilElementVisible(Constants.qa_admin_progress_inspector_seal_signature, 30);
+			viewAcceptDocs();
+		}
+	}
 	
 	
 }

@@ -11,7 +11,7 @@ public class Constants {
 	public static String JOB_NUMBER = System.getProperty("user.dir")+"//src//com//config//job_number.properties";
 //	public static String testCases = System.getProperty("user.dir")+"//src//com//data//Test Cases.xlsx";		// mac
 
-	public static String firefoxPath = System.getProperty("user.home")+"\\AppData\\Local\\Mozilla Firefox\\firefox.exe"; 
+	public static String firefoxPath = "C:\\Program Files\\Mozilla Firefox\\firefox.exe"; 
 	public static String testCases = System.getProperty("user.dir")+"\\src\\com\\data\\Test Cases.xlsx";
 	public static String testCasesSubs = System.getProperty("user.dir")+"\\src\\com\\data\\Test Cases subs.xlsx";
 	
@@ -20,7 +20,7 @@ public class Constants {
 	public static String testCasesFab4 = System.getProperty("user.dir")+"\\src\\com\\data\\Test Cases Fab4.xlsx";
 	public static String testCasesesEctrical = System.getProperty("user.dir")+"\\src\\com\\data\\Test Cases Elc.xlsx";
 	public static String testCasesesElevator = System.getProperty("user.dir")+"\\src\\com\\data\\Test Cases Elv.xlsx";
-	public static String testCasesesAssembly = System.getProperty("user.dir")+"\\src\\com\\data\\Test Cases Pa.xlsx";
+	public static String testCasesesPaTpa = System.getProperty("user.dir")+"\\src\\com\\data\\Test Cases Pa.xlsx";
 	public static String testCasesesLaa = System.getProperty("user.dir")+"\\src\\com\\data\\Test Cases Laa.xlsx";
 	
 	public static String testCasesesBoilers = System.getProperty("user.dir")+"\\src\\com\\data\\boilers\\Test Cases.xlsx";
@@ -839,6 +839,9 @@ public class Constants {
 	public static final String search_and_add_button = "//div[@id='addressSearchButton']/button";
 	public static final String device_list_checkbox = "//input[@ng-model='device.IsSelected']";
 	public static final String green_device = "//button[@class='btn-circle2 pull-right devActive']";
+	public static final String green_circle = "//button[@class='btn-circle2 pull-right devActive']";
+	public static final String device_checkbox = "//input[@name='DesignApplicantStatementsMainCheck']";
+
 	
 	public static final String cannot_find_adress = "//p[@id='desc'][contains(.,'Cannot find BIN for the address entered.')]";
 	
@@ -1058,7 +1061,7 @@ public class Constants {
 	public static final String crm_top_nav_search_button = "//*[@id='findCriteriaImg']"; //*[@title='Start search']"; 
 	public static final String crm_save_button = "//img[contains(@alt,'Save')]"; //li[@title='Save (CTRL+S) Save the Form']"; 
 	public static final String crm_work_permits_label = "//div[@id='customSectionBarr'][contains(.,'Work Permits')]";
-	public static final String crm_permit_not_yet_issued_link = "//*[@id='dobnyc_task_clickheretogotoworkpermit']/div[1]/span[1]";
+	public static final String crm_permit_not_yet_issued_link = "//span[text()='Click here to go to Work Permit']/following::span[text()='Permit is not yet issued']";
 	public static final String crm_certificate_of_insurance_link = "//a[starts-with(@id,'gridBodyTable_lookup_{')]";	
 	public static final String crm_documents_total = "//span[@id='Documents_ItemsTotal']";
 	public static final String crm_load_next_page_arrow = "//*[@class='ms-crm-ImageStrip-page_R1']";
@@ -1163,11 +1166,13 @@ public class Constants {
 	
 	public static final String incorrect_email_and_password_message = "//p[@class='alert-desc ng-binding']";
 //	public static final String click_here_to_go_to_job_filing = "//span[text()='Job Filing']/following::span[@otypename='dobnyc_jobfiling']";	// 443 444
-	public static final String label_job_filing = "//span[text()='Job Filing']";
-	public static final String job_filing_link = "//span[text()='Job Filing']/following::span[@otypename='dobnyc_jobfiling']";
+	public static final String label_job_filing = "//span[contains(text(),'Job Filing')]";
+	public static final String job_filing_link = "//span[contains(text(),'Job Filing')]/following::span[@otypename='dobnyc_jobfiling']";
 //	public static final String click_here_to_go_to_job_filing = "//*[@id='dobnyc_task_clickheretogotojobfiling']/div[1]/span[1]";	
 	public static final String qa_admin_actions_label = "//div[contains(.,'Actions')]";
 	public static final String qa_admin_tr1_tab = "//span[contains(.,'Technical Report - Statement Of Responsibility')]";
+	public static final String progress_inspector_label = "//label[text()='Progress Inspector']";
+	
 	public static final String qa_admin_tr8_tab = "//span[contains(.,'Technical Report - Energy Code Progress Inspection')]";
 	public static final String qa_admin_antenna_pw2_tab = "//*[@id='stage_8']/div[2]/div/div/div/span";
 	public static final String qa_admin_curbcut_pw2_tab = "//*[@id='stage_21']/div[2]/div/div/div/span";
@@ -1178,6 +1183,9 @@ public class Constants {
 	
 	public static final String pe_dashboard = "//span[text()='Elevator Plan Examiner Dashboard']";
 	public static final String actions_plan_examiner_action_list = "//div[@jawsreadlabel='dobnyc_et_pereviewactions_c']";
+	public static final String cpe_actions_field = "//div[contains(@jawsreadlabel,'reviewaction')]";
+	public static final String cpe_actions = "//select[contains(@id,'reviewactions')]";
+	
 	
 	public static final String proposed_device_type_for_others_list = "//div[@jawsreadlabel='dobnyc_et_peselecteddevicetype_c']";
 	public static final String proposed_device_type_for_others = "//select[@id='dobnyc_et_peselecteddevicetype_i']";
@@ -1272,11 +1280,11 @@ public class Constants {
 	public static final String qa_action_list = "//div[@jawsreadlabel='dobnyc_qadecision_c']";
 	public static final String qa_action_select = "//select[@id='dobnyc_qadecision_i']";
 	
-//	public static final String approved_plans_uploaded = "//*[@id='dobnyc_approvedplansuploaded']/div[1]";
 	
+	public static final String qa_descision_field = "//div[contains(@jawsreadlabel,'task_qadecision')]";
 	
 	public static final String approved_plans_uploaded_list = "//*[@id='dobnyc_approvedplansuploaded_c']";
-	public static final String approved_plans_uploaded = "//*[@id='dobnyc_approvedplansuploaded_i']";
+	public static final String approved_plans_uploaded = "//select[contains(@id,'approvedplansuploaded')]";
 //	public static final String pe_appoitment_required_no = "//option[@value='1'][@title='No'][contains(.,'No')]";
 	
 	public static final String qa_descision_list = "//div[@jawsreadlabel='dobnyc_task_qadecision6_c']";
@@ -1335,13 +1343,18 @@ public class Constants {
 	public static final String search_assignee_button = "//img[@id='new_planexaminer_i']";
 	public static final String select_assignee = "//*[@id='item0']/a[2]/span/nobr/span";
 	public static final String chief_plan_examiner_action = "//div[@class='ms-crm-Inline-Value ms-crm-Inline-EmptyValue'][starts-with(@jawsreadlabel,'dobnyc_reviewactions')]";
-	public static final String assign_to_qa_administrator_field = "//*[@id='dobnyc_assigntoqaclerk_ledit']";
+	public static final String assign_to_qa_administrator_field = "//input[contains(@id,'assigntoqaclerk')]";
+	public static final String assign_to_qa_administrator_image = "//img[contains(@id,'assigntoqaclerk')]"; 
+	
 	public static final String prof_cert_qa_assinment_actions_list = "//div[@jawsreadlabel='dobnyc_assigntoqaclerk_c']";
 	public static final String prof_cert_qa_assinment_action = "//select[@id='dobnyc_ts_pendingprofcertqaassignmentactions_i']";
 	public static final String assign_to_prof_cert_qa_administrator_area = "//div[@jawsreadlabel='dobnyc_assigntoqaclerk_c']";
 	public static final String assign_to_qa_administrator_label = "//span[contains(text(),'QA Administrator')]";
-	public static final String assign_to_qa_administrator = "//div[contains(@jawsreadlabel,'dobnyc_assigntoqaclerk')]";
+	public static final String assign_to_qa_administrator = "//div[contains(@jawsreadlabel,'assigntoqaclerk')]";
 	public static final String assign_to_qa_administrato_type = "//input[@id='dobnyc_assigntoqaclerk_ledit']";
+	public static final String qa_decision = "//select[contains(@id,'task_qadecision')]";
+//	public static final String qa_decision_field = "//div[contains(@jawsreadlabel,'task_qadecision')]";
+
 	public static final String qa_administrator_search = "//img[@id='dobnyc_assigntoqaclerk_i']";
 	public static final String qa_administrator_search_button = "//*[@id='dobnyc_assigntoqaclerk_i']";
 	public static final String select_qa_administrator = "//*[@id='item0']/a[2]/span/nobr/span";
@@ -1528,6 +1541,8 @@ public class Constants {
 	public static final String el_this_electrical_permit_involves = "//input[@id='DesignApplicantStatementsMainCheckPW1']";
 	public static final String el_this_electrical_permit_includes = "//input[@ng-change='setED16AOwnerNewAmendedStatements()']";
 //	public static final String pay_now_button = "//button[@ng-disabled='DisablePayNow()']";
+	
+	public static final String pay_now_yes_button = "//button[text()='Yes']";
 	public static final String pay_now_button_disabled = "//button[@ng-click='showPaymentConfirmationModal()'][@disabled='disabled']";
 	public static final String pay_now_button = "//button[contains(text(),'Pay')]";
 	public static final String pay_now_button_ant = "//button[contains(.,'Pay Now')] ";
@@ -1658,6 +1673,8 @@ public class Constants {
 	public static final String sprinkler_piping_quantity = "//input[@id='Sprinkler Piping']/following::input[@ng-model='item.Quantity']";
 	
 	public static final String gas_sgut_off_valve = "//input[@id='Gas Emergency Shut Off Valve']";
+	public static final String gas_cooking = "//input[@id='gasUsageCooking']";
+	
 	public static final String gas_sgut_off_valve_quantity = "//input[@id='Gas Emergency Shut Off Valve']/following::input[@ng-model='item.Quantity']";
 	public static final String gas_light = "//input[@id='Gas Light (Commercial and Residential)']";
 	public static final String gas_light_quantity = "//input[@id='Gas Light (Commercial and Residential)']/following::input[@ng-model='item.Quantity']";
@@ -1766,6 +1783,8 @@ public class Constants {
 	public static final String actions_edit = "//span[@class='glyphicon glyphicon-edit']";
 	
 	public static final String public_assembly_emergency_lighting = "//span[text()='Public Assembly Emergency Lighting']";
+	
+	public static final String add_space_information = "//button[contains(., 'Add Space Information')]";
 	
 //	public static final String ENV="PROD"; //PROD, UAT,SAT 
 	//paths

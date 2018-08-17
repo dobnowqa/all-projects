@@ -1,4 +1,4 @@
-package com.pages;
+/*package com.pages;
 
 import java.util.ArrayList;
 
@@ -15,9 +15,9 @@ import com.util.Constants;
 public class CrmTR1Page extends TestBase {
 	WebDriver driver;
 
-/*	public CrmTR1Page(WebDriver dr) {
+	public CrmTR1Page(WebDriver dr) {
 		driver = dr;
-	}*/
+	}
 
 	@FindBy(xpath = Constants.cpe_search_job_button)
 	public WebElement cpe_search_job_button;
@@ -98,8 +98,8 @@ public class CrmTR1Page extends TestBase {
 	public WebElement qa_admin_antenna_pw2_tab;
 	@FindBy(xpath = Constants.qa_admin_documents_tab)
 	public WebElement qa_admin_documents_tab;
-/*	@FindBy(xpath = Constants.qa_admin_work_on_floors_document)
-	public WebElement qa_admin_work_on_floors_document;*/
+	@FindBy(xpath = Constants.qa_admin_work_on_floors_document)
+	public WebElement qa_admin_work_on_floors_document;
 
 	@FindBy(xpath = Constants.qa_admin_fuel_oil_document)
 	public WebElement qa_admin_fuel_oil_document;
@@ -163,7 +163,42 @@ public class CrmTR1Page extends TestBase {
 	@FindBy(xpath = Constants.global_loading_spinner)
 	public WebElement global_loading_spinner;
 	
-	public void crmTechnicalReport(String user_name,	String accept_tr) {
+	public void crmTr(String tr) {
+		if (!tr.equals("")) {
+			String[] data = tr.split(" :: ");
+			System.out.println(convertedTimestamp() + " **************** " + data[0] + " crmTr");
+			loginToCrm("BUILD011");
+			searchForJobCrm();
+			waitUntilISpinnersInvisible();
+			waitForPageToLoad();			
+			switchFrame("contentIFrame0");
+			for (int i=1; i < 20; i++) {
+				click(Constants.job_filing_link);
+				waitInvisible(Constants.job_filing_link);
+				if (count(Constants.job_filing_link) < 1) 
+					break;
+			}	
+			ifAlertExistAccept();
+			waitVisible(Constants.qa_admin_application_highlights_label);
+			waitVisible(Constants.qa_admin_tr1_tab);
+			for (int i = 1; i <= 20; i++) {
+				click(Constants.qa_admin_tr1_tab);
+				wait(5);
+				if(getElement("//span[contains(text(),'" +tr+ "')]").isDisplayed() == true)
+					break;
+				refreshPage();
+				driver.switchTo().frame("contentIFrame0");
+			}
+			WebElement public_assembly_emergency_lighting = getElement("//span[contains(text(),'" +tr+ "')]");
+			new Actions(driver).contextClick(public_assembly_emergency_lighting).build().perform();
+			wait(1);
+			new Actions(driver).sendKeys(Keys.ENTER).build().perform();
+			waitUntilElementVisible(Constants.qa_admin_progress_inspector_seal_signature, 30);
+			viewAcceptDocs();
+		}
+	}
+	
+	public void crmTechnicalReport(String user_name, String accept_tr) {
 		if (!accept_tr.equals("")) {
 			String[] data = user_name.split(" :: ");
 			System.out.println(convertedTimestamp() + " **************** " + data[0] + " crmTechnicalReport");
@@ -185,8 +220,8 @@ public class CrmTR1Page extends TestBase {
 			for (int i = 1; i <= 20; i++) {
 				click(Constants.qa_admin_tr1_tab);
 				wait(5);
-/*				if (count(Constants.public_assembly_emergency_lighting) > 0)
-					break;*/				
+				if (count(Constants.public_assembly_emergency_lighting) > 0)
+					break;				
 				if (driver.findElement(By.xpath(Constants.public_assembly_emergency_lighting)).isDisplayed() == true)
 					break;
 				refreshPage();
@@ -201,24 +236,25 @@ public class CrmTR1Page extends TestBase {
 			waitUntilElementVisible(Constants.qa_admin_progress_inspector_seal_signature, 30);
 			viewAcceptDocs();
 		}
+		navigate(crm_url);
 	}
 
 	public void viewAcceptTR1Fuel(String user_name,	String accept_tr) {
 		if (!accept_tr.equals("")) {
 			String[] data = user_name.split(" :: ");
 			System.out.println(convertedTimestamp() + " **************** " + data[0] + " View accept FUEL OIL");
-			loginToCrm(data[0]);
+//			loginToCrm(data[0]);
 			searchForJobCrm();
 			driver.switchTo().frame("contentIFrame0");
 //			waitUntilElementVisible(Constants.label_job_filing, 30);
+			waitVisible(Constants.label_job_filing);
 			for (int i=1; i < 20; i++) {
-				click(Constants.label_job_filing);
-				waitInvisible(Constants.label_job_filing);
-				if (count(Constants.label_job_filing) < 1) 
+				click(Constants.job_filing_link);
+				waitInvisible(Constants.job_filing_link);
+				if (count(Constants.job_filing_link) < 1) 
 					break;
 			}	
 			ifAlertExistAccept();
-			waitInvisible(Constants.label_job_filing);
 			waitVisible(Constants.qa_admin_application_highlights_label);
 			waitVisible(Constants.qa_admin_tr1_tab);
 			for (int i = 1; i <= 20; i++) {
@@ -236,24 +272,25 @@ public class CrmTR1Page extends TestBase {
 			waitUntilElementVisible(Constants.qa_admin_special_inspector_seal_signature, 30);
 			viewAcceptDocs();
 		}
+		navigate(crm_url);
 	}
 	
 	public void viewAcceptTR1Fina(String user_name, String accept_tr) {
 		if (!accept_tr.equals("")) {
 			String[] data = user_name.split(" :: ");
 			System.out.println(convertedTimestamp() + " **************** " + data[0] + " View accept Final");
-			loginToCrm(data[0]);
+//			loginToCrm(data[0]);
 			searchForJobCrm();
 			driver.switchTo().frame("contentIFrame0");
+			waitVisible(Constants.label_job_filing);
 			for (int i=1; i < 20; i++) {
-				click(Constants.label_job_filing);
-				waitInvisible(Constants.label_job_filing);
-				if (count(Constants.label_job_filing) < 1) 
+				click(Constants.job_filing_link);
+				waitInvisible(Constants.job_filing_link);
+				if (count(Constants.job_filing_link) < 1) 
 					break;
 			}			
 			ifAlertExistAccept();
-			waitInvisible(Constants.label_job_filing);
-			waitUntilElementVisible(Constants.qa_admin_tr1_tab, 60);
+			waitVisible(Constants.qa_admin_tr1_tab);
 			for (int i = 1; i <= 20; i++) {
 				click(Constants.qa_admin_tr1_tab);
 				wait(5);
@@ -269,6 +306,7 @@ public class CrmTR1Page extends TestBase {
 			waitVisible(Constants.qa_admin_progress_inspector_seal_signature);
 			viewAcceptDocs();
 		}
+		navigate(crm_url);
 	}
 	public void viewAcceptTR1Plumbing(String tr_docs) {
 		if (!tr_docs.equals("")) {
@@ -302,4 +340,4 @@ public class CrmTR1Page extends TestBase {
 			}
 		}
 	}
-}
+}*/

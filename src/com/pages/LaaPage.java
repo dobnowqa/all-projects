@@ -148,7 +148,6 @@ public class LaaPage extends TestBase {
 			waitForPageToLoad();
 			waitUntilISpinnersInvisible();
 			scrollAllWayDown();
-			scrollAllWayDown();
 			if(fee_assesment.contains("legalization")) {
 				scrollToElement(Constants.laa_legalization_yes);
 				radio(Constants.laa_legalization_yes);
@@ -158,6 +157,7 @@ public class LaaPage extends TestBase {
 					type(Constants.violation_number, "34778932");
 			}
 			else 
+				scrollToElement(Constants.laa_legalization_no);
 				radio(Constants.laa_legalization_no);
 			select(Constants.laa_specify_building_type, "1 Family");
 			if(fee_assesment.contains("Commercial"))
@@ -231,6 +231,14 @@ public class LaaPage extends TestBase {
 			if(sow.contains("Gas Work")) {
 				check(Constants.gas_sgut_off_valve);
 				type(Constants.gas_sgut_off_valve_quantity, "1");
+				click(Constants.save_scope_of_work);
+				clickButton("OK");
+				waitForPageToLoad();
+				waitUntilISpinnersInvisible();
+				waitInvisible(Constants.ok_button);
+				scrollDown();
+				check(Constants.gas_cooking);				
+
 			}
 			if(sow.contains("Equipment")) {
 				check(Constants.auxilary_hose_cabinets);
@@ -244,16 +252,7 @@ public class LaaPage extends TestBase {
 				radio(Constants.have_associated_job_number_no);			
 				radio(Constants.laa_offline_8_hours_no);
 			}
-			waitForPageToLoad();
-			waitUntilISpinnersInvisible();
-			scrollUp();
-			scrollAllWayUp();
-			click(Constants.save_scope_of_work);
-			clickButton("OK");
-			waitForPageToLoad();
-			waitUntilISpinnersInvisible();
-			scrollDown();
-			waitUntilISpinnersInvisible();
+
 			if(count(Constants.add_appliance_data) > 0) {
 				click(Constants.add_appliance_data);
 				select(Constants.floor_location, "Pit");
@@ -263,10 +262,25 @@ public class LaaPage extends TestBase {
 				type(Constants.certification_number, "3333333");
 				type(Constants.model_number, "4444");
 				type(Constants.input_btu, "555");
-				click(Constants.save_scope_of_work);			
-				clickButton("OK");
+	
+			}	
+			if(count(Constants.save_scope_of_work) > 0) {
+				waitForPageToLoad();
 				waitUntilISpinnersInvisible();
-				waitInvisible(Constants.ok_button);		
+				scrollUp();
+				scrollAllWayUp();
+				click(Constants.save_scope_of_work);
+				clickButton("OK");
+				waitInvisible(Constants.ok_button);
+				waitForPageToLoad();
+				waitUntilISpinnersInvisible();
+			}
+			else {
+				click(Constants.global_save_step_button);
+				waitUntilISpinnersInvisible();
+				waitVisible(Constants.ok_button);
+				clickButton("OK");
+				waitInvisible(Constants.ok_button);
 			}	
 		}
 		reportPass("scopeOfWork");

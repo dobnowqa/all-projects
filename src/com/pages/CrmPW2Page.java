@@ -1,4 +1,4 @@
-package com.pages;
+/*package com.pages;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -16,13 +16,13 @@ import com.base.TestBase;
 import com.relevantcodes.extentreports.LogStatus;
 
 public class CrmPW2Page extends TestBase {
-/*	WebDriver driver;
+	WebDriver driver;
 
 	public CrmPW2Page(WebDriver dr) {
 		driver = dr;
-	}*/
+	}
 
-/*	@FindBy(xpath = Constants.cpe_search_job_button)
+	@FindBy(xpath = Constants.cpe_search_job_button)
 	public WebElement cpe_search_job_button;
 	@FindBy(xpath = Constants.pe_search_job_button)
 	public WebElement pe_search_job_button;
@@ -35,8 +35,8 @@ public class CrmPW2Page extends TestBase {
 	@FindBy(xpath = Constants.job_number_search)
 	public WebElement job_number_search;
 	@FindBy(xpath = Constants.search_for_records_one)
-	public WebElement search_for_records_one;*/
-/*	@FindBy(xpath = Constants.search_for_records_one_field)
+	public WebElement search_for_records_one;
+	@FindBy(xpath = Constants.search_for_records_one_field)
 	public WebElement search_for_records_one_field;
 	@FindBy(xpath = Constants.search_for_records_one_image)
 	public WebElement search_for_records_one_image;
@@ -59,9 +59,9 @@ public class CrmPW2Page extends TestBase {
 	@FindBy(xpath = Constants.qa_admin_tasks_search_job_field)
 	public WebElement qa_admin_tasks_search_job_field;
 	@FindBy(xpath = Constants.qa_admin_search_job_button)
-	public WebElement qa_admin_search_job_button;*/
+	public WebElement qa_admin_search_job_button;
 
-/*	@FindBy(xpath = Constants.qa_super_job_subject)
+	@FindBy(xpath = Constants.qa_super_job_subject)
 	public WebElement qa_super_job_subject;
 	@FindBy(xpath = Constants.prof_sert_qa_super_job_subject)
 	public WebElement prof_sert_qa_super_job_subject;
@@ -73,10 +73,10 @@ public class CrmPW2Page extends TestBase {
 	@FindBy(xpath = Constants.qa_administrator_search_button)
 	public WebElement qa_administrator_search_button;
 	@FindBy(xpath = Constants.permit_not_issued_link)
-	public WebElement permit_not_issued_link;*/
+	public WebElement permit_not_issued_link;
 	
 
-/*	@FindBy(xpath = Constants.job_search_input_box)
+	@FindBy(xpath = Constants.job_search_input_box)
 	public WebElement job_search_input_box;
 	@FindBy(xpath = Constants.search_button)
 	public WebElement search_button;
@@ -104,11 +104,10 @@ public class CrmPW2Page extends TestBase {
 	public WebElement qa_admin_curbcut_pw2_tab;
 
 	@FindBy(xpath = Constants.qa_admin_documents_tab)
-	public WebElement qa_admin_documents_tab;*/
-/*	@FindBy(xpath = Constants.qa_admin_work_on_floors_document)
-	public WebElement qa_admin_work_on_floors_document;*/
+	public WebElement qa_admin_documents_tab;
 
-/*	@FindBy(xpath = Constants.qa_admin_fuel_oil_document)
+
+	@FindBy(xpath = Constants.qa_admin_fuel_oil_document)
 	public WebElement qa_admin_fuel_oil_document;
 	@FindBy(xpath = Constants.qa_admin_electrical_energy_document)
 	public WebElement qa_admin_electrical_energy_document;
@@ -117,13 +116,12 @@ public class CrmPW2Page extends TestBase {
 	@FindBy(xpath = Constants.qa_admin_permit_not_yet_issued)
 	public WebElement qa_admin_permit_not_yet_issued;
 	@FindBy(xpath = Constants.qa_admin_certificate_of_insurance_document)
-	public WebElement qa_admin_certificate_of_insurance_document;*/
+	public WebElement qa_admin_certificate_of_insurance_document;
 
-	/*
-	 * @FindBy(xpath=Constants.qa_admin_document_subject) public WebElement
-	 * qa_admin_document_subject;
-	 */
-/*	@FindBy(xpath = Constants.seal_and_signature)
+	
+
+	 
+	@FindBy(xpath = Constants.seal_and_signature)
 	public WebElement seal_and_signature;
 
 	@FindBy(xpath = Constants.qa_admin_special_inspector_seal_signature)
@@ -138,9 +136,9 @@ public class CrmPW2Page extends TestBase {
 	@FindBy(xpath = Constants.approved_plan_uploaded)
 	public WebElement approved_plan_uploaded;
 	@FindBy(xpath = Constants.approved_plan_uploaded_yes)
-	public WebElement approved_plan_uploaded_yes;*/
+	public WebElement approved_plan_uploaded_yes;
 
-/*	@FindBy(xpath = Constants.total_number_of_documents)
+	@FindBy(xpath = Constants.total_number_of_documents)
 	public WebElement total_number_of_documents;
 	@FindBy(xpath = Constants.load_next_page_image)
 	public WebElement load_next_page_image;
@@ -157,9 +155,9 @@ public class CrmPW2Page extends TestBase {
 	@FindBy(xpath = Constants.select_qa_administrator)
 	public WebElement select_qa_administrator;
 	@FindBy(xpath = Constants.crm_permit_not_yet_issued_link)
-	public WebElement crm_permit_not_yet_issued_link;*/
+	public WebElement crm_permit_not_yet_issued_link;
 
-/*	@FindBy(xpath = Constants.plan_examiner_text_field)
+	@FindBy(xpath = Constants.plan_examiner_text_field)
 	public WebElement plan_examiner_text_field;
 	@FindBy(xpath = Constants.plan_examiner_search_button)
 	public WebElement plan_examiner_search_button;
@@ -175,138 +173,10 @@ public class CrmPW2Page extends TestBase {
 	@FindBy(xpath = Constants.global_notification_ok_button)
 	public WebElement global_notification_ok_button;
 	@FindBy(xpath = Constants.global_loading_spinner)
-	public WebElement global_loading_spinner;*/
+	public WebElement global_loading_spinner;
 
 	public static int number_of_documents;
 
-	public void qaAdministrator(String user_name, String assert_filing_status, String crm_work_type) {
-		if (!user_name.equals("")) {
-			loginToCrm(user_name);
-			if (crm_work_type.equals("Antenna")) {
-				System.out.println("PW1 ADMIN FUEL OIL");
-				System.out.println(convertedTimestamp() + " **************** " + "PW1 Fuel Oil");
-				searchForJobCrm();
-				driver.switchTo().frame("contentIFrame0");
-				click(Constants.label_job_filing);
-/*				waitUntilElementVisible(Constants.label_job_filing, 30);
-				label_job_filing.click();*/
-				waitTime(10000L);
-				waitInvisible(Constants.label_job_filing);
-				waitVisible(Constants.qa_admin_application_highlights_label);
-//				waitUntilElementVisible(Constants.qa_admin_tr1_tab, 60);
-				click(Constants.qa_admin_tr1_tab);
-//				qa_admin_tr1_tab.click();
-				waitUntilElementVisible(Constants.qa_admin_fuel_oil_document, 30);
-//				new Actions(driver).contextClick(qa_admin_fuel_oil_document).build().perform();
-				new Actions(driver).contextClick(driver.findElement(By.xpath(Constants.qa_admin_fuel_oil_document))).build().perform();
-				
-				waitTime(1000L);
-				waitTime(1000L);
-				new Actions(driver).sendKeys(Keys.ENTER).build().perform();
-				viewAcceptDocs();
-			}
-
-			// PW1 VIEW ACCEPT FINAL
-			if (crm_work_type.equals("Antenna")) {
-				System.out.println(convertedTimestamp() + " **************** " + "PW1 VIEW ACCEPT FINAL");
-				navigate(crm_url);
-				waitUntilElementVisible(Constants.crm_top_nav_search_button, 30);
-				driver.switchTo().frame("contentIFrame0");
-				driver.switchTo().frame("dashboardFrame");
-				waitTime(5000L);
-				
-				type(Constants.search_for_records_one_field,JOB_NUMBER.getProperty("job_number"));
-				click(Constants.search_for_records_one_image);
-/*				fdgfdg
-				waitUntilElementVisible(Constants.search_for_records_one, 30);
-				search_for_records_one.click();
-				waitUntilElementVisible(Constants.search_for_records_one_field, 30);*/
-				
-//				search_for_records_one_field.sendKeys(JOB_NUMBER.getProperty("job_number"));
-				type(Constants.search_for_records_one_field,JOB_NUMBER.getProperty("job_number"));
-//				waitUntilElementVisible(Constants.search_for_records_one_image, 30);
-//				search_for_records_one_image.click();
-				click(Constants.search_for_records_one_image);
-				waitUntilElementVisible(Constants.qa_admin_job_subject, 10);
-	//			new Actions(driver).doubleClick(qa_admin_job_subject).perform();
-				new Actions(driver).doubleClick(driver.findElement(By.xpath(Constants.qa_admin_job_subject))).perform();
-				waitUntilElementVisible(Constants.crm_top_nav_search_button, 30);
-				waitTime(5000L);
-				driver.switchTo().frame("contentIFrame0");
-				waitUntilElementVisible(Constants.label_job_filing, 30);
-//				label_job_filing.click();
-				click(Constants.label_job_filing);
-				waitTime(10000L);
-				waitUntilElementVisible(Constants.qa_admin_tr1_tab, 60);
-				//waitUntilElementVisible(Constants.qa_admin_work_on_floors_document, 30);
-//				qa_admin_tr1_tab.click();
-				click(Constants.qa_admin_tr1_tab);
-				waitUntilElementVisible(Constants.qa_admin_final_document, 30);
-//				new Actions(driver).contextClick(qa_admin_final_document).build().perform();
-				new Actions(driver).contextClick(driver.findElement(By.xpath(Constants.qa_admin_final_document))).build().perform();
-				waitTime(1000L);
-				new Actions(driver).sendKeys(Keys.ENTER).build().perform();
-				waitUntilElementVisible(Constants.qa_admin_progress_inspector_seal_signature, 30);
-				viewAcceptDocs();
-			}
-
-			// PW8 VIEW ACCEPT PROGRESS INSPECTOR
-			if (crm_work_type.equals("Antenna")) {
-				System.out.println("PW8 VIEW ACCEPT PROGRESS INSPECTOR");
-				navigate(crm_url);
-				waitUntilElementVisible(Constants.crm_top_nav_search_button, 30);
-				driver.switchTo().frame("contentIFrame0");
-				driver.switchTo().frame("dashboardFrame");
-				waitTime(5000L);
-/*				waitUntilElementVisible(Constants.search_for_records_one, 30);
-				search_for_records_one.click();
-				waitUntilElementVisible(Constants.search_for_records_one_field, 30);*/
-				type(Constants.search_for_records_one_field,JOB_NUMBER.getProperty("job_number"));
-				click(Constants.search_for_records_one_image);
-				waitUntilElementVisible(Constants.qa_admin_job_subject, 10);
-//				new Actions(driver).doubleClick(qa_admin_job_subject).perform();
-				new Actions(driver).doubleClick(driver.findElement(By.xpath(Constants.qa_admin_job_subject))).perform();
-				waitUntilElementVisible(Constants.crm_top_nav_search_button, 30);
-				waitTime(5000L);
-				driver.switchTo().frame("contentIFrame0");
-				waitUntilElementVisible(Constants.label_job_filing, 30);
-//				label_job_filing.click();
-				click(Constants.label_job_filing);
-				waitTime(10000L);
-				waitUntilElementVisible(Constants.qa_admin_tr8_tab, 60);
-				// //waitUntilElementVisible(Constants.qa_admin_work_on_floors_document, 30);
-//				qa_admin_tr8_tab.click();
-				click(Constants.qa_admin_tr8_tab);
-//				new Actions(driver).contextClick(qa_admin_electrical_energy_document).build().perform();
-				new Actions(driver).contextClick(driver.findElement(By.xpath(Constants.qa_admin_electrical_energy_document))).build().perform();
-				waitTime(1000L);
-				new Actions(driver).sendKeys(Keys.ENTER).build().perform();
-				waitUntilElementVisible(Constants.qa_admin_progress_inspector_seal_signature, 30);
-				viewAcceptDocs();
-			}
-
-			// ISSUE PERMIT
-			System.out.println("ISSUE PERMIT");
-			searchForJobCrm();
-			driver.switchTo().frame("contentIFrame0");
-			waitTime(1000L);
-			waitUntilElementVisible(Constants.qa_action, 30);
-	//		qa_action.click();
-			click(Constants.qa_action);
-			waitUntilElementVisible(Constants.option_permit_issued, 30);
-	//		option_permit_issued.click();
-			click(Constants.option_permit_issued);
-			ifAlertExistAccept();
-			driver.switchTo().defaultContent();
-			click(Constants.submit_button);
-/*			waitUntilElementVisible(Constants.submit_button, 30);
-			submit_button.click();*/
-			// ASSERT STATUS
-			loginToPortal(OR_PROPERTIES.getProperty("user_email"));
-			filterJob(OR_PROPERTIES.getProperty("user_email"));
-			assertTextPresent(assert_filing_status, assert_filing_status);
-		}
-	}
 
 	public void viewAcceptPW2Docs(String user_name, String accept_pw2_docs) {
 		if (!accept_pw2_docs.equals("")) {
@@ -367,72 +237,7 @@ public class CrmPW2Page extends TestBase {
 			}
 		}
 	}
-	public void ORIGviewAcceptPW2Docs(String user_name, String accept_pw2_docs) {
-		if (!accept_pw2_docs.equals("")) {
-			String[] data = user_name.split(" :: ");
-			System.out.println(convertedTimestamp() + " **************** PW2 Accept cert of ins/Site Safety " +data[0]);
-			loginToCrm(data[0]);
-			searchForJobCrm();
-			waitDocStatus();
-//			driver.switchTo().frame("contentIFrame0");
-			waitUntilElementVisible(Constants.label_job_filing, 30);
-			if (user_name.contains("BUILD02")) {
-				waitUntilElementVisible(Constants.crm_permit_not_yet_issued_link, 30);
-				new Actions(driver).contextClick(driver.findElement(By.xpath(Constants.crm_permit_not_yet_issued_link))).build().perform();
-//				new Actions(driver).contextClick(crm_permit_not_yet_issued_link).build().perform();
-			}
-			if (user_name.contains("BUILD01")) {
-				waitUntilElementVisible(Constants.permit_not_issued_link, 30);
-//				new Actions(driver).contextClick(permit_not_issued_link).build().perform();
-				new Actions(driver).contextClick(driver.findElement(By.xpath(Constants.permit_not_issued_link))).build().perform();
-			}
-			wait(1);
-			new Actions(driver).sendKeys(Keys.ENTER).build().perform();
-			ifAlertExistAccept();
-			waitUntilElementVisible(Constants.crm_documents_first_document_link, 30);
-			if (count(Constants.crm_document_status_submitted) > 0) {
-				int doc_num = 0;
-				while (count(Constants.crm_document_status_submitted) > 0) { // "//nobr[@class='gridcellpadding'][@title='Submitted']"
-					doc_num = doc_num + 1;
-					test.log(LogStatus.INFO, "Document " + doc_num);
-					doubleclick(Constants.crm_document_status_submitted);
-					wait(3);
-					driver.switchTo().defaultContent();
-					while (driver.getWindowHandles().size() < 2) {
-						waitVisible(Constants.view_document_button);
-						click(Constants.view_document_button);
-						wait(3);
-					}
-					Set<String> handles = driver.getWindowHandles();
-					Iterator<String> itr = handles.iterator();
-					String newWindow = itr.next();
-					driver.switchTo().window(newWindow);
-					driver.manage().window().maximize();
-					Set<String> handleswindow = driver.getWindowHandles();
-					for (String windowHandle : handleswindow) {
-						wait(1);
-						driver.switchTo().window(windowHandle);
-						driver.manage().window().maximize();
-					}
-					ArrayList<String> tabs_pw2_documents = new ArrayList<String>(driver.getWindowHandles());
-					driver.switchTo().window(tabs_pw2_documents.get(1));
-					driver.close();
-					wait(1);
-					driver.switchTo().window(tabs_pw2_documents.get(0));
-					driver.switchTo().defaultContent();
-					waitVisible(Constants.accept_document_button);
-					click(Constants.accept_document_button);
-					ifAlertExistAccept();
-					driver.switchTo().defaultContent();
-					wait(1);
-					driver.navigate().back();
-					wait(1);
-					driver.switchTo().frame("contentIFrame0");
-					wait(3);
-				}
-			}
-		}
-	}
+
 	public void viewAcceptPW2DocsAhv(String accept_pw2_docs_ahv) {
 		if (!accept_pw2_docs_ahv.equals("")) {
 			String[] data = accept_pw2_docs_ahv.split(" :: ");
@@ -499,46 +304,5 @@ public class CrmPW2Page extends TestBase {
 //			viewAcceptDoc(2);
 		}
 	}
-	public void viewAcceptAhvPW2Docs(String accept_pw2_docs_ahv) {
-		if (!accept_pw2_docs_ahv.equals("")) {
-			String[] data = accept_pw2_docs_ahv.split(" :: ");
-			System.out.println(convertedTimestamp() + " **************** " +data[0]+ " Accept AHV Permit Docs");
-			loginToCrm(data[0]);
-			test = rep.startTest("View Accept AHW permit Documents.");
-			test.log(LogStatus.INFO, "viewAcceptAhvPW2Docs");
-			waitVisible(Constants.crm_top_nav_search_button);
-			driver.switchTo().frame("contentIFrame0").switchTo().frame("dashboardFrame");
-			click(Constants.search_for_records_one);
-			type(Constants.search_for_records_one_field, "*" +JOB_NUMBER.getProperty("job_number").substring(1));
-			click(Constants.search_for_records_one_image);
-			waitForPageToLoad();
-			wait(5);
-			
-//			driver.switchTo().frame("contentIFrame0");
-			click("//label[@class='ms-crm-List-Sortable'][text()='Created On']");
-			wait(1);
-			click("//label[@class='ms-crm-List-Sortable'][text()='Created On']");
-			wait(1);
-			
-		doubleclick(driver.findElement(By.xpath(Constants.search_results_job_subject)));
-//		new Actions(driver).contextClick(driver.findElement(By.xpath(Constants.search_results_job_subject))).build().perform();
-		ifAlertExistAccept();
-		waitVisible(Constants.crm_top_nav_search_button);
-		waitInvisible(Constants.crm_loading_image);
-		waitForPageToLoad();
-		wait(3);
-		driver.switchTo().frame("contentIFrame0");
-//		waitVisible(Constants.label_job_filing);
-			waitVisible(Constants.click_here_to_go_to_ahv);
-			click(Constants.click_here_to_go_to_ahv + "/following::span[@class='ms-crm-Lookup-Item']");
 
-			wait(5);
-			
-			
-			ifAlertExistAccept();
-//			click("//a[@title='" +JOB_NUMBER.getProperty("ahv_number")+ "'][text()='" +JOB_NUMBER.getProperty("ahv_number")+ "']");
-			waitForPageToLoad();
-			acceptSubmitted();
-		}
-	}
-}
+}*/

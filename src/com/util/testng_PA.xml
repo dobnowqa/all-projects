@@ -1,0 +1,44 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="PL SP SD" allow-return-values="true">
+
+<listeners>
+    <listener class-name="listener.TestsListenerAdapter"/>
+</listeners>
+
+<test name="PaExempt">
+    <classes>
+     <class name="com.patpa.PaExempt"/>
+    </classes>
+</test>
+
+<test name="PaExemptProfCert">
+    <classes>
+     <class name="com.patpa.PaExemptProfCert"/>
+    </classes>
+</test>
+
+
+<test name="PaPayment">
+    <classes>
+     <class name="com.patpa.PaPayment"/>
+    </classes>
+</test>
+
+<test name="PaPaymentProfCert">
+    <classes>
+     <class name="com.patpa.PaPaymentProfCert"/>
+    </classes>
+</test>
+
+<test name="TpaExempt">
+    <classes>
+     <class name="com.patpa.TpaExempt"/>
+    </classes>
+</test>
+
+
+
+
+
+
+</suite>

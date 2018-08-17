@@ -1,12 +1,11 @@
 package com.pages;
 
-import java.util.List;
-
+import java.time.LocalDate;
+import java.util.ArrayList;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-
 import com.base.TestBase;
 import com.relevantcodes.extentreports.LogStatus;
 import com.util.Constants;
@@ -88,7 +87,11 @@ public class PaPage extends TestBase {
 /*				if(count("//select[@id='ddlPAOperation']") > 0)
 					select("//select[@id='ddlPAOperation']", "Yes");*/
 				select(Constants.ss_owner_type, "Partnership");
-				radio("//input[@ng-model='PAFormObj.IsTheDeedHolderaNonProfitOrganization'][@value='true']");
+				wait(1);
+				if(owner_info.contains("exempt"))
+					radio("//input[@id='rblIsTheDeedHolderaNonProfitOrganization1']");
+				if(owner_info.contains("profit"))
+					radio("//input[@id='rblIsTheDeedHolderaNonProfitOrganization2']");
 				clear("//input[@id='txtDPEmail']");
 				send("//input[@id='txtDPEmail']", OR_PROPERTIES.getProperty("owner_email"));
 				wait(2);
@@ -135,22 +138,50 @@ public class PaPage extends TestBase {
 		reportPass("savePW1");
 	}
 	
-	public void scopeOfWorkTpa(String save) {
-		if (!save.equals("")) {
+	public void scopeOfWorkTpa(String sow) {
+		if (!sow.equals("")) {
 			System.out.println(convertedTimestamp() + " **************** scopeOfWorkTpa");
 //			filterJob(user);
 			test = rep.startTest("scopeOfWorkTpa");
 			click("//a[@class='ng-binding'][@ng-click='changeCurrentPage(2);']");
 			waitUntilISpinnersInvisible();
 			waitForPageToLoad();
-			waitUntilISpinnersInvisible();
 /*			scrollDown();
 			wait(2);
 			System.out.println(count("//input[@id='rdEmergencyPowerorLighting2']"));
 			System.out.println(count("//input[@name='rdEmergencyPowerorLighting'][@value='false']"));
 			System.out.println(count("//input[@ng-model='PAFormObj.TPAObject.EmergencyPowerorLighting'][@value='false']"));
-			radio("//input[@id='rdEmergencyPowerorLighting2']");*/
+			radio("//input[@id='rdEmergencyPowerorLighting2']");*/			
+//			js.executeScript("document.getElementById('txtEventStartDate').removeAttribute(\"disabled\");");
+//			js.executeScript("document.getElementById('txtEventStartDate').value = arguments[0]","08/10/2017");
 
+
+
+			
+			
+/*			String start = String.valueOf(LocalDate.now());
+			String[] d = start.split("-");
+			String startdate = d[1]+ "/" +d[2]+ "/" +d[0];			
+			String end = String.valueOf(LocalDate.now().plusMonths(13));			
+			String[] d1 = end.split("-");		
+			String enddate = d1[1]+ "/" +d1[2]+ "/" +d1[0];			
+//			enableAndType("//input[@id='txtEventStartDate']", startdate);
+			
+
+			
+			enableAndType("//input[@id='txtEventEndDate']", enddate);			
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+			click("//button[contains(@ng-click,'event,0)')]");
+			js.executeScript("document.getElementById('txtEventStartDate').value = arguments[0]", startdate);
+			click("//button[contains(@ng-click,'event,0)')]");
+			wait(1);
+			click("//button[contains(@ng-click,'event,1)')]");
+			js.executeScript("document.getElementById('txtEventEndDate').value = arguments[0]", enddate);
+			wait(1);
+*/
+			
+			
+			scrollUp();scrollUp();scrollUp();scrollUp();scrollUp();scrollUp();
 			type("//input[@ng-model='PAFormObj.TPAObject.FirstName']", "Event Sponsor Name");
 			type("//input[@ng-model='PAFormObj.TPAObject.EmailAddress']", "mmazay@buildings.gov");
 			type("//input[@ng-model='PAFormObj.TPAObject.Telephone']", "2223334444");
@@ -186,9 +217,34 @@ public class PaPage extends TestBase {
 			waitInvisible(Constants.ok_button);
 			waitUntilISpinnersInvisible();*/
 //			scrollDown();
-			wait(2);
-//			click("//h4[@id='2'][text()='Temporary Place of Assembly Request Period']");
+			
+			
+			
+			
+			
+			
+/*			wait(2);
+			String start = String.valueOf(LocalDate.now());
+			String[] d = start.split("-");
+			String startdate = d[1]+ "/" +d[2]+ "/" +d[0];			
+			String end = String.valueOf(LocalDate.now().plusMonths(13));			
+			String[] d1 = end.split("-");		
+			String enddate = d1[1]+ "/" +d1[2]+ "/" +d1[0];			
+			enableAndType("//input[@id='txtEventStartDate']", startdate);
+			enableAndType("//input[@id='txtEventEndDate']", enddate);			
+			JavascriptExecutor js = (JavascriptExecutor) driver;
 			click("//button[contains(@ng-click,'event,0)')]");
+			js.executeScript("document.getElementById('txtEventStartDate').value = arguments[0]", startdate);
+			click("//button[contains(@ng-click,'event,0)')]");
+			wait(1);
+			click("//button[contains(@ng-click,'event,1)')]");
+			js.executeScript("document.getElementById('txtEventEndDate').value = arguments[0]", enddate);
+			wait(1);
+			click("//button[contains(@ng-click,'event,1)')]");
+			
+			wait(2);
+			scrollUp();scrollUp();scrollUp();scrollUp();scrollUp();scrollUp();*/
+/*			click("//button[contains(@ng-click,'event,0)')]");
 			click(Constants.pw2_calendar_active_day);
 			click("//button[contains(@ng-click,'event,1)')]");
 			click(Constants.pw2_calendar_next_month_arrow);
@@ -196,7 +252,24 @@ public class PaPage extends TestBase {
 			click(Constants.pw2_calendar_next_month_arrow);
 			click(Constants.pw2_calendar_next_month_arrow);
 			click(Constants.pw2_calendar_next_month_arrow);
+			click(Constants.pw2_calendar_active_day);*/
+			
+			scrollAllWayDown();			
+			click("//button[contains(@ng-click,'event,0)')]");
 			click(Constants.pw2_calendar_active_day);
+			click("//button[contains(@ng-click,'event,1)')]");
+			click(Constants.pw2_calendar_next_month_arrow);
+			click(Constants.pw2_calendar_next_month_arrow);
+			if(sow.contains("365")) {
+				for(int i=1;i<11;i++) {
+					click(Constants.pw2_calendar_next_month_arrow);					
+				}
+				String plus365 = String.valueOf(LocalDate.now().plusDays(364));	// locate today + 365 days		
+				String[] d = plus365.split("-");
+				click("//span[text()='"+d[2]+"']");				
+			}
+			else
+				click(Constants.pw2_calendar_active_day);
 			click(Constants.global_save_step_button);
 			waitUntilISpinnersInvisible();
 			waitVisible(Constants.ok_button);
@@ -216,7 +289,7 @@ public class PaPage extends TestBase {
 			select("//select[@id='ddlTimeTo']", "5:00 PM");
 			click("//span[text()='Save']");
 			clickButton("OK");
-						click(Constants.global_save_step_button);
+			click(Constants.global_save_step_button);
 			waitUntilISpinnersInvisible();
 			waitVisible(Constants.ok_button);
 			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
@@ -226,8 +299,9 @@ public class PaPage extends TestBase {
 		}
 		reportPass("eventInfo");
 	}
-	public void scopeOfWorkPa(String save) {
-		if (!save.equals("")) {
+	public void scopeOfWorkPa(String sow) {
+		if (!sow.equals("")) {
+			String[] data = sow.split(" :: ");
 			System.out.println(convertedTimestamp() + " **************** scopeOfWorkPa");
 //			filterJob(user);
 			test = rep.startTest("scopeOfWorkPa");
@@ -240,8 +314,11 @@ public class PaPage extends TestBase {
 			type("//input[@ng-model='PAFormObj.PASpaceInformation.NameofPaEstablishment']", "1");
 			radio("//input[@ng-model='PAFormObj.PASpaceInformation.FDNYOpenFlamePermitReq'][@value='false']");	
 			
-			click("(//i[@class='fa fa-edit'])[last()]");
-		
+			if(count("//input[@id='rdFlameSpreadLetterRequired1']") > 0) { // Temp bug
+				radio("//input[@id='rdFlameSpreadLetterRequired1'][@value='false']");
+			}
+			
+			click("(//i[@class='fa fa-edit'])[last()]");				
 			wait(1);
 			waitVisible("//button[text()='Update']");
 			radio("//input[@id='rdIspreBIS'][@value='false']");			
@@ -252,9 +329,9 @@ public class PaPage extends TestBase {
 			select("//select[@id='ddlDescofEvent']", "Cafeteria");
 //			click("//button[text()='Update']");
 			clickButton("Update");
-			
 			waitInvisible("//button[text()='Update']");
 			clickButton("OK");
+			waitInvisible(Constants.ok_button);
 			scrollAllWayUp();
 			click(Constants.global_save_step_button);
 			waitUntilISpinnersInvisible();
@@ -262,6 +339,24 @@ public class PaPage extends TestBase {
 			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
 			clickButton("OK");
 			waitInvisible(Constants.ok_button);
+			if(data[0].contains("add")) {
+				int number = Integer.valueOf(data[1]);
+				for(int i=1; i < number; i++) {
+					click(Constants.add_space_information);	
+					radio("//input[@id='rdIspreBIS'][@value='false']");			
+					select("//select[@id='ddlOccupancyDesignation']", "A-2");
+					wait(1);			
+					type("//input[@id='PANoOfPersons']", "100");
+					wait(1);
+					select("//select[@id='ddlDescofEvent']", "Cafeteria");
+//					click("//button[text()='Update']");
+					clickButton("Add");			
+					waitInvisible("//button[text()='Add']");
+					clickButton("OK");
+					waitInvisible(Constants.ok_button);
+				}
+			}							
+
 		}
 		reportPass("eventInfo");
 	}
@@ -382,10 +477,49 @@ public class PaPage extends TestBase {
 		reportPass("progressInspector");
 	}
 	
+	public void uploadDocuments(String upload_file) {
+		if (!upload_file.equals("")) {
+			System.out.println(convertedTimestamp() + " **************** uploadDocuments");
+			filterJob(user);
+			test = rep.startTest("Upload Documents");
+			click("//a[@class='ng-binding'][@ng-click='changeCurrentPage(5);']");
+			waitUntilISpinnersInvisible();
+			waitForPageToLoad();
+			while (count(Constants.upload_document_icon) < 1) {
+				waitUntilISpinnersInvisible();
+				waitForPageToLoad();
+				wait(3);
+			}
+			type(Constants.document_status_filter, "required");
+			while (count(Constants.document_status_required) > 0) {				
+				click(Constants.upload_document_icon);
+				send(Constants.doc_browse_button, Constants.uploadFolder + "upload.png");
+				click(Constants.doc_upload_button);
+				waitInvisible(Constants.doc_please_wait_message);
+				waitVisible(Constants.doc_upload_succesfull_message);				
+				clickButton("OK");
+				waitInvisible(Constants.ok_button);
+				waitUntilISpinnersInvisible();
+				waitForPageToLoad();
+				type(Constants.document_status_filter, "required");
+				wait(1);
+				if (count(Constants.document_status_required) == 0) {
+					click(Constants.global_save_step_button);
+					waitUntilISpinnersInvisible();
+					waitVisible(Constants.ok_button);
+					verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
+					clickButton("OK");
+					waitInvisible(Constants.ok_button);
+				}
+			}
+		}
+		reportPass("uploadDocuments");
+	}
+	
 	public void signatures(String signatures) {	
 		if(!signatures.equals("")){
 			System.out.println(convertedTimestamp() + " **************** applicant signature");
-			filterJob(user);	
+//			filterJob(user);	
 			test = rep.startTest("signatures");
 			click("//a[@class='ng-binding'][@ng-click='changeCurrentPage(6);']");
 			waitUntilISpinnersInvisible();
@@ -434,50 +568,13 @@ public class PaPage extends TestBase {
 		reportPass("signatures");
 	}
 	
-	public void uploadDocuments(String upload_file) {
-		if (!upload_file.equals("")) {
-			System.out.println(convertedTimestamp() + " **************** uploadDocuments");
-			filterJob(user);
-			test = rep.startTest("Upload Documents");
-			click("//a[@class='ng-binding'][@ng-click='changeCurrentPage(5);']");
-			waitUntilISpinnersInvisible();
-			waitForPageToLoad();
-			while (count(Constants.upload_document_icon) < 1) {
-				refreshPage();
-				waitForPageToLoad();
-				wait(3);
-			}
-			while (count(Constants.document_status_required) > 0) { 
-				type(Constants.document_status_filter, "required");
-				wait(1);
-				click(Constants.upload_document_icon);
-				send(Constants.doc_browse_button, Constants.uploadFolder + "upload.png");
-				click(Constants.doc_upload_button);
-				waitInvisible(Constants.doc_please_wait_message);
-				waitVisible(Constants.doc_upload_succesfull_message);				
-				clickButton("OK");
-				waitInvisible(Constants.ok_button);
-				waitUntilISpinnersInvisible();
-				waitForPageToLoad();
-				if (count(Constants.document_status_required) == 0) {
-					click(Constants.global_save_step_button);
-					waitUntilISpinnersInvisible();
-					waitVisible(Constants.ok_button);
-//					assertNotification(TEXT_PROPERTIES.getProperty("job_filing_saved"), "job_filing_saved");
-					verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
-					clickButton("OK");
-					waitInvisible(Constants.ok_button);
-				}
-			}
-		}
-		reportPass("uploadDocuments");
-	}
+
 	
 	public void previewToFile(String preview_to_file) {
 		if(!preview_to_file.equals("")){
 			System.out.println(convertedTimestamp() + " **************** PreviewToFile");
-//			filterJob(user);
-			test = rep.startTest("Preview To File");
+			filterJob(user);
+			test = rep.startTest("PreviewToFile");
 			for (int i = 1; i <= 20; i++) {
 				click(Constants.preview_resubmit_button);
 				waitUntilISpinnersInvisible();
@@ -510,6 +607,7 @@ public class PaPage extends TestBase {
 			waitInvisible(Constants.ok_button);
 			assertFilingStatus("Pending");
 		}
+		navigate("http://mstwva-dobcrm03.buildings.nycnet:8085/Build/Index.html#/logOut");
 		reportPass("previewToFile");
 	}	
 	
@@ -554,6 +652,57 @@ public class PaPage extends TestBase {
 			new Actions(driver).sendKeys(Keys.ENTER).build().perform();
 			waitUntilElementVisible(Constants.qa_admin_progress_inspector_seal_signature, 30);
 			viewAcceptDocs();
+		}
+	}
+	
+	// VIEW ACCEPT DOCS MAIN
+	public void viewAcceptDocuments(String user_name) {
+		if (!user_name.equals("")) {
+			String[] data = user_name.split(" :: ");
+			System.out.println(convertedTimestamp() + " **************** viewAcceptDocuments " + data[0]);
+			loginToCrm(data[0]);
+			searchForJobCrm();
+			test = rep.startTest("viewAcceptDocuments");
+			test.log(LogStatus.INFO, "viewAcceptDocuments");
+			waitForPageToLoad();
+//			driver.switchTo().defaultContent();
+			waitDocStatus();
+			if (count(Constants.crm_document_status_submitted) > 0) {
+				for (int i = 1; i <= 20; i++) {
+					doubleclick(Constants.crm_document_status_submitted);
+					wait(3);
+					driver.switchTo().defaultContent();
+					click(Constants.view_document_button);
+					wait(3);
+					ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+					while (tabs.size() > 1) {
+						driver.switchTo().window(tabs.get(1));
+						driver.close();
+						wait(2);
+						tabs = new ArrayList<String>(driver.getWindowHandles());
+					}
+					driver.switchTo().window(tabs.get(0));
+					driver.switchTo().defaultContent();
+					doubleclick(Constants.accept_document_button);
+					ifAlertExistAccept();
+					waitForPageToLoad();
+					wait(2);
+					driver.switchTo().frame("contentIFrame0");
+					waitVisible(Constants.crm_document_accepted);
+					driver.switchTo().defaultContent();
+					driver.navigate().back();
+					waitForPageToLoad();
+					wait(2);
+					driver.switchTo().frame("contentIFrame0");
+					waitVisible(Constants.label_job_filing);
+					waitClickableOr("//nobr[text()='Accepted']", "//nobr[text()='Submitted']");
+					if (count(Constants.crm_document_status_submitted) == 0) {
+						reportPass("viewAcceptDocuments");
+						break;
+					}
+				}
+			}
+			// viewAcceptDocs(); IN CASE OF MORE THEN 4 DOCUMENTS
 		}
 	}
 	
