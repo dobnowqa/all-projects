@@ -3,7 +3,6 @@ package com.antennacurbcut;
 import com.util.Constants;
 import com.util.TestUtil;
 import com.util.Xls_Reader;
-
 import java.util.Hashtable;
 import org.testng.SkipException;
 import org.testng.annotations.Test;
@@ -25,9 +24,6 @@ import com.pages.DobTR1Page;
 import com.pages.DobTR8Page;
 import com.pages.DobSignaturesPage;
 import com.base.TestBase;
-import com.pages.CrmPW2Page;
-import com.pages.CrmTR1Page;
-import com.pages.CrmTR8Page;
 import com.relevantcodes.extentreports.LogStatus;
 
 public class AnIncomplete extends TestBase {
@@ -162,39 +158,6 @@ public class AnIncomplete extends TestBase {
 //		pw2.uploadDocuments(data.get("pw2_2_documents"));
 	}
 
-	// CRM QA SUPERVISER
-	@Test(priority=20, dataProvider = "getTestData", dependsOnMethods={ "WorkPermit2Test"})
-	public void QaSuperviserTest(Hashtable<String, String> data) {
-		CrmTaskFormPage task_form = PageFactory.initElements(driver, CrmTaskFormPage.class);
-		CrmTR1Page tr1 = PageFactory.initElements(driver, CrmTR1Page.class);
-		CrmTR8Page tr8 = PageFactory.initElements(driver, CrmTR8Page.class);
-		task_form.viewAcceptDocuments(data.get("qa_superviser"));
-		tr1.viewAcceptTR1Fuel(data.get("qa_superviser"), data.get("accept_tr"));
-		tr1.viewAcceptTR1Fina(data.get("qa_superviser"), data.get("accept_tr"));
-		tr8.viewAcceptTR8PDocs(data.get("qa_superviser"), data.get("accept_tr"));
-		task_form.assignTo(data.get("qa_superviser"));
-	}
 
-	// QA ADMIN
-	@Test(priority=21, dataProvider = "getTestData", dependsOnMethods={ "QaSuperviserTest"})
-	public void QaAdministratorTest(Hashtable<String, String> data) {
-		CrmPW2Page pw2 = PageFactory.initElements(driver, CrmPW2Page.class);
-		pw2.viewAcceptPW2Docs(data.get("qa_administrator"), data.get("accept_pw2_docs"));
-	}
-	
-	// VIEW-ACCEPT DOCS
- 	@Test(priority=22, dataProvider="getTestData", dependsOnMethods={"ResubmitIncomplete"})
- 	public void AcceptDocs(Hashtable<String,String> data) {
- 		CrmTaskFormPage task_form = PageFactory.initElements(driver, CrmTaskFormPage.class);
-		task_form.viewAcceptDocuments(data.get("qa_administrator"));
- 	}
-
-	// ISSUE PERMIT
-	@Test(priority=23, dataProvider = "getTestData", dependsOnMethods={ "QaAdministratorTest"})
-	public void IssuePermitTest(Hashtable<String, String> data) {
-		CrmTaskFormPage task_form = PageFactory.initElements(driver, CrmTaskFormPage.class);
-		task_form.isuePermit(data.get("qa_administrator"));
-		successMessage(data.get("description"));
-	}
 
 }

@@ -4,15 +4,15 @@ import com.util.Constants;
 import com.util.TestUtil;
 import com.util.Xls_Reader;
 import java.util.Hashtable;
+
+import org.junit.AfterClass;
 import org.testng.SkipException;
 import org.testng.annotations.Test;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
-import org.openqa.selenium.support.PageFactory;
 import com.pages.DobDashboardPage;
 import com.pages.DobDocumentsPage;
 import com.pages.DobPW1Page;
@@ -25,9 +25,7 @@ import com.pages.DobTR1Page;
 import com.pages.DobTR8Page;
 import com.pages.DobSignaturesPage;
 import com.base.TestBase;
-import com.pages.CrmPW2Page;
-import com.pages.CrmTR1Page;
-import com.pages.CrmTR8Page;
+import com.pages.CrmDocs;
 import com.relevantcodes.extentreports.LogStatus;
 
 public class AnStandard extends TestBase {
@@ -51,10 +49,10 @@ public class AnStandard extends TestBase {
 		quitDriver();
 	}
 	
-/*	@AfterClass
+	@AfterClass
 	public void setChrome() {
 		setConfigBrowser("Chrome");
-	}*/
+	}
 
 	@AfterSuite
 	public void killDrivers() {
@@ -77,9 +75,7 @@ public class AnStandard extends TestBase {
 	DobSignaturesPage signature = new DobSignaturesPage();
 	DobDocumentsPage docs = new DobDocumentsPage();
 	CrmTaskFormPage task_form = new CrmTaskFormPage();
-	CrmPW2Page pw2crm = new CrmPW2Page();
-	CrmTR1Page crmtr1 = new CrmTR1Page();
-//	CrmTR8Page crmtr8 = new CrmTR8Page();
+	CrmDocs crmdocs = new CrmDocs();
 	
 	@Test(priority = 0, dataProvider = "getTestData", invocationCount = 1)
 	public void Portal(Hashtable<String, String> data) {
@@ -91,6 +87,7 @@ public class AnStandard extends TestBase {
 			test.log(LogStatus.INFO, data.get("description"));
 			test = rep.startTest("Test Case Data");
 			test.log(LogStatus.INFO, data.toString());
+
 
 
 			
@@ -118,75 +115,50 @@ public class AnStandard extends TestBase {
 			tr1.progressInspecSign(data.get("tr1"));
 			tr8.energyCodeProgressInspection(data.get("tr8"));
 			tr8.energyCodeSignature(data.get("tr8"));
+			docs.uploadDocuments(data.get("documents"));
 			signature.applicantStatementsSignature(data.get("signatures"));
 			signature.ownerSignature(data.get("owner_signature"));
-			docs.uploadDocuments(data.get("documents"));
 			pw1.previewToFile(data.get("preview_to_file"));
+			// ASSIGN TO TEAM
+			task_form.centralAssigner(data.get("cpe_acpe"));
 		}
 	}
 	
-	
-	
-	// ASSIGN TO TEAM
+	// CPE
 	@Test(priority = 1, dataProvider = "getTestData", dependsOnMethods = {"Portal"})
-	public void CentralAssigner(Hashtable<String, String> data) {
-		task_form.centralAssigner(data.get("cpe_acpe"));
+	public void CPEAction(Hashtable<String, String> data) {
+		task_form.cpeActions(data.get("cpe"));
+		task_form.viewAcceptDocuments(data.get("cpe"));
 	}
 
-	// CPE VIEW-ACCEPT DOCS ASSIGN TO PE
-	@Test(priority = 2, dataProvider = "getTestData", dependsOnMethods = {"CentralAssigner"})
-	public void CpeAssign(Hashtable<String, String> data) {
-		task_form.cpeAssign(data.get("chief_plan_examiner"));
+	// PRIMARY
+	@Test(priority = 2, dataProvider = "getTestData", dependsOnMethods = {"CPEAction"})
+	public void PrimaryPA(Hashtable<String, String> data) {
+		task_form.peActions(data.get("primary_pe"));				
 	}
 	
-	// PE 2 ACTION
-	@Test(priority = 3, dataProvider = "getTestData", dependsOnMethods = {"CpeAssign"})
-	public void secondaryPeAction(Hashtable<String, String> data) {
-
-		task_form.viewAcceptDocuments(data.get("secondary_pe"));
-	}
-	// PE 1 ACTION
-	@Test(priority = 4, dataProvider = "getTestData", dependsOnMethods = {"CpeAssign"})
-	public void primaryPeAction(Hashtable<String, String> data) {
-
-		task_form.peAction(data.get("primary_pe"));
-	}
-	// CPE ACTION
-	@Test(priority = 5, dataProvider = "getTestData", dependsOnMethods = {"primaryPeAction","secondaryPeAction"})
-	public void CpeAction(Hashtable<String, String> data) {
-
-		task_form.cpeAction(data.get("chief_plan_examiner"));
-	}
-	
-	// PW2-2
-	@Test(priority = 16, dataProvider = "getTestData", dependsOnMethods = {"CpeAction"})
-	public void WorkPermit2Test(Hashtable<String, String> data) {
-		
+	// CPE / PW2
+	@Test(priority = 3, dataProvider = "getTestData", dependsOnMethods = {"PrimaryPA"})
+	public void CPEAction2(Hashtable<String, String> data) {
+		task_form.cpeActions(data.get("cpe_2"));
 		pw2.workPermit(data.get("pw2_2"));
-//		pw2.uploadDocuments(data.get("pw2_2_documents"));
 	}
-
-	// QA SUPERVISER
-	@Test(priority = 17, dataProvider = "getTestData", dependsOnMethods = {"WorkPermit2Test"})
-	public void QaSuperviserTest(Hashtable<String, String> data) {
-		CrmTR8Page crmtr8 = PageFactory.initElements(driver, CrmTR8Page.class);
-//		task_form.viewAcceptDocuments(data.get("qa_superviser"));
-		crmtr1.viewAcceptTR1Fuel(data.get("qa_superviser"), data.get("accept_tr"));
-		crmtr1.viewAcceptTR1Fina(data.get("qa_superviser"), data.get("accept_tr"));
-		crmtr8.viewAcceptTR8PDocs(data.get("qa_superviser"), data.get("accept_tr"));
-		task_form.qaSuperviser(data.get("qa_superviser"));
+	
+	// DOCS
+	@Test(priority = 3, dataProvider = "getTestData", dependsOnMethods = {"CPEAction2"})
+	public void QaSuper(Hashtable<String, String> data) {
+		task_form.qaSuper(data.get("qa_super"));
+		crmdocs.viewAcceptTR1Fuel(data.get("qa_super"), data.get("accept_tr"));
+		crmdocs.viewAcceptTR1Fina(data.get("qa_super"), data.get("accept_tr"));
+		crmdocs.viewAcceptTR8PDocs(data.get("qa_super"), data.get("accept_tr"));
+		crmdocs.viewAcceptPW2Docs(data.get("qa_super"), data.get("accept_pw2_docs"));
 	}
-
-	// QA ADMIN ACCEPT PERMIT DOCUMENTSS / ISSUE PERMIT
-	@Test(priority = 18, dataProvider = "getTestData", dependsOnMethods = {"QaSuperviserTest"})
-	public void QaAdministratorAcceptPW2Test(Hashtable<String, String> data) {
-		pw2crm.viewAcceptPW2Docs(data.get("qa_administrator"), data.get("accept_pw2_docs"));
-		task_form.isuePermit(data.get("qa_administrator"));
+	
+	// CPERMIT
+	@Test(priority = 4, dataProvider = "getTestData", dependsOnMethods = {"QaSuper"})
+	public void Permit(Hashtable<String, String> data) {
+		task_form.isuePermit(data.get("qa_admin"));
 		successMessage(data.get("description"));
-		
-/*		CrmPW2Page pw2 = PageFactory.initElements(driver, CrmPW2Page.class);
-		pw2.viewAcceptPW2Docs(data.get("qa_administrator"), data.get("accept_pw2_docs"));*/
-		
 	}
-
+	
 }

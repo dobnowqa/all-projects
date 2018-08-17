@@ -96,10 +96,10 @@ public class FnNew extends TestBase {
 		pw1.savePW1(data.get("save_pw1"));
 		asw.scopeOfWorkFence(data.get("asw"));
 //		tr1.progressInspection(data.get("tr1")); // temp not in use
+		docs.uploadDocuments(data.get("documents"));
 		signature.applicantStatementsSignature(data.get("signatures"));
 		signature.ownerSignature(data.get("owner_signature"));
-		docs.uploadDocuments(data.get("documents"));
-//		pw1.previewToFile(data.get("preview_to_file"));
+		pw1.previewToFile(data.get("preview_to_file"));
 		successMessage(data.get("description"));
 	}
 

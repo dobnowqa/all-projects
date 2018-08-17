@@ -158,21 +158,12 @@ public class TestBase {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	public void initDriver() {
 		if (driver == null) {
-/*			try {
-				Runtime.getRuntime().exec("RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 2");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}*/
 			if (CONFIG.getProperty("browser").equals("Chrome")) {
 				System.setProperty("webdriver.chrome.driver", Constants.chromePath);
 				System.setProperty("webdriver.chrome.silentOutput", "true");
-				
-/*				System.setProperty("webdriver.chrome.logfile", "NUL");
-                System.setProperty("webdriver.chrome.args", "--disable-logging");
-                System.setProperty("webdriver.chrome.silentOutput", "true");*/
-				
 				ChromeOptions options = new ChromeOptions();
 				options.addArguments("--log-level=3");
 				options.addArguments("--silent");
@@ -191,13 +182,15 @@ public class TestBase {
 				driver = new ChromeDriver(options);
 				String window_name_chrome = driver.getWindowHandle();
 				driver.switchTo().window(window_name_chrome);
-				// addToPropFile("window_name_chrome", window_name_chrome);
 			} else if (CONFIG.getProperty("browser").equals("Mozilla")) {
 				System.setProperty("webdriver.gecko.driver", Constants.geckoPath);
 				FirefoxOptions options = new FirefoxOptions();
 				options.setBinary(Constants.firefoxPath);
+				
+				DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+				capabilities.setCapability("moz:firefoxOptions", options);				
 				driver = new FirefoxDriver(options);
-				driver.manage().window().maximize();
+				driver.manage().window().maximize();			
 			}
 
 			else if (CONFIG.getProperty("browser").equals("IE")) {
@@ -207,7 +200,7 @@ public class TestBase {
 				capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
 				capabilities.setCapability("silent", true);
 				capabilities.setCapability("InPrivate", true);
-				driver = new InternetExplorerDriver();
+				driver = new InternetExplorerDriver(capabilities);
 				driver.manage().window().maximize();
 			}
 		}
@@ -1000,13 +993,14 @@ public class TestBase {
 	public void loginToCrm(String user_name) {
 		for (int i = 1; i <= 10; i++) {
 			// navigate(crm_url);
-			test = rep.startTest("Login to CRM");
+			test = rep.startTest("Login to CRM as " + user_name);
 			test.log(LogStatus.INFO, "Login to CRM as " + user_name);
 			waitForPageToLoad();
 			if (count(Constants.crm_username_label) > 0) {
 				driver.manage().window().maximize();
 				if (text(Constants.crm_username_label).contains(user_name)) {
-					driver.get(crm_url);
+					navigate(crm_url);
+//					driver.get(crm_url);
 					break;
 				}
 			}
@@ -1029,7 +1023,7 @@ public class TestBase {
 					new Robot().keyPress(java.awt.event.KeyEvent.VK_ENTER);
 					mouseOverlocator(950, 80);
 					setWindowfocus();
-					wait(5);
+					wait(2);
 					clipboard.setContents(username, null);
 					setWindowfocus();
 					new Robot().keyPress(java.awt.event.KeyEvent.VK_CONTROL);
@@ -1107,8 +1101,8 @@ public class TestBase {
 	}
 
 	public void searchForJobCrm() {
-		test = rep.startTest("Search job " + JOB_NUMBER.getProperty("job_number"));
-		test.log(LogStatus.INFO, "Search job CRM " + JOB_NUMBER.getProperty("job_number"));
+		test = rep.startTest("searchForJobCrm " + JOB_NUMBER.getProperty("job_number"));
+		test.log(LogStatus.INFO, "searchForJobCrm " + JOB_NUMBER.getProperty("job_number"));
 		for (int i = 1; i <= 30; i++) {
 			ifAlertExistAccept();
 			navigate(crm_url);
@@ -1131,7 +1125,6 @@ public class TestBase {
 		waitInvisible(Constants.crm_loading_image);
 		waitForPageToLoad();
 		wait(3);
-
 		driver.switchTo().defaultContent();
 	}
 	
@@ -1285,6 +1278,18 @@ public class TestBase {
 			}
 		}
 	}
+	public void enableAndType(String locatorKey, String value) {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		WebElement element = getElement(locatorKey);
+		if (count(locatorKey) > 0) {
+			try {
+				js.executeScript("document.getElementById('" +element+ "').value = arguments[0]","" +value+ "");
+			} catch (Throwable t) {
+			}
+		}
+	}
+	
+	
 
 	public void javaMessage(String[] args, String test_name) {
 		final JOptionPane pane = new JOptionPane(test_name);
@@ -1498,6 +1503,7 @@ public class TestBase {
 	}
 	
 	public void clickButton(String button_name) {
+		test.log(LogStatus.INFO, "Clicking button " + button_name);
 		WebDriverWait wait = new WebDriverWait(driver, 30);
 		wait.until(ExpectedConditions.elementToBeClickable(getElement("//button[contains(text(),'" +button_name+ "')]")));
 		while(count("//button[contains(text(),'" +button_name+ "')]") > 0){
@@ -1527,7 +1533,7 @@ public class TestBase {
 
 
 	public void reportPass(String msg){
-		test.log(LogStatus.PASS, msg);
+		test.log(LogStatus.PASS, msg+ " PASSED");
 	}
 
 	public void viewAcceptDocs() {
@@ -1612,6 +1618,19 @@ public class TestBase {
 				type("//span[text()='Payment Status']/following::input[@ng-model='colFilter.term']", data[11]);
 		}
 		reportPass("filter");
+	}
+	
+	public void switchFrame(String frame_name) {
+		try {
+			driver.switchTo().defaultContent().switchTo().frame(frame_name);
+//			driver.switchTo().frame(frame_name);
+		} catch (NumberFormatException nfe) {
+			System.out.println("cannot swithFrame");
+		}
+	}
+	
+	public void rightClick(String locatorKey) {
+		new Actions(driver).contextClick(getElement(locatorKey)).build().perform();
 	}
 	
 	// Action moveToElement("//span[contains(text(),'DOB AHV Permits')]").click().keyDown(Keys.Ctrl).sendkeys(Keys.Down).build().perform();

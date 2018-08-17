@@ -16,7 +16,6 @@ import org.openqa.selenium.support.PageFactory;
 import com.pages.DobDashboardPage;
 import com.pages.CrmTaskFormPage;
 import com.base.TestBase;
-import com.pages.CrmPW2Page;
 import com.pages.DobAHVPage;
 import com.relevantcodes.extentreports.LogStatus;
 
@@ -72,33 +71,6 @@ public class AnAhvTest extends TestBase {
 		DobAHVPage ahv = PageFactory.initElements(driver, DobAHVPage.class);
 		ahv.antennaAHV(data.get("ahv"));
 	}
-	// 020 ACCEPT PW2 DOCS
-	@Test(priority = 2, dataProvider = "getTestData", dependsOnMethods = {"AHVTest"})
-	public void AcceptPW2Docs(Hashtable<String, String> data) {
-		CrmPW2Page pw2 = PageFactory.initElements(driver, CrmPW2Page.class);
-		pw2.viewAcceptPW2DocsAhv(data.get("qa_superviser_ahv"));
-	}
-	
-	// 020 ACCEPT AHW DOCS
-	@Test(priority = 3, dataProvider = "getTestData", dependsOnMethods = {"AcceptPW2Docs"})
-	public void AcceptAHWDocs(Hashtable<String, String> data) {
-/*		CrmPW2Page pw2 = PageFactory.initElements(driver, CrmPW2Page.class);
-		pw2.viewAcceptAhvPW2Docs(data.get("qa_superviser_ahv"));*/
-	}
-	
-	// CRM QA SUPERVISER
-	@Test(priority = 4, dataProvider = "getTestData", dependsOnMethods = {"AcceptAHWDocs"})
-	public void QaSuperviserAhv(Hashtable<String, String> data) {
-		CrmTaskFormPage task_form = PageFactory.initElements(driver, CrmTaskFormPage.class);
-		task_form.assignToSelfAhv(data.get("qa_superviser_ahv"));
-	}
 
-	// QA DECISION
-	@Test(priority = 5, dataProvider = "getTestData", dependsOnMethods = {"QaSuperviserAhv"})
-	public void QaDecisionTest(Hashtable<String, String> data) {
-		CrmTaskFormPage task_form = PageFactory.initElements(driver, CrmTaskFormPage.class);
-		task_form.qaAction(data.get("qa_superviser_ahv"));
-		successMessage(data.get("description"));
-	}
 	
 }

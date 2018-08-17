@@ -3,7 +3,6 @@ package com.antennacurbcut;
 import com.util.Constants;
 import com.util.TestUtil;
 import com.util.Xls_Reader;
-
 import java.util.Hashtable;
 import org.testng.SkipException;
 import org.testng.annotations.Test;
@@ -17,7 +16,6 @@ import org.openqa.selenium.support.PageFactory;
 import com.pages.DobDashboardPage;
 import com.pages.CrmTaskFormPage;
 import com.base.TestBase;
-import com.pages.CrmPW2Page;
 import com.relevantcodes.extentreports.LogStatus;
 
 public class AnPermitRenewalTest extends TestBase {
@@ -84,8 +82,8 @@ public class AnPermitRenewalTest extends TestBase {
 	// QA ADMIN
 	@Test(priority = 2, dataProvider = "getTestData", dependsOnMethods={ "QaSuperviserRenewal"})
 	public void QaAdministratorRenewal(Hashtable<String, String> data) {
-		CrmPW2Page pw2 = PageFactory.initElements(driver, CrmPW2Page.class);
-		pw2.viewAcceptPW2Docs(data.get("qa_administrator_renewal"), data.get("accept_pw2_docs_renewal"));
+/*		CrmPW2Page pw2 = PageFactory.initElements(driver, CrmPW2Page.class);
+		pw2.viewAcceptPW2Docs(data.get("qa_administrator_renewal"), data.get("accept_pw2_docs_renewal"));*/
 	}
 
 	// ISSUE PERMIT
