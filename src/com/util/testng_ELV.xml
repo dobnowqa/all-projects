@@ -5,39 +5,81 @@
 </listeners>
 
 
-<test name="ElevAlterationTest">
+<test name="AlterationAccessibilityLift">
     <classes>
-        <class name="com.elevators.ElevAlterationTest"></class>  
+        <class name="com.elevators.AlterationAccessibilityLift"></class>  
     </classes>
 </test>
 
-<test name="ElevDismantleTest">
+<test name="AlterationConveyor">
     <classes>
-        <class name="com.elevators.ElevDismantleTest"></class>  
+        <class name="com.elevators.AlterationConveyor"></class>  
     </classes>
 </test>
 
-<test name="ElevNewInstallTest">
+<test name="AlterationDumbwaiter">
     <classes>
-        <class name="com.elevators.ElevNewInstallTest"></class>  
+        <class name="com.elevators.AlterationDumbwaiter"></class>  
     </classes>
 </test>
 
-<test name="ElevNewOtherTest">
+<test name="AlterationElevator">
     <classes>
-        <class name="com.elevators.ElevNewOtherTest"></class>  
+        <class name="com.elevators.AlterationElevator"></class>  
     </classes>
 </test>
 
-<test name="ElevPtoFTest">
+<test name="AlterationEscalator">
     <classes>
-        <class name="com.elevators.ElevPtoFTest"></class>  
+        <class name="com.elevators.AlterationEscalator"></class>  
     </classes>
 </test>
 
-<test name="ElevRemoveTest">
+<test name="AlterationMovingWalk">
     <classes>
-        <class name="com.elevators.ElevRemoveTest"></class>  
+        <class name="com.elevators.AlterationMovingWalk"></class>  
+    </classes>
+</test>
+
+<test name="AlterationPtoF">
+    <classes>
+        <class name="com.elevators.AlterationPtoF"></class>  
+    </classes>
+</test>
+
+<test name="DismantleAccessibilityLift">
+    <classes>
+        <class name="com.elevators.DismantleAccessibilityLift"></class>  
+    </classes>
+</test>
+
+<test name="DismantleConveyor">
+    <classes>
+        <class name="com.elevators.DismantleConveyor"></class>  
+    </classes>
+</test>
+
+<test name="DismantleDumbwaiter">
+    <classes>
+        <class name="com.elevators.DismantleDumbwaiter"></class>  
+    </classes>
+</test>
+
+<test name="DismantleElevator">
+    <classes>
+        <class name="com.elevators.DismantleElevator"></class>  
+    </classes>
+</test>
+
+<test name="DismantleEscalator">
+    <classes>
+        <class name="com.elevators.DismantleEscalator"></class>  
+    </classes>
+</test>
+
+<test name="DismantleMovingWalk">
+    <classes>
+        <class name="com.elevators.DismantleMovingWalk"></class>  
     </classes>
 </test>
 
@@ -47,12 +89,83 @@
     </classes>
 </test>
 
-<test name="ElevSignOffTest">
+<test name="NewAccessibilityLift">
     <classes>
-        <class name="com.elevators.ElevSignOffTest"></class>  
+        <class name="com.elevators.NewAccessibilityLift"></class>  
     </classes>
 </test>
 
+<test name="NewConveyor">
+    <classes>
+        <class name="com.elevators.NewConveyor"></class>  
+    </classes>
+</test>
+
+<test name="NewDumbwaiter">
+    <classes>
+        <class name="com.elevators.NewDumbwaiter"></class>  
+    </classes>
+</test>
+
+<test name="NewEscalator">
+    <classes>
+        <class name="com.elevators.NewEscalator"></class>  
+    </classes>
+</test>
+
+<test name="NewMovingWalk">
+    <classes>
+        <class name="com.elevators.NewMovingWalk"></class>  
+    </classes>
+</test>
+
+<test name="NewOther">
+    <classes>
+        <class name="com.elevators.NewOther"></class>  
+    </classes>
+</test>
+
+<test name="NewPersonnelHoist">
+    <classes>
+        <class name="com.elevators.NewPersonnelHoist"></class>  
+    </classes>
+</test>
+
+<test name="RemoveAccessibilityLift">
+    <classes>
+        <class name="com.elevators.RemoveAccessibilityLift"></class>  
+    </classes>
+</test>
+
+<test name="RemoveConveyor">
+    <classes>
+        <class name="com.elevators.RemoveConveyor"></class>  
+    </classes>
+</test>
+
+<test name="RemoveDumbwaiter">
+    <classes>
+        <class name="com.elevators.RemoveDumbwaiter"></class>  
+    </classes>
+</test>
+
+<test name="RemoveElevator">
+    <classes>
+        <class name="com.elevators.RemoveElevator"></class>  
+    </classes>
+</test>
+
+<test name="RemoveEscalator">
+    <classes>
+        <class name="com.elevators.RemoveEscalator"></class>  
+    </classes>
+</test>
+
+<test name="RemoveMovingWalk">
+    <classes>
+        <class name="com.elevators.RemoveMovingWalk"></class>  
+    </classes>
+</test>
 
 
 

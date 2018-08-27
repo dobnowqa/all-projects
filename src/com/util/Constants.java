@@ -10,19 +10,15 @@ public class Constants {
 	public static String OR_PROPERTIES = System.getProperty("user.dir")+"//src//com//config//OR.properties";
 	public static String JOB_NUMBER = System.getProperty("user.dir")+"//src//com//config//job_number.properties";
 //	public static String testCases = System.getProperty("user.dir")+"//src//com//data//Test Cases.xlsx";		// mac
-
 	public static String firefoxPath = "C:\\Program Files\\Mozilla Firefox\\firefox.exe"; 
 	public static String testCases = System.getProperty("user.dir")+"\\src\\com\\data\\Test Cases.xlsx";
-	public static String testCasesSubs = System.getProperty("user.dir")+"\\src\\com\\data\\Test Cases subs.xlsx";
-	
-	
+	public static String testCasesSubs = System.getProperty("user.dir")+"\\src\\com\\data\\Test Cases subs.xlsx";	
 	public static String testCasesPlm = System.getProperty("user.dir")+"\\src\\com\\data\\Test Cases Pl.xlsx";
 	public static String testCasesFab4 = System.getProperty("user.dir")+"\\src\\com\\data\\Test Cases Fab4.xlsx";
 	public static String testCasesesEctrical = System.getProperty("user.dir")+"\\src\\com\\data\\Test Cases Elc.xlsx";
 	public static String testCasesesElevator = System.getProperty("user.dir")+"\\src\\com\\data\\Test Cases Elv.xlsx";
 	public static String testCasesesPaTpa = System.getProperty("user.dir")+"\\src\\com\\data\\Test Cases Pa.xlsx";
-	public static String testCasesesLaa = System.getProperty("user.dir")+"\\src\\com\\data\\Test Cases Laa.xlsx";
-	
+	public static String testCasesesLaa = System.getProperty("user.dir")+"\\src\\com\\data\\Test Cases Laa.xlsx";	
 	public static String testCasesesBoilers = System.getProperty("user.dir")+"\\src\\com\\data\\boilers\\Test Cases.xlsx";
 	public static String chromePath = System.getProperty("user.home")+"\\drivers\\chromedriver.exe";
 	public static String iePath = System.getProperty("user.home")+"\\drivers\\IEDriverServer.exe";
@@ -37,11 +33,8 @@ public class Constants {
 	public static final String dob_now_protocol_stage = "https://";
 	public static final String dob_now_host = "msswvw";
 //	public static final String dob_8085 = "mstwva-dobcrm03.buildings.nycnet:8085/index.html";
-	public static final String dob_8085 = "mstwva-dobcrm03.buildings.nycnet:8085/Build/index.html";
-	
-	
-	public static final String dob_now_stage_444 = "msswvw-dobcrmpw.nycnet:444/index.html";
-	
+	public static final String dob_8085 = "mstwva-dobcrm03.buildings.nycnet:8085/Build/index.html";	
+	public static final String dob_now_stage_444 = "msswvw-dobcrmpw.nycnet:444/index.html";	
 	public static final String stage_443 = "msswvw-dobcrmpw.nycnet/Publish/DOBNowPortal/index.html";
 	public static final String stage_444 = "msswvw-dobcrmpw.nycnet:444/Publish/DOBNowPortal/Build/index.html";
 	public static final String electrical_stage_444 = "msswvw-dobcrmpw.nycnet:444/Publish/DOBNowPortal/Build/index.html";
@@ -51,10 +44,9 @@ public class Constants {
 // GLOBAL ITEMS
 	public static final String spinner = "//*[contains(.,'spinner')]";
 	public static final String spinner2 = "//*[contains(.,'veil-portal')]";
-	public static final String please_wait = " //i[@class='fa fa-spinner']"; // REAL VISIBLE
-	public static final String loading = "//div[@id='veil']";
-
-	
+	public static final String spinner_fa_fa = " //i[@class='fa fa-spinner']"; // REAL VISIBLE
+	public static final String please_wait = "//*[text()='Please Wait']";
+	public static final String loading = "//div[@id='veil']";	
 	public static final String global_dob_logo = "//img[@ng-src='images/DOB-NOW-logo.png']";
 	public static final String global_first_filter_field = "//input[@ng-model='colFilter.term']";
 	public static final String global_notification_message = "//p[contains(@ng-bind-html,'ngDialogData')]";
@@ -836,10 +828,12 @@ public class Constants {
 	public static final String search_by_street = "//input[contains(@id,'txtStreetName')]";
 	public static final String search_by_borough = "//select[contains(@id,'ddlBorough')]";
 	
-	public static final String search_and_add_button = "//div[@id='addressSearchButton']/button";
+	
+	public static final String search_and_add_button = "//div[@id='addressSearchButton']/button/span"; //div[@id='addressSearchButton']/button
 	public static final String device_list_checkbox = "//input[@ng-model='device.IsSelected']";
 	public static final String green_device = "//button[@class='btn-circle2 pull-right devActive']";
 	public static final String green_circle = "//button[@class='btn-circle2 pull-right devActive']";
+	public static final String white_circle = "//button[@class='btn-circle2 pull-right']";
 	public static final String device_checkbox = "//input[@name='DesignApplicantStatementsMainCheck']";
 
 	
@@ -852,7 +846,7 @@ public class Constants {
 	public static final String device_added_message = "//p[@id='desc'][text()='Device(s) added successfully.']";
 	public static final String cannot_use_device_message = "//p[@id='desc'][contains(.,'You cannot select this device')]";
 	public static final String open_device_details_tab = "//a[@ng-click='openDeviceDetails(device.DeviceId);']";
-	public static final String replace_passenger_with_freight = "//input[@id='rdPassengerToFreight'][value='false']";
+	public static final String replace_passenger_with_freight = "//input[@id='rdPassengerToFreight']";
 
 	public static final String device_number = "//input[@id='txtDeviceSearch']";
 	
@@ -910,10 +904,12 @@ public class Constants {
 
 	public static final String completed_checkmark = "//i[@class='fa fa-check-square-o']";
 // LABELS	
+	public static final String general_information_tab = "//a[@class='ng-binding'][@ng-click='changeCurrentPage(1);']";
+	public static final String test_information_tab = "//a[@class='ng-binding'][@ng-click='changeCurrentPage(2);']";
 	public static final String insurance_fee_information_tab = "//a[@class='ng-binding'][@ng-click='changeCurrentPage(3);']";
 	public static final String documents_tab = "//a[@class='ng-binding'][@ng-click='changeCurrentPage(4);']";
 	public static final String signatures_tab = "//a[@class='ng-binding'][@ng-click='changeCurrentPage(5);']";
-	public static final String test_information_tab = "//a[@class='ng-binding'][@ng-click='changeCurrentPage(2);']";
+
 	public static final String statements_tab = "//a[@class='ng-binding'][@ng-click='changeCurrentPage(4);']";
 	
 	public static final String device_information_label = "//h4[text()='Device Information']";
@@ -1006,8 +1002,8 @@ public class Constants {
 	public static final String counterweight_buffer = "//select[@id='dpdeviceCounterweightBuffer']";
 	public static final String counterweight_buffer_type = "//select[@id='deviceCounterweightBufferType']";
 	
-	public static final String device_details_arrow_down = "//i[@class='glyphicon pull-right v-pad-10 glyphicon-chevron-down']";
-	
+//	public static final String device_details_arrow_down = "//i[contains(@class='glyphicon pull-right v-pad-10 glyphicon-chevron-down']"; // elevators OLD
+	public static final String device_details_arrow_down = "//i[contains(@class,'glyphicon-chevron-down')]";
 	
 	public static final String car_manufacturer = "//input[@id='txtdeviceCarBufferManufacturer']";
 	public static final String engagement_speed = "//input[@id='txtdeviceCarBufferEngagementSpeed']";
@@ -1507,6 +1503,7 @@ public class Constants {
 	public static final String el_job_label	= "//span[@class='pad-left-10']";
 // SCOPE OF WORK	
 	public static final String el_scope_of_work_tab = "//a[contains(.,'Electrical Scope of Work')]";
+	public static final String el_category_of_work_tab= "//div[@slidediv='categoryOfWork']";
 	public static final String el_boiler_controls_tab= "//div[@slidediv='BoilerControls']";
 	public static final String el_boiler_controls_quantity = "//input[@name='Boiler Controls-Quantity']";
 	public static final String el_boiler_controls_number_size = "//input[@name='Boiler Controls-IndicateNoAndSize']";
@@ -1838,4 +1835,13 @@ public class Constants {
 	//h2[contains(text(),'popular courses')]/parent::div//div/following-sibling::div[@class='rt-grid-2 rt-omega']
 	//h2[contains(text(),'popular courses')]/parent::div//div[//a[text()='SELENIUM']]/following-sibling::div[@class='rt-grid-2 rt-omega']
 	//img[@id='dobnyc_ms_cpeacpeteam_i']/parent::node() = parent::node() just equal to .. = //img[@id='dobnyc_ms_cpeacpeteam_i']/..
+	
+	/*					System.out.println(driver.findElement(By.xpath(Constants.green_circle)).getCssValue("background-color"));
+	if(driver.findElement(By.xpath(Constants.green_circle)).getCssValue("background-color").contains("rgba(98, 152, 40, 1)") == false) {						
+		System.out.println("false");
+		click(Constants.global_cancel_button);
+		waitInvisible(Constants.global_cancel_button);	
+		String hex = Color.fromString(color).asHex();					
+	}*/	
+	
 }
