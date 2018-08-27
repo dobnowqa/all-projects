@@ -17,9 +17,8 @@ import com.pages.ElevatorsPage;
 import com.relevantcodes.extentreports.LogStatus;
 
 public class ElevSignOffTest extends TestBase {
-
+	String testname = this.getClass().getSimpleName();
 	Xls_Reader xlsx = new Xls_Reader(Constants.testCasesesElevator);
-	String testname = "ElevSignOffTest";
 
 	@BeforeSuite
 	public void BeforeSuite() {
@@ -66,7 +65,7 @@ public class ElevSignOffTest extends TestBase {
 		
 		dash.jobFilingElev(data.get("work_type"));
 		elv.searchAddDevice(data.get("address"));
-		elv.deviceInfo2(data.get("device_info"));
+		elv.deviceInfoAlteration(data.get("device_info"));
 		elv.machineRoom(data.get("machine_room"));
 		elv.deviceGeneralinfo(data.get("device_general_info"));
 		elv.carsCounterweight(data.get("cars_counterweight"));

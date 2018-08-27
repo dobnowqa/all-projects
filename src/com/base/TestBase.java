@@ -69,9 +69,9 @@ public class TestBase {
 	public static String pagesource = null;
 	public static String timestamp = null;
 	public static String dob_now_url = null;
+	public static String env = null;
 	public static String crm_url = null;
 //	public static String location = null;
-
 	public static String user = null;
 	public static String owner = null;
 	public static String tr1_user = null;
@@ -80,12 +80,8 @@ public class TestBase {
 	public static String tr1_lic = null;
 	public static String tr8_lic = null;
 	public static String pw2_lic = null;
-	public static String testname;
-	
-
 	public static String exctracted_job_number = null;
 	public static String job_number_value = null;
-
 	Xls_Reader xlsx = new Xls_Reader(Constants.testCases);
 	public ExtentReports rep = ExtentManager.getInstance();
 	public ExtentTest test;
@@ -93,6 +89,7 @@ public class TestBase {
 	public SoftAssert softAssertion= new SoftAssert();
 	public SoftAssert softAssert= new SoftAssert();
 	public String emailpreview;
+	public String[] data;
 	
 	public void setConfigBrowser(String browser) {
 		try {
@@ -227,6 +224,8 @@ public class TestBase {
 	}*/
 	
 	public void getEnvironmentDetails() {
+		String[] data = CONFIG.getProperty("env").split(" ");
+		env = data[1];
 		if (CONFIG.getProperty("env").contains("443")) {
 			dob_now_url = Constants.dob_now_protocol_stage + Constants.stage_443;
 			crm_url = Constants.crm_stage;
@@ -283,37 +282,7 @@ public class TestBase {
 		if (CONFIG.getProperty("env").contains("laa")) {
 			user = Constants.DOBTEST05;
 		}
-		
-		
-/*		if (CONFIG.getProperty("env").equals("ant_444")) {
-			dob_now_url = Constants.dob_now_protocol_stage + Constants.dob_now_stage_444;
-			crm_url = Constants.crm_stage;
-		}*/
-/*		if (CONFIG.getProperty("env").equals("el_444")) {
-			dob_now_url = Constants.dob_now_protocol_stage + Constants.electrical_stage_444;
-		}*/
 	}
-	
-/*	public void XaddToPropFile(String property, String value) {
-		if (!property.equals("")) {
-			try {
-				test = rep.startTest("Add to Props");
-				FileInputStream fileName = new FileInputStream(Constants.OR_PROPERTIES);
-				Properties props = new Properties();
-				props.load(fileName);
-				props.setProperty(property, value);
-				fileName.close();
-				FileOutputStream outFileName = new FileOutputStream(Constants.OR_PROPERTIES);
-				props.store(outFileName, "# BROWSERS::  IE  Chrome  Mozilla # ENVIRONMENTS ::  443 444 8085 + WORK TYPES:: antenna curbcut plumbing electrical elevators fab4");
-				outFileName.close();
-				// props.load(fileName);
-				FileInputStream fs = new FileInputStream(Constants.OR_PROPERTIES);
-				OR_PROPERTIES.load(fs);
-			} catch (IOException io) {
-				io.printStackTrace();
-			}
-		}
-	}*/
 
 	public void navigate(String urlKey) {
 		test = rep.startTest("Test URL");
@@ -368,11 +337,11 @@ public class TestBase {
 	}*/
 	public void waitVisible(String locatorKey) {
 		waitForPageToLoad();
-		waitUntilElementVisible(locatorKey, 30);
+		waitUntilElementVisible(locatorKey, 40);
 	}
 	public void waitInvisible(String locatorKey) {
 		waitForPageToLoad();
-		waitUntilElementInVisible(locatorKey, 30);
+		waitUntilElementInVisible(locatorKey, 40);
 	}
 
 	public void waitVisible60(String locatorKey) {
@@ -425,9 +394,10 @@ public class TestBase {
 	
 	public void waitUntilISpinnersInvisible() {
 		ifAlertExistAccept();
-		if (elementVisible(Constants.loading) == true || elementVisible(Constants.please_wait) == true) {
+		if (elementVisible(Constants.loading) == true || elementVisible(Constants.please_wait) == true || elementVisible(Constants.spinner_fa_fa) == true) {
 			waitInvisible(Constants.please_wait);
 			waitInvisible(Constants.loading);
+			waitInvisible(Constants.spinner_fa_fa);
 		}
 	}
 
@@ -1074,18 +1044,20 @@ public class TestBase {
 			StringSelection pass = new StringSelection(OR_PROPERTIES.getProperty("password_crm"));
 			clipboard.setContents(username, null);
 			try {
+				Robot rb = new Robot();
 				mouseOverlocator(950, 80);
 				setWindowfocus();
-				new Robot().keyPress(java.awt.event.KeyEvent.VK_CONTROL);
-				new Robot().keyPress(java.awt.event.KeyEvent.VK_V);
-				new Robot().keyRelease(java.awt.event.KeyEvent.VK_CONTROL);
-				new Robot().keyPress(java.awt.event.KeyEvent.VK_TAB);
+				rb.keyPress(java.awt.event.KeyEvent.VK_CONTROL);
+				rb.keyPress(java.awt.event.KeyEvent.VK_V);
+				rb.keyRelease(java.awt.event.KeyEvent.VK_CONTROL);
+				rb.keyPress(java.awt.event.KeyEvent.VK_TAB);
 				wait(1);
 				clipboard.setContents(pass, null);
-				new Robot().keyPress(java.awt.event.KeyEvent.VK_CONTROL);
-				new Robot().keyPress(java.awt.event.KeyEvent.VK_V);
-				new Robot().keyRelease(java.awt.event.KeyEvent.VK_CONTROL);
-				new Robot().keyPress(java.awt.event.KeyEvent.VK_ENTER);
+				rb.keyPress(java.awt.event.KeyEvent.VK_CONTROL);
+				rb.keyPress(java.awt.event.KeyEvent.VK_V);
+				rb.keyRelease(java.awt.event.KeyEvent.VK_CONTROL);
+				rb.keyPress(java.awt.event.KeyEvent.VK_ENTER);
+				waitVisible(Constants.crm_top_nav_search_button);
 				waitVisible(Constants.crm_top_nav_search_button);
 			} catch (AWTException e) {
 				e.printStackTrace();
@@ -1510,6 +1482,7 @@ public class TestBase {
 			click("//button[contains(text(),'" +button_name+ "')]");
 			wait(2);
 		}
+		waitUntilISpinnersInvisible();
 	}
 	
 	public void waitClickable(String locatorKey) {
@@ -1633,6 +1606,13 @@ public class TestBase {
 		new Actions(driver).contextClick(getElement(locatorKey)).build().perform();
 	}
 	
+	public String reverse(String string) {
+		String reversed = new StringBuilder(string).reverse().toString();
+		return reversed;
+	}
+	
+	
+
 	// Action moveToElement("//span[contains(text(),'DOB AHV Permits')]").click().keyDown(Keys.Ctrl).sendkeys(Keys.Down).build().perform();
 	
 /*	WebElement scroll = driver.findElement(By.id("someId"));

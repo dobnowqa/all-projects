@@ -115,8 +115,8 @@ public class AnStandard extends TestBase {
 			tr1.progressInspecSign(data.get("tr1"));
 			tr8.energyCodeProgressInspection(data.get("tr8"));
 			tr8.energyCodeSignature(data.get("tr8"));
-			docs.uploadDocuments(data.get("documents"));
 			signature.applicantStatementsSignature(data.get("signatures"));
+			docs.uploadDocuments(data.get("documents"));
 			signature.ownerSignature(data.get("owner_signature"));
 			pw1.previewToFile(data.get("preview_to_file"));
 			// ASSIGN TO TEAM

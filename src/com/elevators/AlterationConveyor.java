@@ -17,9 +17,8 @@ import com.pages.ElevatorsPage;
 import com.relevantcodes.extentreports.LogStatus;
 
 public class AlterationConveyor extends TestBase {
-
+	String testname = this.getClass().getSimpleName();
 	Xls_Reader xlsx = new Xls_Reader(Constants.testCasesesElevator);
-	String testname = "AlterationConveyor";
 
 	@BeforeSuite
 	public void BeforeSuite() {
@@ -54,7 +53,7 @@ public class AlterationConveyor extends TestBase {
 	public void Portal(Hashtable<String, String> data) {
 		if (!TestUtil.isExecutable(testname, xlsx) || data.get("Runmode").equals("N"))
 			throw new SkipException("Skipping the test");
-		System.out.println("BEGIN " + convertedTimestamp() + " **************** " + data.get("description"));
+		System.out.println("BEGIN " + convertedTimestamp() + " **************** " + data.get("description")+ " " +env);
 		test = rep.startTest(data.get("description"));
 		test.log(LogStatus.INFO, data.get("description"));
 		test = rep.startTest("Test Case Data");
@@ -76,8 +75,9 @@ public class AlterationConveyor extends TestBase {
 		elv.insuranceFeeInfo(data.get("insurance_fee"));
 		elv.documents(data.get("documents"));
 		elv.signatures(data.get("signatures"));
-		elv.previewToFile(data.get("preview_to_file"));
+//		elv.previewToFile(data.get("preview_to_file"));
 		successMessage(data.get("description"));
+		elv.delete();
 	}
 
 /*	// CPE VIEW-ACCEPT DOCS

@@ -16,7 +16,7 @@ import com.pages.DobDashboardPage;
 import com.pages.ElevatorsPage;
 import com.relevantcodes.extentreports.LogStatus;
 
-public class AlterationAccessibilityLift extends TestBase {
+public class RemoveConveyor extends TestBase {
 	String testname = this.getClass().getSimpleName();
 	Xls_Reader xlsx = new Xls_Reader(Constants.testCasesesElevator);
 
@@ -45,19 +45,23 @@ public class AlterationAccessibilityLift extends TestBase {
 	public Object[][] getTestData() {
 		return TestUtil.getData(testname, xlsx);
 	}
-
-	DobDashboardPage dash = new DobDashboardPage();
-	ElevatorsPage elv = new ElevatorsPage();
 	
+	ElevatorsPage elv = new ElevatorsPage();
+	DobDashboardPage dash = new DobDashboardPage();
+
 	@Test(priority = 0, dataProvider = "getTestData")
 	public void Portal(Hashtable<String, String> data) {
 		if (!TestUtil.isExecutable(testname, xlsx) || data.get("Runmode").equals("N"))
 			throw new SkipException("Skipping the test");
-		System.out.println("BEGIN " + convertedTimestamp() + " **************** " + data.get("description")+ " " +env);
+		System.out.println("BEGIN " + convertedTimestamp() + " **************** "+ data.get("description")+ " " +env);
 		test = rep.startTest(data.get("description"));
 		test.log(LogStatus.INFO, data.get("description"));
 		test = rep.startTest("Test Case Data");
-		test.log(LogStatus.INFO, data.toString());		
+		test.log(LogStatus.INFO, data.toString());
+
+		
+
+		
 		dash.jobFilingElev(data.get("work_type"));
 		elv.searchAddDevice(data.get("address"));
 		elv.deviceInfoAlteration(data.get("device_info"));
@@ -81,7 +85,7 @@ public class AlterationAccessibilityLift extends TestBase {
 		crm_task_form.viewAcceptDocsElv(data.get("cpe"));
 	}
 
-	// CPE ASSIGN TO PE
+	// CPE ASSIGN TO SELF
 	@Test(priority = 8, dataProvider = "getTestData", dependsOnMethods = { "CPEAcceptDocs" })
 	public void ChiefPlanExaminer(Hashtable<String, String> data) {
 		CrmTaskFormPage crm_task_form = PageFactory.initElements(driver, CrmTaskFormPage.class);

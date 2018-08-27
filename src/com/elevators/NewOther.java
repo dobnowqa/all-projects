@@ -16,7 +16,7 @@ import com.pages.DobDashboardPage;
 import com.pages.ElevatorsPage;
 import com.relevantcodes.extentreports.LogStatus;
 
-public class AlterationAccessibilityLift extends TestBase {
+public class NewOther extends TestBase {
 	String testname = this.getClass().getSimpleName();
 	Xls_Reader xlsx = new Xls_Reader(Constants.testCasesesElevator);
 
@@ -46,8 +46,8 @@ public class AlterationAccessibilityLift extends TestBase {
 		return TestUtil.getData(testname, xlsx);
 	}
 
-	DobDashboardPage dash = new DobDashboardPage();
 	ElevatorsPage elv = new ElevatorsPage();
+	DobDashboardPage dash = new DobDashboardPage();
 	
 	@Test(priority = 0, dataProvider = "getTestData")
 	public void Portal(Hashtable<String, String> data) {
@@ -57,42 +57,45 @@ public class AlterationAccessibilityLift extends TestBase {
 		test = rep.startTest(data.get("description"));
 		test.log(LogStatus.INFO, data.get("description"));
 		test = rep.startTest("Test Case Data");
-		test.log(LogStatus.INFO, data.toString());		
+		test.log(LogStatus.INFO, data.toString());
+
+
+
+		
 		dash.jobFilingElev(data.get("work_type"));
-		elv.searchAddDevice(data.get("address"));
-		elv.deviceInfoAlteration(data.get("device_info"));
-		elv.machineRoom(data.get("machine_room"));
-		elv.deviceGeneralinfo(data.get("device_general_info"));
-		elv.carsCounterweight(data.get("cars_counterweight"));
-		elv.hoistwayOpeneing(data.get("hoistway_opening"));
-		elv.pitAndBuffers(data.get("pit_and_buffers"));
+		elv.generalInfo(data.get("address"));
+		elv.deviceInfoOther(data.get("device_info"));
+/*		dd.machineRoom(data.get("machine_room"));
+		dd.deviceGeneralinfo(data.get("device_general_info"));
+		dd.carsCounterweight(data.get("cars_counterweight"));
+		dd.hoistwayOpeneing(data.get("hoistway_opening"));
+		dd.pitAndBuffers(data.get("pit_and_buffers"));*/
 		elv.insuranceFeeInfo(data.get("insurance_fee"));
 		elv.documents(data.get("documents"));
 		elv.signatures(data.get("signatures"));
-//		elv.previewToFile(data.get("preview_to_file"));
+		elv.previewToFile(data.get("preview_to_file"));
 		successMessage(data.get("description"));
-		elv.delete();
 	}
 
 /*	// CPE VIEW-ACCEPT DOCS
 	@Test(priority = 7, dataProvider = "getTestData", dependsOnMethods = { "Portal" })
 	public void CPEAcceptDocs(Hashtable<String, String> data) {
-		CrmTaskFormPage crm_task_form = PageFactory.initElements(driver, CrmTaskFormPage.class);
-		crm_task_form.viewAcceptDocsElv(data.get("cpe"));
+		CrmTaskFormPage task_form = PageFactory.initElements(driver, CrmTaskFormPage.class);
+		task_form.viewAcceptDocsElv(data.get("cpe"));
 	}
 
-	// CPE ASSIGN TO PE
+	// CPE ASSIGN TO Self
 	@Test(priority = 8, dataProvider = "getTestData", dependsOnMethods = { "CPEAcceptDocs" })
 	public void ChiefPlanExaminer(Hashtable<String, String> data) {
-		CrmTaskFormPage crm_task_form = PageFactory.initElements(driver, CrmTaskFormPage.class);
-		crm_task_form.cpeAssignToSelfElv(data.get("cpe"));
+		CrmTaskFormPage task_form = PageFactory.initElements(driver, CrmTaskFormPage.class);
+		task_form.cpeAssignToSelfElv(data.get("cpe"));
 	}
 
 	// PE Permit Issued
 	@Test(priority = 9, dataProvider = "getTestData", dependsOnMethods = { "ChiefPlanExaminer" })
 	public void PlanExaminer(Hashtable<String, String> data) {
-		CrmTaskFormPage crm_task_form = PageFactory.initElements(driver, CrmTaskFormPage.class);
-		crm_task_form.cpeActionElv(data.get("cpe_action"));
+		CrmTaskFormPage task_form = PageFactory.initElements(driver, CrmTaskFormPage.class);
+		task_form.cpeActionElv(data.get("cpe_action"));
 		successMessage(data.get("description"));
 	}*/
 

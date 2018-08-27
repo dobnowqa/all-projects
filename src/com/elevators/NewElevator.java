@@ -16,7 +16,8 @@ import com.pages.DobDashboardPage;
 import com.pages.ElevatorsPage;
 import com.relevantcodes.extentreports.LogStatus;
 
-public class AlterationAccessibilityLift extends TestBase {
+
+public class NewElevator extends TestBase {
 	String testname = this.getClass().getSimpleName();
 	Xls_Reader xlsx = new Xls_Reader(Constants.testCasesesElevator);
 
@@ -46,8 +47,8 @@ public class AlterationAccessibilityLift extends TestBase {
 		return TestUtil.getData(testname, xlsx);
 	}
 
-	DobDashboardPage dash = new DobDashboardPage();
 	ElevatorsPage elv = new ElevatorsPage();
+	DobDashboardPage dash = new DobDashboardPage();
 	
 	@Test(priority = 0, dataProvider = "getTestData")
 	public void Portal(Hashtable<String, String> data) {
@@ -57,10 +58,13 @@ public class AlterationAccessibilityLift extends TestBase {
 		test = rep.startTest(data.get("description"));
 		test.log(LogStatus.INFO, data.get("description"));
 		test = rep.startTest("Test Case Data");
-		test.log(LogStatus.INFO, data.toString());		
+		test.log(LogStatus.INFO, data.toString());
+		
+
+
 		dash.jobFilingElev(data.get("work_type"));
-		elv.searchAddDevice(data.get("address"));
-		elv.deviceInfoAlteration(data.get("device_info"));
+		elv.generalInfo(data.get("address"));
+		elv.deviceInfoNew(data.get("device_info"));
 		elv.machineRoom(data.get("machine_room"));
 		elv.deviceGeneralinfo(data.get("device_general_info"));
 		elv.carsCounterweight(data.get("cars_counterweight"));
@@ -69,10 +73,9 @@ public class AlterationAccessibilityLift extends TestBase {
 		elv.insuranceFeeInfo(data.get("insurance_fee"));
 		elv.documents(data.get("documents"));
 		elv.signatures(data.get("signatures"));
-//		elv.previewToFile(data.get("preview_to_file"));
+		elv.previewToFile(data.get("preview_to_file"));
 		successMessage(data.get("description"));
-		elv.delete();
-	}
+		}
 
 /*	// CPE VIEW-ACCEPT DOCS
 	@Test(priority = 7, dataProvider = "getTestData", dependsOnMethods = { "Portal" })

@@ -16,7 +16,7 @@ import com.pages.DobDashboardPage;
 import com.pages.ElevatorsPage;
 import com.relevantcodes.extentreports.LogStatus;
 
-public class AlterationAccessibilityLift extends TestBase {
+public class DismantleConveyor extends TestBase {
 	String testname = this.getClass().getSimpleName();
 	Xls_Reader xlsx = new Xls_Reader(Constants.testCasesesElevator);
 
@@ -46,8 +46,8 @@ public class AlterationAccessibilityLift extends TestBase {
 		return TestUtil.getData(testname, xlsx);
 	}
 
-	DobDashboardPage dash = new DobDashboardPage();
 	ElevatorsPage elv = new ElevatorsPage();
+	DobDashboardPage dash = new DobDashboardPage();
 	
 	@Test(priority = 0, dataProvider = "getTestData")
 	public void Portal(Hashtable<String, String> data) {
@@ -57,7 +57,13 @@ public class AlterationAccessibilityLift extends TestBase {
 		test = rep.startTest(data.get("description"));
 		test.log(LogStatus.INFO, data.get("description"));
 		test = rep.startTest("Test Case Data");
-		test.log(LogStatus.INFO, data.toString());		
+		test.log(LogStatus.INFO, data.toString());
+		
+
+
+
+		
+		
 		dash.jobFilingElev(data.get("work_type"));
 		elv.searchAddDevice(data.get("address"));
 		elv.deviceInfoAlteration(data.get("device_info"));
