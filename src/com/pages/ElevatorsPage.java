@@ -9,10 +9,12 @@ import com.relevantcodes.extentreports.LogStatus;
 import com.util.Constants;
 
 public class ElevatorsPage extends TestBase {
+	
+//	public String[] data;
 
 	public void generalInfo(String address) {
 		if (!address.equals("")) {
-			String[] data = address.split(" :: ");
+			data = address.split(" :: ");
 			System.out.println(convertedTimestamp() + " **************** generalInfo");
 			test = rep.startTest("General Info");
 			waitUntilISpinnersInvisible();
@@ -41,10 +43,8 @@ public class ElevatorsPage extends TestBase {
 				clear(Constants.owner_email);
 				send(Constants.owner_email, user.toUpperCase());
 				wait(1);
-				if (count(Constants.email_xpath_part1+user.toUpperCase()
-						+ Constants.email_xpath_part2) > 0) {
-					click(Constants.email_xpath_part1+user.toUpperCase()
-							+ Constants.email_xpath_part2);
+				if (count(Constants.email_xpath_part1 +user.toUpperCase() +Constants.email_xpath_part2) > 0) {
+					click(Constants.email_xpath_part1 +user.toUpperCase() +Constants.email_xpath_part2);
 					break;
 				}
 			}
@@ -75,7 +75,7 @@ public class ElevatorsPage extends TestBase {
 
 	public void searchAddDevice(String address) {
 		if (!address.equals("")) {
-			String[] data = address.split(" :: ");
+			data = address.split(" :: ");
 			System.out.println(convertedTimestamp() + " **************** searchAddDevice");
 			test = rep.startTest("searchAddDevice");
 			radio(Constants.search_by_address);
@@ -83,66 +83,53 @@ public class ElevatorsPage extends TestBase {
 			waitVisible(Constants.ok_button);
 			clickButton("OK");
 			waitInvisible(Constants.ok_button);
-			for (int i = 1; i < 100; i++) {
-				String new_address = String.valueOf(randomNumberOf(3333));
-				type(Constants.search_by_house, new_address);
+			for (int i = 1; i < 300; i++) {
+				String house = String.valueOf(randomNumberOf(2500));
+				type(Constants.search_by_house, house);
+				
+//				type(Constants.search_by_house, "260 "); // 260 white 1752 green 1571 Escalator
+				
 				type(Constants.search_by_street, data[1]);
 				select(Constants.search_by_borough, data[2]);				
-/*				type(Constants.search_by_house, "1920"); // 1578 1920
-				type(Constants.search_by_street, "BROADWAY ");
-				select(Constants.search_by_borough, "MANHATTAN");*/
-				wait(1);
-				waitVisible(Constants.search_and_add_button);
+				waitUntilISpinnersInvisible();
+				waitForPageToLoad();
+//				waitVisible(Constants.search_and_add_button);
 				click(Constants.search_and_add_button);
 				waitUntilISpinnersInvisible();
 				waitForPageToLoad();
 				if (count(Constants.ok_button) > 0)
 					clickButton("OK");
 				waitInvisible(Constants.ok_button);
-/*				if (count(Constants.cannot_find_adress) > 0) {
-					clickButton("OK");
-					waitInvisible(Constants.ok_button);
-				}*/
-				waitUntilISpinnersInvisible();
-				waitForPageToLoad();
 				if (count(Constants.device_checkbox) > 1) {
-					int total_checkboxes = count(Constants.device_checkbox);
-					int total_disabled = count(Constants.device_checkbox+ "[@disabled='disabled']");
-					int total_green = total_checkboxes - total_disabled;
-					System.out.println(total_green);
-					if(total_green > 0) {
-						for (int b = 1; b <= total_green; b++) {
-							String device_id = text("(+green_circle+)[" + b + "]/..");
-							String device_xpath = "//input[@id='" +device_id+ "']";
-							check(device_xpath);
-							wait(2);
-							if (count(Constants.cannot_use_device_message) > 0) {
-								clickButton("OK");
+					if(count(Constants.white_circle) > 0) { // CANCEL if white circle exist
+						click(Constants.global_cancel_button);
+						waitInvisible(Constants.global_cancel_button);
+					}
+					else {
+						int total_checkboxes = count(Constants.device_checkbox); // //input[@ng-model='device.IsSelected']
+						int removed = count(Constants.device_checkbox+ "[@disabled='disabled']");
+						int total_green = total_checkboxes - removed;					
+//						System.out.println(total_green);
+						if(total_green > 0) {
+							for (int b = 1; b <= total_green; b++) {
+								String device_id = text("(" +Constants.green_circle+ ")[" + b + "]/..");
+								check("//input[@id='" +device_id+ "']");
+								if (count(Constants.ok_button) > 0)
+									clickButton("OK");
 								waitInvisible(Constants.ok_button);
+								if (count(Constants.add_device_button_disabled) == 0)
+									click(Constants.add_device_button);
+//								waitInvisible(Constants.add_device_button);
+								if (count(Constants.device_added_message) > 0)
+									break;
 							}
-							if (count(Constants.add_device_button_disabled) == 0) {
-								click(Constants.add_device_button);
-								waitInvisible(Constants.add_device_button);
-							}
-							wait(1);
-							if (count(Constants.device_added_message) > 0) {
+							if (count(Constants.ok_button) > 0)
 								clickButton("OK");
-								waitInvisible(Constants.ok_button);
-								break;
-							}
-
 						}
 					}
-/*					int number = count(Constants.green_circle);
-					for(int a=1; a<number; a++) {							
-						String color = driver.findElement(By.xpath("(//button[@class='btn-circle2 pull-right devActive'])[" +a+ "]")).getCssValue("background-color");
-						System.out.println(color);
-						String hex = Color.fromString(color).asHex();
-						System.out.println(hex);
-					}*/
 				}
 				if (count(Constants.global_cancel_button) > 0) {
-						click(Constants.global_cancel_button);
+					click(Constants.global_cancel_button);
 					waitInvisible(Constants.global_cancel_button);
 				}
 				if (count(Constants.trash_can_icon) > 0)
@@ -191,25 +178,29 @@ public class ElevatorsPage extends TestBase {
 			// type(Constants.electrical_permit_number, "M368223");
 			wait(2);
 			click(Constants.global_save_step_button);
-			waitUntilISpinnersInvisible();
 			waitVisible(Constants.ok_button);
 			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
 			clickButton("OK");
 			waitInvisible(Constants.ok_button);
+			waitUntilISpinnersInvisible();
 		}
 	}
 
 
 	
 	// ######################################################################################################################           Device Info
-	public void deviceInfo(String device_info) {
+	public void deviceInfoNew(String device_info) {
 		if (!device_info.equals("")) {
-			String[] data = device_info.split(" :: ");
-			System.out.println(convertedTimestamp() +" **************** deviceInfo");
-//			filterJob(OR_PROPERTIES.getProperty("elevator_applicant_email"));
-			test = rep.startTest("deviceInfo");
-			clickAndWait(Constants.add_new_device_link, Constants.yes_button);
-//			waitVisible(Constants.yes_button);
+			data = device_info.split(" :: ");
+			System.out.println(convertedTimestamp() +" **************** deviceInfoNew");
+//			filterJob(user);
+			test = rep.startTest("deviceInfoNew");			
+			waitUntilISpinnersInvisible();
+			waitForPageToLoad();			
+			waitVisible(Constants.add_new_device_link);
+			click(Constants.add_new_device_link);
+//			clickAndWait(Constants.add_new_device_link, Constants.yes_button);			
+			waitVisible(Constants.yes_button);
 			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("device_added"));
 			click(Constants.yes_button);
 			waitInvisible(Constants.yes_button);
@@ -269,12 +260,12 @@ public class ElevatorsPage extends TestBase {
 				type(Constants.device_job_description, convertedTimestamp());
 				// click(Constants.device_information_label);
 				if (count(Constants.completed_checkmark) >= 1) {
-					click(Constants.global_save_step_button);
+/*					click(Constants.global_save_step_button);
 					waitUntilISpinnersInvisible();
 					waitUntilElementVisible(Constants.ok_button, 30);
 					verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
 					click(Constants.ok_button);
-					waitInvisible(Constants.ok_button);
+					waitInvisible(Constants.ok_button);*/
 					if(count(Constants.device_details_arrow_down) > 1) 
 						click(Constants.device_details_arrow_down);
 					scrollToElement("//i[contains(@class,'glyphicon pull-right')][@id='2']");
@@ -284,9 +275,9 @@ public class ElevatorsPage extends TestBase {
 			}
 		}
 	}
-	public void deviceInfo2(String device_info) {
+	public void XdeviceInfo2(String device_info) {
 		if (!device_info.equals("")) {
-			String[] data = device_info.split(" :: ");
+			data = device_info.split(" :: ");
 			System.out.println(convertedTimestamp() +" **************** deviceInfo2");
 //			filterJob(user);
 			test = rep.startTest("deviceInfo2");	
@@ -301,8 +292,8 @@ public class ElevatorsPage extends TestBase {
 				waitInvisible(Constants.yes_button);*/
 				select(Constants.elevator_type, data[0]);
 				select(Constants.elevator_sub_type, data[1]);
-				if(device_info.contains("alteration"))
-					radio("//input[@id='rdPassengerToFreight'][@value='" +data[2]+ Constants.close_xpath);
+/*				if(device_info.contains("alteration"))
+					radio("//input[@id='rdPassengerToFreight'][@value='" +data[2]+ Constants.close_xpath);*/
 				wait(1);
 				if(count(Constants.yes_button) > 0)
 					click(Constants.yes_button);
@@ -340,7 +331,7 @@ public class ElevatorsPage extends TestBase {
 	}
 	public void deviceInfoAlteration(String device_info) {
 		if (!device_info.equals("")) {
-			String[] data = device_info.split(" :: ");
+			data = device_info.split(" :: ");
 			System.out.println(convertedTimestamp() +" **************** deviceInfoAlteration");
 //			filterJob(OR_PROPERTIES.getProperty("elevator_applicant_email"));
 			test = rep.startTest("deviceInfoAlteration");
@@ -391,6 +382,16 @@ public class ElevatorsPage extends TestBase {
 					select(Constants.elevator_type, data[1]);
 					wait(1);
 					select(Constants.elevator_sub_type, data[2]);
+					if(count(Constants.replace_passenger_with_freight) > 0) {
+						radio(Constants.replace_passenger_with_freight+ "[@value='false']");
+						if(device_info.contains("ptof")) {
+							radio(Constants.replace_passenger_with_freight+ "[@value='true']");
+							waitUntilISpinnersInvisible();
+							waitVisible(Constants.yes_button);
+							clickButton("Yes");
+							waitInvisible(Constants.yes_button);
+						}							
+					}					
 					radio(Constants.only_elevator_in_building_no);
 					radio(Constants.elevator_part_of_destination_dispatch_system_no);
 					radio(Constants.an_occupant_evacuation_no);
@@ -399,19 +400,21 @@ public class ElevatorsPage extends TestBase {
 					radio(Constants.device_used_in_conjunction_with_mta_no);
 					radio(Constants.device_conforming_with_seismic_no);
 					radio(Constants.device_installed_In_ne_hoistway_no);
+					scrollDown();
 					radio(Constants.device_equipped_with_fire_fmergency_no);
 					radio(Constants.is_this_loft_law_building_no);
 				}				
-				
 				type(Constants.device_job_description, convertedTimestamp());
+				wait(1);
 				// click(Constants.device_information_label);
+				scrollUp();
 				if (count(Constants.completed_checkmark) >= 1) {
-					click(Constants.global_save_step_button);
+/*					click(Constants.global_save_step_button);
 					waitUntilISpinnersInvisible();
 					waitUntilElementVisible(Constants.ok_button, 30);
 					verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
 					click(Constants.ok_button);
-					waitInvisible(Constants.ok_button);
+					waitInvisible(Constants.ok_button);*/
 					if(count(Constants.device_details_arrow_down) > 1) 
 						click(Constants.device_details_arrow_down);
 					scrollToElement("//i[contains(@class,'glyphicon pull-right')][@id='2']");
@@ -421,10 +424,10 @@ public class ElevatorsPage extends TestBase {
 			}
 		}
 	}
-	// Escalatorm
+	// Escalator Info
 	public void escalatorInfo(String escalator_Info) {
 		if (!escalator_Info.equals("")) {
-			String[] data = escalator_Info.split(" :: ");
+			data = escalator_Info.split(" :: ");
 			System.out.println(convertedTimestamp() + " **************** escalatorInfo");
 //			filterJob(OR_PROPERTIES.getProperty("elevator_applicant_email"));
 			test = rep.startTest("escalatorInfo");
@@ -441,8 +444,7 @@ public class ElevatorsPage extends TestBase {
 				type(Constants.angle_of_inclination, "7");
 				type(Constants.capacity_escalator, "7");
 				type(Constants.number_of_steps_escalator, "7");
-				type(Constants.brake_torque_escalator, "7");
-				
+				type(Constants.brake_torque_escalator, "7");				
 				radio(Constants.tandem_operation_escalator);
 				radio(Constants.outdoor_escalator);
 				radio(Constants.nergy_saving_function_escalator);
@@ -468,7 +470,7 @@ public class ElevatorsPage extends TestBase {
 	}
 	public void deviceInfoOther(String device_info) {
 		if (!device_info.equals("")) {
-			String[] data = device_info.split(" :: ");
+			data = device_info.split(" :: ");
 			System.out.println(convertedTimestamp() +" **************** deviceInfoOther");
 //			filterJob(OR_PROPERTIES.getProperty("elevator_applicant_email"));
 			test = rep.startTest("deviceInfoOther");
@@ -495,12 +497,12 @@ public class ElevatorsPage extends TestBase {
 				type(Constants.device_job_description, convertedTimestamp());
 				// click(Constants.device_information_label);
 				if (count(Constants.completed_checkmark) >= 1) {
-					click(Constants.global_save_step_button);
+/*					click(Constants.global_save_step_button);
 					waitUntilISpinnersInvisible();
 					waitUntilElementVisible(Constants.ok_button, 30);
 					verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
 					click(Constants.ok_button);
-					waitInvisible(Constants.ok_button);
+					waitInvisible(Constants.ok_button);*/
 					if(count(Constants.device_details_arrow_down) > 1) 
 						click(Constants.device_details_arrow_down);
 					scrollToElement("//i[contains(@class,'glyphicon pull-right')][@id='2']");
@@ -513,7 +515,7 @@ public class ElevatorsPage extends TestBase {
 	// Machine / Machine Room
 	public void machineRoom(String machine_room) {
 		if (!machine_room.equals("")) {
-			String[] data = machine_room.split(" :: ");
+			data = machine_room.split(" :: ");
 			System.out.println(convertedTimestamp() + " **************** machineRoom");
 //			filterJob(OR_PROPERTIES.getProperty("elevator_applicant_email"));
 			test = rep.startTest("Machine Room");
@@ -557,12 +559,12 @@ public class ElevatorsPage extends TestBase {
 					type(Constants.controller_model, data[0]);
 				}
 				if (count(Constants.completed_checkmark) >= 2) {
-					click(Constants.global_save_step_button);
+/*					click(Constants.global_save_step_button);
 					waitUntilISpinnersInvisible();
 					waitUntilElementVisible(Constants.ok_button, 30);
 					verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
 					click(Constants.ok_button);
-					waitInvisible(Constants.ok_button);
+					waitInvisible(Constants.ok_button);*/
 					if(count(Constants.device_details_arrow_down) > 1) 
 						click(Constants.device_details_arrow_down);
 					scrollToElement("//i[contains(@class,'glyphicon pull-right')][@id='3']");
@@ -576,7 +578,7 @@ public class ElevatorsPage extends TestBase {
 	// General Info
 	public void deviceGeneralinfo(String device_general_info) {
 		if (!device_general_info.equals("")) {
-			String[] data = device_general_info.split(" :: ");
+			data = device_general_info.split(" :: ");
 			System.out.println(convertedTimestamp() +" **************** deviceGeneralinfo");
 //			filterJob(OR_PROPERTIES.getProperty("elevator_applicant_email"));
 			test = rep.startTest("Device General Info");	
@@ -659,12 +661,12 @@ public class ElevatorsPage extends TestBase {
 
 				// click(Constants.device_general_information_label);
 				if (count(Constants.completed_checkmark) >= 3) {
-					click(Constants.global_save_step_button);
+/*					click(Constants.global_save_step_button);
 					waitUntilISpinnersInvisible();
 					waitUntilElementVisible(Constants.ok_button, 30);
 					verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
 					click(Constants.ok_button);
-					waitInvisible(Constants.ok_button);
+					waitInvisible(Constants.ok_button);*/
 					if(count(Constants.device_details_arrow_down) > 1) 
 						click(Constants.device_details_arrow_down);
 					scrollToElement("//i[contains(@class,'glyphicon pull-right')][@id='4']");
@@ -678,7 +680,7 @@ public class ElevatorsPage extends TestBase {
 	// Cars And Counterweight
 	public void carsCounterweight(String cars_counterweights) {
 		if (!cars_counterweights.equals("")) {
-			String[] data = cars_counterweights.split(" :: ");
+			data = cars_counterweights.split(" :: ");
 			System.out.println(convertedTimestamp() +" **************** carsCounterweight");
 //			filterJob(OR_PROPERTIES.getProperty("elevator_applicant_email"));
 			test = rep.startTest("carsCounterweight");
@@ -742,12 +744,12 @@ public class ElevatorsPage extends TestBase {
 					click(Constants.cars_and_counterweights_label);
 				}
 				if (count(Constants.completed_checkmark) >= 4) {
-					click(Constants.global_save_step_button);
+/*					click(Constants.global_save_step_button);
 					waitUntilISpinnersInvisible();
 					waitUntilElementVisible(Constants.ok_button, 30);
 					verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
 					click(Constants.ok_button);
-					waitInvisible(Constants.ok_button);
+					waitInvisible(Constants.ok_button);*/
 					if(count(Constants.device_details_arrow_down) > 1) 
 						click(Constants.device_details_arrow_down);
 					scrollToElement("//i[contains(@class,'glyphicon pull-right')][@id='5']");
@@ -760,7 +762,7 @@ public class ElevatorsPage extends TestBase {
 
 	public void hoistwayOpeneing(String hoistway_opening) {
 		if (!hoistway_opening.equals("")) {
-			String[] data = hoistway_opening.split(" :: ");
+			data = hoistway_opening.split(" :: ");
 			System.out.println(convertedTimestamp() +" **************** hoistwayOpeneing");			
 //			filterJob(OR_PROPERTIES.getProperty("elevator_applicant_email"));			
 			test = rep.startTest("hoistwayOpeneing");
@@ -791,7 +793,7 @@ public class ElevatorsPage extends TestBase {
 						break;	
 					}
 				}
-				else if (hoistway_opening.contains("Dumbwaiter")) {	// Dumbwaiter	
+/*				else if (hoistway_opening.contains("Dumbwaiter")) {	// Dumbwaiter	
 					select(Constants.elevator_motive_power, data[1]);
 					select(Constants.main_supply_motive_power, data[2]);
 					type(Constants.travel_from_floor, "1");
@@ -801,7 +803,7 @@ public class ElevatorsPage extends TestBase {
 					type(Constants.capacity, "1");
 					send(Constants.speed, "1");		
 					select(Constants.elevator_control, data[3]);			
-				}
+				}*/
 				else if (hoistway_opening.contains("Personnel Hoist")) { // Personnel Hoist
 					select(Constants.hoist_opening, data[1]);
 					select(Constants.hoist_opening_direction, data[2]);
@@ -827,12 +829,12 @@ public class ElevatorsPage extends TestBase {
 					radio(Constants.interlock_in_hoistway_no);
 				}
 				if (count(Constants.completed_checkmark) >= 5) {
-					click(Constants.global_save_step_button);
+/*					click(Constants.global_save_step_button);
 					waitUntilISpinnersInvisible();
 					waitUntilElementVisible(Constants.ok_button, 30);
 					verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
 					click(Constants.ok_button);
-					waitInvisible(Constants.ok_button);
+					waitInvisible(Constants.ok_button);*/
 					if(count(Constants.device_details_arrow_down) > 1) 
 						click(Constants.device_details_arrow_down);
 					scrollToElement("//i[contains(@class,'glyphicon pull-right')][@id='6']");
@@ -845,7 +847,7 @@ public class ElevatorsPage extends TestBase {
 // Pit and Buffers
 	public void pitAndBuffers(String pit_and_buffers) {
 		if (!pit_and_buffers.equals("")) {
-			String[] data = pit_and_buffers.split(" :: ");
+			data = pit_and_buffers.split(" :: ");
 			System.out.println(convertedTimestamp() +" **************** pitAndBuffers");
 //			filterJob(OR_PROPERTIES.getProperty("elevator_applicant_email"));
 			test = rep.startTest("pitAndBuffers");					
@@ -908,7 +910,7 @@ public class ElevatorsPage extends TestBase {
 	
 	// Pit and Buffers
 	public void personelHoistInfo() {
-//		String[] data = pit_and_buffers.split(" :: ");
+//		data = pit_and_buffers.split(" :: ");
 		System.out.println(convertedTimestamp() + " **************** personelHoistInfo");
 //		filterJob(OR_PROPERTIES.getProperty("elevator_applicant_email"));
 		test = rep.startTest("personelHoistInfo");
@@ -942,30 +944,37 @@ public class ElevatorsPage extends TestBase {
 		}
 	}
 	
-	
-	
-	
+	public void save() {
+		scrollAllWayUp();
+		scrollToElement(Constants.save_button);
+		click(Constants.save_button);
+		waitVisible60(Constants.ok_button);
+		clickButton("OK");
+		waitInvisible(Constants.ok_button);
+		waitUntilISpinnersInvisible();
+		waitForPageToLoad();
+	}	
 	// ###########################################################################################################    INSURANCE
 	
 	public void insuranceFeeInfo(String insurance_fee) {
 		if (!insurance_fee.equals("")) {
+			data = insurance_fee.split(" :: ");
 			System.out.println(convertedTimestamp() + " **************** insuranceFeeInfo");
 //			filterJob(user);
-			test = rep.startTest("Insurance Fee Info");
+			test = rep.startTest("Insurance Fee Info");			
 			click(Constants.insurance_fee_information_tab);
-			String[] data = insurance_fee.split(" :: ");
 			type(Constants.estimated_cost, data[0]);
 			select(Constants.building_type, data[1]);
 			type(Constants.total_floor_area, data[2]);
 			type(Constants.building_stories, data[3]);
 			radio(Constants.new_building_app_no);
 			type(Constants.job_description, convertedTimestamp());
-			click(Constants.global_save_step_button);
+/*			click(Constants.global_save_step_button);
 			waitUntilISpinnersInvisible();
 			waitUntilElementVisible(Constants.global_notification_ok_button, 30);
 			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
 			click(Constants.global_notification_ok_button);
-			waitInvisible(Constants.global_notification_ok_button);
+			waitInvisible(Constants.global_notification_ok_button);*/
 		}
 	}
 	
@@ -977,27 +986,6 @@ public class ElevatorsPage extends TestBase {
 			test = rep.startTest("Signatures");
 			click(Constants.signatures_tab);
 			check(Constants.applicant_sign_elv);
-			scrollDown();
-			check(Constants.design_pro_sign_elv);
-			radio(Constants.fee_exempion_request_non_profit_yes);
-			check(Constants.owner_sign_elv);
-			click(Constants.save_button);
-			waitUntilISpinnersInvisible();
-			waitUntilElementVisible(Constants.ok_button, 30);
-			verifyNotification(Constants.notification,TEXT_PROPERTIES.getProperty("job_filing_saved"));
-			click(Constants.ok_button);
-			waitInvisible(Constants.ok_button);
-		}
-	}
-	public void signaturesSignOff(String insurance_fee) {
-		if (!insurance_fee.equals("")) {
-			System.out.println(convertedTimestamp() + " **************** Signatures");
-//			filterJob(user);
-			test = rep.startTest("Signatures");
-			click(Constants.signatures_tab);
-			check(Constants.applicant_sign_elv);
-			scrollDown();
-			check(Constants.replacement_modification_statement);
 			scrollDown();
 			check(Constants.design_pro_sign_elv);
 			radio(Constants.fee_exempion_request_non_profit_yes);
@@ -1040,12 +1028,34 @@ public class ElevatorsPage extends TestBase {
 				waitInvisible(Constants.ok_button);
 				waitInvisible(Constants.global_loading_spinner);
 			}
-			click(Constants.global_save_step_button);
+/*			click(Constants.global_save_step_button);
 			waitUntilISpinnersInvisible();
 			waitUntilElementVisible(Constants.global_notification_ok_button, 30);
 			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
 			click(Constants.global_notification_ok_button);
-			waitInvisible(Constants.global_notification_ok_button);
+			waitInvisible(Constants.global_notification_ok_button);*/
+		}
+	}
+	
+	public void signaturesSignOff(String insurance_fee) {
+		if (!insurance_fee.equals("")) {
+			System.out.println(convertedTimestamp() + " **************** Signatures");
+//			filterJob(user);
+			test = rep.startTest("Signatures");
+			click(Constants.signatures_tab);
+			check(Constants.applicant_sign_elv);
+			scrollDown();
+			check(Constants.replacement_modification_statement);
+			scrollDown();
+			check(Constants.design_pro_sign_elv);
+			radio(Constants.fee_exempion_request_non_profit_yes);
+			check(Constants.owner_sign_elv);
+			click(Constants.save_button);
+			waitUntilISpinnersInvisible();
+			waitUntilElementVisible(Constants.ok_button, 30);
+			verifyNotification(Constants.notification,TEXT_PROPERTIES.getProperty("job_filing_saved"));
+			click(Constants.ok_button);
+			waitInvisible(Constants.ok_button);
 		}
 	}
 	
@@ -1068,7 +1078,7 @@ public class ElevatorsPage extends TestBase {
 			
 			
 			test = rep.startTest("Inspecting Agency Info");
-			String[] data = agency_info.split(" :: ");
+			data = agency_info.split(" :: ");
 			for (int i = 1; i <= 20; i++) {
 				email(OR_PROPERTIES.getProperty("elevator_applicant_email"));
 				select(Constants.license_type_list, data[0]);
@@ -1168,6 +1178,8 @@ public class ElevatorsPage extends TestBase {
 //			filterJob(user);
 			test = rep.startTest("Preview To File");
 			for (int i = 1; i <= 20; i++) {
+				waitUntilISpinnersInvisible();
+				waitForPageToLoad();
 				click(Constants.preview_resubmit_button);
 				waitUntilISpinnersInvisible();
 				wait(2);
@@ -1199,4 +1211,19 @@ public class ElevatorsPage extends TestBase {
 			assertFilingStatus(TEXT_PROPERTIES.getProperty(preview_to_file));
 		}
 	}
+	
+	public void delete() {
+			System.out.println(convertedTimestamp() + " **************** delete device");
+			test = rep.startTest("delete");			
+			click(Constants.general_information_tab);			
+			click(Constants.trash_can_icon);
+			waitVisible(Constants.yes_button);
+			clickButton("Yes");
+			waitInvisible(Constants.yes_button);
+			waitVisible(Constants.ok_button);
+			clickButton("OK");
+			waitInvisible(Constants.ok_button);
+			waitInvisible(Constants.trash_can_icon);
+	}
+	
 }

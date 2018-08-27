@@ -62,8 +62,38 @@ public class ElectricalPage extends TestBase {
 	public WebElement el_gi_applicant_email;
 	@FindBy(xpath=Constants.el_gi_applicant_license_type)
 	public WebElement el_gi_applicant_license_type;
-/**/
+
+	public void subsFilingAction(String user_email, String filter) {	
+	if(!filter.equals("")){
+		test = rep.startTest("Subsequent Filing Test");
+		System.out.println(convertedTimestamp() + " **************** Subsequent Filing");
+		loginToPortal(user_email);
+		waitUntilISpinnersInvisible();
+		waitVisible(Constants.global_first_filter_field);
+		filter(filter);
+		wait(1);
+		select(Constants.filing_action_label, "Subsequent Filing");
+ 		click(Constants.yes_button);
+ 		waitInvisible(Constants.yes_button);
+ 		waitUntilISpinnersInvisible();
+ 		reportPass("Success");
+	}
+}
 	
+	public void selectWorkTypeSubs(String work_type) {	
+		String[] data = work_type.split(" :: ");
+		System.out.println(convertedTimestamp() + " ****************  selectWorkTypeSubs");
+		test = rep.startTest("selectWorkTypeSubs");
+ 		waitUntilElementVisible(Constants.el_subsequent_filing_create_button, 30);
+		String document_xpath =  "//input[@ng-model='rowData." + data[0] +  "FilingWorktype']";
+		waitVisible(document_xpath);
+		click(document_xpath);
+		waitVisible(Constants.global_create_subsequent_button);
+		click(Constants.global_create_subsequent_button);
+		waitInvisible(Constants.global_create_subsequent_button);
+		waitUntilISpinnersInvisible();
+		reportPass("selectWorkTypeSubs");
+}	
 	
 // 1. Location Info	
 	public void locationInfo(String address,String description,String calendar,String joint_venue,String use_type) {	
@@ -420,21 +450,25 @@ public class ElectricalPage extends TestBase {
 				waitUntilISpinnersInvisible();
 				waitUntilElementVisible(Constants.el_select_category_of_work, 30);
 				if(sow.contains("Emergency Lighting")) {
-					scrollAllWayUp();
+//					scrollAllWayUp();
 					waitUntilElementVisible("//*[@id='toggle-chk1']", 30);
 					check(Constants.el_sow_service_work);
 					check(Constants.el_sow_general_wiring);
 					check(Constants.el_sow_lighting_work);
-					select(Constants.el_sow_lighting_work_type, sow);
-					scrollAllWayDown();
+					select(Constants.el_sow_lighting_work_type, sow);	
+					click(Constants.el_category_of_work_tab);
+					if(count(Constants.device_details_arrow_down) > 1) 
+						click(Constants.device_details_arrow_down);					
+//					scrollAllWayDown();
 					wait(2);
 					scrollToElement(Constants.el_boiler_controls_tab);
 					click(Constants.el_boiler_controls_tab);
 					type(Constants.el_boiler_controls_quantity, "1");
 					type(Constants.el_boiler_controls_number_size, "2");
 					click(Constants.el_boiler_controls_tab);
+					if(count(Constants.device_details_arrow_down) > 1) 
+						click(Constants.device_details_arrow_down);	
 					click(Constants.el_service_meter_equipment);
-//					waitUntilElementVisible(Constants.el_number_3_wire, 30);
 					type(Constants.el_number_3_wire, "11");
 					type(Constants.el_number_4_wire, "12");
 					type(Constants.el_number_10_points, "14");
@@ -442,8 +476,10 @@ public class ElectricalPage extends TestBase {
 					type(Constants.el_number_new_meters, "16");
 					type(Constants.el_number_removed_meters, "17");
 					click(Constants.el_service_meter_equipment);
+					if(count(Constants.device_details_arrow_down) > 1) 
+						click(Constants.device_details_arrow_down);	
 				}
-				if(sow.contains("Minor Work")){
+				else if(sow.contains("Minor Work")){
 //					select(Constants.el_select_category_of_work, "4");
 					select(Constants.el_select_category_of_work, sow);
 
@@ -469,7 +505,7 @@ public class ElectricalPage extends TestBase {
 					click(Constants.global_notification_ok_button);
 					waitInvisible(Constants.global_notification_ok_button);
 				}
-				if(sow.contains("Field Sign")){
+				else if(sow.contains("Field Sign")){
 					select(Constants.el_select_category_of_work, sow);
 					if(CONFIG.getProperty("env").contains("8085"))
 						type(Constants.el_job_number_field, "B00007126");
@@ -501,17 +537,17 @@ public class ElectricalPage extends TestBase {
 					waitInvisible(Constants.el_save_modal_button);
 					waitUntilISpinnersInvisible();
 				}
-				click(Constants.global_save_step_button);
+/*				click(Constants.global_save_step_button);
 				waitVisible(Constants.global_notification_ok_button);
 	// ASSERT NOTIFICATION	
 				assertNotification(TEXT_PROPERTIES.getProperty("job_filing_saved"), "job_filing_saved");
-	/*			waitUntilElementVisible(Constants.global_notification_ok_button, 30);
+				waitUntilElementVisible(Constants.global_notification_ok_button, 30);
 				if(sow.equals("NEW INSTALLATION"))
 					assertNotification(TEXT_PROPERTIES.getProperty("job_filing_saved"), "job_filing_saved");
 				if(sow.equals("Minor Work"))
-					assertNotification(TEXT_PROPERTIES.getProperty("job_filing_saved"), "job_filing_saved");*/
+					assertNotification(TEXT_PROPERTIES.getProperty("job_filing_saved"), "job_filing_saved");
 				click(Constants.global_notification_ok_button);
-				waitInvisible(Constants.global_notification_ok_button);
+				waitInvisible(Constants.global_notification_ok_button);*/
 			}
 		}
 		

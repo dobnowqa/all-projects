@@ -2,14 +2,13 @@ package com.pages;
 
 import com.base.TestBase;
 import com.util.Constants;
-import org.openqa.selenium.WebDriver;
 
 public class DobSignaturesPage extends TestBase {
 
 	public void applicantStatementsSignature(String signatures) {
 		if(!signatures.equals("")){
 			System.out.println(convertedTimestamp() + " **************** Applicant Sign");
-			filterJob(OR_PROPERTIES.getProperty("user_email"));	
+			filterJob(user);	
 			test = rep.startTest("Statemments Signatures");
 			click(Constants.ss_statement_signatures_step);
 			waitUntilISpinnersInvisible();

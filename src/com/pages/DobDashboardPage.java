@@ -74,7 +74,7 @@ public class DobDashboardPage extends TestBase {
 	 		wait(1);
 	 		click(Constants.select_device_submit_button);
 	 		waitInvisible(Constants.select_device_submit_button);
-	 		reportPass("Success");
+	 		reportPass("jobFilingElev");
 		}
 	}
 
@@ -183,7 +183,7 @@ public class DobDashboardPage extends TestBase {
 	 		check("//input[@ng-model='rowData." + work_type + "FilingWorktype']");
 	 		click(Constants.el_subsequent_filing_create_button);
 	 		waitUntilISpinnersInvisible();
-	 		reportPass("Success");
+	 		reportPass("actionOnSameWorkTypePermit");
 		}
 	}
 	public void actionOnPermitInit(String action, String work_type) {	
@@ -201,7 +201,7 @@ public class DobDashboardPage extends TestBase {
 	 		check("//input[@ng-model='rowData." + work_type + "FilingWorktype']");
 	 		click(Constants.el_subsequent_filing_create_button);
 	 		waitUntilISpinnersInvisible();
-	 		reportPass("Success");
+	 		reportPass("actionOnPermitInit");
 		}
 	}
 	
@@ -219,7 +219,7 @@ public class DobDashboardPage extends TestBase {
 	 		check("//input[@ng-model='rowData." + work_type + "FilingWorktype']");
 	 		click(Constants.el_subsequent_filing_create_button);
 	 		waitUntilISpinnersInvisible();
-	 		reportPass("Success");
+	 		reportPass("actionOnPermitSubs");
 		}
 	}
 	
@@ -230,7 +230,7 @@ public class DobDashboardPage extends TestBase {
 		waitTime(1000L);
 		type(Constants.eljob_filing_number_filter, "I");
 		waitTime(1000L);
-		reportPass("Success");
+		reportPass("filterInitialJob");
 	}
 	
 
@@ -250,7 +250,7 @@ public class DobDashboardPage extends TestBase {
 	 		click(Constants.el_confirm_yes_button);
 	 		waitInvisible(Constants.el_confirm_yes_button);
 	 		waitUntilISpinnersInvisible();
-	 		reportPass("Success");
+	 		reportPass("subsequentFilingMixed");
 		}
 	}
 	public void subsequentFiling(String subsequent_filing) {	
@@ -271,7 +271,7 @@ public class DobDashboardPage extends TestBase {
 	 		click(Constants.el_confirm_yes_button);
 	 		waitInvisible(Constants.el_confirm_yes_button);
 	 		waitUntilISpinnersInvisible();
-	 		reportPass("Success");
+	 		reportPass("subsequentFiling");
 		}
 	}
 	public void selectWorkTypeMixed(String work_type_subs) {	
@@ -287,7 +287,7 @@ public class DobDashboardPage extends TestBase {
 			click(Constants.global_create_subsequent_button);
 			waitInvisible(Constants.global_create_subsequent_button);
 			waitUntilISpinnersInvisible();
-			reportPass("Success");
+			reportPass("selectWorkTypeMixed");
 		}
 	}
 	public void selectWorkTypeSubs(String work_type) {	
@@ -327,7 +327,7 @@ public class DobDashboardPage extends TestBase {
 				else
 					break;				
 			}
-			reportPass("Success");
+			reportPass("correction");
 		}
 	}
 
@@ -343,7 +343,7 @@ public class DobDashboardPage extends TestBase {
 	 		click(Constants.yes_button);
 	 		waitInvisible(Constants.yes_button);
 	 		waitUntilISpinnersInvisible();
-	 		reportPass("Success");
+	 		reportPass("requestSinOff");
 		}
 	}
 	
@@ -380,7 +380,7 @@ public class DobDashboardPage extends TestBase {
 				}
 //					click(Constants.global_cancel_button);
 			}
-			reportPass("Success");
+			reportPass("renewPermitElv");
 		}
 	}
 	
@@ -409,7 +409,7 @@ public class DobDashboardPage extends TestBase {
 			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("work_permit_renewed"));
 	 		clickButton("OK");
 			waitInvisible(Constants.ok_button);
-			reportPass("Success");
+			reportPass("submitPermit");
 		}
 	}
 	
@@ -492,7 +492,7 @@ public class DobDashboardPage extends TestBase {
 				}
 			}
 			addToProps("tracking_number",text("//*[@id='frmWorkPermit']/div[2]/div[3]/div[6]/div[1]/div[2]/span").trim());
-			reportPass("Success");
+			reportPass("renewPermit");
 		}
 	}
 	public void renewPermitPay(String filter) {
@@ -551,7 +551,7 @@ public class DobDashboardPage extends TestBase {
 			waitInvisible60(Constants.pay_pay_now_button);
 			assertElementPresent("//button[@id='imgBtnPrint']", "print button");
 			assertTextPresent("Receipt Details", "Receipt Details");
-			reportPass("Success");
+			reportPass("renewPermitPay");
 		}
 	}
 	public void filePermit(String file, String assertion) {
@@ -574,7 +574,7 @@ public class DobDashboardPage extends TestBase {
 			click(Constants.global_notification_ok_button);
 			waitInvisible(Constants.global_notification_ok_button);
 			assertFilingStatus(assertion);
-			reportPass("Success");
+			reportPass("filePermit");
 		}
 	}
 	public void ahv(String ahv, String filter) {	
@@ -593,7 +593,7 @@ public class DobDashboardPage extends TestBase {
 	 		clickButton("Yes");
 	 		waitInvisible(Constants.yes_button);
 	 		waitUntilISpinnersInvisible();
-	 		reportPass("Success");
+	 		reportPass("ahv");
 		}
 	}
 	
@@ -629,7 +629,7 @@ public class DobDashboardPage extends TestBase {
 			waitInvisible(Constants.ok_button);
 			waitInvisible(Constants.yes_button);
 			waitUntilISpinnersInvisible();
-			reportPass("Success");
+			reportPass("filterToPay");
 		}
 	}
 
@@ -662,7 +662,7 @@ public class DobDashboardPage extends TestBase {
 			waitInvisible(Constants.ok_button);
 			waitInvisible(Constants.yes_button);
 			waitUntilISpinnersInvisible();
-			reportPass("Success");
+			reportPass("paa");
 		}
 	}
 	
@@ -679,7 +679,7 @@ public class DobDashboardPage extends TestBase {
 	 		click(Constants.yes_button);
 	 		waitInvisible(Constants.yes_button);
 	 		waitUntilISpinnersInvisible();
-	 		reportPass("Success");
+	 		reportPass("subsFilingAction");
 		}
 	}
 
