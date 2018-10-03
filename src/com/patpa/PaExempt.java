@@ -18,9 +18,8 @@ import com.pages.PaPage;
 import com.relevantcodes.extentreports.LogStatus;
 
 public class PaExempt extends TestBase {
-
+	String testname = this.getClass().getSimpleName();
 	Xls_Reader xlsx = new Xls_Reader(Constants.testCasesesPaTpa);
-	String testname = "PaExempt";
 
 	@BeforeSuite
 	public void BeforeSuite() {

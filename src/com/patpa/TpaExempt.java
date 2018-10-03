@@ -18,9 +18,8 @@ import com.pages.PaPage;
 import com.relevantcodes.extentreports.LogStatus;
 
 public class TpaExempt extends TestBase {
-
+	String testname = this.getClass().getSimpleName();
 	Xls_Reader xlsx = new Xls_Reader(Constants.testCasesesPaTpa);
-	String testname = "TpaExempt";
 
 	@BeforeSuite
 	public void BeforeSuite() {
@@ -66,10 +65,7 @@ public class TpaExempt extends TestBase {
 		test = rep.startTest("Test Case Data");
 		test.log(LogStatus.INFO, data.toString());
 
-		
 
-
-		
 		
 		pa.selectWorkTypePa(data.get("work_type"));
 		pa.locationImfo(data.get("address"));
@@ -88,16 +84,27 @@ public class TpaExempt extends TestBase {
 		pa.previewToFile(data.get("file"));
 		task_form.centralAssigner(data.get("cpe_acpe"));
 	}
-
-	// CPE ACTIONS
-	@Test(priority = 1, dataProvider = "getTestData", dependsOnMethods = { "Portal" })
-	public void CPEActiona(Hashtable<String, String> data) {
+	
+	// CPE
+	@Test(priority = 1, dataProvider = "getTestData", dependsOnMethods = {"Portal"})
+	public void CPEAction(Hashtable<String, String> data) {
 		task_form.cpeActions(data.get("cpe"));
 		task_form.viewAcceptDocuments(data.get("cpe"));
 		task_form.crmTr(data.get("tr"));
-		task_form.primaryPeAction(data.get("primary_pe"));
-		successMessage(data.get("description"));
-		
 	}
+
+	// PRIMARY
+	@Test(priority = 2, dataProvider = "getTestData", dependsOnMethods = {"CPEAction"})
+	public void PrimaryPA(Hashtable<String, String> data) {
+		task_form.peActions(data.get("primary_pe"));				
+	}
+	
+	// CPE
+	@Test(priority = 3, dataProvider = "getTestData", dependsOnMethods = {"PrimaryPA"})
+	public void CPEAction2(Hashtable<String, String> data) {
+		task_form.cpeActions(data.get("cpe_2"));
+		successMessage(data.get("description"));
+	}
+
 
 }

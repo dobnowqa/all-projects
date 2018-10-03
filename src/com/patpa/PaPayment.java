@@ -19,9 +19,8 @@ import com.pages.PaPage;
 import com.relevantcodes.extentreports.LogStatus;
 
 public class PaPayment extends TestBase {
-
+	String testname = this.getClass().getSimpleName();
 	Xls_Reader xlsx = new Xls_Reader(Constants.testCasesesPaTpa);	
-	String testname = "PaPayment";
 
 	@BeforeSuite
 	public void BeforeSuite() {
@@ -58,7 +57,7 @@ public class PaPayment extends TestBase {
 	CrmTaskFormPage task_form = new CrmTaskFormPage();
 	CityPayPage pay = new CityPayPage();
 	
-	@Test(priority = 0, dataProvider = "getTestData", invocationCount = 1)
+	@Test(priority = 1, dataProvider = "getTestData", invocationCount = 1)
 	public void Portal(Hashtable<String, String> data) {
 		if (!TestUtil.isExecutable(testname, xlsx) || data.get("Runmode").equals("N"))
 			throw new SkipException("Skipping the test");
