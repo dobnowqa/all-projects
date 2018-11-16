@@ -39,6 +39,7 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -47,6 +48,7 @@ import org.testng.asserts.Assertion;
 import org.testng.asserts.SoftAssert;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.TakesScreenshot;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
@@ -169,7 +171,7 @@ public class TestBase {
 				options.addArguments("--disable-web-security");
 				options.addArguments("--no-proxy-server");
 				options.addArguments("--disable-default-apps");
-				options.addArguments("disable-infobars");
+//				options.addArguments("disable-infobars");
 				options.addArguments("test-type");
 				options.addArguments("no-sandbox");
 				options.addArguments("--allow-running-insecure-content");
@@ -394,9 +396,10 @@ public class TestBase {
 	
 	public void waitUntilISpinnersInvisible() {
 		ifAlertExistAccept();
-		if (elementVisible(Constants.loading) == true || elementVisible(Constants.please_wait) == true || elementVisible(Constants.spinner_fa_fa) == true) {
-			waitInvisible(Constants.please_wait);
+		if (elementVisible(Constants.loading) == true || elementVisible(Constants.loading_db) == true || elementVisible(Constants.please_wait) == true || elementVisible(Constants.spinner_fa_fa) == true) {
 			waitInvisible(Constants.loading);
+			waitInvisible(Constants.loading_db);
+			waitInvisible(Constants.please_wait);
 			waitInvisible(Constants.spinner_fa_fa);
 		}
 	}
@@ -620,6 +623,7 @@ public class TestBase {
 			String actualText=getElement(locatorKey).getText().trim();
 			if(actualText.contains(expectedText)) {
 				test.log(LogStatus.PASS, actualText + " == " + expectedText);
+				reportPass("verifyNotification");
 				return true;
 			}
 			else {
@@ -868,6 +872,7 @@ public class TestBase {
 			e.printStackTrace();
 		}
 	}
+
 	public void mouseOverElementXpath(String elementxpath) {
 		Actions actions = new Actions(driver);
 		WebElement element = driver.findElement(By.xpath(elementxpath));
@@ -875,6 +880,20 @@ public class TestBase {
 		actions.perform();
 	}
 
+
+	 //New method added to hover over the BUILD button using Robot (mouseOverElement didn't work) //JG 2018-10-25
+	public void getCoordinates(String elementxpath) throws Exception {
+		  //Locate element for which you wants to retrieve x y coordinates.
+		       WebElement Image = driver.findElement(By.xpath(elementxpath));
+		       //Used points class to get x and y coordinates of element.
+		        Point classname = Image.getLocation();
+		        int xcordi = classname.getX() + 80;
+		        System.out.println("Element's Position from left side"+xcordi +" pixels.");
+		        int ycordi = classname.getY() + 160;
+		        System.out.println("Element's Position from top"+ycordi +" pixels.");
+		        mouseOverlocator(xcordi, ycordi);
+		 }
+	
 	public void waitUntilElementVisible(String elementxpath, int seconds) {
 		waitForPageToLoad();
 		try {
@@ -920,24 +939,20 @@ public class TestBase {
 			for (int i = 1; i < 100; i++) {
 				navigate(dob_now_url);
 				test = rep.startTest("Login to portal");
-					if(!CONFIG.getProperty("env").contains("8085")) {
-						while (count("//a[@id='overridelink']") > 0) {
-							driver.navigate().to("javascript:document.getElementById('overridelink').click()");
-							wait(5);
-							if (count("//a[@name='overridelink']") == 0)
-								break;
-							refreshPage();
+				//staging environment may have the "...problem with this website's security certificate." message in IE
+				if(!CONFIG.getProperty("env").contains("8085")) {
+					while (count("//a[@id='overridelink']") > 0) {
+						driver.navigate().to("javascript:document.getElementById('overridelink').click()");
+						wait(5);
+						if (count("//a[@name='overridelink']") == 0)
+							break;
+						refreshPage();
 						}
 					}
-//				}
-					
-				
+								
 				type(Constants.welcome_email, login_email);
 				type(Constants.welcome_password, OR_PROPERTIES.getProperty("password"));
-				click(Constants.welcome_login_button);
-				
-	//			wait(33);
-				
+				click(Constants.welcome_login_button);			
 				wait(3);
 				while(count("//div[@class='alert alert-info']") > 0) {
 					clickButton("OK");
@@ -946,15 +961,20 @@ public class TestBase {
 					type(Constants.welcome_email, login_email);
 					type(Constants.welcome_password, OR_PROPERTIES.getProperty("password"));
 					doubleclick(Constants.welcome_login_button);
-//					wait(3);
 				}
 				click(Constants.dob_now_build_component);
-//				doubleclick("//div[@ng-show='enableBuildLogo']");
-				//div[@ng-show='enableBuildLogo']
+				//new BUILD sub-menu with "Cranes" & "Others" //JG 2018-11-16
+				if(CONFIG.getProperty("env").contains("8085")) {
+					waitVisible(Constants.build_others_link);					
+					click(Constants.build_others_link);
+				}
 				waitInvisible(Constants.dob_now_build_component);
 				waitUntilISpinnersInvisible();
-				if (count("//input[@ng-model='colFilter.term']") > 0)
+				
+				if (count("//input[@ng-model='colFilter.term']") > 0) { // JG 2018-11-16 column filters indicate dashboard is loaded
+					waitUntilISpinnersInvisible(); // JG 2018-10-30 TEST wait for 'Job Filing' button to be ready 
 					break;
+				}
 				navigate(dob_now_url+ "/logOut");
 			}
 		}
@@ -1114,15 +1134,30 @@ public class TestBase {
 				break;
 		}
 		test = rep.startTest("Filter job " + JOB_NUMBER.getProperty("job_number"));
-		if(count(Constants.click_to_view_icon) > 0) {
-			click(Constants.click_to_view_icon);
-			clickButton("OK");
-			waitInvisible(Constants.global_notification_ok_button);
-			waitUntilISpinnersInvisible();
-			scrollAllWayUp();
+		if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-01 TEST-ENV new PW UI
+			if(count(Constants.click_to_view_icon_8085) > 0) {
+				click(Constants.click_to_view_icon_8085);
+				clickButton("OK");
+				waitInvisible(Constants.global_notification_ok_button);
+				waitUntilISpinnersInvisible();
+				scrollAllWayUp();
+			}
+			else {
+				reportFailure("filterJob - unable to filter job");
+			}
 		}
-		else
-			reportFailure("filterJob - unable to filer job");
+		else {
+			if(count(Constants.click_to_view_icon) > 0) {
+				click(Constants.click_to_view_icon);
+				clickButton("OK");
+				waitInvisible(Constants.global_notification_ok_button);
+				waitUntilISpinnersInvisible();
+				scrollAllWayUp();
+			}
+			else {
+				reportFailure("filterJob - unable to filter job");
+			}
+		}
 	}
 	
 	public void filterJob(String user_name, String job_number) {
@@ -1354,7 +1389,6 @@ public class TestBase {
 				System.out.println("waitForPageToLoad exeed 100 seconds");
 				break;
 			}
-
 		}
 	}
 	
@@ -1438,39 +1472,64 @@ public class TestBase {
 	
 	public void email(String email) {
 		email = email.toUpperCase();
-		for (int i = 1; i < 100; i++) {
-			waitForPageToLoad();
-			waitClickableOr(Constants.portal_email_field, "(//input[contains(@id,'mail')])[last()]");
-			try {
-				driver.findElement(By.xpath(Constants.portal_email_field)).sendKeys(email);
-			} catch (Exception e) {
-				driver.findElement(By.xpath("(//input[contains(@id,'mail')])[last()]")).sendKeys(email);
-			}
-			wait(2);
-			if (count("//strong[text()='" + email + "']") > 0) {
-				doubleclick("//strong[text()='" + email + "']");
-				wait(1);
-				break;
-			} else
-				
+		if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-10-30 TEST Filing buttons changed
+			for (int i = 1; i < 100; i++) {
+				waitForPageToLoad();
+				waitForOneOf3Visible(Constants.portal_email_field, Constants.portal_email_field_8085, "(//input[contains(@placeholder,'Please enter email address')])[last()]");
 				try {
-					setWindowfocus();
-					driver.findElement(By.xpath(Constants.portal_email_field)).clear();
+					driver.findElement(By.xpath(Constants.portal_email_field)).sendKeys(email);
 				} catch (Exception e) {
-					setWindowfocus();
-					driver.findElement(By.xpath("(//input[contains(@id,'mail')])[last()]")).clear();
+					try {
+						driver.findElement(By.xpath(Constants.portal_email_field_8085)).sendKeys(email);
+					} catch (Exception e1) {
+						driver.findElement(By.xpath("(//input[contains(@placeholder,'Please enter email address')])[last()]")).sendKeys(email);
+					}	
 				}
-				
-/*				try {
-					setWindowfocus();
-					new Robot().keyPress(java.awt.event.KeyEvent.VK_CONTROL);
-					new Robot().keyPress(java.awt.event.KeyEvent.VK_A);
-					new Robot().keyRelease(java.awt.event.KeyEvent.VK_CONTROL);
-					new Robot().keyPress(java.awt.event.KeyEvent.VK_BACK_SPACE);
-				} catch (AWTException e) {
-					e.printStackTrace();
-				}*/
-			wait(2);
+				wait(2);
+				if (count("//strong[text()='" + email + "']") > 0) {
+					doubleclick("//strong[text()='" + email + "']");
+					wait(1);
+					break;
+				} else {
+					try {
+						setWindowfocus();
+						driver.findElement(By.xpath(Constants.portal_email_field)).clear();
+					} catch (Exception e) {
+						try {
+							setWindowfocus();	
+							driver.findElement(By.xpath(Constants.portal_email_field_8085)).clear();
+						} catch (Exception e1) {
+							setWindowfocus();
+							driver.findElement(By.xpath("(//input[contains(@placeholder,'Please enter email address')])[last()]")).clear();
+						}
+					}
+				}
+				wait(2);
+			}
+		} else {
+			for (int i = 1; i < 100; i++) {
+				waitForPageToLoad();
+				waitClickableOr(Constants.portal_email_field, "(//input[contains(@id,'mail')])[last()]");
+				try {
+					driver.findElement(By.xpath(Constants.portal_email_field)).sendKeys(email);
+				} catch (Exception e) {
+					driver.findElement(By.xpath("(//input[contains(@id,'mail')])[last()]")).sendKeys(email);
+				}
+				wait(2);
+				if (count("//strong[text()='" + email + "']") > 0) {
+					doubleclick("//strong[text()='" + email + "']");
+					wait(1);
+					break;
+				} else
+					try {
+						setWindowfocus();
+						driver.findElement(By.xpath(Constants.portal_email_field)).clear();
+					} catch (Exception e) {
+						setWindowfocus();
+						driver.findElement(By.xpath("(//input[contains(@id,'mail')])[last()]")).clear();
+					}
+				wait(2);
+			}
 		}
 	}
 	
