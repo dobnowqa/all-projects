@@ -62,7 +62,7 @@ public class OilBurnerPay extends TestBase {
 
 		
 		laa.selectWorkType(data.get("user_info"));
-		laa.locationImfo(data.get("address"));
+		laa.locationInfo(data.get("address"));
 		laa.applicantInfo(data.get("user_info"));
 		laa.feeAssessment(data.get("fee_assessment"));
 		laa.saveGI("Y");

@@ -4,7 +4,6 @@ import com.util.Constants;
 import com.util.TestUtil;
 import com.util.Xls_Reader;
 import java.util.Hashtable;
-import org.openqa.selenium.support.PageFactory;
 import org.testng.SkipException;
 import org.testng.annotations.Test;
 import org.testng.annotations.AfterClass;
@@ -15,7 +14,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import com.base.TestBase;
 import com.pages.CityPayPage;
-import com.pages.CrmTaskFormPage;
 import com.pages.LaaPage;
 import com.relevantcodes.extentreports.LogStatus;
 
@@ -40,10 +38,11 @@ public class PlumbingGas extends TestBase {
 		quitDriver();
 	}
 	
-	@AfterClass
-	public void setChrome() {
-		setConfigBrowser("Chrome");
-	}
+	// JG: I run IE, so I don't want it set to Chrome.
+//	@AfterClass
+//	public void setChrome() {
+//		setConfigBrowser("Chrome");
+//	}
 
 	@AfterSuite(alwaysRun=true)
 	public void killDrivers() {
@@ -71,7 +70,7 @@ public class PlumbingGas extends TestBase {
 
 		
 		laa.selectWorkType(data.get("user_info"));
-		laa.locationImfo(data.get("address"));
+		laa.locationInfo(data.get("address"));
 		laa.applicantInfo(data.get("user_info"));
 		laa.feeAssessment(data.get("fee_assessment"));
 		laa.saveGI("Y");

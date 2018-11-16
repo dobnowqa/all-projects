@@ -4,7 +4,6 @@ import com.util.Constants;
 import com.util.TestUtil;
 import com.util.Xls_Reader;
 import java.util.Hashtable;
-import org.openqa.selenium.support.PageFactory;
 import org.testng.SkipException;
 import org.testng.annotations.Test;
 import org.testng.annotations.AfterClass;
@@ -14,8 +13,6 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import com.base.TestBase;
-import com.pages.CityPayPage;
-import com.pages.CrmTaskFormPage;
 import com.pages.LaaPage;
 import com.relevantcodes.extentreports.LogStatus;
 
@@ -70,20 +67,20 @@ public class PlumbingGasPay extends TestBase {
 
 		
 		laa.selectWorkType(data.get("user_info"));
-		laa.locationImfo(data.get("address"));
+		laa.locationInfo(data.get("address"));
 		laa.applicantInfo(data.get("user_info"));
 		laa.feeAssessment(data.get("fee_assessment"));
 		laa.saveGI("Y");
 		laa.scopeOfWork(data.get("sow"));
 		laa.uploadDocuments(data.get("documents"));
 		laa.signatures(data.get("signature"));
-		setConfigBrowser("IE");
+//		setConfigBrowser("IE");  // JG let's see what happens if we stay in Chrome 2018-10-26
 	}
 	
 	// PAY NOW / CITY PAY / FILE
 	@Test(priority = 1, dataProvider = "getTestData", dependsOnMethods = {"Portal"})
 	public void CityPay(Hashtable<String, String> data) {
-		laa.cityPay(data.get("pay_now"));
+		laa.cityPayLaa(data.get("pay_now")); //JG 2018-10-26 changed from cityPay to cityPayLaa
 		laa.previewToFile(data.get("file"));
 		successMessage(data.get("description"));
 	}

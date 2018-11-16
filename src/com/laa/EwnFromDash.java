@@ -58,11 +58,10 @@ public class EwnFromDash extends TestBase {
 		test = rep.startTest("Test Case Data");
 		test.log(LogStatus.INFO, data.toString());	
 		
-		
-		
+	
 
 		laa.clickEWN(data.get("user_info"));		
-		laa.locationImfo(data.get("address"));
+		laa.locationInfo(data.get("address"));
 		laa.applicantInfo(data.get("user_info"));
 		laa.saveGI("Y");
 		laa.uploadDocuments(data.get("documents"));

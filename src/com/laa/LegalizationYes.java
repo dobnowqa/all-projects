@@ -60,8 +60,9 @@ public class LegalizationYes extends TestBase {
 		
 
 		laa.selectWorkType(data.get("user_info"));
-		laa.locationImfo(data.get("address"));
+		laa.locationInfo(data.get("address"));
 		laa.applicantInfo(data.get("user_info"));
+		// LegalizationYes: This is Legalization work, AND resolving a violation // JG 2018-10-26
 		laa.feeAssessment(data.get("fee_assessment"));
 		laa.saveGI("Y");
 		laa.scopeOfWork(data.get("sow"));

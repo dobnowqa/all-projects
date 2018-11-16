@@ -15,9 +15,9 @@ import com.base.TestBase;
 import com.pages.LaaPage;
 import com.relevantcodes.extentreports.LogStatus;
 
-public class LegalizationNo extends TestBase {
+public class LaatOnAntenna extends TestBase {
+	String testname = this.getClass().getSimpleName();
 	Xls_Reader xlsx = new Xls_Reader(Constants.testCasesesLaa);
-	String testname = "LegalizationNo";
 
 	@BeforeSuite
 	public void BeforeSuite() {
@@ -44,27 +44,29 @@ public class LegalizationNo extends TestBase {
 	public Object[][] getTestData() {
 		return TestUtil.getData(testname, xlsx);
 	}
-
-	LaaPage laa = new LaaPage();
 	
+	LaaPage laa = new LaaPage();	
+
 	@Test(priority = 0, dataProvider = "getTestData", invocationCount = 1)
 	public void Portal(Hashtable<String, String> data) {
 		if (!TestUtil.isExecutable(testname, xlsx) || data.get("Runmode").equals("N"))
 			throw new SkipException("Skipping the test");
-		System.out.println("BEGIN " + convertedTimestamp() + " **************** " + data.get("description"));
+		System.out.println("BEGIN " +convertedTimestamp()+ " **************** " +data.get("description"));
 		test = rep.startTest(data.get("description"));
 		test.log(LogStatus.INFO, data.get("description"));
 		test = rep.startTest("Test Case Data");
-		test.log(LogStatus.INFO, data.toString());
-		
-		
+		test.log(LogStatus.INFO, data.toString());	
 
-		laa.selectWorkType(data.get("user_info"));
-		laa.locationInfo(data.get("address"));
+
+
+		laa.subsFilingAction(data.get("user_info"), data.get("filter"));
+		
+		
+		laa.selectWorkTypeSubs(data.get("user_info"));	//	LAA not subs
 		laa.applicantInfo(data.get("user_info"));
-		// LegalizationNo: This is Legalization work, but NOT resolving a violation // JG 2018-10-26
 		laa.feeAssessment(data.get("fee_assessment"));
-		laa.saveGI("Y");
+		laa.saveGI("Y");		
+		filterJob(user);		
 		laa.scopeOfWork(data.get("sow"));
 		laa.uploadDocuments(data.get("documents"));
 		laa.signatures(data.get("signature"));

@@ -60,7 +60,7 @@ public class EwnNumber extends TestBase {
 		
 		
 		laa.clickEWN(data.get("user_info"));		
-		laa.locationImfo(data.get("address"));
+		laa.locationInfo(data.get("address"));
 		laa.applicantInfo(data.get("user_info"));
 		laa.saveGI("Y");
 		laa.uploadDocuments(data.get("documents"));
