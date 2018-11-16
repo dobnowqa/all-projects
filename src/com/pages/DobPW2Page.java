@@ -83,13 +83,17 @@ public class DobPW2Page extends TestBase {
 				clickButton("OK");
 				waitInvisible(Constants.ok_button);
 			}			
-				if(count("//button[@disabled='disabled'][text()='File']") == 0){
-				click(Constants.pw2_file_button);
-//				clickButton("File");
-				waitVisible(Constants.ok_button);
-				verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("work_permit_submitted_for_review"));
-				clickButton("OK");
-				waitInvisible(Constants.ok_button);
+			if(getElement(Constants.pw2_file_button).isDisplayed() == true) {				
+				if (count("//button[@disabled='disabled'][text()='File']") == 0) {
+					click(Constants.pw2_file_button);
+					// clickButton("File");
+					waitVisible(Constants.ok_button);
+					verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("work_permit_submitted_for_review"));
+					clickButton("OK");
+					waitInvisible(Constants.ok_button);
+				}
+				if (count(Constants.pw2_cancel_button) > 0)
+					clickButton(Constants.pw2_cancel_button);
 			}
 		}
 		reportPass("workPermit");

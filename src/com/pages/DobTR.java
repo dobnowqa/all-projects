@@ -115,10 +115,10 @@ public class DobTR extends TestBase {
 	public void specialInspectionSignNew(String tr1) {
 		if (!tr1.equals("")) {
 			String[] data = tr1.split(" :: ");
-			System.out.println(convertedTimestamp() + " **************** TR1 specialInspectionPlumbingNew");
-			filterJob(user);
-			test = rep.startTest("TR1 specialInspectionPlumbingNew");
-			test.log(LogStatus.INFO, " specialInspectionPlumbingNew");
+			System.out.println(convertedTimestamp() + " **************** TR1 specialInspectionSignNew");
+//			filterJob(user);
+			test = rep.startTest("TR1 specialInspectionSignNew");
+			test.log(LogStatus.INFO, " specialInspectionSignNew");
 			clickAndWait(Constants.tr1_technical_report_step, Constants.tr1_are_you_special_inspector);
 			check(Constants.tr1_are_you_special_inspector);
 //			if (count(Constants.edit_icon) > 0) {
@@ -156,7 +156,7 @@ public class DobTR extends TestBase {
 		if (!tr1.equals("")) {
 			String[] data = tr1.split(" :: ");
 			System.out.println(convertedTimestamp() + " **************** TR1 specialInspectionPlumbingNew");
-			filterJob(user);
+//			filterJob(user);
 			test = rep.startTest("TR1 specialInspectionPlumbingNew");
 			test.log(LogStatus.INFO, " specialInspectionPlumbingNew");
 			clickAndWait(Constants.tr1_technical_report_step, Constants.tr1_are_you_special_inspector);
@@ -196,7 +196,7 @@ public class DobTR extends TestBase {
 		if (!tr1.equals("")) {
 			String[] data = tr1.split(" :: ");
 			System.out.println(convertedTimestamp() + " **************** TR1 specialInspectionPlumbingLegalization");
-			filterJob(user);
+//			filterJob(user);
 			test = rep.startTest("TR1 specialInspectionPlumbingLegalization");
 			test.log(LogStatus.INFO, " specialInspectionPlumbingLegalization");
 			clickAndWait(Constants.tr1_technical_report_step, Constants.tr1_are_you_special_inspector);
@@ -236,7 +236,7 @@ public class DobTR extends TestBase {
 		if (!tr1.equals("")) {
 			String[] data = tr1.split(" :: ");
 			System.out.println(convertedTimestamp() + " **************** TR1 specialInspectionPlumbing");
-			filterJob(user);
+//			filterJob(user);
 			test = rep.startTest("TR1 Inspection");
 			test.log(LogStatus.INFO, " specialInspectionPlumbing");
 			clickAndWait(Constants.tr1_technical_report_step, Constants.tr1_are_you_special_inspector);

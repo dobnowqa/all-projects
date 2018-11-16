@@ -28,12 +28,13 @@ public class ElevatorsPage extends TestBase {
 			email(OR_PROPERTIES.getProperty("elevator_applicant_email"));
 			select(Constants.pw1_2_license_type, OR_PROPERTIES.getProperty("elevator_applicant_lisence_type"));
 			select(Constants.select_business, "DIR BUS NAME");
+			scrollDown();
 			for (int i = 1; i < 100; i++) {
 				clear(Constants.designer_email);
 				send(Constants.designer_email, user.toUpperCase());
 				wait(1);
-				if (count(Constants.email_xpath_part1+user.toUpperCase()+Constants.close_xpath) > 0) {
-					click(Constants.email_xpath_part1+user.toUpperCase()+Constants.close_xpath);
+				if (driver.findElement(By.xpath(Constants.email_xpath_part1 +user.toUpperCase()+ "')]")).isDisplayed() == true) {
+					click(Constants.email_xpath_part1 +user.toUpperCase()+ "')]");
 					break;
 				}
 			}
@@ -43,8 +44,8 @@ public class ElevatorsPage extends TestBase {
 				clear(Constants.owner_email);
 				send(Constants.owner_email, user.toUpperCase());
 				wait(1);
-				if (count(Constants.email_xpath_part1 +user.toUpperCase() +Constants.email_xpath_part2) > 0) {
-					click(Constants.email_xpath_part1 +user.toUpperCase() +Constants.email_xpath_part2);
+				if (count(Constants.email_xpath_part1 +user.toUpperCase()+ "')]") > 0) {
+					click(Constants.email_xpath_part1 +user.toUpperCase()+"')]");
 					break;
 				}
 			}
@@ -62,7 +63,7 @@ public class ElevatorsPage extends TestBase {
 			clickButton("OK");
 			waitInvisible(Constants.ok_button);
 			addToProps("job_number", text(Constants.elevator_job_label).substring(1, 10).trim());
-			type(Constants.electrical_permit_number, "M368223");
+			type(Constants.electrical_permit_number, data[5]);
 			wait(2);
 			click(Constants.global_save_step_button);
 			waitUntilISpinnersInvisible();

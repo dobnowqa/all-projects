@@ -1,41 +1,12 @@
 package com.pages;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
-
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.FindBy;
-
 import com.base.TestBase;
 import com.util.Constants;
 
 public class CityPayPage extends TestBase {
-/*	WebDriver driver;
-	public CityPayPage(WebDriver dr) {
-		driver = dr;
-	}*/
-	
-/*	@FindBy(xpath=Constants.resubmit_button)
-	public WebElement resubmit_button;
-	@FindBy(xpath=Constants.preview_to_file_button)
-	public WebElement preview_to_file_button;
-	@FindBy(xpath=Constants.click_go_next_button)
-	public WebElement click_go_next_button;
-	@FindBy(xpath=Constants.final_legal_contect_checkbox)
-	public WebElement final_legal_contect_checkbox;
-	@FindBy(xpath=Constants.file_button)
-	public WebElement file_button;
-	@FindBy(xpath=Constants.global_cancel_button)
-	public WebElement global_cancel_button;*/
-	
 	
 	// City Pay IE
 	public void cityPay(String pay_now) {
@@ -114,35 +85,35 @@ public class CityPayPage extends TestBase {
 					clickAndWait("//a[@title='Pay by Credit Card']", "//p[@class='intro'][contains(.,'charged a service fee')]");
 //					waitInvisible("//p[@class='intro'][contains(.,'pay by electronic check')]");
 					waitVisible("//p[@class='intro'][contains(.,'Credit and debit card payments')]");
-					type(Constants.pay_first_name_cc, "Bob");
-					type(Constants.pay_last_name_cc, "Smith");
+					type(Constants.pay_first_name_cc, "Thomas");
+					type(Constants.pay_last_name_cc, "Anders");
 					type(Constants.pay_address_cc, "888 5 Ave");
 					type(Constants.pay_city_cc, "New York");
 					type(Constants.pay_zip_cc, "10021");
 					type(Constants.pay_phone_cc, "2125558888");
-					type(Constants.pay_email_cc, "mmazay@buildings.nyc.gov");
-					type(Constants.pay_email_confirm_cc, "mmazay@buildings.nyc.gov");
+					type(Constants.pay_email_cc, "jgrove@buildings.nyc.gov");
+					type(Constants.pay_email_confirm_cc, "jgrove@buildings.nyc.gov");
 					click(Constants.pay_continue_button_cc);
 					waitInvisible60(Constants.pay_continue_button_cc);
 					click(Constants.pay_next_button);
-					type(Constants.pay_name_on_card, "Bob Smith");
+					type(Constants.pay_name_on_card, "Thomas Anders");
 					type(Constants.pay_card_number, "4111111111111111");
 					select(Constants.pay_exp_month, "01");
 					select(Constants.pay_exp_year, "2020");
 					type(Constants.pay_cvv, "333");
 				} else {
-					type(Constants.pay_first_name, "Bob");
-					type(Constants.pay_last_name, "Smith");
+					type(Constants.pay_first_name, "Thomas");
+					type(Constants.pay_last_name, "Anders");
 					type(Constants.pay_address, "888 5 Ave");
 					type(Constants.pay_city, "New York");
 					type(Constants.pay_zip, "10021");
 					type(Constants.pay_phone, "2125558888");
-					type(Constants.pay_email, "mmazay@buildings.nyc.gov");
-					type(Constants.pay_email_confirm, "mmazay@buildings.nyc.gov");
+					type(Constants.pay_email, "jgrove@buildings.nyc.gov");
+					type(Constants.pay_email_confirm, "jgrove@buildings.nyc.gov");
 					click(Constants.pay_continue_button_ec);
 					waitInvisible60(Constants.pay_continue_button_ec);
 					click(Constants.pay_next_button);
-					type(Constants.pay_name_on_account, "Bob Smith");
+					type(Constants.pay_name_on_account, "Thomas Anders");
 					type(Constants.account_number, "123456789");
 					type(Constants.account_number_confirm, "123456789");
 					type(Constants.aba_routing_number, "021000089");
@@ -274,35 +245,35 @@ public class CityPayPage extends TestBase {
 					clickAndWait("//a[@title='Pay by Credit Card']", "//p[@class='intro'][contains(.,'charged a service fee')]");
 //					waitInvisible("//p[@class='intro'][contains(.,'pay by electronic check')]");
 					waitVisible("//p[@class='intro'][contains(.,'Credit and debit card payments')]");
-					type(Constants.pay_first_name_cc, "Bob");
-					type(Constants.pay_last_name_cc, "Smith");
+					type(Constants.pay_first_name_cc, "Thomas");
+					type(Constants.pay_last_name_cc, "Anders");
 					type(Constants.pay_address_cc, "888 5 Ave");
 					type(Constants.pay_city_cc, "New York");
 					type(Constants.pay_zip_cc, "10021");
 					type(Constants.pay_phone_cc, "2125558888");
-					type(Constants.pay_email_cc, "mmazay@buildings.nyc.gov");
-					type(Constants.pay_email_confirm_cc, "mmazay@buildings.nyc.gov");
+					type(Constants.pay_email_cc, "jgrove@buildings.nyc.gov");
+					type(Constants.pay_email_confirm_cc, "jgrove@buildings.nyc.gov");
 					click(Constants.pay_continue_button_cc);
 					waitInvisible60(Constants.pay_continue_button_cc);
 					click(Constants.pay_next_button);
-					type(Constants.pay_name_on_card, "Bob Smith");
+					type(Constants.pay_name_on_card, "Thomas Anders");
 					type(Constants.pay_card_number, "4111111111111111");
 					select(Constants.pay_exp_month, "01");
 					select(Constants.pay_exp_year, "2020");
 					type(Constants.pay_cvv, "333");
 				} else {
-					type(Constants.pay_first_name, "Bob");
-					type(Constants.pay_last_name, "Smith");
+					type(Constants.pay_first_name, "Thomas");
+					type(Constants.pay_last_name, "Anders");
 					type(Constants.pay_address, "888 5 Ave");
 					type(Constants.pay_city, "New York");
 					type(Constants.pay_zip, "10021");
 					type(Constants.pay_phone, "2125558888");
-					type(Constants.pay_email, "mmazay@buildings.nyc.gov");
-					type(Constants.pay_email_confirm, "mmazay@buildings.nyc.gov");
+					type(Constants.pay_email, "jgrove@buildings.nyc.gov");
+					type(Constants.pay_email_confirm, "jgrove@buildings.nyc.gov");
 					click(Constants.pay_continue_button_ec);
 					waitInvisible60(Constants.pay_continue_button_ec);
 					click(Constants.pay_next_button);
-					type(Constants.pay_name_on_account, "Bob Smith");
+					type(Constants.pay_name_on_account, "Thomas Anders");
 					type(Constants.account_number, "123456789");
 					type(Constants.account_number_confirm, "123456789");
 					type(Constants.aba_routing_number, "021000089");

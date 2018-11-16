@@ -9,8 +9,41 @@ import com.util.Constants;
 
 public class LaaPage extends TestBase {
 	
+	public void subsFilingAction(String user_email, String filter) {	
+	if(!filter.equals("")){
+		data = user_email.split(" :: ");
+		System.out.println(convertedTimestamp() + " **************** subsFilingAction");
+		loginToPortal(OR_PROPERTIES.getProperty("user_email"));
+		test = rep.startTest("subsFilingAction");
+		waitUntilISpinnersInvisible();
+		waitVisible(Constants.global_first_filter_field);
+		filter(filter);
+		wait(1);
+		select(Constants.filing_action_label, "Subsequent Filing");
+ 		click(Constants.yes_button);
+ 		waitInvisible(Constants.yes_button);
+ 		waitUntilISpinnersInvisible();
+ 		reportPass("Success");
+	}
+}
+	
+	public void selectWorkTypeSubs(String user_info) {	
+		data = user_info.split(" :: ");
+		System.out.println(convertedTimestamp() + " ****************  selectWorkTypeSubs");
+		test = rep.startTest("selectWorkTypeSubs");
+ 		waitUntilElementVisible(Constants.el_subsequent_filing_create_button, 30);
+		String document_xpath =  "//input[@ng-model='rowData." + data[0] +  "FilingWorktype']";
+		waitVisible(document_xpath);
+		click(document_xpath);
+		waitVisible(Constants.global_create_subsequent_button);
+		click(Constants.global_create_subsequent_button);
+		waitInvisible(Constants.global_create_subsequent_button);
+		waitUntilISpinnersInvisible();
+		reportPass("selectWorkTypeSubs");
+}	
+	
 	public void filterAndAction(String action) {
-		String[] data = action.split(" :: ");
+		data = action.split(" :: ");
 		test = rep.startTest("filterAndAction");
 		for (int i = 1; i < 20; i++) {
 			loginToPortal(data[0]);
@@ -70,9 +103,10 @@ public class LaaPage extends TestBase {
 	
 	public void clickEWN(String user_info) {	
 		if(!user_info.equals("")){
-			String[] data = user_info.split(" :: ");
+			data = user_info.split(" :: ");
 			System.out.println(convertedTimestamp() + " **************** clickEWN");
 			loginToPortal(data[1]);
+			waitUntilISpinnersInvisible();
 			test = rep.startTest("clickEWN");			
 			click(Constants.ewn_button);
 			waitForPageToLoad();
@@ -83,9 +117,10 @@ public class LaaPage extends TestBase {
 
 	public void selectWorkType(String user_info) {
 		if (!user_info.equals("")) {
-			String[] data = user_info.split(" :: ");
+			data = user_info.split(" :: ");
 			System.out.println(convertedTimestamp() + " **************** New Filing - selectWorkType");
 			loginToPortal(data[1]);
+			waitUntilISpinnersInvisible();
 			test = rep.startTest("selectWorkType");
 			click(Constants.job_filing_button);
 			waitVisible("//h4[text()='Job filing includes:']");
@@ -111,11 +146,11 @@ public class LaaPage extends TestBase {
 		}
 	}
 	
-	public void locationImfo(String address) {	
+	public void locationInfo(String address) {	
 		if(!address.equals("")){
-			System.out.println(convertedTimestamp() + " **************** locationImfo");
-			test = rep.startTest("locationImfo");
-			String[] data = address.split(" :: ");
+			System.out.println(convertedTimestamp() + " **************** locationInfo");
+			test = rep.startTest("locationInfo");
+			data = address.split(" :: ");
 			type(Constants.pw1_1_house_number, data[0]);
 			type(Constants.pw1_1_street_name,data[1]);
 			select(Constants.pw1_1_borough, data[2]);
@@ -127,9 +162,10 @@ public class LaaPage extends TestBase {
 
 	public void applicantInfo(String user_info) {	
 		if(!user_info.equals("")){
-			String[] data = user_info.split(" :: ");
+			data = user_info.split(" :: ");
 			System.out.println(convertedTimestamp() + " **************** applicantInfo");
 			test = rep.startTest("Applicant Info");
+			type(Constants.proposed_work_summary, convertedTimestamp());
 			email(data[1]);
 			wait(2);
 			select("//select[@id='selLicenseType']", data[2]);
@@ -139,26 +175,50 @@ public class LaaPage extends TestBase {
 			waitUntilISpinnersInvisible();
 	 	}
 	}
+	
+	
+	public void ownerInfo(String email) {	
+		if(!email.equals("")){
+			data = email.split(" :: ");
+			System.out.println(convertedTimestamp() + " **************** ownerInfo");
+			test = rep.startTest("Owner Info");			
+			waitForPageToLoad();
+				driver.findElement(By.xpath("//input[@id='txtElvOwnerEmail']")).sendKeys(email);
+			wait(2);
+			if (count("//strong[text()='" + email + "']") > 0)
+				doubleclick("//strong[text()='" + email + "']");			
+			wait(2);
+			waitForPageToLoad();
+			waitUntilISpinnersInvisible();
+	 	}
+	}
+	
+	
+	
+	
 
 	public void feeAssessment(String fee_assesment) {	
 		if(!fee_assesment.equals("")){
-			String[] data = fee_assesment.split(" :: ");
+			data = fee_assesment.split(" :: ");
 			System.out.println(convertedTimestamp() + " **************** feeAssessment");
 			test = rep.startTest("feeAssessment");
 			waitForPageToLoad();
 			waitUntilISpinnersInvisible();
 			scrollAllWayDown();
+			// if legalization work, enter ECB violation # //JG 2018-10-26
 			if(fee_assesment.contains("legalization")) {
 				scrollToElement(Constants.laa_legalization_yes);
 				radio(Constants.laa_legalization_yes);
 				wait(1);
 				radio("//input[@name='rdIsWorkPermitViolation'][@value='" +data[1]+ "']");
-				if(count(Constants.violation_number) > 0)
-					type(Constants.violation_number, "34778932");
+				if(count(Constants.violation_number) > 0) {
+					type(Constants.violation_number, "34392651K");
+				}
 			}
-			else 
+			else {
 				scrollToElement(Constants.laa_legalization_no);
 				radio(Constants.laa_legalization_no);
+			}
 			select(Constants.laa_specify_building_type, "1 Family");
 			if(fee_assesment.contains("Commercial"))
 				select(Constants.laa_building_use, "Commercial");
@@ -200,7 +260,7 @@ public class LaaPage extends TestBase {
 	
 	public void scopeOfWork(String sow) {
 		if (!sow.equals("")) {			
-			String[] data = sow.split(" :: ");
+			data = sow.split(" :: ");
 			System.out.println(convertedTimestamp() + " **************** scopeOfWork");
 //			filterJob(data[0]);
 			test = rep.startTest("scopeOfWork");
@@ -236,6 +296,7 @@ public class LaaPage extends TestBase {
 				waitForPageToLoad();
 				waitUntilISpinnersInvisible();
 				waitInvisible(Constants.ok_button);
+				click(Constants.gas_usage_accordion);
 				scrollDown();
 				check(Constants.gas_cooking);				
 
@@ -253,17 +314,6 @@ public class LaaPage extends TestBase {
 				radio(Constants.laa_offline_8_hours_no);
 			}
 
-			if(count(Constants.add_appliance_data) > 0) {
-				click(Constants.add_appliance_data);
-				select(Constants.floor_location, "Pit");
-				type(Constants.total_number_of_appliances, "2");
-				type(Constants.manyfacturer_name, "BMW");
-				select(Constants.listing_agency_name, "Other");
-				type(Constants.certification_number, "3333333");
-				type(Constants.model_number, "4444");
-				type(Constants.input_btu, "555");
-	
-			}	
 			if(count(Constants.save_scope_of_work) > 0) {
 				waitForPageToLoad();
 				waitUntilISpinnersInvisible();
@@ -274,13 +324,30 @@ public class LaaPage extends TestBase {
 				waitInvisible(Constants.ok_button);
 				waitForPageToLoad();
 				waitUntilISpinnersInvisible();
+				//if(count(Constants.add_appliance_data) > 0) {
+				if(count(Constants.appliance_data_accordion) > 0) {
+					click(Constants.appliance_data_accordion);
+					click(Constants.add_appliance_data);
+					select(Constants.floor_location, "Pit");
+					type(Constants.total_number_of_appliances, "2");
+					type(Constants.manyfacturer_name, "BMW");
+					select(Constants.listing_agency_name, "Other");
+					type(Constants.certification_number, "3333333");
+					type(Constants.model_number, "4444");
+					type(Constants.input_btu, "555");	
+					click(Constants.appliance_data_save);
+					clickButton("OK");
+					waitInvisible(Constants.ok_button);
+					waitForPageToLoad();
+					waitUntilISpinnersInvisible();
+				}	
 			}
 			else {
-				click(Constants.global_save_step_button);
+/*				click(Constants.global_save_step_button);
 				waitUntilISpinnersInvisible();
 				waitVisible(Constants.ok_button);
 				clickButton("OK");
-				waitInvisible(Constants.ok_button);
+				waitInvisible(Constants.ok_button);*/
 			}	
 		}
 		reportPass("scopeOfWork");
@@ -315,12 +382,12 @@ public class LaaPage extends TestBase {
 				waitUntilISpinnersInvisible();
 				waitForPageToLoad();
 				if (count(Constants.document_status_required) == 0) {
-					click(Constants.global_save_step_button);
+/*					click(Constants.global_save_step_button);
 					waitUntilISpinnersInvisible();
 					waitVisible(Constants.ok_button);
 					verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("saved"));
 					clickButton("OK");
-					waitInvisible(Constants.ok_button);
+					waitInvisible(Constants.ok_button);*/
 				}
 			}
 		}
@@ -415,9 +482,10 @@ public class LaaPage extends TestBase {
 		reportPass("previewToFile");
 	}	
 	
+	//This is the original cityPay method which uses ID and references Elevator. I created new cityPayLaa method below //JG 2018-10-26
 	public void cityPay(String pay_now) {
 		if (!pay_now.equals("")) {
-			String[] data = pay_now.split(" :: ");
+			data = pay_now.split(" :: ");
 			if (count(Constants.pay_now_button_disabled) == 0) {
 				System.out.println(convertedTimestamp() + " **************** " + "PayNowTest");
 				String parentWindowContact = driver.getWindowHandle();
@@ -511,8 +579,8 @@ public class LaaPage extends TestBase {
 					type(Constants.pay_city_cc, "New York");
 					type(Constants.pay_zip_cc, "10021");
 					type(Constants.pay_phone_cc, "2125558888");
-					type(Constants.pay_email_cc, "mmazay@buildings.nyc.gov");
-					type(Constants.pay_email_confirm_cc, "mmazay@buildings.nyc.gov");
+					type(Constants.pay_email_cc, "jgrove@buildings.nyc.gov");
+					type(Constants.pay_email_confirm_cc, "jgrove@buildings.nyc.gov");
 					click(Constants.pay_continue_button_cc);
 					waitInvisible60(Constants.pay_continue_button_cc);
 					click(Constants.pay_next_button);
@@ -528,8 +596,8 @@ public class LaaPage extends TestBase {
 					type(Constants.pay_city, "New York");
 					type(Constants.pay_zip, "10021");
 					type(Constants.pay_phone, "2125558888");
-					type(Constants.pay_email, "mmazay@buildings.nyc.gov");
-					type(Constants.pay_email_confirm, "mmazay@buildings.nyc.gov");
+					type(Constants.pay_email, "jgrove@buildings.nyc.gov");
+					type(Constants.pay_email_confirm, "jgrove@buildings.nyc.gov");
 					click(Constants.pay_continue_button_ec);
 					waitInvisible60(Constants.pay_continue_button_ec);
 					click(Constants.pay_next_button);
@@ -569,6 +637,159 @@ public class LaaPage extends TestBase {
 	}
 	
  
+	public void cityPayLaa(String pay_now) {
+		if (!pay_now.equals("")) {
+			data = pay_now.split(" :: ");
+			if (count(Constants.pay_now_button_disabled) == 0) {
+				System.out.println(convertedTimestamp() + " **************** " + "PayNowTest");
+				String parentWindowContact = driver.getWindowHandle();
+				for (int i = 1; i < 20; i++) {
+					wait(2);
+//					if (pay_now.contains("Elevator")) { // ELEVATOR
+//						// DO NOTHING
+//					} 
+//					else
+						filterJob(data[0]);
+					test = rep.startTest("City Pay");
+//					if (pay_now.contains("Elevator")) { // ELEVATOR
+//						clickAndWait("//span[text()='Pay Now']", "//button[text()='Yes']");
+////						click("//span[text()='Pay Now']");
+//						clickButton("Yes");
+//						waitInvisible("//button[text()='Yes']");
+//					} else {
+						clickAndWait(Constants.pay_now_button, Constants.pay_now_confirm_button);
+//						click(Constants.pay_now_button); // REST OF WORK TYPES
+						waitUntilISpinnersInvisible();
+						wait(3);
+						waitVisible60(Constants.pay_now_confirm_button);
+						doubleclick(Constants.pay_now_confirm_button);
+//						clickAndWait(Constants.pay_now_confirm_button, "//b[contains(text(),'Please do not click Back')]");
+						waitInvisible(Constants.pay_now_confirm_button);
+//					}
+					wait(5);
+					if ((driver.getWindowHandles().size()) > 1) {
+						// driver.close();
+						wait(1);
+						break;
+					}
+				}
+//				for (int i = 1; i < 2; i++) {
+					
+/*					Set<String> handleswindow = driver.getWindowHandles();
+					for (String windowHandle : handleswindow) {
+						wait(1);
+						driver.switchTo().window(windowHandle);
+						driver.manage().window().maximize();
+					}*/
+					
+					
+					
+					Set<String> handles = driver.getWindowHandles();
+					Iterator<String> itr = handles.iterator();
+					String newWindow = itr.next();
+					driver.switchTo().window(newWindow);
+					driver.manage().window().maximize();
+
+					Set<String> handleswindow = driver.getWindowHandles();
+					for (String windowHandle : handleswindow) {
+						wait(1);
+						driver.switchTo().window(windowHandle);
+						driver.manage().window().maximize();
+					}
+//					if (!driver.getTitle().equals("Certificate Error: Navigation Blocked")) {
+//						
+//						System.out.println(" You are in the wrong window");
+//						ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+//						driver.switchTo().defaultContent();
+//						driver.switchTo().window(tabs.get(0));
+//						driver.switchTo().window(tabs.get(1));
+//						
+//						
+//						
+//					if (count("//a[@id='overridelink']") > 0)
+//						break;
+//					}
+/*						System.out.println(" You are in the wrong window");
+					if (count("//a[@id='overridelink']") > 0)
+						break;*/
+//				}
+				while (count("//a[@id='overridelink']") > 0) {
+					driver.navigate().to("javascript:document.getElementById('overridelink').click()");
+					wait(5);
+					if (count("//a[@name='overridelink']") == 0)
+						break;
+					refreshPage();
+				}
+				waitVisible60(Constants.pay_continue_button);
+				if (pay_now.contains("credit")) {
+//					click("//a[@title='Pay by Credit Card']"); 
+					clickAndWait("//a[@title='Pay by Credit Card']", "//p[@class='intro'][contains(.,'charged a service fee')]");
+					
+//					waitInvisible("//p[@class='intro'][contains(.,'pay by electronic check')]");
+					waitVisible("//p[@class='intro'][contains(.,'Credit and debit card payments')]");
+					type(Constants.pay_first_name_cc, "Bob");
+					type(Constants.pay_last_name_cc, "Smith");
+					type(Constants.pay_address_cc, "888 5 Ave");
+					type(Constants.pay_city_cc, "New York");
+					type(Constants.pay_zip_cc, "10021");
+					type(Constants.pay_phone_cc, "2125558888");
+					type(Constants.pay_email_cc, "jgrove@buildings.nyc.gov");
+					type(Constants.pay_email_confirm_cc, "jgrove@buildings.nyc.gov");
+					click(Constants.pay_continue_button_cc);
+					waitInvisible60(Constants.pay_continue_button_cc);
+					click(Constants.pay_next_button);
+					type(Constants.pay_name_on_card, "Bob Smith");
+					type(Constants.pay_card_number, "4111111111111111");
+					select(Constants.pay_exp_month, "01");
+					select(Constants.pay_exp_year, "2020");
+					type(Constants.pay_cvv, "333");
+				} else {
+					type(Constants.pay_first_name, "Bob");
+					type(Constants.pay_last_name, "Smith");
+					type(Constants.pay_address, "888 5 Ave");
+					type(Constants.pay_city, "New York");
+					type(Constants.pay_zip, "10021");
+					type(Constants.pay_phone, "2125558888");
+					type(Constants.pay_email, "jgrove@buildings.nyc.gov");
+					type(Constants.pay_email_confirm, "jgrove@buildings.nyc.gov");
+					click(Constants.pay_continue_button_ec);
+					waitInvisible60(Constants.pay_continue_button_ec);
+					click(Constants.pay_next_button);
+					type(Constants.pay_name_on_account, "Bob Smith");
+					type(Constants.account_number, "123456789");
+					type(Constants.account_number_confirm, "123456789");
+					type(Constants.aba_routing_number, "021000089");
+				}
+				click(Constants.pay_next_button);
+				waitInvisible60(Constants.pay_next_button);
+				click(Constants.pay_now_button_final);
+				waitInvisible60(Constants.pay_now_button_final);
+				
+				wait(10);
+				if(!CONFIG.getProperty("env").contains("8085")) {
+					while (count("//a[@id='overridelink']") > 0) {
+						driver.navigate().to("javascript:document.getElementById('overridelink').click()");
+						wait(5);
+						if (count("//a[@name='overridelink']") == 0)
+							break;
+						refreshPage();
+					}
+				}
+				
+				assertTextPresent("Receipt Details", "Receipt Details");
+				driver.close();
+				wait(2);
+				setConfigBrowser("Chrome");
+				driver.switchTo().window(parentWindowContact);
+				waitVisible(Constants.ok_button);
+				clickButton("OK");
+				waitInvisible(Constants.ok_button);
+//				driver.close();
+			}
+		}
+		successMessage("cityPayLaa");
+	}
+
 	
 	
 }

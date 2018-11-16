@@ -1,8 +1,6 @@
 package com.pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-
 import com.base.TestBase;
 import com.util.Constants;
 
@@ -15,8 +13,11 @@ public class DobSOWPage extends TestBase {
 	public void scopeOfWork(String asw) {	
 		if(!asw.equals("")){
 			System.out.println(convertedTimestamp() + " **************** ScopeOfWorkTest");
-			filterJob(user);		
+//			filterJob(user);		
 			test = rep.startTest("ASW");
+			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-02: new PW1 UI
+				refreshPage(); //JG 2018-11-02: need to refresh for elements to be clickable
+			}
 			click(Constants.antenna_scope_of_work_step);
 			waitVisible(Constants.asw_specify_supporting_structures_for_antenna_array_rrh);
 			String[] data = asw.split(" :: ");
@@ -49,7 +50,7 @@ public class DobSOWPage extends TestBase {
 			String[] data = sow.split(" :: ");
 			int num_items = Integer.valueOf(data[0]);
 			System.out.println(convertedTimestamp() + " **************** scopeOfWorkPlumbingNew");
-			filterJob(user);
+//			filterJob(user);
 			test = rep.startTest("scopeOfWorkPlumbingNew");
 			click(Constants.scope_of_work_step);
 			int b = 0, c = 1;
@@ -87,7 +88,7 @@ public class DobSOWPage extends TestBase {
 			String[] data = sow.split(" :: ");
 			int num_items = Integer.valueOf(data[0]);
 			System.out.println(convertedTimestamp() + " **************** scopeOfWorkPlumbingLegalization");
-			filterJob(user);
+//			filterJob(user);
 			test = rep.startTest("scopeOfWorkPlumbingLegalization");
 			click(Constants.scope_of_work_step);
 			int b = 0, c = 1;
@@ -125,7 +126,7 @@ public class DobSOWPage extends TestBase {
 			String[] data = sow.split(" :: ");
 			int num_items = Integer.valueOf(data[0]);
 			System.out.println(convertedTimestamp() + " **************** ScopeOfWorkTest");
-			filterJob(user);
+//			filterJob(user);
 			test = rep.startTest("ASW");
 			click(Constants.scope_of_work_step);
 			int b = 0, c = 1;
@@ -190,7 +191,7 @@ public class DobSOWPage extends TestBase {
 			String[] data = asw.split(" :: ");
 			int num_items = Integer.valueOf(data[0]);
 			System.out.println(convertedTimestamp() + " **************** scopeOfWorkScaffold");
-			filterJob(user);
+//			filterJob(user);
 			test = rep.startTest("scopeOfWorkScaffold");
 			click(Constants.scope_of_work_step);
 			for (int i = 1; i <= 5; i++) {
@@ -258,7 +259,7 @@ public class DobSOWPage extends TestBase {
 			String[] data = asw.split(" :: ");
 			int num_items = Integer.valueOf(data[0]);
 			System.out.println(convertedTimestamp() + " **************** scopeOfWorkSidewalk");
-			filterJob(user);
+//			filterJob(user);
 			test = rep.startTest("scopeOfWorkSidewalk");
 			click(Constants.scope_of_work_step);
 			for (int i = 1; i <= 5; i++) {
@@ -326,7 +327,7 @@ public class DobSOWPage extends TestBase {
 			String[] data = asw.split(" :: ");
 			int num_items = Integer.valueOf(data[0]);
 			System.out.println(convertedTimestamp() + " **************** scopeOfWorkFence");
-			filterJob(user);
+//			filterJob(user);
 			test = rep.startTest("scopeOfWorkFence");
 			click(Constants.scope_of_work_step);
 			for (int i = 1; i <= 5; i++) {

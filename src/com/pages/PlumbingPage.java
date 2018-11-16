@@ -10,7 +10,7 @@ import com.base.TestBase;
 import com.relevantcodes.extentreports.LogStatus;
 import com.util.Constants;
 
-public class PaPage extends TestBase {
+public class PlumbingPage extends TestBase {
 
 	public void selectWorkTypePa(String worktype) {
 		if (!worktype.equals("")) {
@@ -42,7 +42,6 @@ public class PaPage extends TestBase {
 	}
 
 	public void applicantInfo(String user_info) {	
-		System.out.println(convertedTimestamp() + " **************** applicantInfo");
 		if(!user_info.equals("")){
 			String[] data = user_info.split(" :: ");
 			test = rep.startTest("Applicant Info");
@@ -56,7 +55,6 @@ public class PaPage extends TestBase {
 	//Work on Floor
 	public void workOnFloors(String work_on_floors) {	
 		if(!work_on_floors.equals("")){
-			System.out.println(convertedTimestamp() + " **************** workOnFloors");
 			test = rep.startTest("Work On Floors");
 			if(work_on_floors.contains(" :: ")) {
 				String[] data = work_on_floors.split(" :: ");
@@ -82,8 +80,6 @@ public class PaPage extends TestBase {
 
 	public void ownerinfo(String owner_info) {
 		if (!owner_info.equals("")) {
-			System.out.println(convertedTimestamp() + " **************** ownerinfo");
-			data = owner_info.split(" :: ");
 			test = rep.startTest("Work On Floors");
 			for (int i = 1; i < 100; i++) {
 				if(count(Constants.party_to_renewpalce_assembly_yes) > 0)
@@ -97,10 +93,10 @@ public class PaPage extends TestBase {
 				if(owner_info.contains("profit"))
 					radio("//input[@id='rblIsTheDeedHolderaNonProfitOrganization2']");
 				clear("//input[@id='txtDPEmail']");
-				send("//input[@id='txtDPEmail']", data[0]);
+				send("//input[@id='txtDPEmail']", OR_PROPERTIES.getProperty("owner_email"));
 				wait(2);
-				if (count("//strong[text()='" +data[0]+ "']") > 0) {
-					doubleclick("//strong[text()='" +data[0]+ "']");
+				if (count("//strong[text()='" + OR_PROPERTIES.getProperty("owner_email") + "']") > 0) {
+					doubleclick("//strong[text()='" + OR_PROPERTIES.getProperty("owner_email") + "']");
 					wait(1);
 					break;
 				}
@@ -123,7 +119,7 @@ public class PaPage extends TestBase {
 			}
 		}
 	}
-	public void saveGI(String save) {	
+/*	public void saveGI(String save) {	
 		if(!save.equals("")){
 			test = rep.startTest("Save PW1");
 			scrollAllWayUp();
@@ -140,7 +136,7 @@ public class PaPage extends TestBase {
 			addToProps("job_number", text(Constants.el_job_label).substring(0, 10).trim());
 	 	}
 		reportPass("savePW1");
-	}
+	}*/
 	
 	public void scopeOfWorkTpa(String sow) {
 		if (!sow.equals("")) {
@@ -374,9 +370,10 @@ public class PaPage extends TestBase {
 				click("//a[@class='ng-binding'][@ng-click='changeCurrentPage(3);']");
 				waitUntilISpinnersInvisible();
 				waitForPageToLoad();
-				waitVisible("//*[contains(text(),'Are you a Progress Inspector')]");	
-				radio("//input[@name='rdTR1ProgressInspectionsType'][@value='true']");
-/*				wait(51);				
+				waitVisible("//span[text()='2. Applicant Information']");				
+				radio("//input[@ng-model='ProgressInspectionsApplicant'][@value='true']");
+/*				wait(51);
+				
 				if(count("//i[@class='fa fa-upload ng-scope']") > 0) {
 					click("//i[@class='fa fa-upload ng-scope']");
 					send(Constants.tr1_browse_button, Constants.uploadFolder + "upload.png");
@@ -427,11 +424,13 @@ public class PaPage extends TestBase {
 				filterJob(data[1]);
 				test = rep.startTest("progressInspector");
 				waitUntilISpinnersInvisible();
-				waitForPageToLoad();				
+				waitForPageToLoad();
+				
+				
 				click("//a[@class='ng-binding'][@ng-click='changeCurrentPage(3);']");
 				waitUntilISpinnersInvisible();
 				waitForPageToLoad();
-				waitVisible("//*[contains(text(),'Are you a Progress Inspector')]");				
+				waitVisible("//span[text()='2. Applicant Information']");				
 				radio("//input[@ng-model='ProgressInspectionsApplicant'][@value='true']");
 				wait(1);
 				if(count("//i[@class='fa fa-upload ng-scope']") > 0) {
@@ -505,12 +504,12 @@ public class PaPage extends TestBase {
 				type(Constants.document_status_filter, "required");
 				wait(1);
 				if (count(Constants.document_status_required) == 0) {
-					click(Constants.global_save_step_button);
+/*					click(Constants.global_save_step_button);
 					waitUntilISpinnersInvisible();
 					waitVisible(Constants.ok_button);
 					verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
 					clickButton("OK");
-					waitInvisible(Constants.ok_button);
+					waitInvisible(Constants.ok_button);*/
 				}
 			}
 		}
@@ -541,6 +540,40 @@ public class PaPage extends TestBase {
 			waitInvisible(Constants.ok_button);
 		}
 		reportPass("signatures");
+	}
+	
+	public void applicantignaturePaa(String signatures) {
+		if(!signatures.equals("")){
+			System.out.println(convertedTimestamp() + " **************** Applicant Sign");
+			filterJob(user);	
+			test = rep.startTest("Statemments Signatures");
+			click(Constants.ss_statement_signatures_step);
+			waitUntilISpinnersInvisible();
+			waitVisible(Constants.ss_save_button);
+			if(count(Constants.project_not_require_commissioning) > 0)
+				radio(Constants.project_not_require_commissioning);
+			if(count(Constants.ss_i_havepersonally_reviewed_all_information) > 0)
+				check(Constants.ss_i_havepersonally_reviewed_all_information);
+			scrollTo("//h3[contains(text(),'Owner - Statements & Signatures')]");
+			radio(Constants.ss_fee_exemption_reques_non_profit_yes);
+			radio(Constants.ss_owners_certifications_yes);
+			radio(Constants.ss_building_to_be_altered_demolished_no);
+			radio(Constants.ss_building_to_be_altered_demolished_no);
+			radio(Constants.ss_owner_is_not_required_to_notify_yes);
+			radio(Constants.ss_owner_notified_new_york);
+			if(count("//select[@id='ddlPWOwnerType']") > 0) {
+				if(count("//select[@id='ddlPWOwnerType'][@disabled='disabled']") == 0)
+					select(Constants.ss_owner_type, "Partnership");
+			}
+			
+//			email(OR_PROPERTIES.getProperty("owner_email"));
+			click(Constants.save_button);
+			waitUntilISpinnersInvisible();
+			waitVisible(Constants.ok_button);
+			assertNotification(TEXT_PROPERTIES.getProperty("job_filing_saved"), "job_filing_saved");
+			clickButton("OK");
+			waitInvisible(Constants.ok_button);
+		}
 	}
 	
 	public void owner(String owner) {	

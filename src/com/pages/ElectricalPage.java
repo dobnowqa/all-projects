@@ -1,7 +1,6 @@
 package com.pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import com.base.TestBase;
@@ -108,6 +107,7 @@ public class ElectricalPage extends TestBase {
 			type(Constants.el_gi_block, loc[3]);
 			type(Constants.el_gi_lot, loc[4]);
 			type(Constants.el_ge1_job_description, description + " "+ convertedTimestamp());
+//			wait(22);
 	 		click(Constants.el_gi_job_start_date_calendar);
 	 		click(Constants.el_gi_calendar_active_day);
 	 		keyPressTab(Constants.el_gi_job_start_date_calendar);
@@ -124,33 +124,6 @@ public class ElectricalPage extends TestBase {
 			if(joint_venue.equals("No"))
 				radio(Constants.el_gi_job_is_this_joint_venture_no);
 	 		select(Constants.el_gi_building_use_type, use_type);
-		}
-	}
-	public void locationOLDImformation(String house, String street,String borough,String block,String  lot,String description, String use_type,String joint_venue,String sow) {	
-		if(!house.equals("")){
-			test = rep.startTest("location Imformation");
-			System.out.println(convertedTimestamp() + " **************** " + "General Info");
-			waitUntilISpinnersInvisible();
-			type(Constants.el_gi_house_number, house);
-			type(Constants.el_gi_street_name, street);
-			type(Constants.el_gi_borough, borough);
-			type(Constants.el_gi_block, block);
-			type(Constants.el_gi_lot, lot);
-			type(Constants.el_ge1_job_description, description + " "+ convertedTimestamp());
-	 		click(Constants.el_gi_job_start_date_calendar);
-	 		click(Constants.el_gi_calendar_active_day);
-	 		click(Constants.el_gi_job_completion_date_calendar);
-			if(sow.equals("NEW INSTALLATION") || sow.equals("Field Sign Inspection")) {
-				click(Constants.el_calendar_next_month_arrow);
-				click(Constants.el_gi_job_completion_last_day);
-			}
-			if(sow.equals("Minor Work"))
-				click(Constants.el_gi_calendar_active_day);
-			if(joint_venue.equals("Yes"))
-				radio(Constants.el_gi_job_is_this_joint_venture_yes);
-			if(joint_venue.equals("No"))
-				radio(Constants.el_gi_job_is_this_joint_venture_no);
-			select(Constants.el_gi_building_use_type, use_type);
 		}
 	}
 

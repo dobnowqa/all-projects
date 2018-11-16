@@ -14,10 +14,12 @@ public class DobTR8Page extends TestBase {
 	public void energyCodeProgressInspection(String tr8) {
 		if (!tr8.equals("")) {
 			System.out.println(convertedTimestamp() + " **************** TR8 energyCodeProgressInspection");
-			filterJob(OR_PROPERTIES.getProperty("user_email"));
+//			filterJob(OR_PROPERTIES.getProperty("user_email"));
 			test = rep.startTest("TR8 Energy progress");
 			click(Constants.tr8_technical_report_energy_step);
-			check(Constants.tr8_are_you_progress_inspector);
+			if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-14: new PW1 UI
+				check(Constants.tr8_are_you_progress_inspector);
+			}
 			for (int i = 1; i < 100; i++) {
 				waitVisible("//span[text()='Requirement']");
 				multiClick(Constants.add);
@@ -26,18 +28,24 @@ public class DobTR8Page extends TestBase {
 				click(Constants.tr8_select_requirement_code_filter);
 				click(Constants.inspection_label);
 				email(OR_PROPERTIES.getProperty("progress_inspector_email"));
-				select(Constants.tr1_license_type, OR_PROPERTIES.getProperty("progress_inspector_lisence"));
-				if (text(Constants.tr1_license_type).contains(OR_PROPERTIES.getProperty("progress_inspector_lisence"))) {
-					click(Constants.tr8_save_progress_inspection_button);
-					waitUntilElementVisible(Constants.ok_button, 30);
-					verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("inspection_requirements_added"));
-					click(Constants.ok_button);
-					waitInvisible(Constants.ok_button);
-				}
-				else
-					click(Constants.global_cancel_button);
-				if (count(Constants.identified_no_label) > 0)
+				if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-14: new PW1 UI
+					select(Constants.tr1_license_type, OR_PROPERTIES.getProperty("progress_inspector_lisence"));
+					if (text(Constants.tr1_license_type).contains(OR_PROPERTIES.getProperty("progress_inspector_lisence"))) {
+						click(Constants.tr8_save_progress_inspection_button);
+					} else {
+						click(Constants.global_cancel_button);
+					}
+
+				} else {
+					click(Constants.tr8_save_progress_inspection_button_8085);
+					}
+				waitUntilElementVisible(Constants.ok_button, 30);
+				verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("inspection_requirements_added"));
+				click(Constants.ok_button);
+				waitInvisible(Constants.ok_button);
+				if (count(Constants.identified_no_label) > 0) {
 					break;
+				}
 			}
 			reportPass("Success");
 		}
@@ -56,8 +64,14 @@ public class DobTR8Page extends TestBase {
 				wait(2);
 				check(Constants.tr8_i_take_responcibility);
 				check(Constants.tr8_i_understand_and_agree);
-				click(Constants.global_save_form_button);
-				waitInvisible(Constants.global_save_form_button);
+				if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-14: new PW1 UI
+					select(Constants.tr1_license_type, OR_PROPERTIES.getProperty("progress_inspector_lisence"));
+					click(Constants.tr8_save_progress_inspection_button_8085);
+					waitInvisible(Constants.tr8_save_progress_inspection_button_8085);
+				} else {
+					click(Constants.global_save_form_button);
+					waitInvisible(Constants.global_save_form_button);
+				}				
 				waitUntilISpinnersInvisible();
 				waitVisible(Constants.ok_button);
 				verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_updated"));
@@ -66,7 +80,11 @@ public class DobTR8Page extends TestBase {
 				if (count(Constants.identified_yes_label) > 0)
 					break;
 			}
-			click(Constants.upload_document_icon);
+			if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-14: new PW1 UI
+				click(Constants.upload_document_icon);
+			} else {
+				click(Constants.upload_document_icon_8085);
+			}
 			send(Constants.tr1_browse_button, Constants.uploadFolder + "upload.png");
 			wait(1);
 			click(Constants.tr1_upload_button);
@@ -77,6 +95,7 @@ public class DobTR8Page extends TestBase {
 			click(Constants.ok_button);
 			waitInvisible(Constants.ok_button);
 			reportPass("Success");
+			filterJob(user);
 		}
 	}
 
@@ -85,7 +104,7 @@ public class DobTR8Page extends TestBase {
 			String[] data = tr8.split(" :: ");
 			System.out.println(convertedTimestamp() + " **************** TR8 energyCodeProgressPlumbing");
 			filterJob(user);
-			test = rep.startTest("TR8 Energy Code progress");
+			test = rep.startTest("energyCodeProgressPlumbing");
 			click(Constants.tr8_technical_report_energy_step);
 			check(Constants.tr8_are_you_progress_inspector);
 			if(count("//span[contains(text(),'Legalization')]") > 0)
@@ -142,7 +161,7 @@ public class DobTR8Page extends TestBase {
 	public void energyCodeProgress2(String tr8) {
 		if (!tr8.equals("")) {
 			String[] data = tr8.split(" :: ");
-			System.out.println(convertedTimestamp() + " **************** TR8 energyCodeProgressPlumbing");
+			System.out.println(convertedTimestamp() + " **************** TR8 energyCodeProgress2");
 			filterJob(user);
 			test = rep.startTest("TR8 Energy Code progress");
 			click(Constants.tr8_technical_report_energy_step);
@@ -227,6 +246,7 @@ public class DobTR8Page extends TestBase {
 				}
 			}
 		}
+//		filterJob(user);
 		reportPass("energyCodeSignaturePlumbing");
 	}
 

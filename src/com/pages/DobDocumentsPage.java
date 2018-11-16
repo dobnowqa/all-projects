@@ -3,7 +3,6 @@ package com.pages;
 import com.base.TestBase;
 import com.util.Constants;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 
 public class DobDocumentsPage extends TestBase {
 /*	WebDriver driver;
@@ -14,15 +13,23 @@ public class DobDocumentsPage extends TestBase {
 	public void uploadDocuments(String upload_file) {
 		if (!upload_file.equals("")) {
 			System.out.println(convertedTimestamp() + " **************** uploadDocuments");
-			filterJob(user);
+//			filterJob(user);
 			test = rep.startTest("Upload Documents");
 			click(Constants.documents_step);
 			waitUntilISpinnersInvisible();
 			waitForPageToLoad();
-			if (driver.findElement(By.xpath(Constants.documents_loading_spinner)).isDisplayed()) {
-				refreshPage();
-				waitForPageToLoad();
-				wait(3);
+			if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-15 
+				if (driver.findElement(By.xpath(Constants.documents_loading_spinner)).isDisplayed()) {
+					refreshPage();
+					waitForPageToLoad();
+					wait(3);
+				}
+			} else {
+				if (driver.findElement(By.xpath(Constants.documents_loading_spinner_8085)).isDisplayed()) {
+					refreshPage();
+					waitForPageToLoad();
+					wait(3);
+				}
 			}
 			while (count(Constants.upload_document_icon) < 1) {
 				refreshPage();
@@ -30,7 +37,11 @@ public class DobDocumentsPage extends TestBase {
 				wait(3);
 			}
 			while (count(Constants.document_status_required) > 0) { 
-				type(Constants.document_status_filter, "required");
+				if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-15
+					type(Constants.document_status_filter, "required");
+				} else {
+					type(Constants.document_status_filter_8085, "required");
+				}
 				wait(1);
 				click(Constants.upload_document_icon);
 				send(Constants.doc_browse_button, Constants.uploadFolder + "upload.png");
@@ -41,10 +52,18 @@ public class DobDocumentsPage extends TestBase {
 				waitInvisible(Constants.ok_button);
 				waitUntilISpinnersInvisible();
 				waitForPageToLoad();
-				if (driver.findElement(By.xpath(Constants.documents_loading_spinner)).isDisplayed()) {
-					refreshPage();
-					waitForPageToLoad();
-					wait(5);
+				if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-15 
+					if (driver.findElement(By.xpath(Constants.documents_loading_spinner)).isDisplayed()) {
+						refreshPage();
+						waitForPageToLoad();
+						wait(5);
+					}
+				} else {
+					if (driver.findElement(By.xpath(Constants.documents_loading_spinner_8085)).isDisplayed()) {
+						refreshPage();
+						waitForPageToLoad();
+						wait(5);
+					}
 				}
 				if (count(Constants.document_status_required) == 0) {
 					click(Constants.global_save_step_button);

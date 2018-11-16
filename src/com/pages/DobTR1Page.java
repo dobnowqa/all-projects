@@ -16,8 +16,10 @@ public class DobTR1Page extends TestBase {
 			filterJob(user);
 			test = rep.startTest("TR1 Inspection");
 			click(Constants.tr1_technical_report_step);
-			check(Constants.tr1_are_you_special_inspector);
-			check(Constants.tr1_are_you_progress_inspector);
+			if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-13: new PW1 UI
+				check(Constants.tr1_are_you_special_inspector);
+				check(Constants.tr1_are_you_progress_inspector);
+			}
 			for (int i = 1; i < 100; i++) {
 				multiClick(Constants.add);
 //				click(Constants.global_add_button);
@@ -26,17 +28,27 @@ public class DobTR1Page extends TestBase {
 				click(Constants.tr1_select_requirement_code_filter);
 				click(Constants.inspection_label);
 				email(OR_PROPERTIES.getProperty("special_inspector_email"));
-				select(Constants.tr1_license_type, OR_PROPERTIES.getProperty("special_inspector_lisence"));
-				type(Constants.tr1_agency_number, data[3]);
-				//keyPressTab(Constants.tr1_agency_number);
-				wait(2);
-				if (count(Constants.green_valid_label) > 0)
+				if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-13: new PW1 UI
+					select(Constants.tr1_license_type, OR_PROPERTIES.getProperty("special_inspector_lisence"));
+					type(Constants.tr1_agency_number, data[3]);
+					//keyPressTab(Constants.tr1_agency_number);
+					wait(2);
+					if (count(Constants.green_valid_label) > 0) {
+						break;
+					} else {
+						click(Constants.global_cancel_button);
+					}
+				} else {
 					break;
-				else
-					click(Constants.global_cancel_button);
+				}
 			}
-			click(Constants.tr1_save_progress_inspection_button);
-			waitInvisible(Constants.tr1_save_progress_inspection_button);
+			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-02: new PW1 UI
+				click(Constants.tr1_save_progress_inspection_button_8085);
+				waitInvisible(Constants.tr1_save_progress_inspection_button_8085);
+			} else {
+				click(Constants.tr1_save_progress_inspection_button);
+				waitInvisible(Constants.tr1_save_progress_inspection_button);
+			}
 			waitUntilISpinnersInvisible();
 			waitVisible(Constants.ok_button);
 			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("inspection_requirements_added"));
@@ -45,7 +57,6 @@ public class DobTR1Page extends TestBase {
 			reportPass("Success");
 		}
 	}
-
 	public void specialInspectorSignature(String tr1) {
 		if (!tr1.equals("")) {
 			String[] data = tr1.split(" :: ");
@@ -56,21 +67,38 @@ public class DobTR1Page extends TestBase {
 				click(Constants.tr1_technical_report_step);
 				check(Constants.tr1_are_you_special_inspector);
 				check(Constants.tr1_are_you_progress_inspector);
-				click("//i[@class='fa fa-edit']"); // DO NOT CAHNGE TO LAST()
+				if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-13: new PW1 UI
+					click("//i[@class='fa fa-edit']"); // DO NOT CAHNGE TO LAST()
+				} else {
+					click("(//i[@class='fa fa-edit'])[3]"); // JG 2018-11-13: new PW1 UI
+				}
 				waitVisible("//h4[text()='Special Inspection Category']");
 				waitVisible(Constants.tr1_agency_number);
 				wait(3);
+				if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-13: new PW1 UI
+					select(Constants.license_type_list_8085, data[2]); // DO NOT CAHNGE TO LAST()
+					type(Constants.tr1_agency_number, "005551");
+					wait(3);
+				}
 //				System.out.println(count(Constants.green_valid_label));
 				if (count(Constants.green_valid_label) > 0) {
 					check(Constants.tr1_i_take_responcibility);
 					check(Constants.tr1_i_understand_my_failure_to_file);
 					check(Constants.tr1_i_understand_and_agree);
-					click(Constants.tr1_save_progress_inspection_button);
+					if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-13: new PW1 UI
+						click(Constants.tr1_save_progress_inspection_button);
+					} else {
+						click(Constants.tr1_save_progress_inspection_button_8085);
+					}
 					waitVisible(Constants.ok_button);
 					verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_updated"));
 					clickButton("OK");
 					waitInvisible(Constants.ok_button);
-					waitInvisible(Constants.tr1_save_progress_inspection_button);
+					if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-13: new PW1 UI
+						waitInvisible(Constants.tr1_save_progress_inspection_button);
+					} else {
+						waitInvisible(Constants.tr1_save_progress_inspection_button_8085);
+					}
 				}
 				wait(2);
 				if (count(Constants.identified_yes_label) > 0)
@@ -84,30 +112,59 @@ public class DobTR1Page extends TestBase {
 				check(Constants.tr1_i_take_responcibility);
 				check(Constants.tr1_i_understand_my_failure_to_file);
 				check(Constants.tr1_i_understand_and_agree);
-				click(Constants.tr1_save_progress_inspection_button);
+				if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-13: new PW1 UI
+					click(Constants.tr1_save_progress_inspection_button);
+				} else {
+					click(Constants.tr1_save_progress_inspection_button_8085);
+				}
 				waitVisible(Constants.ok_button);
 				verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_updated"));
 				clickButton("OK");
 				waitInvisible(Constants.ok_button);
-				waitInvisible(Constants.tr1_save_progress_inspection_button);
+				if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-13: new PW1 UI
+					waitInvisible(Constants.tr1_save_progress_inspection_button);
+				} else {
+					waitInvisible(Constants.tr1_save_progress_inspection_button_8085);
+				}
 				if (count(Constants.identified_yes_label) > 0)
 					break;
 /*				else
 					click(Constants.cancel_button);*/
 			}
-			if(count(Constants.upload_document_icon) > 0) {
-				click(Constants.upload_document_icon); // DO NOT CAHNGE TO LAST()
-				waitVisible(Constants.tr1_browse_button);
-				send(Constants.tr1_browse_button, Constants.uploadFolder + "upload.png");
-				wait(1);
-				click(Constants.tr1_upload_button);
+			if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-13: new PW1 UI
+				if(count(Constants.upload_document_icon) > 0) {
+					click(Constants.upload_document_icon); // DO NOT CAHNGE TO LAST()
+					waitVisible(Constants.tr1_browse_button);
+					send(Constants.tr1_browse_button, Constants.uploadFolder + "upload.png");
+					wait(1);
+					click(Constants.tr1_upload_button);
+					waitInvisible(Constants.tr1_please_wait_message);
+					waitVisible(Constants.tr1_upload_succesfull_message);
+					waitUntilISpinnersInvisible();
+					waitVisible(Constants.ok_button);
+					clickButton("OK");
+					waitInvisible(Constants.ok_button);
+				}
+			} else {
+				click(Constants.tr8_technical_report_step); // JG 2018-11-13 click TR8 then TR1 tab to refresh the grid because grid is empty after save.
 				waitInvisible(Constants.tr1_please_wait_message);
-				waitVisible(Constants.tr1_upload_succesfull_message);
-				waitUntilISpinnersInvisible();
-				waitVisible(Constants.ok_button);
-				clickButton("OK");
-				waitInvisible(Constants.ok_button);
+				click(Constants.tr1_technical_report_step);
+				waitInvisible(Constants.tr1_please_wait_message);
+				if(count(Constants.upload_document_icon_8085) > 0) {
+					click(Constants.upload_document_icon_8085); // DO NOT CAHNGE TO LAST()
+					waitVisible(Constants.tr1_browse_button);
+					send(Constants.tr1_browse_button, Constants.uploadFolder + "upload.png");
+					wait(1);
+					click(Constants.tr1_upload_button);
+					waitInvisible(Constants.tr1_please_wait_message);
+					waitVisible(Constants.tr1_upload_succesfull_message);
+					waitUntilISpinnersInvisible();
+					waitVisible(Constants.ok_button);
+					clickButton("OK");
+					waitInvisible(Constants.ok_button);
+				}				
 			}
+//			filterJob(user);
 			reportPass("Success");
 		}
 	}
@@ -116,7 +173,7 @@ public class DobTR1Page extends TestBase {
 		if (!tr1.equals("")) {
 			String[] data = tr1.split(" :: ");
 			System.out.println(convertedTimestamp() + " **************** TR1 specialInspectionPlumbingNew");
-			filterJob(user);
+//			filterJob(user);
 			test = rep.startTest("TR1 specialInspectionPlumbingNew");
 			test.log(LogStatus.INFO, " specialInspectionPlumbingNew");
 			clickAndWait(Constants.tr1_technical_report_step, Constants.tr1_are_you_special_inspector);
@@ -150,13 +207,14 @@ public class DobTR1Page extends TestBase {
 					}
 				}
 //			}
+//				filterJob(user);
 		}
 	}
 	public void specialInspectionPlumbingNew(String tr1) {
 		if (!tr1.equals("")) {
 			String[] data = tr1.split(" :: ");
 			System.out.println(convertedTimestamp() + " **************** TR1 specialInspectionPlumbingNew");
-			filterJob(user);
+//			filterJob(user);
 			test = rep.startTest("TR1 specialInspectionPlumbingNew");
 			test.log(LogStatus.INFO, " specialInspectionPlumbingNew");
 			clickAndWait(Constants.tr1_technical_report_step, Constants.tr1_are_you_special_inspector);
@@ -190,13 +248,14 @@ public class DobTR1Page extends TestBase {
 					}
 				}
 //			}
+//				filterJob(user);
 		}
 	}
 	public void specialInspectionPlumbingLegalization(String tr1) {
 		if (!tr1.equals("")) {
 			String[] data = tr1.split(" :: ");
 			System.out.println(convertedTimestamp() + " **************** TR1 specialInspectionPlumbingLegalization");
-			filterJob(user);
+//			filterJob(user);
 			test = rep.startTest("TR1 specialInspectionPlumbingLegalization");
 			test.log(LogStatus.INFO, " specialInspectionPlumbingLegalization");
 			clickAndWait(Constants.tr1_technical_report_step, Constants.tr1_are_you_special_inspector);
@@ -230,13 +289,14 @@ public class DobTR1Page extends TestBase {
 					}
 				}
 //			}
+//				filterJob(user);
 		}
 	}
 	public void specialInspectionPlumbing(String tr1) {
 		if (!tr1.equals("")) {
 			String[] data = tr1.split(" :: ");
 			System.out.println(convertedTimestamp() + " **************** TR1 specialInspectionPlumbing");
-			filterJob(user);
+//			filterJob(user);
 			test = rep.startTest("TR1 Inspection");
 			test.log(LogStatus.INFO, " specialInspectionPlumbing");
 			clickAndWait(Constants.tr1_technical_report_step, Constants.tr1_are_you_special_inspector);
@@ -330,6 +390,7 @@ public class DobTR1Page extends TestBase {
 
 				}
 			}
+//			filterJob(user);
 			reportPass("Success");
 		}
 	}
@@ -346,8 +407,13 @@ public class DobTR1Page extends TestBase {
 //				check(Constants.tr1_are_you_special_inspector);
 				check(Constants.tr1_are_you_progress_inspector);
 				for (int a = 1; a <= 5; a++) {
-					wait(2);
-					click("(//i[@class='fa fa-edit'])[last()]");
+					wait(2);					
+					if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-13: new PW1 UI
+						click("(//i[@class='fa fa-edit'])[last()]");
+					} else {
+						scrollTo("(//i[@class='fa fa-edit'])[last()]"); // JG 2018-11-14 scroll to edit button.
+						click("(//i[@class='fa fa-edit'])[last()]"); 
+					}
 					waitVisible("//h4[text()='Progress Inspection Category']");
 					email(data[1]);
 					select(Constants.tr1_license_type, data[2]);
@@ -363,8 +429,13 @@ public class DobTR1Page extends TestBase {
 					} else
 						click(Constants.global_cancel_button);
 				}
-				click(Constants.global_save_form_button);
-				waitInvisible(Constants.global_save_form_button);
+				if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-14: new PW1 UI
+					click(Constants.global_save_form_button);
+					waitInvisible(Constants.global_save_form_button);
+				} else {
+					click(Constants.tr1_save_progress_inspection_button_8085);
+					waitInvisible(Constants.tr1_save_progress_inspection_button_8085);
+				}
 				waitUntilISpinnersInvisible();
 				waitVisible(Constants.ok_button);
 				verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_updated"));
@@ -373,17 +444,37 @@ public class DobTR1Page extends TestBase {
 				if (count(Constants.identified_yes_label) > 1)
 					break;
 			}
-			if(count(Constants.upload_document_icon) > 0) {
-				click(Constants.upload_document_icon);
-				send(Constants.tr1_browse_button, Constants.uploadFolder + "upload.png");
-				click(Constants.tr1_upload_button);
+			if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-14: new PW1 UI
+				if(count(Constants.upload_document_icon) > 0) {
+					click(Constants.upload_document_icon);
+					send(Constants.tr1_browse_button, Constants.uploadFolder + "upload.png");
+					click(Constants.tr1_upload_button);
+					waitInvisible(Constants.tr1_please_wait_message);
+					waitVisible(Constants.tr1_upload_succesfull_message);
+					waitUntilISpinnersInvisible();
+					waitVisible(Constants.ok_button);
+					clickButton("OK");
+					waitInvisible(Constants.ok_button);
+				}
+			} else {
+				click(Constants.tr8_technical_report_step); // JG 2018-11-14 click TR8 then TR1 tab to refresh the grid because grid is empty after save.
 				waitInvisible(Constants.tr1_please_wait_message);
-				waitVisible(Constants.tr1_upload_succesfull_message);
-				waitUntilISpinnersInvisible();
-				waitVisible(Constants.ok_button);
-				clickButton("OK");
-				waitInvisible(Constants.ok_button);
+				click(Constants.tr1_technical_report_step);
+				waitInvisible(Constants.tr1_please_wait_message);
+				if(count(Constants.upload_document_icon_8085) > 0) {
+					click(Constants.upload_document_icon_8085);
+					send(Constants.tr1_browse_button, Constants.uploadFolder + "upload.png");
+					click(Constants.tr1_upload_button);
+					waitInvisible(Constants.tr1_please_wait_message);
+					waitVisible(Constants.tr1_upload_succesfull_message);
+					waitUntilISpinnersInvisible();
+					waitVisible(Constants.ok_button);
+					clickButton("OK");
+					waitInvisible(Constants.ok_button);
+				}
 			}
+
+			filterJob(user);
 			reportPass("Success");
 		}
 	}
@@ -503,6 +594,7 @@ public class DobTR1Page extends TestBase {
 			waitInvisible(Constants.ok_button);
 
 		}
+		filterJob(user);
 		reportPass("Success");
 	}
 	
@@ -518,7 +610,8 @@ public class DobTR1Page extends TestBase {
 			check(Constants.tr1_are_you_special_inspector);
 			check(Constants.tr1_are_you_progress_inspector);
 			wait(3);
-			for (int i = 1; i <= 20; i++) {
+			int number_of_boxes = count(Constants.edit_icon);
+			for (int i = 1; i <= number_of_boxes; i++) {
 				test.log(LogStatus.INFO, " specialInspectorSignaturePlumbing");
 				click("(//i[@class='fa fa-edit'])[" + i + "]");
 				wait(2);
@@ -533,7 +626,7 @@ public class DobTR1Page extends TestBase {
 				waitInvisible(Constants.ok_button);
 				waitInvisible(Constants.tr1_save_progress_inspection_button);
 				wait(2);
-				if (count(Constants.identified_yes_label) >= Integer.valueOf(data[0]))
+				if (count(Constants.identified_yes_label) == number_of_boxes)//Integer.valueOf(data[0]))
 					break;
 			}
 			for (int i = 1; i <= 10; i++) {

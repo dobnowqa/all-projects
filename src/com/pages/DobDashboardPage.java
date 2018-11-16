@@ -1,7 +1,6 @@
 package com.pages;
 
 import java.util.ArrayList;
-
 import com.base.TestBase;
 import com.relevantcodes.extentreports.LogStatus;
 import com.util.Constants;
@@ -12,16 +11,31 @@ public class DobDashboardPage extends TestBase {
 		if(!worktype.equals("")){
 			System.out.println(convertedTimestamp() + " **************** New Filing - selectWorkType");
 			loginToPortal(OR_PROPERTIES.getProperty("user_email"));
-			test = rep.startTest("Dash Select Work Type");
-	 		click(Constants.job_filing_button);
-//	 		waitVisible(Constants.job_filing_modal);
-	 		waitVisible(Constants.filing_next_button);
-	 	    if (count("//input[@ng-model='" +worktype+ "FilingWorktype']") > 0)
-	 	    	check("//input[@ng-model='" +worktype+ "FilingWorktype']");
-	 	    if (count("//input[@ng-model='rowData." +worktype+ "FilingWorktype']") > 0)
-	 	    	check("//input[@ng-model='rowData." +worktype+ "FilingWorktype']");
-	 		click(Constants.filing_next_button);
-	 		waitInvisible(Constants.filing_next_button);
+			test = rep.startTest("Dash Select Work Type");	
+
+			click(Constants.job_filing_button);
+			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-16 Submit button is different in 8085
+				waitVisible(Constants.filing_next_button_8085);
+				if (count("//span[contains(text(),'" +worktype+ "')]") > 0) {
+					check("//span[contains(text(),'" +worktype+ "')]/../preceding-sibling::div/input[@type='checkbox']");
+				}
+//				if (count("//input[@ng-model='rowData." +worktype+ "FilingWorktype']") > 0)
+//					check("//input[@ng-model='rowData." +worktype+ "FilingWorktype']");
+ 	    
+				click(Constants.filing_next_button_8085);
+				waitInvisible(Constants.filing_next_button_8085);
+        	
+			} else {
+				waitVisible(Constants.filing_next_button);
+		 		if (count("//input[@ng-model='" +worktype+ "FilingWorktype']") > 0) {
+		 			check("//input[@ng-model='" +worktype+ "FilingWorktype']");
+		 		}
+		 		if (count("//input[@ng-model='rowData." +worktype+ "FilingWorktype']") > 0) {
+		 			check("//input[@ng-model='rowData." +worktype+ "FilingWorktype']");
+		 		}			
+		 		click(Constants.filing_next_button);
+		 		waitInvisible(Constants.filing_next_button);
+            }
 	 		reportPass("selectWorkType");
 		}
 	}
@@ -83,7 +97,11 @@ public class DobDashboardPage extends TestBase {
 			System.out.println(convertedTimestamp() + " **************** New Filing - selectWorkTypeTp");
 			loginToPortal(OR_PROPERTIES.getProperty("user_email"));
 			test = rep.startTest("Dash Select Work Type");
-			click(Constants.job_filing_button);
+			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-10-30 Job Filing button is different now
+				click(Constants.job_filing_button_8085);
+			} else {
+				click(Constants.job_filing_button);
+			}
 			waitVisible("//span[@ng-show='!ElevatorsFilingWorktype']");
 //			System.out.println("//input[@ng-model='" + worktype + "FilingWorkType']");
 			if (count("//input[@ng-model='" + worktype + "FilingWorkType']") > 0)
@@ -538,8 +556,8 @@ public class DobDashboardPage extends TestBase {
 			type(Constants.pay_city, "New York");
 			type(Constants.pay_zip, "10021");
 			type(Constants.pay_phone, "2125558888");
-			type(Constants.pay_email, "mmazay@buildings.nyc.gov");
-			type(Constants.pay_email_confirm, "mmazay@buildings.nyc.gov");
+			type(Constants.pay_email, "jgrove@buildings.nyc.gov");
+			type(Constants.pay_email_confirm, "jgrove@buildings.nyc.gov");
 			click(Constants.pay_continue_button);
 			click(Constants.pay_next_button);
 			type(Constants.pay_name_on_account, "don pedro");
@@ -581,7 +599,7 @@ public class DobDashboardPage extends TestBase {
 		if(!ahv.equals("")){
 			test = rep.startTest("Start AHV Test");
 			System.out.println(convertedTimestamp() + " **************** " + "AHV dash");
-			loginToPortal(OR_PROPERTIES.getProperty("user_email"));
+			loginToPortal(user);
 			click(Constants.my_work_permits_tab);
 			waitUntilISpinnersInvisible();
 			waitVisible(Constants.global_first_filter_field);
@@ -628,9 +646,9 @@ public class DobDashboardPage extends TestBase {
 			}*/
 			waitInvisible(Constants.ok_button);
 			waitInvisible(Constants.yes_button);
-			waitUntilISpinnersInvisible();
-			reportPass("filterToPay");
+			waitUntilISpinnersInvisible();			
 		}
+		reportPass("filterToPay");
 	}
 
 	public void paa(String filter) {
@@ -650,8 +668,7 @@ public class DobDashboardPage extends TestBase {
 			}*/
 			for (int i = 1; i < 20; i++) {
 				wait(1);
-				select("(//select[@id='FilingAction'])[" + i + "]", "PAA");
-				// select(Constants.filing_action_label, "PAA");
+				click("(//*[text()='PAA'])[" +i+ "]");
 				click(Constants.yes_button);
 				wait(2);
 				if (count("//p[@id='desc'][contains(text(), 'PAA already in progress')]") > 0)

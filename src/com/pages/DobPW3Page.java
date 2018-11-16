@@ -1,7 +1,5 @@
 package com.pages;
 
-import org.openqa.selenium.By;
-
 import com.base.TestBase;
 import com.util.Constants;
 
@@ -11,20 +9,34 @@ public class DobPW3Page extends TestBase {
 		if (!pw3.equals("")) {
 			String[] data = pw3.split(" :: ");
 			System.out.println(convertedTimestamp() + " **************** PW3 costAffidavit");
-			filterJob(user);
+//			filterJob(user);
 			test = rep.startTest("PW3");
 			click(Constants.pw3_cost_affidavit_step);
-			waitVisible(Constants.add_button);
-			if (count(Constants.edit_icon) > 0) {
-				doubleclick(Constants.edit_icon);
-				wait(2);
-			} else
-			click(Constants.add_button);
-			select(Constants.pw3_description_of_work, data[0]);
-			type(Constants.pw3_area_units, data[1]);
-			type(Constants.pw3_unit_cost, data[2]);
+			
+			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-02: new PW1 UI
+				waitVisible(Constants.add_button_8085);
+				click(Constants.add_button_8085);
+				select_val(Constants.pw3_select_categogy, "number:4");
+				type(Constants.pw3_cost_details_description_sign, data[0]);
+				type(Constants.pw3_area_units_8085, data[1]);
+				type(Constants.pw3_unit_cost_sign, data[2]);
+			} else {
+				waitVisible(Constants.add_button);
+				if (count(Constants.edit_icon) > 0) {
+					doubleclick(Constants.edit_icon);
+					wait(2);
+				} else {
+					click(Constants.add_button);		
+				}
+				select(Constants.pw3_description_of_work, data[0]);
+				type(Constants.pw3_area_units, data[1]);
+				type(Constants.pw3_unit_cost, data[2]);
+			}		
 			click(Constants.pw3_cost_details_save_button);
 			waitInvisible(Constants.pw3_cost_details_save_button);
+			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-02: new PW1 UI
+				clickButton("OK");
+			}
 			click(Constants.global_save_step_button);
 //			waitVisible(Constants.global_loading_spinner);
 			waitUntilISpinnersInvisible();
@@ -97,7 +109,7 @@ public class DobPW3Page extends TestBase {
 			String[] data = pw3.split(" :: ");
 			int num_items = Integer.valueOf(data[0]);
 			System.out.println(convertedTimestamp() + " **************** PW3 costAffidavitPlumbingNew");
-			filterJob(user);
+//			filterJob(user);
 			test = rep.startTest("costAffidavitPlumbingNew");
 			for (int i = 1; i <= 5; i++) {
 				click(Constants.pw3_cost_affidavit_step);
@@ -126,7 +138,7 @@ public class DobPW3Page extends TestBase {
 			String[] data = pw3.split(" :: ");
 			int num_items = Integer.valueOf(data[0]);
 			System.out.println(convertedTimestamp() + " **************** PW3 costAffidavitPlumbingLegalization");
-			filterJob(user);
+//			filterJob(user);
 			test = rep.startTest("costAffidavitPlumbingLegalization");
 			for (int i = 1; i <= 5; i++) {
 				click(Constants.pw3_cost_affidavit_step);
@@ -155,7 +167,7 @@ public class DobPW3Page extends TestBase {
 			String[] data = pw3.split(" :: ");
 			int num_items = Integer.valueOf(data[0]);
 			System.out.println(convertedTimestamp() + " **************** PW3 costAffidavitPlumbing");
-			filterJob(user);
+//			filterJob(user);
 			test = rep.startTest("PW3");
 			for (int i = 1; i <= 5; i++) {
 				click(Constants.pw3_cost_affidavit_step);
@@ -197,7 +209,7 @@ public class DobPW3Page extends TestBase {
 		if (!pw3.equals("")) {
 			String[] data = pw3.split("::");
 			System.out.println(convertedTimestamp() + " **************** costAffidavitSignNew");
-			filterJob(user);
+//			filterJob(user);
 			test = rep.startTest("PW3 costAffidavitSignNew");
 			click(Constants.pw3_cost_affidavit_step);
 			waitVisible("//span[text()='Initial Cost Details']");
@@ -220,7 +232,7 @@ public class DobPW3Page extends TestBase {
 		if (!pw3.equals("")) {
 			String[] data = pw3.split("::");
 			System.out.println(convertedTimestamp() + " **************** " + "costAffidavitSign");
-			filterJob(user);
+//			filterJob(user);
 			test = rep.startTest("PW3");
 			click(Constants.pw3_cost_affidavit_step);
 			waitVisible("//span[text()='Initial Cost Details']");

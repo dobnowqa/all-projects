@@ -34,6 +34,8 @@ public class DobAHVPage extends TestBase {
 			click(Constants.ahv_reason_debris_removal);*/
 			radio(Constants.ahv_application_fee_exempt_yes);
 			select(Constants.ahv_exempt_type, "ACRIS Report");
+			
+			
 	 		type(Constants.ahv_liability, "liability");
 			click(Constants.pw2_liability_expiration_calendar);
 			click(Constants.pw2_calendar_next_month_arrow);
@@ -49,6 +51,7 @@ public class DobAHVPage extends TestBase {
 			click(Constants.pw2_calendar_next_month_arrow);
 			waitUntilElementVisible(Constants.pw2_calendar_active_day, 30);
 			click(Constants.pw2_calendar_active_day);
+			
 
 			type(Constants.ahv_from0, "11:00 PM");
 			type(Constants.ahv_from1, "11:00 PM");

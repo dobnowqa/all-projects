@@ -3,20 +3,11 @@ package com.pages;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
-
 import com.util.Constants;
 import com.base.TestBase;
 import com.relevantcodes.extentreports.LogStatus;
@@ -584,7 +575,8 @@ public class CrmTaskFormPage extends TestBase {
 		if (!user_name.equals("")) {
 			String[] data = user_name.split(" :: ");
 			System.out.println(convertedTimestamp() + " **************** viewAcceptDocuments " + data[0]);
-//			loginToCrm(data[0]);
+			if(count("//span[contains(@title,'"+data[0]+"')]") <= 0)
+				loginToCrm(data[0]);
 			searchForJobCrm();
 			test = rep.startTest("viewAcceptDocuments");
 			test.log(LogStatus.INFO, "viewAcceptDocuments");
@@ -695,8 +687,8 @@ public class CrmTaskFormPage extends TestBase {
 				scrollToElement(Constants.assign_to_qa_administrator_label);
 				click(Constants.assign_to_qa_administrator_label);
 				type(Constants.assign_to_qa_administrato_type, data[1]);
-				click(Constants.qa_administrator_search);
-				doubleclick(Constants.span_text +data[2]+ Constants.close_xpath);
+/*				click(Constants.qa_administrator_search);
+				doubleclick(Constants.span_text +data[2]+ Constants.close_xpath);*/ //commented out on 9-19
 				
 //				click(Constants.select_assignee);
 				driver.switchTo().defaultContent();

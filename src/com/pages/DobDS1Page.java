@@ -16,7 +16,13 @@ public class DobDS1Page extends TestBase {
 			System.out.println(convertedTimestamp() + " **************** " + "DS1 DemolitionSubmittalTest");
 			filterJob(OR_PROPERTIES.getProperty("user_email"));	
 			test = rep.startTest("Demolition");
-			click(Constants.ds1_demolition_submittal_step);
+			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-10-30 TEST-ENV new PW UI
+				click(Constants.ds1_tab);
+			} else {
+				click(Constants.ds1_demolition_submittal_step);
+			}
+			waitVisible(Constants.ds1_3B_description);
+			scrollTo(Constants.ds1_3B_description); // JG 2018-11-02
 			type(Constants.ds1_3B_description, "smoke test " + new SimpleDateFormat("MM/dd/yy HH-mm").format(Calendar.getInstance().getTime()));
 			click(Constants.ds1_3B_i_prepared_demolition_documents);
 			scrollToElement(Constants.save_button);

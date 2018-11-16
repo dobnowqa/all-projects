@@ -1,7 +1,5 @@
 package com.pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import com.base.TestBase;
@@ -74,14 +72,26 @@ public class DobPW1Page extends TestBase {
 				if(work_on_floors.contains(" :: ")) {
 					String[] data = work_on_floors.split(" :: ");
 					click(Constants.pw1_1_add_work_floors_button);
-					select(Constants.pw1_1_work_on_floors_select_code_and_description, data[0]);
-					type(Constants.pw1_1_work_on_floors_floor_number_from, data[1]);
-					type(Constants.pw1_1_work_on_floors_floor_number_to, data[2]);
-					type(Constants.pw1_1_work_on_floors_description_of_work, convertedTimestamp());
-					click(Constants.pw1_1_work_on_floors_add_button);
-					type(Constants.pw1_13_building_height_proposed, "111");
-					type(Constants.pw1_13_building_stories_proposed, "2");
-					type(Constants.pw1_13_building_dwelling_units_proposed, "51");
+					if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-10-30 TEST-ENV elements changed
+						select(Constants.pw1_1_work_on_floors_select_code_and_description_8085, data[0]);
+						type(Constants.pw1_1_work_on_floors_floor_number_from, data[1]);
+						type(Constants.pw1_1_work_on_floors_floor_number_to, data[2]);
+						type(Constants.pw1_1_work_on_floors_description_of_work, convertedTimestamp());
+						click(Constants.pw1_1_work_on_floors_add_button_8085);
+						// JG 2018-10-30 TODO: the following 3 values are now entered in a different tab:
+//						type(Constants.pw1_13_building_height_proposed, "111");
+//						type(Constants.pw1_13_building_stories_proposed, "2");
+//						type(Constants.pw1_13_building_dwelling_units_proposed, "51");
+					} else {
+						select(Constants.pw1_1_work_on_floors_select_code_and_description, data[0]);
+						type(Constants.pw1_1_work_on_floors_floor_number_from, data[1]);
+						type(Constants.pw1_1_work_on_floors_floor_number_to, data[2]);
+						type(Constants.pw1_1_work_on_floors_description_of_work, convertedTimestamp());
+						click(Constants.pw1_1_work_on_floors_add_button);
+						type(Constants.pw1_13_building_height_proposed, "111");
+						type(Constants.pw1_13_building_stories_proposed, "2");
+						type(Constants.pw1_13_building_dwelling_units_proposed, "51");
+					}					
 				} else
 					type("//input[@id='txtPWLocWorkFloor']", work_on_floors);
 			}
@@ -141,7 +151,11 @@ public class DobPW1Page extends TestBase {
 		 		type(Constants.job_description_for_new_work, user_info);
 		 		scrollToElement(Constants.global_save_step_button);
 				click(Constants.global_save_step_button);
-				click(Constants.pw1_confirm_save_button);
+				if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-10-30 TEST Filing buttons changed
+					click(Constants.pw1_confirm_save_button_8085);
+				} else {
+					click(Constants.pw1_confirm_save_button);
+				}
 				waitInvisible(Constants.global_loading_spinner);
 				waitUntilElementVisible(Constants.ok_button, 30);
 				assertNotification(TEXT_PROPERTIES.getProperty("job_filing_saved"), "pw1 saved");
@@ -212,11 +226,10 @@ public class DobPW1Page extends TestBase {
 	}
 
 // 4. Filing review Type
-	public void reviewtype(String type) {	
+	public void reviewtype(String type) {
 		if(!type.equals("")){
 			waitInvisible(Constants.dialog_box_overlay);
-			select(Constants.pw1_4_filling_review_type_list, type);
-			
+			select(Constants.pw1_4_filling_review_type_list, type);	
 	 	}
 	}
 	
@@ -260,7 +273,29 @@ public class DobPW1Page extends TestBase {
 			if (!data[9].equals("N"))
 				radio("//input[@id='rdSDClass'][@value='" + data[9] + "']");
 		}
-	}	
+	}
+
+	// 6. Work Types Antenna (new PW1 UI) // JG 2018-10-31
+	public void workTypesAntenna(String new_existing_both) {
+		if (!new_existing_both.equals("")) {
+			test = rep.startTest("workTypesAntenna");
+			String[] data = new_existing_both.split(" :: ");
+			//scrollToElement("//span[contains(text(),'Work Types')]");
+			scrollToElement("//span[contains(text(),'Filing Review')]"); // JG 2018-10-31 scrolling here because 'Work Types' was too far down.
+			wait(1);
+			if (!data[0].equals("N"))
+				radio("//input[@type='radio'][@name='rblAntennaTypeValue'][@value='" + data[0] + "']");
+			if (!data[1].equals("N"))
+				radio("//input[@id='rdPWZoningExemptions'][@value='" + data[1] + "']");
+			if (data[1].equals("true")) {
+				radio("//input[@id='rdPWIsStructuralWork'][@value='" + data[2] + "']");
+				radio("//input[@id='rdPWoccupancytab'][@value='" + data[3] + "']");
+				radio("//input[@id='rdPWIsAntennaONeMeter'][@value='" + data[4] + "']");
+				radio("//input[@id='rdPWcurrentcertificate'][@value='" + data[5] + "']");
+			}
+		}
+	}
+
 	public void workTypesPlumbing(String new_existing_both) {
 		if (!new_existing_both.equals("")) {
 			test = rep.startTest("workTypes");
@@ -287,6 +322,10 @@ public class DobPW1Page extends TestBase {
 				check("(//input[contains(@id,'chkPWWrkTypeP2')])[last()]"); 
 			if (!data[9].equals("N"))
 				check("//input[@id='chkPWWrkTypeSp3']"); // work type 5
+			
+			if(count("//input[@name='rdSDNewSdInstallation']") > 0)
+				radio("//input[@name='rdSDNewSdInstallation'][@value='true']");
+			
 			if (!data[10].equals("N"))
 				radio("//input[@id='rdSDType'][@value='" + data[10] + "']"); //rdSDType
 			if (!data[11].equals("N"))
@@ -331,9 +370,11 @@ public class DobPW1Page extends TestBase {
 			String[] data = costareatype.split(" :: ");
 			type(Constants.pw1_8_estimated_new_work_cost, data[0]);
 			type(Constants.pw1_8_total_new_work_floor_area, data[1]);
-			select(Constants.pw1_8_building_type, data[2]); 
-			scrollToElement(Constants.job_description_for_new_work);
-			type(Constants.job_description_for_new_work, convertedTimestamp());//legalization	
+			if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-10-30 TEST-ENV new PW UI
+				select(Constants.pw1_8_building_type, data[2]); 
+				scrollToElement(Constants.job_description_for_new_work);
+				type(Constants.job_description_for_new_work, convertedTimestamp());//legalization
+			}
 		}
 	}
 	// 8. Additional Information 2
@@ -427,18 +468,37 @@ public class DobPW1Page extends TestBase {
 			scrollTo("//span[contains(text(),'Additional Considerations')]");
 			if (count(Constants.pw1_9_review_requested_under_code) > 0) { // ALL WORK TYPES
 				select(Constants.pw1_9_review_requested_under_code, data[0]);
-				radio("//input[@name='rdPWFaçadeAlteration'][@value='" + data[1] + "']");
-				radio("//input[@name='rdPWAdultEstablishment'][@value='" + data[2] + "']");
-				radio("//input[@name='rdPWQualityHousing'][@value='" + data[3] + "']");
-				radio("//input[@name='rdPWBSACalender'][@value='" + data[4] + "']");
-				radio("//input[@name='rdPWCPCCalender'][@value='" + data[5] + "']");
-				radio("//input[@name='rdPWWorkIncludes'][@value='" + data[6] + "']");
-				radio("//input[@name='rdPWStructuralStab'][@value='" + data[7] + "']");
-				if (additional_conciderations.equals("Y"))
-					radio(Constants.pw1_9_includes_partial_demolition_yes);
-				if (additional_conciderations.equals("N"))
-					radio(Constants.pw1_9_includes_partial_demolition_no);
-				radio(Constants.pw1_9_stability_affected_by_work_no);
+				if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-01 TEST-ENV PW1 UI changes
+					radio("//input[@name='rdPWfacadealteration'][@value='" + data[1] + "']");
+					radio("//input[@name='rdPWestablishmenttab'][@value='" + data[2] + "']");
+//					radio("//input[@name='rdPWQualityHousing'][@value='" + data[3] + "']"); // JG 2018-11-01 required per dd, but not present
+					radio("//input[@name='rdPWBSACalender'][@value='" + data[4] + "']");
+					radio("//input[@name='rdPWCPCCalender'][@value='" + data[5] + "']");
+					radio("//input[@ng-model='FormObj.WorkIncludesPartialDemolition'][@value='" + data[6] + "']");
+					if (additional_conciderations.equals("Y")) {
+						radio("//input[@ng-model='FormObj.WorkIncludesPartialDemolition'][@value='true']");
+					}
+					if (additional_conciderations.equals("N")) {
+						radio("//input[@ng-model='FormObj.WorkIncludesPartialDemolition'][@value='false']");
+					}
+					radio("//input[@ng-model='FormObj.StructuralStabilityAffected'][@value='" + data[7] + "']");
+					//radio("//input[@ng-model='FormObj.StructuralStabilityAffected'][@value='false']"); // JG 2018-11-01 this is not needed
+				} else {
+					radio("//input[@name='rdPWFaçadeAlteration'][@value='" + data[1] + "']");
+					radio("//input[@name='rdPWAdultEstablishment'][@value='" + data[2] + "']");
+					radio("//input[@name='rdPWQualityHousing'][@value='" + data[3] + "']");
+					radio("//input[@name='rdPWBSACalender'][@value='" + data[4] + "']");
+					radio("//input[@name='rdPWCPCCalender'][@value='" + data[5] + "']");
+					radio("//input[@name='rdPWWorkIncludes'][@value='" + data[6] + "']");
+					if (additional_conciderations.equals("Y")) {
+						radio(Constants.pw1_9_includes_partial_demolition_yes);
+					}
+					if (additional_conciderations.equals("N")) {
+						radio(Constants.pw1_9_includes_partial_demolition_no);
+					}
+					radio("//input[@name='rdPWStructuralStab'][@value='" + data[7] + "']");
+					//radio(Constants.pw1_9_stability_affected_by_work_no); // JG 2018-11-01 this is not needed
+				}				
 			}
 			if (count("//input[@id='rdPWLMCC']") > 0) // SIGN
 				radio("//input[@id='rdPWLMCC'][@value='" + data[4] + "']");	
@@ -454,6 +514,17 @@ public class DobPW1Page extends TestBase {
 				radio("//input[@name='rdPWCrfnRestrictive'][@value='" + data[6] + "']");
 				radio("//input[@name='rdPWCrfnFilingToAddress'][@value='" + data[7] + "']");
 				radio("//input[@name='rdPWCrfnComplyingToLocal'][@value='" + data[8] + "']");
+			}
+			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-15 these are now required.
+				radio("//input[@ng-model='FormObj.UnmappedCCOStreet'][@value='1']");
+				radio("//input[@ng-model='FormObj.CRFNRestrictiveDeclaration'][@value='false']");
+				radio("//input[@ng-model='FormObj.ComplyingToLocalLaws'][@value='false']");
+				radio("//input[@ng-model='FormObj.IsFilingtoAddressViolations'][@value='false']");
+				radio("//input[@ng-model='FormObj.GCModularConstnyState'][@value='false']");
+				radio("//input[@ng-model='FormObj.GCModularConstunderNYC'][@value='false']");
+				radio("//input[@ng-model='FormObj.RaisingAndMovingofbuildings'][@value='false']");
+				radio("//input[@ng-model='FormObj.STWorkOnInteriorofBuilding'][@value='false']");
+				radio("//input[@ng-model='FormObj.STWorkonExteriorofBuilding'][@value='false']");
 			}
 		}
 	}
@@ -500,24 +571,36 @@ public class DobPW1Page extends TestBase {
 // 12. Zoning Characteristics
 	public void zonningCharacteristics(String characteristics) {	
 		if(!characteristics.equals("")){
-			type(Constants.pw1_12_district, "1");
+			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-01 TEST-ENV new PW1 UI - Zoning Info tab
+				click(Constants.zoning_information_tab);
+				scrollTo(Constants.pw1_12_district_8085); // JG 2018-11-14
+				select_val(Constants.pw1_12_district_8085,"BPC"); //JG 2018-11-01 TODO: use a variable instead of "BPC"  
+			} else {
+				type(Constants.pw1_12_district, "1");
+			}
 			type(Constants.pw1_12_overlay, "2");
 			type(Constants.pw1_12_special_district, "3");
 			type(Constants.pw1_12_map_number, "4");
 	 	}
-	}	
+	}
 
 	// 13. Building Characteristics
 		public void buildingCharacteristics(String building_charcteristics) {
 			if(!building_charcteristics.equals("")){
 				test = rep.startTest("buildingCharacteristics");
-				radio(Constants.pw1_13_mixed_use_type_no);
-				type(Constants.pw1_13_building_height_existing, "100");
-				type(Constants.pw1_13_building_height_proposed, "111");
-				type(Constants.pw1_13_building_stories_existing, "1");
-				type(Constants.pw1_13_building_stories_proposed, "2");
-				type(Constants.pw1_13_building_dwelling_units_existing, "50");
-				type(Constants.pw1_13_building_dwelling_units_proposed, "51");
+				if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-01 TEST-ENV new PW1 UI
+					//click(Constants.zoning_information_tab);  // JG 2018-11-01 I don't think tab needs to be clicked
+					select_val(Constants.pw1_13_building_type_8085, "1");
+					radio(Constants.pw1_13_mixed_use_type_no_8085);
+				} else {
+					radio(Constants.pw1_13_mixed_use_type_no);
+					type(Constants.pw1_13_building_height_existing, "100");
+					type(Constants.pw1_13_building_height_proposed, "111");
+					type(Constants.pw1_13_building_stories_existing, "1");
+					type(Constants.pw1_13_building_stories_proposed, "2");
+					type(Constants.pw1_13_building_dwelling_units_existing, "50");
+					type(Constants.pw1_13_building_dwelling_units_proposed, "51");
+				}
 		 	}
 		}
 
@@ -555,8 +638,28 @@ public class DobPW1Page extends TestBase {
 	public void curbCutDescription(String accessto) {	
 		if(!accessto.equals("")){
 			test = rep.startTest("curbCutDescription");
+			waitVisible("//span[text()='16. Curb Cut Description']");			
 			waitUntilElementVisible(Constants.pw1_16_size_of_cutout, 30);
-			pw1_16_size_of_cutout.sendKeys("11");
+			type(Constants.pw1_16_size_of_cutout, "11");			
+			type(Constants.pw1_16_distance_to_nearest_corner, "11");			
+			type(Constants.pw1_16_distance_from_nearest_property, "11");
+			select(Constants.pw1_16_which_side_nearest_to_property, "West");
+			type(Constants.pw1_16_to_streat, "11");
+			type(Constants.pw1_16_size_of_cutout, "11");
+			click(Constants.pw1_16_this_curb_will_provide_access_to);
+			clickElement(Constants.link_xpath_part1 + accessto + Constants.link_xpath_part2);
+			select(Constants.pw1_16_which_side_of_street_curb_on, "East");
+			
+			radio(Constants.pw1_16_on_grade_no);
+			radio(Constants.pw1_16_over_vault_no);
+			radio(Constants.pw1_16_other_structure_no);
+			radio(Constants.pw1_16_sidewalk_within_8ft_no);
+			radio(Constants.pw1_16_sidewalk_to_destroy_no);
+			radio(Constants.pw1_16_infront_of_ajoining_no);
+			select(Constants.pw1_16_agencies_required_documents, "MTA");
+
+			
+/*			pw1_16_size_of_cutout.sendKeys("11");
 			pw1_16_distance_to_nearest_corner.sendKeys("5");
 			pw1_16_distance_from_nearest_property.sendKeys("100");
 			pw1_16_which_side_nearest_to_property.sendKeys("West");
@@ -571,7 +674,7 @@ public class DobPW1Page extends TestBase {
 			pw1_16_sidewalk_within_8ft_no.click();
 			pw1_16_sidewalk_to_destroy_no.click();
 			pw1_16_infront_of_ajoining_no.click();
-			pw1_16_agencies_required_documents.sendKeys("MTA");
+			pw1_16_agencies_required_documents.sendKeys("MTA");*/
 		}
 	}
 // 18. Fire Protection Equipment
@@ -602,18 +705,23 @@ public class DobPW1Page extends TestBase {
 // 20/20A/22/24. Site Characteristics	
 	public void siteCharacteristics(String sitechar) {	
 		if(!sitechar.equals("")){
-			radio(Constants.pw1_20_tidal_wetlands_no);
+			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-01 TEST-ENV new PW1 UI - back to PW1 tab
+				click(Constants.pw1_tab);
+				scrollTo(Constants.pw1_20_tidal_wetlands_no_8085);
+				radio(Constants.pw1_20_tidal_wetlands_no_8085);				
+			} else {				
+				radio(Constants.pw1_20_tidal_wetlands_no);
+				if(count(Constants.pw1_18_fire_alarm_proposed_no) > 0) {
+					radio(Constants.pw1_18_fire_alarm_proposed_no);
+				}
+			}
 			radio(Constants.pw1_20_coastal_erosion_hazard_area_no);
-			if(count(Constants.pw1_18_fire_alarm_proposed_no) > 0)
-				radio(Constants.pw1_18_fire_alarm_proposed_no);
 			radio(Constants.pw1_20_fire_districs_no);
 			radio(Constants.pw1_20_freshwater_wetlands_no);
 			radio(Constants.pw1_20_urban_renewal_no);
 			radio(Constants.pw1_20A_flood_hazard_area_no);
-//			if(count(Constants.pw1_22_exempt_from_asbestos) > 0)
 			radio(Constants.pw1_22_exempt_from_asbestos);
-			type(Constants.pw1_comments_textarea, convertedTimestamp());
-//			driver.findElement(By.xpath("//textarea[@id='txtPWComments']")).sendKeys("this is comments");			
+			type(Constants.pw1_comments_textarea, convertedTimestamp());			
 		}
 	}
 	
@@ -685,11 +793,11 @@ public class DobPW1Page extends TestBase {
 			waitInvisible(Constants.ok_button);
 			wait(2);
 			waitClickableOr("//b[contains(text(),'Job#')]", "//strong[@class='ng-binding']");
-			if(count("//strong[@class='ng-binding']") > 0) { // ELECERICAL
-				addToProps("job_number", text(Constants.el_job_label).substring(0, 10).trim());
-			}
-			else			
+			if(count("//strong[@class='ng-binding']") > 0) { // ELECERICAL // JG 2018-11-01 also indicates new PW1 UI, but doesn't start with space, so go to 9. 
+				addToProps("job_number", text(Constants.el_job_label).substring(0, 9).trim());
+			} else {			
 				addToProps("job_number", text(Constants.job_label).trim().substring(6, 15).trim());
+			}
 	 	}
 		reportPass("savePW1");
 	}
@@ -722,7 +830,9 @@ public class DobPW1Page extends TestBase {
 				waitUntilISpinnersInvisible();
 				wait(3);
 				waitVisible(Constants.application_preview_label);
-				waitVisible("//div[@class='hidden-xs col-md-2 pull-right']");				
+				waitVisible("//div[@class='hidden-xs col-md-2 pull-right']");
+				waitVisible("//span[@class='label pull-right portal-fonts']");
+				
 				if (count("//*[contains(text(),'Getting Preview... 0%')]") > 0) { //	while (driver.getPageSource().contains("Getting Preview... 0%")) {
 					click(Constants.return_to_filing_view);
 					waitInvisible(Constants.return_to_filing_view);
@@ -742,6 +852,7 @@ public class DobPW1Page extends TestBase {
 			}
 			check(Constants.final_legal_contect_checkbox);
 			click(Constants.file_button);
+			reportPass("previewToFile");
 			waitInvisible(Constants.file_button);
 			waitVisible(Constants.ok_button);
 			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("filing_message"));

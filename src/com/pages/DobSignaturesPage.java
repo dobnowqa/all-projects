@@ -9,22 +9,37 @@ public class DobSignaturesPage extends TestBase {
 		if(!signatures.equals("")){
 			System.out.println(convertedTimestamp() + " **************** Applicant Sign");
 			filterJob(user);	
-			test = rep.startTest("Statemments Signatures");
+			test = rep.startTest("applicantStatementsSignature");
 			click(Constants.ss_statement_signatures_step);
 			waitUntilISpinnersInvisible();
-			waitVisible(Constants.ss_save_button);
-			if(count(Constants.project_not_require_commissioning) > 0)
-				radio(Constants.project_not_require_commissioning);
-			if(count(Constants.ss_i_havepersonally_reviewed_all_information) > 0)
-				check(Constants.ss_i_havepersonally_reviewed_all_information);
-			scrollTo("//h3[contains(text(),'Owner - Statements & Signatures')]");
-			radio(Constants.ss_fee_exemption_reques_non_profit_yes);
+			if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-14: new PW1 UI
+				waitVisible(Constants.ss_save_button);
+				if(count(Constants.project_not_require_commissioning) > 0) {
+					radio(Constants.project_not_require_commissioning);
+				}
+			}
+			if(count(Constants.ss_i_havepersonally_reviewed_all_information_8085) > 0) { // JG 2018-11-14 
+				check(Constants.ss_i_havepersonally_reviewed_all_information_8085);
+			}			
+			wait(2); // JG 2018-11-14
+			scrollTo("//h3[contains(text(),'Owner - Statements & Signatures')]"); // JG 2018-11-14 //rblPWFeeExceptReqNonPro
+			if(signatures.contains("profit"))
+				radio(Constants.ss_fee_exemption_reques_non_profit_yes+ "[@value='false']");
+			else
+				radio(Constants.ss_fee_exemption_reques_non_profit_yes+ "[@value='true']");
+//			radio(Constants.ss_fee_exemption_reques_non_profit_yes);
 			radio(Constants.ss_owners_certifications_yes);
 			radio(Constants.ss_building_to_be_altered_demolished_no);
 			radio(Constants.ss_building_to_be_altered_demolished_no);
-			radio(Constants.ss_owner_is_not_required_to_notify_yes);
+//			radio(Constants.ss_owner_is_not_required_to_notify_yes);
+			radio(Constants.ss_owner_is_not_required_to_notify_no);
 			radio(Constants.ss_owner_notified_new_york);
-			select(Constants.ss_owner_type, "Partnership");
+			scrollTo(Constants.ss_owner_type); // JG 2018-11-14 need to get the email field clickable
+			if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-15
+				select(Constants.ss_owner_type, "Partnership");
+			} else {
+				select(Constants.ss_owner_type, "NYCHA/HHC"); //JG 2018-11-15 new UI uses this to indicate Pay Exempt
+			}
 			email(OR_PROPERTIES.getProperty("owner_email"));
 			click(Constants.save_button);
 			waitUntilISpinnersInvisible();
@@ -37,7 +52,6 @@ public class DobSignaturesPage extends TestBase {
 	public void signatures(String signatures) {	
 		if(!signatures.equals("")){
 			System.out.println(convertedTimestamp() + " **************** StatementsSignaturesTest");
-//			loginToPortal(OR_PROPERTIES.getProperty("user_email"));
 			filterJob(user);	
 			test = rep.startTest("signatures");
 			waitUntilElementVisible(Constants.ss_statement_signatures_step, 30);
@@ -47,14 +61,22 @@ public class DobSignaturesPage extends TestBase {
 			if(count(Constants.project_not_require_commissioning) > 0)
 				radio(Constants.project_not_require_commissioning);
 			check(Constants.ss_i_havepersonally_reviewed_all_information);
+			scrollTo("//h3[contains(text(),'Owner - Statements & Signatures')]"); // JG 2018-11-14
 			radio(Constants.ss_fee_exemption_reques_non_profit_yes);
 			scrollToElement(Constants.ss_owners_certifications_yes);
 			radio(Constants.ss_owners_certifications_yes);
 			radio(Constants.ss_building_to_be_altered_demolished_no);
 			radio(Constants.ss_building_to_be_altered_demolished_no);
-			radio(Constants.ss_owner_is_not_required_to_notify_yes);
+//			radio(Constants.ss_owner_is_not_required_to_notify_yes);
+			
+			radio(Constants.ss_owner_is_not_required_to_notify_no);
+			
 			radio(Constants.ss_owner_notified_new_york);
-			select(Constants.ss_owner_type, "Partnership");
+			if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-15
+				select(Constants.ss_owner_type, "Partnership");
+			} else {
+				select(Constants.ss_owner_type, "NYCHA/HHC"); //JG 2018-11-15 new UI uses this to indicate Pay Exempt
+			}
 	 		emailpreview = Constants.email_xpath_part1 + OR_PROPERTIES.getProperty("owner_email") + Constants.email_xpath_part2;
 			waitUntilElementVisible(Constants.ss_partner_email, 30);
 	 		for(int i=1; i < 100; i++) {
@@ -88,7 +110,7 @@ public class DobSignaturesPage extends TestBase {
 	public void applicantSignature(String statements_signatures) {	
 		if(!statements_signatures.equals("")){
 			System.out.println(convertedTimestamp() + " **************** " + "applicantSignature");
-//			filterJob(user);	
+			filterJob(user);	
 			test = rep.startTest("Applicant Sign");
 			click(Constants.ss_statement_signatures_step);
 			wait(2);
@@ -116,13 +138,18 @@ public class DobSignaturesPage extends TestBase {
 			wait(2);
 			scrollToElement(Constants.ss_i_understand_and_agrree);
 			check(Constants.ss_i_understand_and_agrree);
-			scrollToElement(Constants.ss_save_button);
-			click(Constants.ss_save_button);
+			if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-14: new PW1 UI
+				scrollToElement(Constants.ss_save_button);
+				click(Constants.ss_save_button);
+			} else {
+				click(Constants.save_button);
+			}
 			waitInvisible(Constants.global_loading_spinner);
 			waitVisible(Constants.ok_button);
 			assertNotification(TEXT_PROPERTIES.getProperty("job_filing_saved"), "job_filing_saved owner sign");
 			clickButton("OK");
 			waitInvisible(Constants.ok_button);
+			filterJob(user);
 		}
 	}
 
