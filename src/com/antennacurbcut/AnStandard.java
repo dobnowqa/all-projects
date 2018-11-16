@@ -29,9 +29,8 @@ import com.pages.CrmDocs;
 import com.relevantcodes.extentreports.LogStatus;
 
 public class AnStandard extends TestBase {
-	
+	String testname = this.getClass().getSimpleName();
 	Xls_Reader xlsx = new Xls_Reader(Constants.testCases);
-	String testname = "AnStandard";
 	
 	@BeforeSuite
 	public void BeforeSuite() {
@@ -81,30 +80,40 @@ public class AnStandard extends TestBase {
 	public void Portal(Hashtable<String, String> data) {
 		if (!TestUtil.isExecutable(testname, xlsx) || data.get("Runmode").equals("N"))
 			throw new SkipException("Skipping test");
-		System.out.println("BEGIN " + convertedTimestamp() + " **************** " + data.get("description"));
-		if (!data.get("filing_review_type").equals("")) {
+		System.out.println("BEGIN " + convertedTimestamp() + " **************** " + data.get("description")+ " " +env);
+		String filing_review_type_variable = "filing_review_type"; //JG 2018-10-31 
+		if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-10-30 TEST-ENV new PW UI
+			filing_review_type_variable = "filing_review_type_8085"; //JG 2018-10-30 TEST-ENV new PW UI
+		}
+		if (!data.get(filing_review_type_variable).equals("")) {
 			test = rep.startTest(data.get("description"));
 			test.log(LogStatus.INFO, data.get("description"));
 			test = rep.startTest("Test Case Data");
 			test.log(LogStatus.INFO, data.toString());
-
-
-
+//			filterJob(user);
+			
 			
 			dash.selectWorkType(data.get("work_type"));
 			pw1.locationImfo(data.get("address"));
 			type(Constants.pw1_1_apt_suite_number, testname);
 			pw1.workOnFloors(data.get("work_on_floors"));
 			pw1.applicantInfo(data.get("user_info"));
-			pw1.reviewtype(data.get("filing_review_type"));
+//			pw1.reviewtype(data.get("filing_review_type")); // JG 2018-10-31
+			pw1.reviewtype(data.get(filing_review_type_variable)); // JG 2018-10-31
 			pw1.directive14acceptanceRequested(data.get("job_project_type"));
-			pw1.workTypes(data.get("new_existing_both"));
+			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-10-30 TEST-ENV new PW UI
+				pw1.workTypesAntenna(data.get("new_existing_both")); //JG 2018-10-30 TEST-ENV new PW UI
+			} else {
+				pw1.workTypes(data.get("new_existing_both"));
+			}
 			pw1.additionalInfo(data.get("cost_floor_area_build_type"));
 			pw1.additionalConciderations(data.get("additional_conciderations"));
 			pw1.complianceNYCECC(data.get("nycecc"));
 			pw1.zonningCharacteristics(data.get("dist_overlay_spec_dist_map"));
 			pw1.buildingCharacteristics(data.get("building_charcteristics"));
-			pw1.fireProtectionEquipment(data.get("fire_equipment"));
+			if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-01 TEST-ENV doesn't have 'Fire' section yet!?
+				pw1.fireProtectionEquipment(data.get("fire_equipment"));
+			}
 			pw1.siteCharacteristics(data.get("site_characteristics"));
 			pw1.savePW1(data.get("save_pw1"));
 			ds1.demolitionSubmittal(data.get("ds1"));
@@ -119,46 +128,46 @@ public class AnStandard extends TestBase {
 			docs.uploadDocuments(data.get("documents"));
 			signature.ownerSignature(data.get("owner_signature"));
 			pw1.previewToFile(data.get("preview_to_file"));
-			// ASSIGN TO TEAM
-			task_form.centralAssigner(data.get("cpe_acpe"));
+//			// ASSIGN TO TEAM
+//			task_form.centralAssigner(data.get("cpe_acpe"));
 		}
 	}
 	
-	// CPE
-	@Test(priority = 1, dataProvider = "getTestData", dependsOnMethods = {"Portal"})
-	public void CPEAction(Hashtable<String, String> data) {
-		task_form.cpeActions(data.get("cpe"));
-		task_form.viewAcceptDocuments(data.get("cpe"));
-	}
-
-	// PRIMARY
-	@Test(priority = 2, dataProvider = "getTestData", dependsOnMethods = {"CPEAction"})
-	public void PrimaryPA(Hashtable<String, String> data) {
-		task_form.peActions(data.get("primary_pe"));				
-	}
-	
-	// CPE / PW2
-	@Test(priority = 3, dataProvider = "getTestData", dependsOnMethods = {"PrimaryPA"})
-	public void CPEAction2(Hashtable<String, String> data) {
-		task_form.cpeActions(data.get("cpe_2"));
-		pw2.workPermit(data.get("pw2_2"));
-	}
-	
-	// DOCS
-	@Test(priority = 3, dataProvider = "getTestData", dependsOnMethods = {"CPEAction2"})
-	public void QaSuper(Hashtable<String, String> data) {
-		task_form.qaSuper(data.get("qa_super"));
-		crmdocs.viewAcceptTR1Fuel(data.get("qa_super"), data.get("accept_tr"));
-		crmdocs.viewAcceptTR1Fina(data.get("qa_super"), data.get("accept_tr"));
-		crmdocs.viewAcceptTR8PDocs(data.get("qa_super"), data.get("accept_tr"));
-		crmdocs.viewAcceptPW2Docs(data.get("qa_super"), data.get("accept_pw2_docs"));
-	}
-	
-	// CPERMIT
-	@Test(priority = 4, dataProvider = "getTestData", dependsOnMethods = {"QaSuper"})
-	public void Permit(Hashtable<String, String> data) {
-		task_form.isuePermit(data.get("qa_admin"));
-		successMessage(data.get("description"));
-	}
-	
+//	// CPE
+//	@Test(priority = 1, dataProvider = "getTestData", dependsOnMethods = {"Portal"})
+//	public void CPEAction(Hashtable<String, String> data) {
+//		task_form.cpeActions(data.get("cpe"));
+//		task_form.viewAcceptDocuments(data.get("cpe"));
+//	}
+//
+//	// PRIMARY
+//	@Test(priority = 2, dataProvider = "getTestData", dependsOnMethods = {"CPEAction"})
+//	public void PrimaryPA(Hashtable<String, String> data) {
+//		task_form.peActions(data.get("primary_pe"));				
+//	}
+//	
+//	// CPE / PW2
+//	@Test(priority = 3, dataProvider = "getTestData", dependsOnMethods = {"PrimaryPA"})
+//	public void CPEAction2(Hashtable<String, String> data) {
+//		task_form.cpeActions(data.get("cpe_2"));
+//		pw2.workPermit(data.get("pw2_2"));
+//	}
+//	
+//	// DOCS
+//	@Test(priority = 3, dataProvider = "getTestData", dependsOnMethods = {"CPEAction2"})
+//	public void QaSuper(Hashtable<String, String> data) {
+//		task_form.qaSuper(data.get("qa_super"));
+//		crmdocs.viewAcceptTR1Fuel(data.get("qa_super"), data.get("accept_tr"));
+//		crmdocs.viewAcceptTR1Fina(data.get("qa_super"), data.get("accept_tr"));
+//		crmdocs.viewAcceptTR8PDocs(data.get("qa_super"), data.get("accept_tr"));
+//		crmdocs.viewAcceptPW2Docs(data.get("qa_super"), data.get("accept_pw2_docs"));
+//	}
+//	
+//	// CPERMIT
+//	@Test(priority = 4, dataProvider = "getTestData", dependsOnMethods = {"QaSuper"})
+//	public void Permit(Hashtable<String, String> data) {
+//		task_form.isuePermit(data.get("qa_admin"));
+//		successMessage(data.get("description"));
+//	}
+//	
 }
