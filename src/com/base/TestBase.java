@@ -1134,29 +1134,15 @@ public class TestBase {
 				break;
 		}
 		test = rep.startTest("Filter job " + JOB_NUMBER.getProperty("job_number"));
-		if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-01 TEST-ENV new PW UI
-			if(count(Constants.click_to_view_icon_8085) > 0) {
-				click(Constants.click_to_view_icon_8085);
-				clickButton("OK");
-				waitInvisible(Constants.global_notification_ok_button);
-				waitUntilISpinnersInvisible();
-				scrollAllWayUp();
-			}
-			else {
-				reportFailure("filterJob - unable to filter job");
-			}
+		if(count(Constants.click_to_view_icon) > 0) {
+			click(Constants.click_to_view_icon);
+			clickButton("OK");
+			waitInvisible(Constants.global_notification_ok_button);
+			waitUntilISpinnersInvisible();
+			scrollAllWayUp();
 		}
 		else {
-			if(count(Constants.click_to_view_icon) > 0) {
-				click(Constants.click_to_view_icon);
-				clickButton("OK");
-				waitInvisible(Constants.global_notification_ok_button);
-				waitUntilISpinnersInvisible();
-				scrollAllWayUp();
-			}
-			else {
-				reportFailure("filterJob - unable to filter job");
-			}
+			reportFailure("filterJob - unable to filter job");
 		}
 	}
 	
