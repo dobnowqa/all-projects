@@ -1,7 +1,5 @@
 package com.util;
 
-import java.util.Hashtable;
-
 public class Constants {
 
 //PATHs
@@ -47,6 +45,7 @@ public class Constants {
 	public static final String spinner_fa_fa = " //i[@class='fa fa-spinner']"; // REAL VISIBLE
 	public static final String please_wait = "//*[text()='Please Wait']";
 	public static final String loading = "//div[@id='veil']";	
+	public static final String loading_db = "//*[text()='Loading']";
 	public static final String global_dob_logo = "//img[@ng-src='images/DOB-NOW-logo.png']";
 	public static final String global_first_filter_field = "//input[@ng-model='colFilter.term']";
 	public static final String global_notification_message = "//p[contains(@ng-bind-html,'ngDialogData')]";
@@ -59,6 +58,7 @@ public class Constants {
 	public static final String global_required_label = "//div[@class='ui-grid-cell-contents'][contains(.,'Required')]";
 	public static final String filter_my_jobs_button = "//button[@id='filter-dropdown']";
 	public static final String portal_email_field = "//input[contains(@id,'mail')]";
+	public static final String portal_email_field_8085 = "//input[contains(@placeholder,'Please enter email address')]"; // JG 2018-10-30
 	public static final String global_save_form_button = "//button[@ng-click='save()']";
 	public static final String items_per_page = "//select[@ng-model='grid.options.paginationPageSize']";
 	public static final String global_loading_spinner = "//*[contains(.,'veil-portal')]";
@@ -80,6 +80,7 @@ public class Constants {
 
 	public static final String click_to_view_icon = "//i[@class='glyphicon glyphicon-new-window window-icon']"; 
 			//span[@class='window-icon-text'][contains(.,'Click to View')]";
+	public static final String click_to_view_icon_8085 = "//span[@class='glyphicon glyphicon glyphicon  glyphicon-edit']"; // JG 2018-11-01
 	public static final String global_email_preview_dropdown = "//*[@id='typeahead-405-1214-option-0']/a/strong";
 //	public static final String job_label = "//*[@id='frmportal']/div[1]/span/b";
 	public static final String job_label = "//b[contains(text(),'Job#')]";
@@ -106,10 +107,10 @@ public class Constants {
 	public static final String global_refresh_button = "//span[@class='glyphicon glyphicon-refresh']";
 	public static final String link_xpath_part1 = "//a[contains(.,'"; //a[contains(.,'Façade')]
 	public static final String link_xpath_part2 = "')]";
-/*	public static final String email_xpath_part1 = "//strong[contains(.,'";
+/*	public static final String email_xpath_part1 = "//strong[contains(.,'"; //strong[contains(text(),'DOBELVDIRECTOR')]
 	public static final String email_xpath_part2 = "')]";*/
-	public static final String email_xpath_part1 = "//strong[text()='";
-	public static final String email_xpath_part2 = "']";
+	public static final String email_xpath_part1 = "//strong[contains(text(),'";
+	public static final String email_xpath_part2 = "')]";
 	
 	public static final String preview_resubmit_button = "//span[@class='glyphicon glyphicon-file']";
 		
@@ -119,7 +120,7 @@ public class Constants {
 	
 	public static final String resubmit_button = "(//button[contains(.,'Resubmit')])[1]";
 	public static final String application_preview_label = "//h4[contains(.,'view')]";
-	public static final String return_to_filing_view = "//button[contains(text(),'Return to filing')]"; // ng-click="cancel()"><i class="fa fa-repeat
+	public static final String return_to_filing_view = "//button[contains(text(),'Return to')]"; // ng-click="cancel()"><i class="fa fa-repeat
 	public static final String number_of_pages_label = "//span[@class='label pull-right portal-fonts']";
 	public static final String number_of_pages = "//span[contains(.,'Page :    /')]";
 	public static final String click_go_next_button = "//button[@ng-click='goNext()']";
@@ -140,10 +141,13 @@ public class Constants {
 	public static final String search_button = "//button[contains(.,'Search')]";
 // SELECT COMPONENT PAGE
 	public static final String dob_now_build_component = "//img[@src='images/build-logo-button.png']";
+	public static final String build_cranes_link = "//a[text()='Cranes']";
+	public static final String build_others_link = "//a[text()='Others']";
 	public static final String dob_now_safety_component = "//img[@src='images/safety-button-logo.png']";
 	public static final String safety_elevators_link = "//a[text()='Elevators']";
 // DASHBOARD 
 	public static final String job_filing_button = "//button[@ng-click='NewAppOptions()']";
+	public static final String job_filing_button_8085 = "//button[@ng-click='NewAppJobOptions()']"; //JG 2018-10-30
 	public static final String job_filing_label = "//span[contains(.,'Job Filing Id')]";
 	public static final String job_filing_modal = "//div[@class='row col-xs-12 col-sm-12 col-md-12 modal-body portal-fonts']";
 	
@@ -160,6 +164,7 @@ public class Constants {
 	public static final String checkbox_antenna = "(//input[@name='rdWorktype'])[4]"; //        ng-model="AntennaFilingWorktype
 	public static final String submit_work_type_button = "//button[@ng-click='ok()'][text()='Submit']";
 	public static final String filing_next_button = "//button[@ng-click='next()']";
+	public static final String filing_next_button_8085 = "//button[@ng-click='Submit()']"; // JG 2018-11-16 button ng-click changed
 	
 	public static final String job_filing_next_button = "//span[@class=''][text()='Next']";
 //	public static final String device_elevator = "//input[@type='radio'][@id='rdNewAppDevice4']";
@@ -191,10 +196,12 @@ public class Constants {
 	public static final String pw1_1_add_work_floors_button_subs = "//button[@ng-click='PlanWorkAntennaLocationModal()']";
 	public static final String pw1_work_on_floors_location = "//select[@id='ddlCADescWork']";
 	public static final String pw1_1_work_on_floors_select_code_and_description = "//select[@id='ddlCADescWork']";
+	public static final String pw1_1_work_on_floors_select_code_and_description_8085 = "//select[@id='FloorFDSelCategoryWorklist']";
 	public static final String pw1_1_work_on_floors_floor_number_from = "//input[@id='WFfloorNumberFrom']";
 	public static final String pw1_1_work_on_floors_floor_number_to = "//input[@id='WFfloorNumberTo']";
 	public static final String pw1_1_work_on_floors_description_of_work = "//textarea[@id='txtDOW']";
 	public static final String pw1_1_work_on_floors_add_button = "//button[@ng-click='submitForm();']";
+	public static final String pw1_1_work_on_floors_add_button_8085 = "//button[contains(@ng-click,'submitted=true;')]";
 	
 	//     2. Applicant Information
 	public static final String pw1_2_email = "//input[@name='txtPWAppEmail2']";
@@ -349,7 +356,9 @@ public class Constants {
 	public static final String job_description_for_new_work = "//textarea[contains(@id,'JobDesc')]";
 	public static final String job_description_legalization = "//textarea[@id='txtPWLegalizationJobDesc']";
 	//     12. Zoning Characteristics
+	public static final String zoning_information_tab = "//a[@class='segoeUISemiBold ng-binding'][contains(text(),'Zoning Information')]"; // JG 2018-11-01 new PW1 UI
 	public static final String pw1_12_district = "//input[@id='txtPWDistrictS']";
+	public static final String pw1_12_district_8085 = "//select[@id='ddlPWReviewReq1'][@ng-model='FormObj.ZoningFields.Districts']"; // JG 2018-11-01 new PW1 UI, changed from text-box to drop-down
 	public static final String pw1_12_overlay = "//input[@id='txtPWOverlay']";
 	public static final String pw1_12_special_district = "//input[@id='txtPWSpecialDist']";
 	public static final String pw1_12_map_number = "//input[@id='txtPWMapNumber']";
@@ -357,8 +366,10 @@ public class Constants {
 /*	public static final String pw1_13_occupancy_classification = "//select[@id='ddlPWOccupancyClassification']";
 	public static final String pw1_13_construction_classification = "//select[@id='ddlPWConstructionClassification']";
 	public static final String pw1_13_multiple_dwelling_classification = "//select[@id='ddlPWMultipleDwelling']";*/
+	public static final String pw1_13_building_type_8085 = "//select[@id='ddlBuildingType']";
 	public static final String pw1_13_mixed_use_type_yes = "(//input[@name='rblPWMixedBuildType'])[1]";
 	public static final String pw1_13_mixed_use_type_no = "(//input[@name='rblPWMixedBuildType'])[2]";
+	public static final String pw1_13_mixed_use_type_no_8085 = "(//input[@name='rdMixedusebuilding'])[2]"; // JG 2018-11-01 new PW1 UI 
 	public static final String pw1_13_building_height_existing = "//input[@id='txtPWBuildingHeightExi']";
 	public static final String pw1_13_building_height_proposed = "//input[@id='txtPWBuildingHeightPro']";
 	public static final String pw1_13_building_stories_existing = "//input[@id='txtPWBuildingStoriesExi']";
@@ -416,6 +427,7 @@ public class Constants {
 	//     20. Site Characteristics
 	public static final String pw1_20_tidal_wetlands_yes = "(//input[@id='rdPWSiteTidal'])[1]";
 	public static final String pw1_20_tidal_wetlands_no = "//input[@id='rdPWSiteTidal'][@value='false']";
+	public static final String pw1_20_tidal_wetlands_no_8085 = "//input[@ng-model='FormObj.TidalWastelands'][@value='false']";
 	public static final String pw1_20_coastal_erosion_hazard_area_yes = "(//input[@id='rdPWSiteCoastalErosion'])[1]";
 	public static final String pw1_20_coastal_erosion_hazard_area_no = "//input[@id='rdPWSiteCoastalErosion'][@value='false']";
 	public static final String pw1_20_fire_districs_yes = "(//input[@id='rdPWSiteFireDistrict'])[1]";
@@ -425,8 +437,8 @@ public class Constants {
 	public static final String pw1_20_urban_renewal_yes = "(//input[@id='rdPWSiteUrbanRenewal'])[1]";
 	public static final String pw1_20_urban_renewal_no = "//input[@id='rdPWSiteUrbanRenewal'][@value='false']";
 	//     20A. Flood Hazard Area Information
-	public static final String pw1_20A_flood_hazard_area_yes = "(//input[@id='rdPWSiteFloodHazardArea'])[1]";
-	public static final String pw1_20A_flood_hazard_area_no = "(//input[@id='rdPWSiteFloodHazardArea'])[2]";
+	public static final String pw1_20A_flood_hazard_area_yes = "(//input[@name='rdPWSiteFloodHazardArea'])[1]"; // JG 2018-11-01 changed from 'id' to 'name' 
+	public static final String pw1_20A_flood_hazard_area_no = "(//input[@name='rdPWSiteFloodHazardArea'])[2]"; // JG 2018-11-01 changed from 'id' to 'name'
 	//     22. Asbestos Abatement Compliance
 	public static final String pw1_22_requires_asbestos_abatement = "//input[contains(@id,'AsbestosComplaince')][@value='1']";
 	public static final String pw1_22_not_asbestos_project = "(//input[@name='rdPWAsbestosComplaince'])[2]";
@@ -468,10 +480,12 @@ public class Constants {
 	//     24. Comments
 	public static final String pw1_24_comments = "//textarea[@id='txtPWComments']";
 	public static final String pw1_confirm_save_button = "//button[@ng-click='addressConfirmationModalOk()']";
+	public static final String pw1_confirm_save_button_8085 = "//button[@ng-click='ngDialogData.Save(true)']";
 // WORK PERMIT (PW2)
 	public static final String pw2_work_permit_step = "//a[contains(.,'Work Permit (PW2)')]";
 // DEMOLITION SUBMITTAL (DS1)
 	public static final String ds1_demolition_submittal_step = "//a[contains(.,'Demolition Submittal (DS1)')]";
+	public static final String ds1_tab = "//a[contains(.,'DS1')]"; // JG 2018-11-01
 	//     2. Applicant Information
 	public static final String ds1_2_applicant_ds1same_as_ps1_yes = "//input[@id='rdPw1ApplicantYes']";
 	public static final String ds1_2_applicant_ds1same_as_ps1_no = "//input[@id='rdPw1ApplicantNo']";
@@ -494,6 +508,7 @@ public class Constants {
 	public static final String edit_icon = "//i[@class='fa fa-edit']";
 	
 	public static final String add_button = "//button[contains(.,'Add')]";
+	public static final String add_button_8085 = "//button[contains(@ng-click,'CostAffidavitModal()')]"; // JG 2018-11-02
 	public static final String add_new_sign_button = "//button[contains(.,'Add New Sign')]";
 	public static final String sign_relationship = "//input[@id='txtRelationshiptoOwner']";
 	public static final String i_hereby_state = "//input[@id='chkSignCompleteStatement']";
@@ -549,8 +564,8 @@ public class Constants {
 	
 	public static final String antenna_scope_of_work_step = "//a[contains(.,'Scope of Work')]";
 	// Are new Antennas, RRH and/or Arrays proposed at this location?
-	public static final String asw_are_new_antenna_rrh_array_prposed_yes = "//input[@id='rdAnyNewAntenna'][@value='true']";
-	public static final String asw_are_new_antenna_rrh_array_prposed_no = "//input[@id='rdAnyNewAntenna'][@value='false']";
+	public static final String asw_are_new_antenna_rrh_array_prposed_yes = "//input[@name='rdAnyNewAntenna'][@value='true']"; // JG 2018-11-02 changed from id to name
+	public static final String asw_are_new_antenna_rrh_array_prposed_no = "//input[@name='rdAnyNewAntenna'][@value='false']"; // JG 2018-11-02 changed from id to name
 	//input[@id='rdAnyNewAntenna']
 	public static final String asw_there_any_existing_antennas_yes = "//input[@id='rdAnyExistingAntenna'][@value='true']";
 	public static final String asw_there_any_existing_antennas_no = "//input[@id='rdAnyExistingAntenna'][@value='false']";
@@ -576,12 +591,12 @@ public class Constants {
 	public static final String asw_specify_supporting_structures_for_antenna_array_rrh  = "//button[@ng-click='toggleDropdown()']";  //button[contains(.,'SelectÂ ')]
 	//public static final String asw_specify_supporting_structures_for_antenna_array_rrh  = "//button[@class='dropdown-toggle btn btn-default']";
 	public static final String asw_supporting_structure_list_select = "//a[contains(.,'XXXXXXXXX')]"; //a[contains(.,' Parapet')];
-	public static final String asw_structural_work_included = "(//input[@id='rdAnyStructuralWork'])[1]";
-	public static final String asw_structural_work_seperate = "(//input[@id='rdAnyStructuralWork'])[2]";
-	public static final String asw_emergency_power_system_new = "(//input[@id='rdEmergencyPowerSystem'])[1]";
-	public static final String asw_emergency_power_system_existing = "(//input[@id='rdEmergencyPowerSystem'])[2]";
-	public static final String asw_associated_mechanical_work_proposed_yes = "(//input[@id='rdMechWorkProposed'])[1]";
-	public static final String asw_associated_mechanical_work_proposed_no = "(//input[@id='rdMechWorkProposed'])[2]";
+	public static final String asw_structural_work_included = "(//input[@name='rdAnyStructuralWork'])[1]"; // JG 2018-11-02 changed from id to name
+	public static final String asw_structural_work_seperate = "(//input[@name='rdAnyStructuralWork'])[2]"; // JG 2018-11-02 changed from id to name
+	public static final String asw_emergency_power_system_new = "(//input[@name='rdEmergencyPowerSystem'])[1]"; // JG 2018-11-02 changed from id to name
+	public static final String asw_emergency_power_system_existing = "(//input[@name='rdEmergencyPowerSystem'])[2]"; // JG 2018-11-02 changed from id to name
+	public static final String asw_associated_mechanical_work_proposed_yes = "(//input[@name='rdMechWorkProposed'])[1]"; // JG 2018-11-02 changed from id to name
+	public static final String asw_associated_mechanical_work_proposed_no = "(//input[@name='rdMechWorkProposed'])[2]"; // JG 2018-11-02 changed from id to name
 	//public static final String asw_floor_associated_equipment_located = "//textarea[@ng-change='chkScopeOfWorkChanges()']";
 	public static final String asw_what_floor_associated_equipment_located = "//textarea[@ng-change='chkScopeOfWorkChanges()']";
 	public static final String asw_save_button = "//button[contains(.,'Save')]";
@@ -606,6 +621,7 @@ public class Constants {
 	public static final String pw3_description_of_work = "//select[@id='ddlCADescWork']";
 	public static final String pw3_description_of_work_list_select = "//option[@value='string:AN - New sector']";
 	public static final String pw3_area_units = "//input[@id='Text1']";
+	public static final String pw3_area_units_8085 = "//input[@id='txtPWLocHouseNo'][@name='txtArea']"; // JG 2018-11-02
 	public static final String pw3_area_units_sign = "//input[@id='txtArea']";
 	public static final String pw3_unit_cost = "//input[@id='Text2']";
 	public static final String pw3_unit_cost_sign = "//input[@id='txtUnitCost']";
@@ -644,6 +660,7 @@ public class Constants {
 	public static final String tr1_license_type = "//select[@id='txtEn2LicType']";
 	
 	public static final String license_type_list = "//select[contains(@id, 'LicType')]";
+	public static final String license_type_list_8085 = "//select[contains(@id, 'txtEn2LicType')]";
 	
 	public static final String tr1_license_number = "//input[@id='txtENAppLicNum']";
 	public static final String tr1_agency_number = "//input[@id='txtAgencyNumber']";
@@ -651,6 +668,7 @@ public class Constants {
 	public static final String tr1_i_understand_my_failure_to_file = "//input[@id='chkTR2DesignAppProgress2']";
 	public static final String tr1_i_understand_and_agree = "//input[@id='chkTR2DesignAppProgress1']";
 	public static final String tr1_save_progress_inspection_button = "//button[@ng-click='save()']";
+	public static final String tr1_save_progress_inspection_button_8085 = "//button[@ng-click='SaveTR1()']";
 	public static final String tr1_add_special_inspections_categories = "(//button[contains(.,'Add')])[1]";
 	public static final String tr1_add_requirements_list = "//button[@class='ui-select-bootstrap']"; //button[contains(.,'Select')]
 	public static final String tr1_add_requirements_list_select = "//a[contains(.,' XXXXXXXXX')]";
@@ -685,6 +703,7 @@ public class Constants {
 	public static final String tr8_i_understand_my_failure_to_file = "//input[@id='chkTR2DesignAppProgress2']";
 	public static final String tr8_i_understand_and_agree = "//input[@id='identificationofresponsibilities']";//input[@id='identificationofresponsibilities']
 	public static final String tr8_save_progress_inspection_button = "//button[@ng-click='save()']";
+	public static final String tr8_save_progress_inspection_button_8085 = "//button[@ng-click='SaveTR1()']"; // JG 2018-11-14
 	public static final String tr8_add_special_inspections_categories = "(//button[contains(.,'Add')])[1]";
 	public static final String tr8_add_requirements_list = "//button[@class='ui-select-bootstrap']"; //button[contains(.,'Select')]
 	public static final String tr8_add_requirements_list_select = "//a[contains(.,' XXXXXXXXX')]";
@@ -707,6 +726,7 @@ public class Constants {
 	public static final String ss_statement_signatures_step = "//a[contains(.,'Statements & Signatures')]";
 	public static final String project_not_require_commissioning = "//input[@id='chkTR2DesignAppNoCommissioning']";
 	public static final String ss_i_havepersonally_reviewed_all_information = "//input[@id='DesignApplicantStatementsMainCheckPW1']";
+	public static final String ss_i_havepersonally_reviewed_all_information_8085 = "//div[contains(text(),'I have personally')]/preceding-sibling::input[@type='checkbox']"; // JG 2018-11-14
 	public static final String ss_fee_exemption_reques_non_profit_yes= "//input[contains(@id,'rblPWFeeExceptReqNonPro')]";
 	public static final String ss_fee_exemption_reques_non_profit_yes_sign = "//input[@id='rblPWFeeExceptReqNonPro'][@value='false']";
 	public static final String ss_fee_exemption_reques_nycha_hhc_no_sign = "//input[@id='rblPWFeeExceptReqPro'][@value='false']";
@@ -715,8 +735,8 @@ public class Constants {
 	
 	public static final String ss_owners_certifications_no = "//input[@id='rblPWOwnerCertication2']";
 	public static final String ss_building_to_be_altered_demolished_no = "//input[@id='rblPWBuildingAltered2']";
-	
 	public static final String ss_owner_is_not_required_to_notify_yes = "//input[contains(@name,'rblPWOwnerNotReq')][@value='true']";
+	public static final String ss_owner_is_not_required_to_notify_no = "//input[contains(@name,'rblPWOwnerNotReq')][@value='false']";
 	public static final String ss_owner_is_not_required_to_notify_yes_sign = "//input[@id='rblPWOwnerNotReq'][@value='true']";
 	
 	public static final String ss_owner_notified_new_york = "//input[@name='rblPWOwnerNotified'][@value='true']";
@@ -735,7 +755,9 @@ public class Constants {
 	public static final String crm_username_label = "//span[@class='navTabButtonUserInfoText navTabButtonUserInfoWorker']";
 	public static final String crm_document_title_link = "//a[starts-with(@id,'gridBodyTable_lookup_{')]";
 	public static final String documents_loading_spinner = "(//div[@ng-show='showLoadingDocRequiredGrid'])[2]";
+	public static final String documents_loading_spinner_8085 = "(//div[@ng-show='showLoadingJobInfoGrid'])[2]";
 	public static final String upload_document_icon = "//i[@class='fa fa-upload']";
+	public static final String upload_document_icon_8085 = "//i[@class='fa fa-upload ng-scope']"; // JG 2018-11-13
 //	public static final String upload_document_icon = "//button[@ng-click='grid.appScope.uploadDocument(row)']";
 	public static final String document_status_required = "//*[text()='Required']";
 	public static final String doc_upload_xpath_part1 = "(//button[@ng-click='grid.appScope.uploadDocument(row)'])[";
@@ -806,9 +828,10 @@ public class Constants {
 	public static final String pw2_upload_document_button = "//i[@class='fa fa-upload']";
 	public static final String pw2_permit_not_yet_issued = "//*[@id='fixedviews']/div[2]/div/div/div[2]/div/div[2]/div[2]/div/div[2]/div/div[1]/div";
 	public static final String tr1_valid_label = "//i[@ng-if='ShowAgencyvalid']";
-	public static final String green_valid_label = "//i[@style='color:forestgreen'][text()='Valid']";
+	//public static final String green_valid_label = "//i[@style='color:forestgreen'][text()='Valid']";
+	public static final String green_valid_label = "//i[@style='color:forestgreen']";
 	
-	
+	public static final String crm_user = "//span[contains(@title,'BUILD001')]";
 	//  ELEVATORS
 	public static final String filing_includes = "//select[@class='ng-pristine ng-valid ng-valid-required ng-touched']";
 	public static final String building_code = "//select[@ng-model='elvFilingObj.BuildingCode']";
@@ -1308,6 +1331,7 @@ public class Constants {
 	
 	public static final String document_status_filter_elv = "(//input[@ng-model='colFilter.term'])[7]";
 	public static final String document_status_filter = "//span[text()='Required Documents']/following::span[text()='Document Status']/following::input[@ng-model='colFilter.term']";
+	public static final String document_status_filter_8085 = "//div[contains(text(),'Required Documents')]/following::span[text()='Document Status']/following::input[@ng-model='colFilter.term']"; // JG 2018-11-15
 	
 	public static final String crm_document_accepted = "//span[contains(.,'Accepted')]";
 //	public static final String document_xpath_part1 = "(//a[starts-with(@id,'gridBodyTable_lookup_')])[";
@@ -1315,13 +1339,10 @@ public class Constants {
 	public static final String document_xpath_part2 = "]/td[2]/div";
 	
 	public static final String close_xpath = "']";
-
 	public static final String load_next_page_image = "(//*[@id='_nextPageImg'])[2]";
-//	public static final String view_document_button = "//*[@alt='View Document']";
-	
+//	public static final String view_document_button = "//*[@alt='View Document']";	
 	public static final String view_document_button = "//img[@class='ms-crm-ImageStrip-Copy_16 ms-crm-commandbar-image16by16'][@alt='View Document']";
-	public static final String objection_addressed_button = "//img[@class='ms-crm-ImageStrip-Activate_16 ms-crm-commandbar-image16by16'][@alt='Objection Addressed']";
-	
+	public static final String objection_addressed_button = "//img[@class='ms-crm-ImageStrip-Activate_16 ms-crm-commandbar-image16by16'][@alt='Objection Addressed']";	
 	public static final String accept_document_button = "//span[contains(text(),'Accept Document')]";
 	
 	public static final String crm_documents_first_document_link  = "//*[@id='gridBodyTable']/tbody/tr[1]/td[2]/div";
@@ -1363,6 +1384,7 @@ public class Constants {
 	public static final String submit_button_elv = "//*[@alt='Submit']";
 // ELECTRICAL
 // Subsequent Filing 
+	public static final String filing_action = "//select[@id='FilingAction']";
 	public static final String filing_action_label = "//select[@id='FilingAction']";
 	public static final String select_action_correction = "//option[@value='Correction']";
 	public static final String select_action_renew_permit = "//option[@value='RenewWorkPermit']";
@@ -1616,10 +1638,13 @@ public class Constants {
 	
 	// Radio
 	public static final String search_by_value ="//input[@name='ctrlShow'][@value='";
-
+	
+	// JG 2018-11-16 STAGING environments
 	public static final String stg443 = "https://msswvw-dobcrmpw.nycnet/Publish/DOBNowPortal/index.html";
 	public static final String stg444 = "https://msswvw-dobcrmpw.nycnet:444/Publish/DOBNowPortal/Index.html#";
+	// JG 2018-11-16 TESTING environments
 	public static final String tst8085 = "http://mstwva-dobcrm03.buildings.nycnet:8085/Index.html#";
+//	public static final String tst8085 = "http://mstwva-dobcrm03.buildings.nycnet:8085/BE-MS-ST/Index.html#"; // JG 2018-10-30 new PW1 UI
 	
 
 	public static final String AJOETEST2 = "AJOETEST2@GMAIL.COM";
@@ -1685,7 +1710,7 @@ public class Constants {
 	
 	public static final String laa_item_quantity = "//input[@ng-model='item.Quantity']";
 	
-	public static final String have_associated_job_number_no = "//div[contains(text(),'associated Job Number')]/following::input[@id='rdAnswerText2']";
+	public static final String have_associated_job_number_no = "//div[contains(text(),'associated job number')]/following::input[@id='rdAnswerText2']";
 	public static final String laa_offline_8_hours_no = "//div[contains(text(),'offline for more than 8 hours')]/following::input[@id='rdAnswerText2']";
 	
 	public static final String branch_water_filters = "//input[@id='Branch Water Filters']";
@@ -1708,6 +1733,8 @@ public class Constants {
 	
 //	public static final String save_scope_of_work = "//button[@ng-click='SaveScopeofWork(ScopeOfWork)']";
 	public static final String save_scope_of_work = "//span[@class='glyphicon glyphicon-ok-sign']";
+	public static final String appliance_data_accordion = "//div[@slidediv='applianceData']";
+	
 	public static final String add_appliance_data = "//button[contains(.,'Add Appliance Data')]";
 	public static final String floor_location = "//select[@id='FloorFDSelCategoryWorklist']";
 	public static final String total_number_of_appliances = "//input[@ng-model='ngDialogData.ApplianceData.TotalNumberofAppliance']";
@@ -1716,6 +1743,9 @@ public class Constants {
 	public static final String certification_number = "//input[@ng-model='ngDialogData.ApplianceData.Certification']";
 	public static final String model_number = "//input[@ng-model='ngDialogData.ApplianceData.ModelNumber']";
 	public static final String input_btu = "//input[@ng-model='ngDialogData.ApplianceData.InputBtuhr']";
+	public static final String appliance_data_save = "//*[@id='ngdialog4']/div[2]/div[3]/button[1]";
+	
+	public static final String gas_usage_accordion = "//*[@id='frmScopeOfWork']/div/div[2]/div[3]";
 	
 	public static final String oil_piping = "//input[@id='Oil piping']";
 
@@ -1727,7 +1757,7 @@ public class Constants {
 	
 	public static final String laa_spinner = "//i[@class='fa fa-spinner fa-pulse fa-3x fa-fw build-color']";
 	
-	public static final String ewn_button = "//button[@ng-click='EmergencyNewAppOptions()']";
+	public static final String ewn_button =        "//button[@ng-click='EmergencyNewAppOptions()']";
 	public static final String ewn_tab = "//a[@ng-click='tab.setTab(7)']";
 	
 	public static final String laa_select_action = "//select[@ng-model='grid.appScope.LaaFilingActionChange[rowRenderIndex]']";

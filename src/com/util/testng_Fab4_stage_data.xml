@@ -1,0 +1,33 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="FAB4" allow-return-values="true">
+
+<listeners>
+    <listener class-name="listener.TestsListenerAdapter" />
+</listeners>
+
+<test name="FnNew">
+    <classes>
+     <class name="com.fab4.FnNew" />
+    </classes>
+</test>
+
+<test name="SfNew">
+    <classes>
+     <class name="com.fab4.SfNew" />
+    </classes>
+</test>
+
+<test name="ShNew">
+    <classes>
+     <class name="com.fab4.ShNew" />
+    </classes>
+</test>
+
+<test name="SgNew">
+    <classes>
+     <class name="com.fab4.SgNew" />
+    </classes>
+</test>
+
+
+</suite>
