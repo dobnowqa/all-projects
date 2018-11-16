@@ -11,13 +11,19 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
-import org.openqa.selenium.support.PageFactory;
+import com.pages.CrmDocs;
+import com.pages.CrmTaskFormPage;
+import com.pages.DobDS1Page;
 import com.pages.DobDashboardPage;
 import com.pages.DobDocumentsPage;
 import com.pages.DobPW1Page;
 import com.pages.DobPW2Page;
+import com.pages.DobPW3Page;
+import com.pages.DobSOWPage;
 import com.relevantcodes.extentreports.LogStatus;
 import com.pages.DobSignaturesPage;
+import com.pages.DobTR1Page;
+import com.pages.DobTR8Page;
 import com.base.TestBase;
 
 public class CcProfCertPW2 extends TestBase {	
@@ -51,6 +57,19 @@ public class CcProfCertPW2 extends TestBase {
 		return TestUtil.getData(testname, xlsx);
 	}
 
+	DobDashboardPage dash = new  DobDashboardPage();
+	DobPW1Page pw1 = new  DobPW1Page();
+	DobDS1Page ds1 = new DobDS1Page();
+	DobSOWPage asw = new DobSOWPage();
+	DobPW3Page pw3 = new DobPW3Page();
+	DobTR1Page tr1 = new DobTR1Page();
+	DobTR8Page tr8 = new DobTR8Page();
+	DobPW2Page pw2 = new DobPW2Page();
+	DobSignaturesPage signature = new DobSignaturesPage();
+	DobDocumentsPage docs = new DobDocumentsPage();
+	CrmTaskFormPage task_form = new CrmTaskFormPage();
+	CrmDocs crmdocs = new CrmDocs();
+	
 	@Test(priority = 0, dataProvider = "getTestData", invocationCount = 1)
 	public void Portal(Hashtable<String, String> data) {
 		if (!TestUtil.isExecutable(testname, xlsx) || data.get("Runmode").equals("N"))
@@ -60,11 +79,10 @@ public class CcProfCertPW2 extends TestBase {
 		test.log(LogStatus.INFO, data.get("description"));
 		test = rep.startTest("Test Case Data");
 		test.log(LogStatus.INFO, data.toString());
-		DobDashboardPage dash = PageFactory.initElements(driver, DobDashboardPage.class);
-		DobPW1Page pw1 = PageFactory.initElements(driver, DobPW1Page.class);
-  		DobPW2Page pw2 = PageFactory.initElements(driver, DobPW2Page.class);
-		DobSignaturesPage signature = PageFactory.initElements(driver, DobSignaturesPage.class);
-		DobDocumentsPage docs = PageFactory.initElements(driver, DobDocumentsPage.class);
+	
+		
+ 
+
 		
 		
 		dash.selectWorkType(data.get("work_type"));
@@ -81,11 +99,11 @@ public class CcProfCertPW2 extends TestBase {
 		pw1.fireProtectionEquipment(data.get("fire_equipment"));
 		pw1.siteCharacteristics(data.get("site_characteristics"));
 		pw1.savePW1(data.get("save_pw1"));
- 		pw2.workPermit(data.get("pw2"));
 // 		pw2.uploadDocuments(data.get("pw2_documents"));
 		signature.applicantStatementsSignature(data.get("signatures"));
-		signature.ownerSignature(data.get("owner_signature"));
 		docs.uploadDocuments(data.get("documents"));
+		signature.ownerSignature(data.get("owner_signature"));
+ 		pw2.workPermit(data.get("pw2"));
 		pw1.previewToFile(data.get("preview_to_file"));
 	}
  	
