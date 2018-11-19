@@ -283,8 +283,11 @@ public class Constants {
 	public static final String pw1_8_building_type = "//select[@name='ddlPWBuildingType']";
 	public static final String pw1_8_associated_yes = "//input[@id='rdFeeNewBuildingApplicationSubmitPermit'][@value='true']";
 	public static final String pw1_8_associated_no = "//input[@id='rdFeeNewBuildingApplicationSubmitPermit'][@value='false']";
-
+	public static final String pw1_8_associated_no_8085 = "//input[@id='rdFeeNewBuildingApplicationSubmitPermit2']";
+	public static final String pw1_8_associated_bis_job_number_yes = "//input[@id='rdJobAssociatedAlt1']"; // JG 2018-11-19
+	public static final String pw1_8_associated_bis_job_number_no  = "//input[@id='rdJobAssociatedAlt2']"; // JG 2018-11-19
 	public static final String pw1_8_associated_bis_job_number = "//input[@id='txtNewBuildingJobNumber']";
+	
 	public static final String pw1_8_estimate_fee_button = "//button[@ng-click='CalculateModal()']";
 	
 	public static final String pw1_8_height = "//input[@id='txtPWHeight']";
