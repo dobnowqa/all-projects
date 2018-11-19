@@ -21,6 +21,7 @@ public class DobSOWPage extends TestBase {
 			click(Constants.antenna_scope_of_work_step);
 			waitVisible(Constants.asw_specify_supporting_structures_for_antenna_array_rrh);
 			String[] data = asw.split(" :: ");
+			wait(1); // JG 2018-11-19
 			if(data[0].contains("Y"))
 				radio(Constants.asw_are_new_antenna_rrh_array_prposed_yes);
 			else

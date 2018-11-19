@@ -15,14 +15,17 @@ public class DobSignaturesPage extends TestBase {
 			if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-14: new PW1 UI
 				waitVisible(Constants.ss_save_button);
 				if(count(Constants.project_not_require_commissioning) > 0) {
-					radio(Constants.project_not_require_commissioning);
+					radio(Constants.project_not_require_commissioning); // JG 2018-11-19 in new UI, user can't click this.
 				}
+			} else {
+				scrollTo(Constants.project_not_require_commissioning); // JG 2018-11-19
 			}
-			if(count(Constants.ss_i_havepersonally_reviewed_all_information_8085) > 0) { // JG 2018-11-14 
+			
+			if(count(Constants.ss_i_havepersonally_reviewed_all_information_8085) > 0) { // JG 2018-11-14
 				check(Constants.ss_i_havepersonally_reviewed_all_information_8085);
 			}			
 			wait(2); // JG 2018-11-14
-			scrollTo("//h3[contains(text(),'Owner - Statements & Signatures')]"); // JG 2018-11-14 //rblPWFeeExceptReqNonPro
+//			scrollTo("//h3[contains(text(),'Owner - Statements & Signatures')]"); // JG 2018-11-14 //rblPWFeeExceptReqNonPro
 			if(signatures.contains("profit"))
 				radio(Constants.ss_fee_exemption_reques_non_profit_yes+ "[@value='false']");
 			else

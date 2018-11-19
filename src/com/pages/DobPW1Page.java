@@ -369,11 +369,14 @@ public class DobPW1Page extends TestBase {
 		if(!costareatype.equals("")){
 			String[] data = costareatype.split(" :: ");
 			type(Constants.pw1_8_estimated_new_work_cost, data[0]);
-			type(Constants.pw1_8_total_new_work_floor_area, data[1]);
+			type(Constants.pw1_8_total_new_work_floor_area, data[1]);			
 			if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-10-30 TEST-ENV new PW UI
 				select(Constants.pw1_8_building_type, data[2]); 
 				scrollToElement(Constants.job_description_for_new_work);
 				type(Constants.job_description_for_new_work, convertedTimestamp());//legalization
+			} else {
+				radio(Constants.pw1_8_associated_no_8085); // JG 2018-11-19 new PW UI radio button 
+				radio(Constants.pw1_8_associated_bis_job_number_no); // JG 2018-11-19 new PW UI radio button
 			}
 		}
 	}
@@ -826,6 +829,7 @@ public class DobPW1Page extends TestBase {
 			filterJob(user);
 			test = rep.startTest("Preview To File");
 			for (int i = 1; i <= 20; i++) {
+				wait(2); // JG 2018-11-19
 				click(Constants.preview_resubmit_button);
 				waitUntilISpinnersInvisible();
 				wait(3);
