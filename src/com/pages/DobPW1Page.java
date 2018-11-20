@@ -833,6 +833,12 @@ public class DobPW1Page extends TestBase {
 				click(Constants.preview_resubmit_button);
 				waitUntilISpinnersInvisible();
 				wait(3);
+				if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-20 new PW1 UI asks to Confirm
+					click(Constants.yes_button);
+					waitUntilISpinnersInvisible();
+					wait(2);
+					break;
+				}
 				waitVisible(Constants.application_preview_label);
 				waitVisible("//div[@class='hidden-xs col-md-2 pull-right']");
 				waitVisible("//span[@class='label pull-right portal-fonts']");
@@ -848,16 +854,18 @@ public class DobPW1Page extends TestBase {
 				if (count(Constants.number_of_pages_label) > 0)
 					break;
 			}
-			for (int i = 1; i <= 50; i++) {
-				click(Constants.click_go_next_button);
-				wait(1);
-				if (count(Constants.final_legal_contect_checkbox) > 0)
-					break;
+			if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-20
+				for (int i = 1; i <= 50; i++) {
+					click(Constants.click_go_next_button);
+					wait(1);
+					if (count(Constants.final_legal_contect_checkbox) > 0)
+						break;
+				}
+				check(Constants.final_legal_contect_checkbox);
+				click(Constants.file_button);
+				waitInvisible(Constants.file_button);
 			}
-			check(Constants.final_legal_contect_checkbox);
-			click(Constants.file_button);
 			reportPass("previewToFile");
-			waitInvisible(Constants.file_button);
 			waitVisible(Constants.ok_button);
 			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("filing_message"));
 			clickButton("OK");
