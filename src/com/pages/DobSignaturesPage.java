@@ -18,7 +18,11 @@ public class DobSignaturesPage extends TestBase {
 					radio(Constants.project_not_require_commissioning); // JG 2018-11-19 in new UI, user can't click this.
 				}
 			} else {
-				scrollTo(Constants.project_not_require_commissioning); // JG 2018-11-19
+				if(count(Constants.project_not_require_commissioning) > 0) {
+					scrollTo(Constants.project_not_require_commissioning); // JG 2018-11-19
+				} else {
+					scrollTo(Constants.ss_technical_report_text); // JG 2018-11-21
+				}
 			}
 			
 			if(count(Constants.ss_i_havepersonally_reviewed_all_information_8085) > 0) { // JG 2018-11-14

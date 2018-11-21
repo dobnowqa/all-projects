@@ -534,19 +534,30 @@ public class DobPW1Page extends TestBase {
 	// 9. Additional Considerations Curb Cut
 			public void additionalConciderationsCurb(String demolition) {	
 				if(!demolition.equals("")){
-				test = rep.startTest("additionalConciderationsCurb");
-				send(Constants.pw1_9_review_requested_under_code, "2014");	
-//				pw1_9_review_requested_under_code.sendKeys("2014");
-	/*			pw1_9_review_requested_under_code.sendKeys("2014");
-				radio(Constants.pw1_9_facade_alteration_no);
-				radio(Constants.pw1_9_adult_establishment_no);
-				radio(Constants.pw1_9_quality_housing_no);*/
-	/*			pw1_9_facade_alteration_no.click();
-				pw1_9_adult_establishment_no.click();
-				pw1_9_quality_housing_no.click();*/
-				radio(Constants.pw1_9_facade_alteration_no);
-				radio(Constants.pw1_9_adult_establishment_no);
-				radio(Constants.pw1_9_quality_housing_no);
+					test = rep.startTest("additionalConciderationsCurb");
+					send(Constants.pw1_9_review_requested_under_code, "2014");	
+//					pw1_9_review_requested_under_code.sendKeys("2014");
+	/*				pw1_9_review_requested_under_code.sendKeys("2014");
+					radio(Constants.pw1_9_facade_alteration_no);
+					radio(Constants.pw1_9_adult_establishment_no);
+					radio(Constants.pw1_9_quality_housing_no);*/
+	/*				pw1_9_facade_alteration_no.click();
+					pw1_9_adult_establishment_no.click();
+					pw1_9_quality_housing_no.click();*/
+					if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-21
+						radio(Constants.pw1_9_facade_alteration_no);
+						radio(Constants.pw1_9_adult_establishment_no);
+						radio(Constants.pw1_9_quality_housing_no);
+					} else {
+						radio(Constants.pw1_9_unmapped_cco_street_no_8085);
+						radio(Constants.pw1_9_crfn_restrictive_declaration_easement_no_8085);
+						radio(Constants.pw1_9_comply_with_local_laws_no_8085);
+						radio(Constants.pw1_9_address_violations_no_8085);
+						radio(Constants.pw1_9_bsa_calendar_numbers_no);
+						radio(Constants.pw1_9_cpc_calendar_numbers_no);
+						radio(Constants.pw1_9_modular_construct_nys_no_8085);
+						radio(Constants.pw1_9_modular_construct_nyc_no_8085);
+					}
 				}
 			}
 	
@@ -557,6 +568,9 @@ public class DobPW1Page extends TestBase {
 			radio(Constants.pw1_10_work_in_compliance_with_nycecc);
 			select(Constants.pw1_10_code_compliance_path, comp[0]);
 			select(Constants.pw1_10_energy_nalysis, comp[1]);
+			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-21
+				check(Constants.pw1_10_no_tr8_inspections_req);
+			}
 	 	}
 	}
 /*	// 10. NYCEEC Compliance SUBS
@@ -641,27 +655,47 @@ public class DobPW1Page extends TestBase {
 	public void curbCutDescription(String accessto) {	
 		if(!accessto.equals("")){
 			test = rep.startTest("curbCutDescription");
-			waitVisible("//span[text()='16. Curb Cut Description']");			
-			waitUntilElementVisible(Constants.pw1_16_size_of_cutout, 30);
-			type(Constants.pw1_16_size_of_cutout, "11");			
-			type(Constants.pw1_16_distance_to_nearest_corner, "11");			
-			type(Constants.pw1_16_distance_from_nearest_property, "11");
-			select(Constants.pw1_16_which_side_nearest_to_property, "West");
-			type(Constants.pw1_16_to_streat, "11");
-			type(Constants.pw1_16_size_of_cutout, "11");
-			click(Constants.pw1_16_this_curb_will_provide_access_to);
-			clickElement(Constants.link_xpath_part1 + accessto + Constants.link_xpath_part2);
-			select(Constants.pw1_16_which_side_of_street_curb_on, "East");
-			
-			radio(Constants.pw1_16_on_grade_no);
-			radio(Constants.pw1_16_over_vault_no);
-			radio(Constants.pw1_16_other_structure_no);
-			radio(Constants.pw1_16_sidewalk_within_8ft_no);
-			radio(Constants.pw1_16_sidewalk_to_destroy_no);
-			radio(Constants.pw1_16_infront_of_ajoining_no);
-			select(Constants.pw1_16_agencies_required_documents, "MTA");
-
-			
+			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-21
+				click(Constants.pw1_16_scope_of_work_tab);
+				waitUntilElementVisible(Constants.pw1_16_size_of_cutout_8085,30);
+				scrollTo(Constants.pw1_16_size_of_cutout_8085);
+				type(Constants.pw1_16_size_of_cutout_8085, "11");			
+				type(Constants.pw1_16_distance_to_nearest_corner_8085, "11");			
+				type(Constants.pw1_16_distance_from_nearest_property_8085, "11");
+				select(Constants.pw1_16_which_side_nearest_to_property_8085, "West");
+				type(Constants.pw1_16_to_streat_8085, "11");
+				type(Constants.pw1_16_size_of_cutout_8085, "11");
+				click(Constants.pw1_16_this_curb_will_provide_access_to_8085);
+				clickElement(Constants.link_xpath_part1 + accessto + Constants.link_xpath_part2);
+				select(Constants.pw1_16_which_side_of_street_curb_on_8085, "East");
+				radio(Constants.pw1_16_on_grade_no_8085);
+				radio(Constants.pw1_16_over_vault_no_8085);
+				radio(Constants.pw1_16_other_structure_no_8085);
+				radio(Constants.pw1_16_sidewalk_within_8ft_no_8085);
+				radio(Constants.pw1_16_sidewalk_to_destroy_no_8085);
+				radio(Constants.pw1_16_infront_of_ajoining_no_8085);
+				select(Constants.pw1_16_agencies_required_documents_8085, "MTA");
+			} else {
+				waitVisible("//span[text()='16. Curb Cut Description']");			
+				waitUntilElementVisible(Constants.pw1_16_size_of_cutout, 30);
+				type(Constants.pw1_16_size_of_cutout, "11");			
+				type(Constants.pw1_16_distance_to_nearest_corner, "11");			
+				type(Constants.pw1_16_distance_from_nearest_property, "11");
+				select(Constants.pw1_16_which_side_nearest_to_property, "West");
+				type(Constants.pw1_16_to_streat, "11");
+				type(Constants.pw1_16_size_of_cutout, "11");
+				click(Constants.pw1_16_this_curb_will_provide_access_to);
+				clickElement(Constants.link_xpath_part1 + accessto + Constants.link_xpath_part2);
+				select(Constants.pw1_16_which_side_of_street_curb_on, "East");
+				
+				radio(Constants.pw1_16_on_grade_no);
+				radio(Constants.pw1_16_over_vault_no);
+				radio(Constants.pw1_16_other_structure_no);
+				radio(Constants.pw1_16_sidewalk_within_8ft_no);
+				radio(Constants.pw1_16_sidewalk_to_destroy_no);
+				radio(Constants.pw1_16_infront_of_ajoining_no);
+				select(Constants.pw1_16_agencies_required_documents, "MTA");
+			}		
 /*			pw1_16_size_of_cutout.sendKeys("11");
 			pw1_16_distance_to_nearest_corner.sendKeys("5");
 			pw1_16_distance_from_nearest_property.sendKeys("100");

@@ -23,7 +23,7 @@ public class DobDashboardPage extends TestBase {
 //					check("//input[@ng-model='rowData." +worktype+ "FilingWorktype']");
  	    
 				click(Constants.filing_next_button_8085);
-				waitInvisible(Constants.filing_next_button_8085);
+				waitUntilElementInVisible(Constants.filing_next_button_8085,2);
         	
 			} else {
 				waitVisible(Constants.filing_next_button);
