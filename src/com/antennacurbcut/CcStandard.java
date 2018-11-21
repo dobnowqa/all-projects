@@ -74,6 +74,10 @@ public class CcStandard extends TestBase {
 		if (!TestUtil.isExecutable(testname, xlsx) || data.get("Runmode").equals("N"))
 			throw new SkipException("Skipping test");
 		System.out.println("BEGIN " + convertedTimestamp() + " **************** " + data.get("description")+ " " +env);
+		String filing_review_type_variable = "filing_review_type"; //JG 2018-11-21 
+		if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-21
+			filing_review_type_variable = "filing_review_type_8085";
+		}
 		test = rep.startTest(data.get("description"));
 		test.log(LogStatus.INFO, data.get("description"));
 		test = rep.startTest("Test Case Data");
@@ -82,24 +86,45 @@ public class CcStandard extends TestBase {
 
 
 		
-		dash.selectWorkType(data.get("work_type"));
+		if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-10-30 TEST-ENV new PW UI
+			dash.selectWorkType("Curb Cut");
+		} else {
+			dash.selectWorkType(data.get("work_type"));
+		}
 		pw1.locationImfo(data.get("address"));
 		type(Constants.pw1_1_apt_suite_number, testname);
-		pw1.applicantInfo(data.get("user_info"));
-		pw1.reviewtype(data.get("filing_review_type"));
-		pw1.directive14acceptanceRequested(data.get("job_project_type"));
+		if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-21
+			pw1.workOnFloors(data.get("work_on_floors")); // JG 2018-11-20 new per Data Dictionary
+			
+		}
+		pw1.applicantInfo(data.get("user_info"));		
+		pw1.reviewtype(data.get(filing_review_type_variable));
+		if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-21
+			pw1.directive14acceptanceRequested(data.get("job_project_type"));
+		} else {
+			radio(Constants.pw1_6_cc_new_installation); // JG 2018-11-21
+		}
 		pw1.additionalInfo(data.get("cost_floor_area_build_type"));
 		pw1.additionalConciderationsCurb(data.get("additional_conciderations"));
+		if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-21
+			pw1.complianceNYCECC(data.get("nycecc"));
+			pw1.savePW1(data.get("save_pw1"));
+		} else {
+			pw1.fireProtectionEquipment(data.get("fire_equipment"));
+			pw1.siteCharacteristics(data.get("site_characteristics"));
+		}
+		pw1.curbCutDescription(data.get("curb_cut_description"));
 		pw1.zonningCharacteristics(data.get("dist_overlay_spec_dist_map"));
 		pw1.buildingCharacteristics(data.get("building_charcteristics"));
-		pw1.curbCutDescription(data.get("curb_cut_description"));
-		pw1.fireProtectionEquipment(data.get("fire_equipment"));
-		pw1.siteCharacteristics(data.get("site_characteristics"));
-		pw1.savePW1(data.get("save_pw1"));
-//		signature.applicantStatementsSignature(data.get("signatures"));
-//		docs.uploadDocuments(data.get("documents"));
-//		signature.ownerSignature(data.get("owner_signature"));
-//		pw1.previewToFile(data.get("preview_to_file"));
+		if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-21
+			click(Constants.global_save_form_button_8085);
+		} else {
+			pw1.savePW1(data.get("save_pw1"));
+		}
+		signature.applicantStatementsSignature(data.get("signatures"));
+		docs.uploadDocuments(data.get("documents"));
+		signature.ownerSignature(data.get("owner_signature"));
+		pw1.previewToFile(data.get("preview_to_file"));
 	}
  	
 /*	// CPE VIEW-ACCEPT DOCS
