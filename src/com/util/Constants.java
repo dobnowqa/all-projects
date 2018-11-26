@@ -60,6 +60,7 @@ public class Constants {
 	public static final String portal_email_field = "//input[contains(@id,'mail')]";
 	public static final String portal_email_field_8085 = "//input[contains(@placeholder,'Please enter email address')]"; // JG 2018-10-30
 	public static final String global_save_form_button = "//button[@ng-click='save()']";
+	public static final String global_save_form_button_8085 = "//button[@ng-click='Save()']"; // JG 2018-11-21 upper case 'S'
 	public static final String items_per_page = "//select[@ng-model='grid.options.paginationPageSize']";
 	public static final String global_loading_spinner = "//*[contains(.,'veil-portal')]";
 	public static final String global_loading_spinner_2 = "//div[@ng-show='showLoadingJobInfoGrid']";
@@ -249,6 +250,7 @@ public class Constants {
 	public static final String pw1_6_both_antennas = "//input[@name='rdNewApp'][@value='3']";
 	
 	public static final String pw1_6_if_structural_work_is_included = "//input[@id='rdstructuralWorkIncluded'][@value='false']";
+	public static final String pw1_6_cc_new_installation = "//input[@ng-model='FormObj.CurbCutTypeValue'][@value='1']"; // JG 2018-11-21
 
 	
 	public static final String pw1_6_structural_work_included_yes = "//input[@id='rdstructuralWorkIncluded'][@value='true']";
@@ -309,6 +311,7 @@ public class Constants {
 	public static final String pw1_9_little_e_or_rd_site_no = "//input[@name='rdPWLittleSite'][@value='2']";
 	public static final String pw1_9_unmapped_cco_street_yes = "//input[@name='rdPWUnmappedCCoStreet1'][@value='true']";
 	public static final String pw1_9_unmapped_cco_street_no = "//input[@name='rdPWUnmappedCCoStreet1'][@value='false']";
+	public static final String pw1_9_unmapped_cco_street_no_8085 = "//input[@name='rdPWUnmappedCCoStreet1'][@value='1']";
 	
 	public static final String pw1_9_requesting_legalization_yes = "//input[@name='rdPWRequestLegalization'][@value='true']";
 	public static final String pw1_9_requesting_legalization_no = "//input[@name='rdPWRequestLegalization'][@value='false']";
@@ -318,12 +321,21 @@ public class Constants {
 	
 	public static final String pw1_9_crfn_restrictive_declaration_easement_yes = "//input[@name='rdPWCrfnRestrictive'][@value='true']";
 	public static final String pw1_9_crfn_restrictive_declaration_easement_no = "//input[@name='rdPWCrfnRestrictive'][@value='false']";
+	public static final String pw1_9_crfn_restrictive_declaration_easement_no_8085 = "//input[@ng-model='FormObj.CRFNRestrictiveDeclaration'][@value='false']"; // JG 2018-11-21
+	
 	public static final String pw1_9_crfn_zoning_exhibit_yes = "//input[@name='rdPWCRFNZoningExhibit'][@value='true']";
 	public static final String pw1_9_crfn_zoning_exhibit_no = "//input[@name='rdPWCRFNZoningExhibit'][@value='false']";
 	public static final String pw1_9_address_violations_yes = "//input[@name='rdPWFilingAddrVio'][@value='true']";
 	public static final String pw1_9_address_violations_no = "//input[@name='rdPWFilingAddrVio'][@value='false']";
+	public static final String pw1_9_address_violations_no_8085 = "//input[@ng-model='FormObj.IsFilingtoAddressViolations'][@value='false']"; // JG 2018-11-21
+	
 	public static final String pw1_9_comply_with_local_laws_yes = "(xxx)[1]";
 	public static final String pw1_9_comply_with_local_laws_no = "(xxx)[2]";
+	public static final String pw1_9_comply_with_local_laws_no_8085 = "//input[@ng-model='FormObj.ComplyingToLocalLaws'][@value='false']"; // JG 2018-11-21
+	
+	public static final String pw1_9_modular_construct_nys_no_8085 = "//input[@ng-model='FormObj.GCModularConstnyState'][@value='false']"; // JG 2018-11-21
+	public static final String pw1_9_modular_construct_nyc_no_8085 = "//input[@ng-model='FormObj.GCModularConstunderNYC'][@value='false']"; // JG 2018-11-21
+	
 	public static final String pw1_9_bsa_calendar_numbers_yes = "//input[@name='rdPWBSACalender'][@value='true']";
 	public static final String pw1_9_provide_bsa = "//textarea[@id='txtPWProvideBSA']";
 	public static final String pw1_9_bsa_calendar_numbers_no = "//input[@name='rdPWBSACalender'][@value='false']";
@@ -355,6 +367,7 @@ public class Constants {
 	public static final String pw1_10_energy_nalysis = "//select[@name='ddlPWEnergyAnalysis']";
 	public static final String pw1_10_exempt_from_nycecc = "(//input[@name='rblPWNYCECC'])[2]";
 	public static final String pw1_10_exempt_type = "//select[@name='ddlPWExemptNYCECC']";
+	public static final String pw1_10_no_tr8_inspections_req = "//input[@name='rblPWTR8Inspections']"; // JG 2018-11-21
 	//     11. Job Description
 	public static final String job_description_for_new_work = "//textarea[contains(@id,'JobDesc')]";
 	public static final String job_description_legalization = "//textarea[@id='txtPWLegalizationJobDesc']";
@@ -388,26 +401,47 @@ public class Constants {
 	public static final String size_of_shed = "//input[@id='txtPWShedSize']";
 	
 // 16. Curb Cut Description
+	public static final String pw1_16_scope_of_work_tab = "//a[@class='segoeUISemiBold ng-binding'][contains(text(),'Scope of Work')]"; // JG 2018-11-01 new PW1 UI
 	public static final String pw1_16_size_of_cutout = "//input[@id='txtPWSizeofcut']";
+	public static final String pw1_16_size_of_cutout_8085 = "//input[@id='txtPWConstructionSize']"; // JG 2018-11-21
 	public static final String pw1_16_distance_to_nearest_corner = "//input[@id='txtPWDistanceToNearestCorner']";
+	public static final String pw1_16_distance_to_nearest_corner_8085 = "//input[@id='txtPWConstructioncorner']"; // JG 2018-11-21
 	public static final String pw1_16_distance_from_nearest_property = "//input[@id='txtPWDistancefromNearestProperty']";
+	public static final String pw1_16_distance_from_nearest_property_8085 = "//input[@id='txtPWConstructionDistance']"; // JG 2018-11-21
 	public static final String pw1_16_which_side_nearest_to_property = "//select[@id='ddlSideCCProperty']";
+	public static final String pw1_16_which_side_nearest_to_property_8085 = "//select[@id='ddlSideCCProperty']"; // JG 2018-11-21 same ID in 8085
 	public static final String pw1_16_to_streat = "//input[@id='txtPWTostreet']";
+	public static final String pw1_16_to_streat_8085 = "//input[@id='txtPWToStreet']"; // JG 2018-11-21
 	public static final String pw1_16_this_curb_will_provide_access_to = "//button[@ng-click='toggleDropdown()']";
+	public static final String pw1_16_this_curb_will_provide_access_to_8085 = "//button[@ng-click='toggleDropdown()']"; // JG 2018-11-21 same ID in 8085
 	public static final String pw1_16_which_side_of_street_curb_on = "//select[@id='ddlPWSideCCStreet']";
+	public static final String pw1_16_which_side_of_street_curb_on_8085 = "//select[@id='ddlPWConstructionMaterial']"; // JG 2018-11-21
 	public static final String pw1_16_on_grade_yes = "(//input[@id='rdPWOnGrade'])[1]";
+	public static final String pw1_16_on_grade_yes_8085 = "//input[@id='rdPWIsTheCurbCutOnGradeYes']"; // JG 2018-11-21
 	public static final String pw1_16_on_grade_no = "(//input[@id='rdPWOnGrade'])[2]";
+	public static final String pw1_16_on_grade_no_8085 = "//input[@id='rdPWIsTheCurbCutOnGradeNo']"; // JG 2018-11-21
 	public static final String pw1_16_over_vault_yes = "(//input[@id='rdPWOverVault'])[1]";
+	public static final String pw1_16_over_vault_yes_8085 = "//input[@id='rdPWIsTheCurbCutOveravaultYes']"; // JG 2018-11-21
 	public static final String pw1_16_over_vault_no = "(//input[@id='rdPWOverVault'])[2]";
+	public static final String pw1_16_over_vault_no_8085 = "//input[@id='rdPWIsTheCurbCutOveravaultNo']"; // JG 2018-11-21
 	public static final String pw1_16_other_structure_yes = "(//input[@id='rdPWOtherStructure'])[1]";
+	public static final String pw1_16_other_structure_yes_8085 = "//input[@id='rdPWIsTheCurbCutOnOtherStructureYes']"; // JG 2018-11-21
 	public static final String pw1_16_other_structure_no = "(//input[@id='rdPWOtherStructure'])[1]";
+	public static final String pw1_16_other_structure_no_8085 = "//input[@id='rdPWIsTheCurbCutOnOtherStructureNo']"; // JG 2018-11-21
 	public static final String pw1_16_sidewalk_within_8ft_yes = "(//input[@id='rdPWSideWalkObstruction'])[1]";
+	public static final String pw1_16_sidewalk_within_8ft_yes_8085 = "//input[@id='rdPW1obstructionsYes']"; // JG 2018-11-21
 	public static final String pw1_16_sidewalk_within_8ft_no = "(//input[@id='rdPWSideWalkObstruction'])[2]";
+	public static final String pw1_16_sidewalk_within_8ft_no_8085 = "//input[@id='rdPW1obstructionsNo']"; // JG 2018-11-21
 	public static final String pw1_16_sidewalk_to_destroy_yes = "(//input[@id='rdPWSideWalkObstructionDestroyed'])[1]";
+	public static final String pw1_16_sidewalk_to_destroy_yes_8085 = "//input[@id='rdPW1relocatedYes']"; // JG 2018-11-21
 	public static final String pw1_16_sidewalk_to_destroy_no = "(//input[@id='rdPWSideWalkObstructionDestroyed'])[2]";
+	public static final String pw1_16_sidewalk_to_destroy_no_8085 = "//input[@id='rdPW1relocatedNo']"; // JG 2018-11-21
 	public static final String pw1_16_infront_of_ajoining_yes = "(//input[@id='rdPWCurbCutAdjProperty'])[1]";
+	public static final String pw1_16_infront_of_ajoining_yes_8085 = "//input[@id='rdPW1adjoiningYes']"; // JG 2018-11-21
 	public static final String pw1_16_infront_of_ajoining_no = "(//input[@id='rdPWCurbCutAdjProperty'])[2]";
+	public static final String pw1_16_infront_of_ajoining_no_8085 = "//input[@id='rdPW1adjoiningNo']"; // JG 2018-11-21
 	public static final String pw1_16_agencies_required_documents = "//select[@id='agenciesAndReqdDoc']";
+	public static final String pw1_16_agencies_required_documents_8085 = "//select[@id='FenceConstructionMaterialIntValue']"; // JG 2018-11-21
 	//     18. Fire Protection Equipment
 	public static final String pw1_18_fire_alarm_existing_yes = "(//input[@name='rblPWExistFireAlarm'])[1]";
 	public static final String pw1_18_fire_alarm_existing_no = "//input[contains(@id,'ExistFireAlarm')][@value='false']";
@@ -735,6 +769,8 @@ public class Constants {
 	public static final String ss_fee_exemption_reques_nycha_hhc_no_sign = "//input[@id='rblPWFeeExceptReqPro'][@value='false']";
 	public static final String ss_owners_certifications_yes = "//input[@id='rblPWOwnerCertication1']";
 //	public static final String ss_owners_certifications_yes_sign = "//input[@id='rblPWOwnerCertication2']";
+	public static final String ss_technical_report_text = "//span[contains(text(),'Technical Report (TR1)')]";
+	public static final String ss_professional_certification_text = "//div[contains(text(),'I hereby state that I have exercised a professional standard')]";
 	
 	public static final String ss_owners_certifications_no = "//input[@id='rblPWOwnerCertication2']";
 	public static final String ss_building_to_be_altered_demolished_no = "//input[@id='rblPWBuildingAltered2']";
