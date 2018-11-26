@@ -658,13 +658,14 @@ public class DobPW1Page extends TestBase {
 			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-21
 				click(Constants.pw1_16_scope_of_work_tab);
 				waitUntilElementVisible(Constants.pw1_16_size_of_cutout_8085,30);
-				scrollTo(Constants.pw1_16_size_of_cutout_8085);
-				type(Constants.pw1_16_size_of_cutout_8085, "11");			
-				type(Constants.pw1_16_distance_to_nearest_corner_8085, "11");			
+//				scrollTo(Constants.pw1_16_size_of_cutout_8085);
+				scrollAllWayUp(); // JG 2018-11-26
+				type(Constants.pw1_16_size_of_cutout_8085, "9");			
+				type(Constants.pw1_16_distance_to_nearest_corner_8085, "10");			
 				type(Constants.pw1_16_distance_from_nearest_property_8085, "11");
 				select(Constants.pw1_16_which_side_nearest_to_property_8085, "West");
-				type(Constants.pw1_16_to_streat_8085, "11");
-				type(Constants.pw1_16_size_of_cutout_8085, "11");
+				type(Constants.pw1_16_to_streat_8085, "12");
+//				type(Constants.pw1_16_size_of_cutout_8085, "11");
 				click(Constants.pw1_16_this_curb_will_provide_access_to_8085);
 				clickElement(Constants.link_xpath_part1 + accessto + Constants.link_xpath_part2);
 				select(Constants.pw1_16_which_side_of_street_curb_on_8085, "East");
