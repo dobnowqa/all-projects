@@ -102,6 +102,7 @@ public class CcStandard extends TestBase {
 		if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-21
 			pw1.directive14acceptanceRequested(data.get("job_project_type"));
 		} else {
+			click(Constants.pw1_6_work_types_accordion);
 			radio(Constants.pw1_6_cc_new_installation); // JG 2018-11-21
 		}
 		pw1.additionalInfo(data.get("cost_floor_area_build_type"));
