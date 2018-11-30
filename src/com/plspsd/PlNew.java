@@ -92,9 +92,7 @@ public class PlNew extends TestBase {
 		type(Constants.pw1_1_apt_suite_number, testname);
 		pw1.workOnFloors(data.get("work_on_floors"));
 		pw1.applicantInfoPlumbing(data.get("user_info"));
-		if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-26
-			pw1.reviewtype("Standard Plan Examination or Review"); //JG 2018-11-26 TODO: fix null pointer exception when using variable.
-		} else {
+		if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-30
 			pw1.reviewtype(data.get(filing_review_type_variable)); //JG 2018-11-26
 		}
 		pw1.workTypesPlumbing(data.get("new_existing_both"));
