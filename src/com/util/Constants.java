@@ -168,6 +168,9 @@ public class Constants {
 	public static final String filing_next_button_8085 = "//button[@ng-click='Submit()']"; // JG 2018-11-16 button ng-click changed
 	
 	public static final String job_filing_next_button = "//span[@class=''][text()='Next']";
+	public static final String job_filing_standard_plan = "//input[@ng-model='ProfessionalCertificate'][@ng-value='1']"; // JG 2018-11-30
+	public static final String job_filing_professional_certification = "//input[@ng-model='ProfessionalCertificate'][@ng-value='2']"; // JG 2018-11-30
+	public static final String job_filing_submit_button = "//button[@ng-click='Submit()']"; // JG 2018-11-30
 //	public static final String device_elevator = "//input[@type='radio'][@id='rdNewAppDevice4']";
 	
 	public static final String pw1_tab = "//a[contains(.,'Plans/Work (PW1)')]";
@@ -180,6 +183,7 @@ public class Constants {
 	//a[contains(.,'Plans/Work (PW1)')]
 // Plans/Work (PW1)
 	//     1. Location Information
+	public static final String pw1_1_location_information_accordion = "//div[@slidediv='locationInformationDiv']"; // JG 2018-11-29  
 	public static final String pw1_1_house_number = "//input[contains(@id,'LocHouse')]";
 	public static final String pw1_1_street_name = "//input[contains(@id,'StreetName')]";
 	public static final String pw1_1_borough = "//select[contains(@id,'LocBoroughNYC')]";
@@ -205,6 +209,7 @@ public class Constants {
 	public static final String pw1_1_work_on_floors_add_button_8085 = "//button[contains(@ng-click,'submitted=true;')]";
 	
 	//     2. Applicant Information
+	public static final String pw1_2_stakeholders_accordion = "//div[@slidediv='stakeholdersDiv']"; // JG 2018-11-29
 	public static final String pw1_2_email = "//input[@name='txtPWAppEmail2']";
 	public static final String pw1_2_license_type = "//select[@id='txtPWAppLicType']";
 	public static final String pw1_2_license_number = "//input[@id='txtPWAppLicNum']";
@@ -235,6 +240,7 @@ public class Constants {
 	public static final String pw1_3_state = "//input[@name='txtPWFRepState']";
 	public static final String pw1_3_mobile = "//input[@name='txtPWFRepMobileTelephone']";
 	//     4. Filing Review Type
+	public static final String pw1_4_filling_review_type_accordion = "//div[@slidediv='section4Div']"; // JG 2018-11-29
 	public static final String pw1_4_filling_review_type_list = "//select[@id='ddlPWProfCertificate']";
 	public static final String pw1_4_filling_review_select_standard_plan = "//option[contains(.,'Standard Plan Examination')]";
 	public static final String pw1_4_filling_review_select_professional_examination = "//option[contains(.,'Professional Certification')]";
@@ -242,6 +248,7 @@ public class Constants {
 	public static final String pw1_5_acceptance_requested_yes = "//input[@id='radPWDirective14Accept'][@value='true']";
 	public static final String pw1_5_acceptance_requested_no = "//input[@id='radPWDirective14Accept'][@value='false']";
 	//     6. Work Types
+	public static final String pw1_6_work_types_accordion = "//div[@slidediv='section6Div']"; // JG 2018-11-29
 	public static final String pw1_6_sign_new_work = "//input[@name='rdNewApp'][@value='1']";
 	public static final String pw1_6_sign_legalization = "//input[@name='rdNewApp'][@value='2']";
 	
@@ -274,7 +281,7 @@ public class Constants {
 	*/
 	//     8. Additional Information
 	
-	
+	public static final String pw1_8_additional_information_accordion = "//div[@slidediv='section8Div']"; // JG 2018-11-29
 	
 	public static final String pw1_8_legalization_cost = "//input[@name='txtPWEstLegalizationJobCost']";
 	public static final String pw1_8_total_legalization_floor_area = "//input[contains(@name,'txtPWTotalConsFlrArea2')]";
@@ -299,10 +306,14 @@ public class Constants {
 	public static final String pw1_8_height= "//input[@id='txtPWHeight']";
 	*/
 	//     9. Additional Considerations, Limitations or Restrictions
-
+	public static final String pw1_9_additional_considerations_accordion = "//div[@slidediv='section9Div']"; // JG 2018-11-29
 	public static final String pw1_9_review_requested_under_code = "//select[@id='ddlPWReviewReq1']";
 	public static final String pw1_9_facade_alteration_yes = "//input[@id='rdPWFaçadeAlteration'][@value='true']"; //input[@id='rdPWFaÃ§adeAlteration' and contains(text(),'Yes')]   //     [position()=1]
 	public static final String pw1_9_facade_alteration_no = "//input[@id='rdPWFaçadeAlteration'][@value='false']"; //input[@id='rdPWFaÃ§adeAlteration' and contains(text(),'No')] //     [position()=2]
+	public static final String pw1_9_facade_alteration_yes_8085 = "//input[@name='rdPWfacadealteration'][@value='true']"; // JG 2018-11-30
+	public static final String pw1_9_facade_alteration_no_8085 = "//input[@name='rdPWfacadealteration'][@value='false']"; // JG 2018-11-30
+	public static final String pw1_9_change_number_stories_yes = "//input[@id='rdPWStoriestab'][@value='true']"; // JG 2018-11-29
+	public static final String pw1_9_change_number_stories_no = "//input[@id='rdPWStoriestab'][@value='false']"; // JG 2018-11-29
 	public static final String pw1_9_adult_establishment_yes = "//input[@name='rdPWAdultEstablishment'][@value='true']";
 	public static final String pw1_9_adult_establishment_no = "//input[contains(@name,'rdPWAdultEstablishment')][@value='false']";
 	public static final String pw1_9_quality_housing_yes = "//input[@name='rdPWQualityHousing'][@value='true']";
@@ -316,9 +327,7 @@ public class Constants {
 	public static final String pw1_9_requesting_legalization_yes = "//input[@name='rdPWRequestLegalization'][@value='true']";
 	public static final String pw1_9_requesting_legalization_no = "//input[@name='rdPWRequestLegalization'][@value='false']";
 	public static final String pw1_9_site_safety_job_no = "//input[@name='rdPWSiteSafety'][@value='false']";
-	
-	
-	
+		
 	public static final String pw1_9_crfn_restrictive_declaration_easement_yes = "//input[@name='rdPWCrfnRestrictive'][@value='true']";
 	public static final String pw1_9_crfn_restrictive_declaration_easement_no = "//input[@name='rdPWCrfnRestrictive'][@value='false']";
 	public static final String pw1_9_crfn_restrictive_declaration_easement_no_8085 = "//input[@ng-model='FormObj.CRFNRestrictiveDeclaration'][@value='false']"; // JG 2018-11-21
@@ -347,6 +356,11 @@ public class Constants {
 	public static final String pw1_9_includes_partial_demolition_no = "//input[@id='rdPWWorkIncludes'][@value='false']";
 	public static final String pw1_9_stability_affected_by_work_yes = "//input[@name='rdPWStructuralStab'][@value='true']";
 	public static final String pw1_9_stability_affected_by_work_no = "//input[@name='rdPWStructuralStab'][@value='false']";
+	public static final String pw1_9_impact_water_supply_yes = "//input[@ng-model='FormObj.PLlWorkImpactTheWaterSupply'][@value='true']";
+	public static final String pw1_9_impact_water_supply_no = "//input[@ng-model='FormObj.PLlWorkImpactTheWaterSupply'][@value='false']";
+	public static final String pw1_9_otcr_approval_required_yes = "//input[@ng-model='FormObj.STAlternativeMaterialsRequiredanOTCR'][@value='true']";
+	public static final String pw1_9_otcr_approval_required_no = "//input[@ng-model='FormObj.STAlternativeMaterialsRequiredanOTCR'][@value='false']";
+	public static final String pw1_9_landmark_approval_number = "//input[@id='txtPWLandmarkApprovalNumber']"; // JG 2018-11-30
 	/*
 	public static final String pw1_9_review_building_code_yes = "(//select[@name='ddlPWReviewReq1'])[1]";
 	public static final String pw1_9_review_building_code_no = "(//select[@name='ddlPWReviewReq1'])[2]";
@@ -362,13 +376,16 @@ public class Constants {
 	public static final String pw1_9_landmark_no = "(//input[@name='rdPWLandmark'])[2}";
 	*/
 	//     10. NYCECC Compliance
+	public static final String pw1_10_nycecc_compliance_accordion = "//div[@slidediv='section10Div']"; // JG 2018-11-29
 	public static final String pw1_10_work_in_compliance_with_nycecc = "//input[@id='rblPWNYCECC'][@value='true']";
+	public static final String pw1_10_work_in_compliance_with_nycecc_8085 = "//input[@id='CompliacneWithTheNYCECC1']"; // JG 2018-11-29 
 	public static final String pw1_10_code_compliance_path = "//select[@id='ddlPWCodeCompliancePath']";
 	public static final String pw1_10_energy_nalysis = "//select[@name='ddlPWEnergyAnalysis']";
 	public static final String pw1_10_exempt_from_nycecc = "(//input[@name='rblPWNYCECC'])[2]";
 	public static final String pw1_10_exempt_type = "//select[@name='ddlPWExemptNYCECC']";
 	public static final String pw1_10_no_tr8_inspections_req = "//input[@name='rblPWTR8Inspections']"; // JG 2018-11-21
 	//     11. Job Description
+	public static final String pw1_11_job_description_accordion = "//div[@slidediv='section11Div']"; // JG 2018-11-29
 	public static final String job_description_for_new_work = "//textarea[contains(@id,'JobDesc')]";
 	public static final String job_description_legalization = "//textarea[@id='txtPWLegalizationJobDesc']";
 	//     12. Zoning Characteristics
@@ -392,6 +409,16 @@ public class Constants {
 	public static final String pw1_13_building_stories_proposed = "//input[@id='txtPWBuildingStoriesPro']";
 	public static final String pw1_13_building_dwelling_units_existing = "//input[@id='txtPWBuildingDwellingUnitsExi']";
 	public static final String pw1_13_building_dwelling_units_proposed = "//input[@id='txtPWBuildingDwellingUnitsPro']";
+	public static final String pw1_13_site_tidal_yes = "//input[@id='rdPWSiteTidal1']";
+	public static final String pw1_13_site_tidal_no = "//input[@id='rdPWSiteTidal2']";
+	public static final String pw1_13_occupancy_classification_existing = "//select[@id='ddlPWReviewReq3']";
+	public static final String pw1_13_occupancy_classification_proposed = "//select[@id='ddlPWReviewReq4']";
+	public static final String pw1_13_2014_code_apply_yes = "//input[@id='rdZoapplyforcc'][@value='true']";
+	public static final String pw1_13_2014_code_apply_no = "//input[@id='rdZoapplyforcc'][@value='false']";
+	public static final String pw1_13_construction_classification_existing = "//select[@id='ddlExistingConstructionClassification']";
+	public static final String pw1_13_construction_classification_proposed = "//select[@id='ddlSTProposedConstructionClassification']";
+	public static final String pw1_13_multiple_dwelling_classification = "//select[@id='ddlMultipledWellingClassification']";
+	
 // 15
 	
 	public static final String construction_material_fence = "//select[@id='ddlPWConstructionMaterial']";
@@ -462,6 +489,7 @@ public class Constants {
 	public static final String pw1_18_standpipe_proposed_no = "//input[contains(@id,'PropStandpipe')][@value='false']";
 	
 	//     20. Site Characteristics
+	public static final String pw1_20_site_characteristics_accordion = "//div[@slidediv='section20Div']"; // JG 2018-11-29
 	public static final String pw1_20_tidal_wetlands_yes = "(//input[@id='rdPWSiteTidal'])[1]";
 	public static final String pw1_20_tidal_wetlands_no = "//input[@id='rdPWSiteTidal'][@value='false']";
 	public static final String pw1_20_tidal_wetlands_no_8085 = "//input[@ng-model='FormObj.TidalWastelands'][@value='false']";
@@ -477,6 +505,7 @@ public class Constants {
 	public static final String pw1_20A_flood_hazard_area_yes = "(//input[@name='rdPWSiteFloodHazardArea'])[1]"; // JG 2018-11-01 changed from 'id' to 'name' 
 	public static final String pw1_20A_flood_hazard_area_no = "(//input[@name='rdPWSiteFloodHazardArea'])[2]"; // JG 2018-11-01 changed from 'id' to 'name'
 	//     22. Asbestos Abatement Compliance
+	public static final String pw1_22_asbestos_abatement_accordion = "//div[@slidediv='section22Div']"; // JG 2018-11-29
 	public static final String pw1_22_requires_asbestos_abatement = "//input[contains(@id,'AsbestosComplaince')][@value='1']";
 	public static final String pw1_22_not_asbestos_project = "(//input[@name='rdPWAsbestosComplaince'])[2]";
 	public static final String pw1_22_dep_asp_5_ontrol_o = "//input[@id='txtPWBuildingDEP']";
@@ -515,6 +544,7 @@ public class Constants {
 	public static final String pw1_23_understand_and_agree = "//input[@id='chkSignCompleteStatement']";
 	*/
 	//     24. Comments
+	public static final String pw1_24_comments_accordion = "//div[@slidediv='section24Div']"; // JG 2018-11-29
 	public static final String pw1_24_comments = "//textarea[@id='txtPWComments']";
 	public static final String pw1_confirm_save_button = "//button[@ng-click='addressConfirmationModalOk()']";
 	public static final String pw1_confirm_save_button_8085 = "//button[@ng-click='ngDialogData.Save(true)']";
@@ -592,6 +622,29 @@ public class Constants {
 	public static final String add = "//*[text()='Add']";
 	public static final String add2 = "(//*[text()='Add'])[2]";
 	
+	// Scope Of Work - Plumbing // JG 2018-11-27 new UI
+	public static final String sow_pl_storm = "//input[@ng-model='ScopeOfWorkPLCommon.Storm']";
+	public static final String sow_pl_medical_gas = "//input[@ng-model='ScopeOfWorkPLCommon.MedicalGas']";
+	public static final String sow_pl_gas = "//input[@ng-model='ScopeOfWorkPLCommon.Gas']";
+	public static final String sow_pl_water_sanitary = "//input[@ng-model='ScopeOfWorkPLCommon.WaterSanitary']";
+	public static final String sow_pl_plsp = "//input[@ng-model='ScopeOfWorkPLCommon.PLSP']";
+	public static final String sow_pl_add_sow_pl = "//span[text()='Add scope of work']";
+	public static final String sow_pl_select_scope_includes = "//select[@id='SOWInstallationWork']";
+	public static final String sow_pl_select_type = "//select[@id='SOWInstallationType']";
+	public static final String sow_pl_total_quantity = "//input[@id='SOWTotalQuantity']";
+	public static final String sow_pl_work_on_floor_check = "//input[@ng-model='row.entity.isSelected']";
+	public static final String sow_pl_save_button = "//button[@type='submit']";
+	public static final String sow_pl_select_operating_pressure = "//select[@ng-model='ScopeOfWorkPLCommon.GasObj.OperatingPressure']"; // JG 2018-11-29
+	public static final String sow_pl_type_of_meter_individual = "//input[@ng-model='ScopeOfWorkPLCommon.GasObj.Individual']"; // JG 2018-11-29
+	public static final String sow_pl_add_work_on_floors = "//div[@id='SOWTabWrapper']/descendant::span[text()='Add']"; // JG 2018-11-29
+	public static final String sow_pl_select_work_on_floors_type = "//select[@id='FDQuestionTypeSelection']"; // JG 2018-11-29
+	public static final String sow_pl_select_work_on_floors_location = "//select[@id='FloorFDSelCategoryWorklist']"; // JG 2018-11-29
+	public static final String sow_pl_work_on_floors_quantity = "//input[@id='WFQuantity']"; // JG 2018-11-29
+	public static final String sow_pl_riser_information_na = "//input[@ng-model='ScopeOfWorkPLCommon.GasObj.Other']"; // JG 2018-11-29
+	public static final String sow_pl_gas_use_cooking_residential = "//input[@ng-model='ScopeOfWorkPLCommon.GasObj.CookingResidential']"; // JG 2018-11-29
+	public static final String sow_pl_appliances_cooking_residential = "//input[@ng-model='ScopeOfWorkPLCommon.GasObj.CookingEquipmentresidential']"; // JG 2018-11-29
+	public static final String sow_pl_appliances_cook_equip_res_qty = "//input[@ng-model='ScopeOfWorkPLCommon.GasObj.CookingeuipmentResidentialQty']"; // JG 2018-11-29
+	
 	public static final String sow_modal = "//h4[text()='Scope of Work Detail']";
 	
 	public static final String sow_detail_select_category = "//select[@id='ModalSectionType']";
@@ -666,6 +719,7 @@ public class Constants {
 	public static final String save_button_sign = "//span[@class='glyphicon glyphicon-ok-sign']";
 	public static final String pw3_cost_details_save_button= "//button[@class='btn btn-primary btnCustom']";
 	public static final String pw3_save_button = "//button[contains(.,'Save')]";
+	public static final String pw3_save_button_8085 = "//button[@ng-click='saveCostAffidavit()']";
 	public static final String pw3_notification_ok_button = "//button[contains(.,'OK')]";
 // Technical Report (TR1)
 //		   2. Applicant Information
