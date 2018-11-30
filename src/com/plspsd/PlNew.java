@@ -11,22 +11,25 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
-import org.openqa.selenium.support.PageFactory;
-
 import com.base.TestBase;
+import com.pages.CityPayPage;
+import com.pages.CrmDocs;
+import com.pages.CrmTaskFormPage;
+import com.pages.DobDS1Page;
 import com.pages.DobDashboardPage;
 import com.pages.DobDocumentsPage;
 import com.pages.DobPW1Page;
+import com.pages.DobPW2Page;
 import com.pages.DobSOWPage;
 import com.pages.DobPW3Page;
 import com.pages.DobTR1Page;
 import com.pages.DobTR8Page;
+import com.pages.PlumbingPage;
 import com.pages.DobSignaturesPage;
 import com.relevantcodes.extentreports.LogStatus;
 
 public class PlNew extends TestBase {
-	
-	String testname = "PlNew";
+	String testname = this.getClass().getSimpleName();
 	Xls_Reader xlsx = new Xls_Reader(Constants.testCasesPlm);
 	
 	@BeforeSuite
@@ -55,31 +58,45 @@ public class PlNew extends TestBase {
 		return TestUtil.getData(testname, xlsx);
 	}
 
+	PlumbingPage pl = new PlumbingPage();
+	DobDashboardPage dash = new  DobDashboardPage();
+	DobPW1Page pw1 = new  DobPW1Page();
+	DobDS1Page ds1 = new DobDS1Page();
+	DobSOWPage asw = new DobSOWPage();
+	DobPW3Page pw3 = new DobPW3Page();
+	DobTR1Page tr1 = new DobTR1Page();
+	DobTR8Page tr8 = new DobTR8Page();
+	DobPW2Page pw2 = new DobPW2Page();
+	DobSignaturesPage signature = new DobSignaturesPage();
+	DobDocumentsPage docs = new DobDocumentsPage();
+	CrmTaskFormPage task_form = new CrmTaskFormPage();
+	CrmDocs crmdocs = new CrmDocs();
+	CityPayPage pay = new CityPayPage();
+	
 	@Test(dataProvider = "getTestData",invocationCount = 1)
 	public void Base(Hashtable<String, String> data) {
 		if (!TestUtil.isExecutable(testname, xlsx) || data.get("Runmode").equals("N"))
 			throw new SkipException("Skipping test");
 		System.out.println("BEGIN " + convertedTimestamp() + " **************** " + data.get("description"));
+		String filing_review_type_variable = "filing_review_type"; //JG 2018-11-26 
+		if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-26
+			filing_review_type_variable = "filing_review_type_8085";
+		}
 		test = rep.startTest(data.get("description"));
 		test.log(LogStatus.INFO, data.get("description"));
 		test = rep.startTest("Test Case Data");
 		test.log(LogStatus.INFO, data.toString());
-		DobDashboardPage dash = PageFactory.initElements(driver, DobDashboardPage.class);
-		DobPW1Page pw1 = PageFactory.initElements(driver, DobPW1Page.class);
-		DobSOWPage asw = PageFactory.initElements(driver, DobSOWPage.class);
-		DobPW3Page pw3 = PageFactory.initElements(driver, DobPW3Page.class);
-		DobTR1Page tr1 = PageFactory.initElements(driver, DobTR1Page.class);
-		DobTR8Page tr8 = PageFactory.initElements(driver, DobTR8Page.class);
-		DobSignaturesPage signature = PageFactory.initElements(driver, DobSignaturesPage.class);
-		DobDocumentsPage docs = PageFactory.initElements(driver, DobDocumentsPage.class);
-
 		
 		dash.selectWorkTypePlumbing(data.get("work_type"));
 		pw1.locationImfo(data.get("address"));
 		type(Constants.pw1_1_apt_suite_number, testname);
 		pw1.workOnFloors(data.get("work_on_floors"));
 		pw1.applicantInfoPlumbing(data.get("user_info"));
-		pw1.reviewtype(data.get("filing_review_type"));
+		if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-26
+			pw1.reviewtype("Standard Plan Examination or Review"); //JG 2018-11-26 TODO: fix null pointer exception when using variable.
+		} else {
+			pw1.reviewtype(data.get(filing_review_type_variable)); //JG 2018-11-26
+		}
 		pw1.workTypesPlumbing(data.get("new_existing_both"));
 		pw1.additionalInforPlumbing(data.get("additional_info"));
 		pw1.additionalConciderations(data.get("additional_conciderations"));
@@ -88,20 +105,19 @@ public class PlNew extends TestBase {
 		pw1.siteCharacteristics(data.get("site_characteristics"));
 		pw1.savePW1(data.get("save_pw1"));
 		asw.scopeOfWorkPlumbingNew(data.get("asw"));
-//		asw.scopeOfWorkPlumbingLegalization(data.get("asw"));
+//		asw.scopeOfWorkPlumbingLegalization(data.get("asw")); // JG leave commented out except for legal work
 		pw3.costAffidavitPlumbingNew(data.get("pw3"));
-//		pw3.costAffidavitPlumbingLegalization(data.get("pw3"));
+//		pw3.costAffidavitPlumbingLegalization(data.get("pw3")); // JG leave commented out except for legal work
 		tr1.specialInspectionPlumbingNew(data.get("tr1"));
-//		tr1.specialInspectionPlumbingLegalization(data.get("tr1"));
+//		tr1.specialInspectionPlumbingLegalization(data.get("tr1")); // JG leave commented out except for legal work
 		tr1.specialInspectorSignaturePlumbing(data.get("tr1"));
 		tr8.energyCodeProgressPlumbing(data.get("tr8"));
 		tr8.energyCodeSignaturePlumbing(data.get("tr8"));
 		signature.applicantStatementsSignature(data.get("signatures"));
-		signature.ownerSignature(data.get("owner_signature"));
 		docs.uploadDocuments(data.get("documents"));
-//		pw1.previewToFile(data.get("preview_to_file"));
+		signature.ownerSignature(data.get("owner_signature"));
+		pw1.previewToFile(data.get("preview_to_file"));
 		successMessage(data.get("description"));
-
 	}
 	
 /*	@Test(priority = 0, dataProvider = "getTestData")
