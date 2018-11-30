@@ -4,6 +4,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import com.base.TestBase;
 import com.util.Constants;
+//import com.util.Hour;
 
 public class DobPW1Page extends TestBase {
 /*	WebDriver driver;
@@ -58,6 +59,9 @@ public class DobPW1Page extends TestBase {
 				System.out.println(convertedTimestamp() + " **************** " + "PW1");
 				test = rep.startTest("PW1");
 				String[] data = address.split(" :: ");
+				if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-29
+					click(Constants.pw1_1_location_information_accordion);
+				}
 				type(Constants.pw1_1_house_number, data[0]);
 				type(Constants.pw1_1_street_name,data[1]);
 				select(Constants.pw1_1_borough, data[2]);
@@ -69,7 +73,7 @@ public class DobPW1Page extends TestBase {
 		public void workOnFloors(String work_on_floors) {	
 			if(!work_on_floors.equals("")){
 				test = rep.startTest("Work On Floors");
-				if(work_on_floors.contains(" :: ")) {
+				if(work_on_floors.contains(" :: ") && count("//input[@id='txtPWLocWorkFloor']") == 0) { // JG  2018-11-27 work_on_floors changed to use ::
 					String[] data = work_on_floors.split(" :: ");
 					click(Constants.pw1_1_add_work_floors_button);
 					if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-10-30 TEST-ENV elements changed
@@ -93,7 +97,8 @@ public class DobPW1Page extends TestBase {
 						type(Constants.pw1_13_building_dwelling_units_proposed, "51");
 					}					
 				} else
-					type("//input[@id='txtPWLocWorkFloor']", work_on_floors);
+//					type("//input[@id='txtPWLocWorkFloor']", work_on_floors); // JG  2018-11-27 work_on_floors changed to use ::
+					type("//input[@id='txtPWLocWorkFloor']", "1");
 			}
 		}
 		//Work on Floor	Subs
@@ -141,6 +146,10 @@ public class DobPW1Page extends TestBase {
 			if(!user_info.equals("")){
 				String[] data = user_info.split(" :: ");
 				test = rep.startTest("Applicant Info");
+				if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-29
+					scrollTo(Constants.pw1_2_stakeholders_accordion);
+					click(Constants.pw1_2_stakeholders_accordion);
+				}
 				email(data[0]);
 				select(Constants.license_type_list, data[1]);
 				wait(1);
@@ -148,7 +157,10 @@ public class DobPW1Page extends TestBase {
 					select(Constants.business_name_list, data[2]);
 /*				if(CONFIG.getProperty("env").contains("8085"))
 					select(Constants.business_name_list, data[2])*/;
-		 		type(Constants.job_description_for_new_work, user_info);
+					if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-29
+						click(Constants.pw1_11_job_description_accordion);
+					}
+					type(Constants.job_description_for_new_work, user_info);
 		 		scrollToElement(Constants.global_save_step_button);
 				click(Constants.global_save_step_button);
 				if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-10-30 TEST Filing buttons changed
@@ -169,12 +181,32 @@ public class DobPW1Page extends TestBase {
 			if(!user_info.equals("")){
 				String[] data = user_info.split(" :: ");
 				test = rep.startTest("Applicant Info");
+				if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-29
+					click(Constants.pw1_2_stakeholders_accordion);
+				}
 				email(data[0]);
 				select(Constants.license_type_list, data[1]);
 				wait(1);
 				if(count(Constants.business_name_list) > 0)
 					select(Constants.business_name_list, data[2]);
+				if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-29
+					click(Constants.pw1_11_job_description_accordion);
+				}
 		 		type(Constants.job_description_for_new_work, user_info);
+		 		// JG 2018-11-26 add the following so plumbing applicant info can be run independently, like regular applicant info (and maybe fix the null pointer exception?)  
+		 		scrollToElement(Constants.global_save_step_button);
+				click(Constants.global_save_step_button);
+				if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-10-30 TEST Filing buttons changed
+					click(Constants.pw1_confirm_save_button_8085);
+				} else {
+					click(Constants.pw1_confirm_save_button);
+				}
+				waitInvisible(Constants.global_loading_spinner);
+				waitUntilElementVisible(Constants.ok_button, 30);
+				assertNotification(TEXT_PROPERTIES.getProperty("job_filing_saved"), "pw1 saved");
+				wait(1);
+				clickButton("OK");
+				waitInvisible(Constants.ok_button);
 		 	}
 		} 
 		
@@ -229,6 +261,9 @@ public class DobPW1Page extends TestBase {
 	public void reviewtype(String type) {
 		if(!type.equals("")){
 			waitInvisible(Constants.dialog_box_overlay);
+			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-29
+				click(Constants.pw1_4_filling_review_type_accordion);
+			}
 			select(Constants.pw1_4_filling_review_type_list, type);	
 	 	}
 	}
@@ -281,7 +316,8 @@ public class DobPW1Page extends TestBase {
 			test = rep.startTest("workTypesAntenna");
 			String[] data = new_existing_both.split(" :: ");
 			//scrollToElement("//span[contains(text(),'Work Types')]");
-			scrollToElement("//span[contains(text(),'Filing Review')]"); // JG 2018-10-31 scrolling here because 'Work Types' was too far down.
+			click(Constants.pw1_6_work_types_accordion); // JG 2018-11-29 
+//			scrollToElement("//span[contains(text(),'Filing Review')]"); // JG 2018-10-31 scrolling here because 'Work Types' was too far down.
 			wait(1);
 			if (!data[0].equals("N"))
 				radio("//input[@type='radio'][@name='rblAntennaTypeValue'][@value='" + data[0] + "']");
@@ -300,7 +336,11 @@ public class DobPW1Page extends TestBase {
 		if (!new_existing_both.equals("")) {
 			test = rep.startTest("workTypes");
 			String[] data = new_existing_both.split(" :: ");
-			scrollToElement("//span[contains(text(),'Work Types')]");
+			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-29
+				click(Constants.pw1_6_work_types_accordion);
+			} else {
+				scrollToElement("//span[contains(text(),'Work Types')]");
+			}
 			wait(1);
 			if (!data[0].equals("N"))
 				radio("//input[@type='radio'][@name='rdNewApp'][@value='" + data[0] + "']");
@@ -368,6 +408,9 @@ public class DobPW1Page extends TestBase {
 	public void additionalInfo(String costareatype) {	
 		if(!costareatype.equals("")){
 			String[] data = costareatype.split(" :: ");
+			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-29
+				click(Constants.pw1_8_additional_information_accordion);
+			}
 			type(Constants.pw1_8_estimated_new_work_cost, data[0]);
 			type(Constants.pw1_8_total_new_work_floor_area, data[1]);			
 			if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-10-30 TEST-ENV new PW UI
@@ -404,11 +447,14 @@ public class DobPW1Page extends TestBase {
 			
 			}
 	}
-	// 8. Additional Information Pumbing
+	// 8. Additional Information Plumbing
 	public void additionalInforPlumbing(String additional_info) {
 		if (!additional_info.equals("")) {
 			test = rep.startTest("additionalInforPlumbing");
 			String[] data = additional_info.split(" :: ");
+			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-29
+				click(Constants.pw1_8_additional_information_accordion);
+			}
 			if (count(Constants.pw1_8_estimated_new_work_cost) > 0) // new / both
 				type(Constants.pw1_8_estimated_new_work_cost, data[0]);
 			if (count(Constants.pw1_8_legalization_cost) > 0)
@@ -417,7 +463,11 @@ public class DobPW1Page extends TestBase {
 				type(Constants.pw1_8_total_legalization_floor_area, data[1]);
 			if (count(Constants.pw1_8_total_new_work_floor_area) > 0)
 				type(Constants.pw1_8_total_new_work_floor_area, data[1]);
-			select(Constants.pw1_8_building_type, data[2]);
+			if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-26
+				select(Constants.pw1_8_building_type, data[2]);
+			} else {
+				radio(Constants.pw1_8_associated_bis_job_number_no); // JG 2018-11-28
+			}
 			scrollToElement(Constants.job_description_for_new_work);
 			if(count(Constants.job_description_legalization) > 0)
 				type(Constants.job_description_legalization, convertedTimestamp() + " legalization");		}
@@ -468,24 +518,40 @@ public class DobPW1Page extends TestBase {
 		if (!additional_conciderations.equals("")) {
 			test = rep.startTest("additionalConciderations");
 			String[] data = additional_conciderations.split(" :: ");
-			scrollTo("//span[contains(text(),'Additional Considerations')]");
+			if (count("//span[contains(text(),'Additional Considerations')]") > 0) { // JG 2018-11-29 span replaced by accordion
+				scrollTo("//span[contains(text(),'Additional Considerations')]");	
+			}
+			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-29
+				click(Constants.pw1_9_additional_considerations_accordion);
+			}
 			if (count(Constants.pw1_9_review_requested_under_code) > 0) { // ALL WORK TYPES
-				select(Constants.pw1_9_review_requested_under_code, data[0]);
+//				select(Constants.pw1_9_review_requested_under_code, data[0]); JG 2018-11-26, not working so use the below:
+				send(Constants.pw1_9_review_requested_under_code, "2014");
 				if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-01 TEST-ENV PW1 UI changes
-					radio("//input[@name='rdPWfacadealteration'][@value='" + data[1] + "']");
+					if (count(Constants.pw1_9_change_number_stories_no) > 0) { //JG 2018-11-29
+						radio(Constants.pw1_9_change_number_stories_no);
+					}
+//					if (count(Constants.pw1_9_facade_alteration_yes) > 0) { // Antenna work type
+					if (count(Constants.pw1_9_facade_alteration_yes_8085) > 0) { 
+							radio("//input[@name='rdPWfacadealteration'][@value='" + data[1] + "']");
+					}
 					radio("//input[@name='rdPWestablishmenttab'][@value='" + data[2] + "']");
 //					radio("//input[@name='rdPWQualityHousing'][@value='" + data[3] + "']"); // JG 2018-11-01 required per dd, but not present
-					radio("//input[@name='rdPWBSACalender'][@value='" + data[4] + "']");
-					radio("//input[@name='rdPWCPCCalender'][@value='" + data[5] + "']");
-					radio("//input[@ng-model='FormObj.WorkIncludesPartialDemolition'][@value='" + data[6] + "']");
+					type(Constants.pw1_9_landmark_approval_number, "1");
+					radio("//input[@name='rdPWBSACalender'][@value='false']"); // JG 2018-11-27 data[4] has 1, but needs to be false
+					radio("//input[@name='rdPWCPCCalender'][@value='false']"); // JG 2018-11-27 data[5] has 1, but needs to be false
+					if (count("//input[@ng-model='FormObj.WorkIncludesPartialDemolition'][@value='true']") > 0) { // JG 2018-11-30 for cc/pl, use the below logic.
+						radio("//input[@ng-model='FormObj.WorkIncludesPartialDemolition'][@value='" + data[6] + "']");
+					}
 					if (additional_conciderations.equals("Y")) {
 						radio("//input[@ng-model='FormObj.WorkIncludesPartialDemolition'][@value='true']");
 					}
 					if (additional_conciderations.equals("N")) {
 						radio("//input[@ng-model='FormObj.WorkIncludesPartialDemolition'][@value='false']");
 					}
-					radio("//input[@ng-model='FormObj.StructuralStabilityAffected'][@value='" + data[7] + "']");
-					//radio("//input[@ng-model='FormObj.StructuralStabilityAffected'][@value='false']"); // JG 2018-11-01 this is not needed
+					if (count("//input[@ng-model='FormObj.StructuralStabilityAffected'][@value='" + data[7] + "']") > 0) { // JG 2018-11-27 only in antenna:
+						radio("//input[@ng-model='FormObj.StructuralStabilityAffected'][@value='" + data[7] + "']");
+					}
 				} else {
 					radio("//input[@name='rdPWFaçadeAlteration'][@value='" + data[1] + "']");
 					radio("//input[@name='rdPWAdultEstablishment'][@value='" + data[2] + "']");
@@ -519,15 +585,29 @@ public class DobPW1Page extends TestBase {
 				radio("//input[@name='rdPWCrfnComplyingToLocal'][@value='" + data[8] + "']");
 			}
 			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-15 these are now required.
-				radio("//input[@ng-model='FormObj.UnmappedCCOStreet'][@value='1']");
+				if (count("//input[@ng-model='FormObj.UnmappedCCOStreet'][@value='1']") > 0) { // 2018-11-27 not in plumbing
+					radio("//input[@ng-model='FormObj.UnmappedCCOStreet'][@value='1']");
+				}
 				radio("//input[@ng-model='FormObj.CRFNRestrictiveDeclaration'][@value='false']");
 				radio("//input[@ng-model='FormObj.ComplyingToLocalLaws'][@value='false']");
 				radio("//input[@ng-model='FormObj.IsFilingtoAddressViolations'][@value='false']");
 				radio("//input[@ng-model='FormObj.GCModularConstnyState'][@value='false']");
 				radio("//input[@ng-model='FormObj.GCModularConstunderNYC'][@value='false']");
-				radio("//input[@ng-model='FormObj.RaisingAndMovingofbuildings'][@value='false']");
-				radio("//input[@ng-model='FormObj.STWorkOnInteriorofBuilding'][@value='false']");
-				radio("//input[@ng-model='FormObj.STWorkonExteriorofBuilding'][@value='false']");
+				if (count("//input[@ng-model='FormObj.RaisingAndMovingofbuildings'][@value='false']") > 0) { // 2018-11-27 not in plumbing
+					radio("//input[@ng-model='FormObj.RaisingAndMovingofbuildings'][@value='false']");
+				}
+				if (count("//input[@ng-model='FormObj.STWorkOnInteriorofBuilding'][@value='false']") > 0) { // 2018-11-27 not in plumbing
+					radio("//input[@ng-model='FormObj.STWorkOnInteriorofBuilding'][@value='false']");
+				}
+				if (count("//input[@ng-model='FormObj.STWorkonExteriorofBuilding'][@value='false']") > 0) { // 2018-11-27 not in plumbing
+					radio("//input[@ng-model='FormObj.STWorkonExteriorofBuilding'][@value='false']");
+				}
+				if (count(Constants.pw1_9_impact_water_supply_no) > 0) { // JG 2018-11-28 added for new UI plumbing
+					radio(Constants.pw1_9_impact_water_supply_no);
+				}
+				if (count(Constants.pw1_9_otcr_approval_required_no) > 0) { // JG 2018-11-28 added for new UI plumbing
+					radio(Constants.pw1_9_otcr_approval_required_no);
+				}
 			}
 		}
 	}
@@ -535,6 +615,9 @@ public class DobPW1Page extends TestBase {
 			public void additionalConciderationsCurb(String demolition) {	
 				if(!demolition.equals("")){
 					test = rep.startTest("additionalConciderationsCurb");
+					if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-29
+						click(Constants.pw1_9_additional_considerations_accordion);
+					}
 					send(Constants.pw1_9_review_requested_under_code, "2014");	
 //					pw1_9_review_requested_under_code.sendKeys("2014");
 	/*				pw1_9_review_requested_under_code.sendKeys("2014");
@@ -549,6 +632,7 @@ public class DobPW1Page extends TestBase {
 						radio(Constants.pw1_9_adult_establishment_no);
 						radio(Constants.pw1_9_quality_housing_no);
 					} else {
+						type(Constants.pw1_9_landmark_approval_number, "1");
 						radio(Constants.pw1_9_unmapped_cco_street_no_8085);
 						radio(Constants.pw1_9_crfn_restrictive_declaration_easement_no_8085);
 						radio(Constants.pw1_9_comply_with_local_laws_no_8085);
@@ -565,10 +649,15 @@ public class DobPW1Page extends TestBase {
 	public void complianceNYCECC(String nycecc) {	
 		if(!nycecc.equals("")){
 			String[] comp = nycecc.split(" :: ");
-			radio(Constants.pw1_10_work_in_compliance_with_nycecc);
+			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-29
+				click(Constants.pw1_10_nycecc_compliance_accordion);
+				radio(Constants.pw1_10_work_in_compliance_with_nycecc_8085);
+			} else {
+				radio(Constants.pw1_10_work_in_compliance_with_nycecc);
+			}
 			select(Constants.pw1_10_code_compliance_path, comp[0]);
 			select(Constants.pw1_10_energy_nalysis, comp[1]);
-			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-21
+			if (count(Constants.pw1_10_no_tr8_inspections_req) > 0) { //JG 2018-11-29
 				check(Constants.pw1_10_no_tr8_inspections_req);
 			}
 	 	}
@@ -606,7 +695,29 @@ public class DobPW1Page extends TestBase {
 			if(!building_charcteristics.equals("")){
 				test = rep.startTest("buildingCharacteristics");
 				if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-01 TEST-ENV new PW1 UI
-					//click(Constants.zoning_information_tab);  // JG 2018-11-01 I don't think tab needs to be clicked
+					click(Constants.zoning_information_tab);  // JG 2018-11-27 cc already clicked, but not plumbing
+					scrollAllWayUp();
+					if (count(Constants.pw1_13_site_tidal_no) > 0) {
+						radio(Constants.pw1_13_site_tidal_no);
+					}
+					if (count(Constants.pw1_13_occupancy_classification_existing) > 0) {
+						select(Constants.pw1_13_occupancy_classification_existing, "A-High Hazard");
+					}
+					if (count(Constants.pw1_13_occupancy_classification_proposed) > 0) {
+						select(Constants.pw1_13_occupancy_classification_proposed, "A-High Hazard");
+					}
+					if (count(Constants.pw1_13_2014_code_apply_no) > 0) {
+						radio(Constants.pw1_13_2014_code_apply_no);
+					}
+					if (count(Constants.pw1_13_construction_classification_existing) > 0) {
+						select(Constants.pw1_13_construction_classification_existing, "I-A 4-Hour Protected (Non-Combustible)");
+					}
+					if (count(Constants.pw1_13_construction_classification_proposed) > 0) {
+						select(Constants.pw1_13_construction_classification_proposed, "I-A 4-Hour Protected (Non-Combustible)");
+					}
+					if (count(Constants.pw1_13_multiple_dwelling_classification) > 0) {
+						select(Constants.pw1_13_multiple_dwelling_classification, "Class A-OL-Old Law Tenement");
+					}
 					select_val(Constants.pw1_13_building_type_8085, "1");
 					radio(Constants.pw1_13_mixed_use_type_no_8085);
 				} else {
@@ -745,6 +856,10 @@ public class DobPW1Page extends TestBase {
 		if(!sitechar.equals("")){
 			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-01 TEST-ENV new PW1 UI - back to PW1 tab
 				click(Constants.pw1_tab);
+				scrollToElement(Constants.pw1_20_site_characteristics_accordion); //JG 2018-11-29
+				click(Constants.pw1_20_site_characteristics_accordion); //JG 2018-11-29
+				click(Constants.pw1_22_asbestos_abatement_accordion); //JG 2018-11-29
+				click(Constants.pw1_24_comments_accordion); //JG 2018-11-29
 				scrollTo(Constants.pw1_20_tidal_wetlands_no_8085);
 				radio(Constants.pw1_20_tidal_wetlands_no_8085);				
 			} else {				
@@ -759,7 +874,8 @@ public class DobPW1Page extends TestBase {
 			radio(Constants.pw1_20_urban_renewal_no);
 			radio(Constants.pw1_20A_flood_hazard_area_no);
 			radio(Constants.pw1_22_exempt_from_asbestos);
-			type(Constants.pw1_comments_textarea, convertedTimestamp());			
+//			type(Constants.pw1_comments_textarea, convertedTimestamp());
+			type(Constants.pw1_24_comments, convertedTimestamp());
 		}
 	}
 	
@@ -903,6 +1019,7 @@ public class DobPW1Page extends TestBase {
 			reportPass("previewToFile");
 			waitVisible(Constants.ok_button);
 			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("filing_message"));
+			wait(1); // JG 2018-11-29 
 			clickButton("OK");
 			waitInvisible(Constants.ok_button);
 			assertFilingStatus("Pending");

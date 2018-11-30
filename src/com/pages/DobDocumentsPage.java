@@ -30,6 +30,7 @@ public class DobDocumentsPage extends TestBase {
 					waitForPageToLoad();
 					wait(3);
 				}
+				scrollAllWayUp(); // JG 2018-11-30 
 			}
 			while (count(Constants.upload_document_icon) < 1) {
 				refreshPage();

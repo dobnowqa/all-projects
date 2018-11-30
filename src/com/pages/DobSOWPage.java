@@ -54,27 +54,61 @@ public class DobSOWPage extends TestBase {
 //			filterJob(user);
 			test = rep.startTest("scopeOfWorkPlumbingNew");
 			click(Constants.scope_of_work_step);
-			int b = 0, c = 1;
-			for (int i = 1; i <= 5; i++) {
-				waitVisible("//span[text()='Work Type']");
-				multiClick(Constants.add);
-				waitVisible(Constants.sow_modal);
-				waitVisible(Constants.sow_detail_select_category);
-				select(Constants.sow_detail_select_category, data[b + i]);
-				wait(1);
-				select(Constants.sow_detail_select_scope_includes, data[c + b + i]);
-				if (driver.findElement(By.xpath("//input[@id='txtSDNumOfUnits']")).isDisplayed())
-					type("//input[@id='txtSDNumOfUnits']", "1");
-				if (driver.findElement(By.xpath("//input[@id='txtSDFloor']")).isDisplayed())
-					type("//input[@id='txtSDFloor']", "1");
-				if (driver.findElement(By.xpath("//input[@id='txtSDTypeOfUnit']")).isDisplayed())
-					type("//input[@id='txtSDTypeOfUnit']", "1");
-				click(Constants.global_save_form_button);
-				waitInvisible(Constants.global_save_form_button);
-				wait(3);
-				if (count(Constants.trash_can_icon) == num_items)
-					break;
-				b = b + 1;
+			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-27
+				// Add SOW-PL using new UI: Gas, New Installation, Regular Installation
+				scrollAllWayUp();
+				check(Constants.sow_pl_gas);
+				click(Constants.global_save_step_button);
+				waitUntilISpinnersInvisible();
+				waitVisible(Constants.ok_button);
+				verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
+				clickButton("OK");
+				waitInvisible(Constants.ok_button);
+				click(Constants.sow_pl_add_sow_pl);
+				select_val(Constants.sow_pl_select_scope_includes, "1");
+				select(Constants.sow_pl_select_type, "Regular Installation");
+				type(Constants.sow_pl_total_quantity, "1");
+				click(Constants.sow_pl_work_on_floor_check);
+				click(Constants.sow_pl_save_button);
+				waitVisible(Constants.ok_button);
+				clickButton("OK");
+				waitInvisible(Constants.ok_button);
+				// JG 2018-11-29 add the following for new UI:
+				select(Constants.sow_pl_select_operating_pressure, "Low Pressure");
+				check(Constants.sow_pl_type_of_meter_individual);
+				click(Constants.sow_pl_add_work_on_floors);
+				select(Constants.sow_pl_select_work_on_floors_type, "Individual");
+				select(Constants.sow_pl_select_work_on_floors_location, "Ground Floor");
+				type(Constants.sow_pl_work_on_floors_quantity, "1");
+				click(Constants.sow_pl_save_button);
+				waitInvisible(Constants.sow_pl_save_button);
+				check(Constants.sow_pl_riser_information_na);
+				check(Constants.sow_pl_gas_use_cooking_residential);
+				check(Constants.sow_pl_appliances_cooking_residential);
+				type(Constants.sow_pl_appliances_cook_equip_res_qty, "1");
+			} else {
+				int b = 0, c = 1;
+				for (int i = 1; i <= 5; i++) {
+					waitVisible("//span[text()='Work Type']");
+					multiClick(Constants.add);
+					waitVisible(Constants.sow_modal);
+					waitVisible(Constants.sow_detail_select_category);
+					select(Constants.sow_detail_select_category, data[b + i]);
+					wait(1);
+					select(Constants.sow_detail_select_scope_includes, data[c + b + i]);
+					if (driver.findElement(By.xpath("//input[@id='txtSDNumOfUnits']")).isDisplayed())
+						type("//input[@id='txtSDNumOfUnits']", "1");
+					if (driver.findElement(By.xpath("//input[@id='txtSDFloor']")).isDisplayed())
+						type("//input[@id='txtSDFloor']", "1");
+					if (driver.findElement(By.xpath("//input[@id='txtSDTypeOfUnit']")).isDisplayed())
+						type("//input[@id='txtSDTypeOfUnit']", "1");
+					click(Constants.global_save_form_button);
+					waitInvisible(Constants.global_save_form_button);
+					wait(3);
+					if (count(Constants.trash_can_icon) == num_items)
+						break;
+					b = b + 1;
+				}
 			}
 			click(Constants.global_save_step_button);
 			waitUntilISpinnersInvisible();

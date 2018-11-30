@@ -10,6 +10,7 @@ public class DobSignaturesPage extends TestBase {
 			System.out.println(convertedTimestamp() + " **************** Applicant Sign");
 			filterJob(user);	
 			test = rep.startTest("applicantStatementsSignature");
+			refreshPage(); //JG 2018-11-28: need to refresh for elements to be clickable
 			click(Constants.ss_statement_signatures_step);
 			waitUntilISpinnersInvisible();
 			if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-14: new PW1 UI
@@ -24,7 +25,6 @@ public class DobSignaturesPage extends TestBase {
 					scrollTo(Constants.ss_technical_report_text); // JG 2018-11-21
 				}
 			}
-			
 			if(count(Constants.ss_i_havepersonally_reviewed_all_information_8085) > 0) { // JG 2018-11-14
 				check(Constants.ss_i_havepersonally_reviewed_all_information_8085);
 			}			
@@ -39,8 +39,10 @@ public class DobSignaturesPage extends TestBase {
 			radio(Constants.ss_building_to_be_altered_demolished_no);
 			radio(Constants.ss_building_to_be_altered_demolished_no);
 //			radio(Constants.ss_owner_is_not_required_to_notify_yes);
-			radio(Constants.ss_owner_is_not_required_to_notify_no);
-			radio(Constants.ss_owner_notified_new_york);
+			if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-15
+				radio(Constants.ss_owner_is_not_required_to_notify_no);
+				radio(Constants.ss_owner_notified_new_york);
+			}
 			scrollTo(Constants.ss_owner_type); // JG 2018-11-14 need to get the email field clickable
 			if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-15
 				select(Constants.ss_owner_type, "Partnership");
@@ -48,10 +50,13 @@ public class DobSignaturesPage extends TestBase {
 				select(Constants.ss_owner_type, "NYCHA/HHC"); //JG 2018-11-15 new UI uses this to indicate Pay Exempt
 			}
 			email(OR_PROPERTIES.getProperty("owner_email"));
+			wait(1); // JG 2018-11-30
 			click(Constants.save_button);
 			waitUntilISpinnersInvisible();
 			waitVisible(Constants.ok_button);
+			wait(1); // JG 2018-11-30
 			assertNotification(TEXT_PROPERTIES.getProperty("job_filing_saved"), "job_filing_saved ss");
+			wait(1); // JG 2018-11-30
 			clickButton("OK");
 			waitInvisible(Constants.ok_button);
 		}
@@ -131,6 +136,7 @@ public class DobSignaturesPage extends TestBase {
 //			waitUntilElementVisible(Constants.global_loading_spinner, 10);
 			waitUntilISpinnersInvisible();
 			waitUntilElementVisible(Constants.global_notification_ok_button, 30);
+			wait(1); // JG 2018-11-30
 			assertNotification(TEXT_PROPERTIES.getProperty("job_filing_saved"), "job_filing_saved ss");
 			clickButton("OK");
 			waitInvisible(Constants.global_notification_ok_button);
@@ -153,6 +159,7 @@ public class DobSignaturesPage extends TestBase {
 			}
 			waitInvisible(Constants.global_loading_spinner);
 			waitVisible(Constants.ok_button);
+			wait(1); // JG 2018-11-30
 			assertNotification(TEXT_PROPERTIES.getProperty("job_filing_saved"), "job_filing_saved owner sign");
 			clickButton("OK");
 			waitInvisible(Constants.ok_button);

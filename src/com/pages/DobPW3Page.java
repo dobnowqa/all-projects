@@ -116,16 +116,25 @@ public class DobPW3Page extends TestBase {
 				waitVisible("//span[text()='Description of Work']");
 				multiClick(Constants.add);
 				select(Constants.pw3_select_categogy, data[i]);
-				type(Constants.pw3_area_units, "1");
-				type(Constants.pw3_unit_cost, "1111");
-				type(Constants.description_of_work, pw3);
-				click(Constants.global_save_form_button);
+				if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-27
+					type(Constants.pw3_area_units_8085, "1");
+					type(Constants.pw3_unit_cost_sign, "1111");
+					type(Constants.pw3_cost_details_description_sign, pw3);
+					click(Constants.pw3_save_button_8085);
+					clickButton("OK");
+				} else {
+					type(Constants.pw3_area_units, "1");
+					type(Constants.pw3_unit_cost, "1111");
+					type(Constants.description_of_work, pw3);
+					click(Constants.global_save_form_button);
+				}
 				wait(2);
 				if (count(Constants.trash_can_icon) >= num_items)
 					break;
 			}
 			click(Constants.global_save_step_button);
 			waitUntilISpinnersInvisible();
+			wait(1); // JG 2018-11-29
 			waitVisible(Constants.ok_button);
 			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
 			clickButton("OK");

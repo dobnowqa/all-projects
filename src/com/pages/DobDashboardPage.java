@@ -14,17 +14,17 @@ public class DobDashboardPage extends TestBase {
 			test = rep.startTest("Dash Select Work Type");	
 
 			click(Constants.job_filing_button);
-			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-16 Submit button is different in 8085
-				waitVisible(Constants.filing_next_button_8085);
+			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-30 go back to using 'Next' button
+				waitVisible(Constants.filing_next_button);
 				if (count("//span[contains(text(),'" +worktype+ "')]") > 0) {
 					check("//span[contains(text(),'" +worktype+ "')]/../preceding-sibling::div/input[@type='checkbox']");
 				}
-//				if (count("//input[@ng-model='rowData." +worktype+ "FilingWorktype']") > 0)
-//					check("//input[@ng-model='rowData." +worktype+ "FilingWorktype']");
- 	    
-				click(Constants.filing_next_button_8085);
-				waitUntilElementInVisible(Constants.filing_next_button_8085,2);
-        	
+				click(Constants.filing_next_button);
+				waitUntilElementInVisible(Constants.filing_next_button,2);
+				if (count(Constants.job_filing_standard_plan) > 0) { //JG 2018-11-30
+					radio(Constants.job_filing_standard_plan);
+					radio(Constants.job_filing_submit_button);
+				}					
 			} else {
 				waitVisible(Constants.filing_next_button);
 		 		if (count("//input[@ng-model='" +worktype+ "FilingWorktype']") > 0) {
@@ -44,21 +44,30 @@ public class DobDashboardPage extends TestBase {
 			System.out.println(convertedTimestamp() + " **************** New Filing - selectWorkTypePlumbing");
 			loginToPortal(user);
 			test = rep.startTest("Dash Select Work Type");
+			
 	 		click(Constants.job_filing_button);
-//	 		waitVisible(Constants.job_filing_modal);
+			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-26 Submit button is different in 8085
+				waitVisible(Constants.filing_next_button);
+				if (count("//span[contains(text(),'" +worktype+ "')]") > 0) {
+					check("//span[contains(text(),'" +worktype+ "')]/../preceding-sibling::div/input[@type='checkbox']");
+				}
+				click(Constants.filing_next_button);
+				waitUntilElementInVisible(Constants.filing_next_button,2);
+				if (count(Constants.job_filing_standard_plan) > 0) { //JG 2018-11-30
+					radio(Constants.job_filing_standard_plan);
+					radio(Constants.job_filing_submit_button);
+				}
+			} else {
 	 		waitVisible(Constants.filing_next_button);
-	 	    if (count("//input[@ng-model='" +worktype+ "FilingWorktype']") > 0)
+	 	    if (count("//input[@ng-model='" +worktype+ "FilingWorktype']") > 0) {
 	 	    	check("//input[@ng-model='" +worktype+ "FilingWorktype']");
+	 	    }
 	 		click(Constants.filing_next_button);
 	 		waitInvisible(Constants.filing_next_button);
-	 		if(!CONFIG.getProperty("env").contains("8085")) {
-		 		radio("//input[@ng-model='FilingIncludes'][@ng-value='1']");
-		 		click(Constants.submit_work_type_button);
-		 		waitInvisible(Constants.submit_work_type_button);
+	 		radio("//input[@ng-model='FilingIncludes'][@ng-value='1']");
+	 		click(Constants.submit_work_type_button);
+	 		waitInvisible(Constants.submit_work_type_button);
 	 		}
-//	 		radio("//input[@ng-model='FilingIncludes'][@ng-value='1']");
-//	 		click(Constants.submit_work_type_button);
-//	 		waitInvisible(Constants.submit_work_type_button);
 	 		reportPass("selectWorkTypePlumbing");
 		}
 	}

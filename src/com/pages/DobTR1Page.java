@@ -222,7 +222,8 @@ public class DobTR1Page extends TestBase {
 //			if (count(Constants.edit_icon) > 0) {
 				for (int i = 1; i < 5; i++) {
 					waitVisible("//span[text()='Requirement']");
-					multiClick("//span[contains(text(),'Special Inspection Categories For New Work')]/following::span[text()='Add']");
+//					multiClick("//span[contains(text(),'Special Inspection Categories For New Work')]/following::span[text()='Add']"); 
+					multiClick("//span[contains(text(),'Special Inspection Categories')]/following::span[text()='Add']"); // JG 2018-11-28 shorter bc "F" changed to "f"
 					click(Constants.tr1_select_requirement_code);
 					type(Constants.tr1_select_requirement_code_field, data[4]);
 					click(Constants.tr1_select_requirement_code_filter);
@@ -233,8 +234,13 @@ public class DobTR1Page extends TestBase {
 					//keyPressTab(Constants.tr1_agency_number);
 					wait(2);
 					if (count(Constants.green_valid_label) > 0) {
-						click(Constants.tr1_save_progress_inspection_button);
-						waitInvisible(Constants.tr1_save_progress_inspection_button);
+						if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-28
+							click(Constants.tr1_save_progress_inspection_button);
+							waitInvisible(Constants.tr1_save_progress_inspection_button);
+						} else {
+							click(Constants.tr1_save_progress_inspection_button_8085);
+							waitInvisible(Constants.tr1_save_progress_inspection_button_8085);
+						}						
 						waitUntilISpinnersInvisible();
 						waitVisible(Constants.ok_button);
 						verifyNotification(Constants.notification,
@@ -613,18 +619,27 @@ public class DobTR1Page extends TestBase {
 			int number_of_boxes = count(Constants.edit_icon);
 			for (int i = 1; i <= number_of_boxes; i++) {
 				test.log(LogStatus.INFO, " specialInspectorSignaturePlumbing");
-				click("(//i[@class='fa fa-edit'])[" + i + "]");
+				if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-28
+					click("(//i[@class='fa fa-edit'])[" + i + "]");
+				} else {
+					click("(//i[@class='fa fa-edit'])[last()]");
+				}
 				wait(2);
 				waitVisible(Constants.tr1_valid_label);
 				check(Constants.tr1_i_take_responcibility);
 				check(Constants.tr1_i_understand_my_failure_to_file);
 				check(Constants.tr1_i_understand_and_agree);
-				click(Constants.tr1_save_progress_inspection_button);
+				if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-28
+					click(Constants.tr1_save_progress_inspection_button);
+					waitInvisible(Constants.tr1_save_progress_inspection_button);
+				} else {
+					click(Constants.tr1_save_progress_inspection_button_8085);
+					waitInvisible(Constants.tr1_save_progress_inspection_button_8085);
+				}					
 				waitVisible(Constants.ok_button);
 				verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_updated"));
 				clickButton("OK");
 				waitInvisible(Constants.ok_button);
-				waitInvisible(Constants.tr1_save_progress_inspection_button);
 				wait(2);
 				if (count(Constants.identified_yes_label) == number_of_boxes)//Integer.valueOf(data[0]))
 					break;
@@ -641,6 +656,9 @@ public class DobTR1Page extends TestBase {
 					waitVisible(Constants.ok_button);
 					clickButton("OK");
 					waitInvisible(Constants.ok_button);
+					if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-28 need to exit loop for new UI
+						break;
+					}
 				}
 			}
 		}
