@@ -81,9 +81,9 @@ public class AnStandard extends TestBase {
 		if (!TestUtil.isExecutable(testname, xlsx) || data.get("Runmode").equals("N"))
 			throw new SkipException("Skipping test");
 		System.out.println("BEGIN " + convertedTimestamp() + " **************** " + data.get("description")+ " " +env);
-		String filing_review_type_variable = "filing_review_type"; //JG 2018-10-31 
+		String filing_review_type_variable = "filing_review_type"; //JG 2018-10-31 original field in the Excel (data) sheet
 		if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-10-30 TEST-ENV new PW UI
-			filing_review_type_variable = "filing_review_type_8085"; //JG 2018-10-30 TEST-ENV new PW UI
+			filing_review_type_variable = "filing_review_type_8085"; //JG 2018-10-30 new field in the Excel (data) sheet
 		}
 		if (!data.get(filing_review_type_variable).equals("")) {
 			test = rep.startTest(data.get("description"));
@@ -91,15 +91,16 @@ public class AnStandard extends TestBase {
 			test = rep.startTest("Test Case Data");
 			test.log(LogStatus.INFO, data.toString());
 //			filterJob(user);
-			
-			
-			dash.selectWorkType(data.get("work_type"));
+						
+			dash.selectWorkType(data.get("work_type")); // JG 2018-11-30 TODO: pass the filing_review_type value to indicate 'standard' or 'pro'
 			pw1.locationImfo(data.get("address"));
 			type(Constants.pw1_1_apt_suite_number, testname);
 			pw1.workOnFloors(data.get("work_on_floors"));
 			pw1.applicantInfo(data.get("user_info"));
-//			pw1.reviewtype(data.get("filing_review_type")); // JG 2018-10-31
-			pw1.reviewtype(data.get(filing_review_type_variable)); // JG 2018-10-31
+//			pw1.reviewtype(data.get("filing_review_type")); // JG 2018-10-31 use the following instead:
+			if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-30 this is now selected when adding the job
+				pw1.reviewtype(data.get(filing_review_type_variable));
+			} 
 			pw1.directive14acceptanceRequested(data.get("job_project_type"));
 			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-10-30 TEST-ENV new PW UI
 				pw1.workTypesAntenna(data.get("new_existing_both")); //JG 2018-10-30 TEST-ENV new PW UI

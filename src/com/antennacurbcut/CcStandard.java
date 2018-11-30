@@ -93,14 +93,16 @@ public class CcStandard extends TestBase {
 		}
 		pw1.locationImfo(data.get("address"));
 		type(Constants.pw1_1_apt_suite_number, testname);
+		
 		if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-21
-			pw1.workOnFloors(data.get("work_on_floors")); // JG 2018-11-20 new per Data Dictionary
-			
+			pw1.workOnFloors(data.get("work_on_floors")); // JG 2018-11-20 new per Data Dictionary	
 		}
+		
 		pw1.applicantInfo(data.get("user_info"));		
-		pw1.reviewtype(data.get(filing_review_type_variable));
-		if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-21
-			pw1.directive14acceptanceRequested(data.get("job_project_type"));
+		
+		if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-30 this is now selected when adding the job
+			pw1.reviewtype(data.get(filing_review_type_variable));	
+			pw1.directive14acceptanceRequested(data.get("job_project_type"));  //JG 2018-11-21
 		} else {
 			click(Constants.pw1_6_work_types_accordion);
 			radio(Constants.pw1_6_cc_new_installation); // JG 2018-11-21
