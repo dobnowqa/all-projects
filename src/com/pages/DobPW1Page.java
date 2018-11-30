@@ -182,6 +182,7 @@ public class DobPW1Page extends TestBase {
 				String[] data = user_info.split(" :: ");
 				test = rep.startTest("Applicant Info");
 				if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-29
+					scrollTo(Constants.pw1_2_stakeholders_accordion); //JG 2018-11-30
 					click(Constants.pw1_2_stakeholders_accordion);
 				}
 				email(data[0]);
@@ -537,7 +538,9 @@ public class DobPW1Page extends TestBase {
 					}
 					radio("//input[@name='rdPWestablishmenttab'][@value='" + data[2] + "']");
 //					radio("//input[@name='rdPWQualityHousing'][@value='" + data[3] + "']"); // JG 2018-11-01 required per dd, but not present
-					type(Constants.pw1_9_landmark_approval_number, "1");
+					if (count(Constants.pw1_9_landmark_approval_number) > 0) {
+						type(Constants.pw1_9_landmark_approval_number, "1");
+					}
 					radio("//input[@name='rdPWBSACalender'][@value='false']"); // JG 2018-11-27 data[4] has 1, but needs to be false
 					radio("//input[@name='rdPWCPCCalender'][@value='false']"); // JG 2018-11-27 data[5] has 1, but needs to be false
 					if (count("//input[@ng-model='FormObj.WorkIncludesPartialDemolition'][@value='true']") > 0) { // JG 2018-11-30 for cc/pl, use the below logic.
@@ -632,7 +635,9 @@ public class DobPW1Page extends TestBase {
 						radio(Constants.pw1_9_adult_establishment_no);
 						radio(Constants.pw1_9_quality_housing_no);
 					} else {
-						type(Constants.pw1_9_landmark_approval_number, "1");
+						if (count(Constants.pw1_9_landmark_approval_number) > 1) { // JG 2018-11-30 only here for certain addresses
+							type(Constants.pw1_9_landmark_approval_number, "1");
+						}
 						radio(Constants.pw1_9_unmapped_cco_street_no_8085);
 						radio(Constants.pw1_9_crfn_restrictive_declaration_easement_no_8085);
 						radio(Constants.pw1_9_comply_with_local_laws_no_8085);
