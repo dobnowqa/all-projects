@@ -311,6 +311,9 @@ public class DobTR1Page extends TestBase {
 				// wait(22);
 				for (int i = 1; i <= count(Constants.edit_icon); i++) {
 					test.log(LogStatus.INFO, " specialInspectionPlumbing");
+					if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-12-03
+						i = count(Constants.edit_icon);
+					}
 					click("(//i[@class='fa fa-edit'])[" + i + "]");
 					click(Constants.inspection_label);
 					email(data[1]);
@@ -319,8 +322,13 @@ public class DobTR1Page extends TestBase {
 					//keyPressTab(Constants.tr1_agency_number);
 					wait(2);
 					if (count(Constants.green_valid_label) > 0) {
-						click(Constants.tr1_save_progress_inspection_button);
-						waitInvisible(Constants.tr1_save_progress_inspection_button);
+						if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-12-03
+							click(Constants.tr1_save_progress_inspection_button_8085);
+							waitInvisible(Constants.tr1_save_progress_inspection_button_8085);
+						} else {
+							click(Constants.tr1_save_progress_inspection_button);
+							waitInvisible(Constants.tr1_save_progress_inspection_button);
+						}
 						waitUntilISpinnersInvisible();
 						waitVisible(Constants.ok_button);
 						verifyNotification(Constants.notification,

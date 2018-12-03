@@ -364,13 +364,19 @@ public class DobPW1Page extends TestBase {
 			if (!data[9].equals("N"))
 				check("//input[@id='chkPWWrkTypeSp3']"); // work type 5
 			
-			if(count("//input[@name='rdSDNewSdInstallation']") > 0)
+			if (count("//input[@name='rdSDNewSdInstallation']") > 0)
 				radio("//input[@name='rdSDNewSdInstallation'][@value='true']");
 			
-			if (!data[10].equals("N"))
-				radio("//input[@id='rdSDType'][@value='" + data[10] + "']"); //rdSDType
-			if (!data[11].equals("N"))
-				radio("//input[@id='rdSDClass'][@value='" + data[11] + "']");
+			if (!data[10].equals("N")) {
+				if (count("//input[@id='rdSDType'][@value='" + data[10] + "']") > 0) { // JG 2018-12-03 old standpipe values
+					radio("//input[@id='rdSDType'][@value='" + data[10] + "']"); //rdSDType
+				}
+			}
+			if (!data[11].equals("N")) {
+				if (count("//input[@id='rdSDClass'][@value='" + data[11] + "']") > 0) { // JG 2018-12-03 old standpipe values
+					radio("//input[@id='rdSDClass'][@value='" + data[11] + "']");
+				}
+			}
 		}
 	}	
 	// 6. Work Types workTypeScaffold

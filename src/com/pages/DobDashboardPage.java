@@ -48,6 +48,9 @@ public class DobDashboardPage extends TestBase {
 	 		click(Constants.job_filing_button);
 			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-26 Submit button is different in 8085
 				waitVisible(Constants.filing_next_button);
+				if (worktype.equals("StandPipe")) { //JG 2018-12-03
+					worktype = "Standpipe";
+				}
 				if (count("//span[contains(text(),'" +worktype+ "')]") > 0) {
 					check("//span[contains(text(),'" +worktype+ "')]/../preceding-sibling::div/input[@type='checkbox']");
 				}

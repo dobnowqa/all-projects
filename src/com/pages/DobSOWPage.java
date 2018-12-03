@@ -57,13 +57,15 @@ public class DobSOWPage extends TestBase {
 			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-27
 				// Add SOW-PL using new UI: Gas, New Installation, Regular Installation
 				scrollAllWayUp();
-				check(Constants.sow_pl_gas);
-				click(Constants.global_save_step_button);
-				waitUntilISpinnersInvisible();
-				waitVisible(Constants.ok_button);
-				verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
-				clickButton("OK");
-				waitInvisible(Constants.ok_button);
+				if (count(Constants.sow_pl_gas) > 0) {
+					check(Constants.sow_pl_gas);
+					click(Constants.global_save_step_button);
+					waitUntilISpinnersInvisible();
+					waitVisible(Constants.ok_button);
+					verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
+					clickButton("OK");
+					waitInvisible(Constants.ok_button);
+				}
 				click(Constants.sow_pl_add_sow_pl);
 				select_val(Constants.sow_pl_select_scope_includes, "1");
 				select(Constants.sow_pl_select_type, "Regular Installation");
@@ -74,18 +76,28 @@ public class DobSOWPage extends TestBase {
 				clickButton("OK");
 				waitInvisible(Constants.ok_button);
 				// JG 2018-11-29 add the following for new UI:
-				select(Constants.sow_pl_select_operating_pressure, "Low Pressure");
-				check(Constants.sow_pl_type_of_meter_individual);
-				click(Constants.sow_pl_add_work_on_floors);
-				select(Constants.sow_pl_select_work_on_floors_type, "Individual");
-				select(Constants.sow_pl_select_work_on_floors_location, "Ground Floor");
-				type(Constants.sow_pl_work_on_floors_quantity, "1");
-				click(Constants.sow_pl_save_button);
-				waitInvisible(Constants.sow_pl_save_button);
-				check(Constants.sow_pl_riser_information_na);
-				check(Constants.sow_pl_gas_use_cooking_residential);
-				check(Constants.sow_pl_appliances_cooking_residential);
-				type(Constants.sow_pl_appliances_cook_equip_res_qty, "1");
+				if (count(Constants.sow_pl_select_operating_pressure) > 0) {
+					select(Constants.sow_pl_select_operating_pressure, "Low Pressure");
+					check(Constants.sow_pl_type_of_meter_individual);
+					click(Constants.sow_pl_add_work_on_floors);
+					select(Constants.sow_pl_select_work_on_floors_type, "Individual");
+					select(Constants.sow_pl_select_work_on_floors_location, "Ground Floor");
+					type(Constants.sow_pl_work_on_floors_quantity, "1");
+					click(Constants.sow_pl_save_button);
+					waitInvisible(Constants.sow_pl_save_button);
+					check(Constants.sow_pl_riser_information_na);
+					check(Constants.sow_pl_gas_use_cooking_residential);
+					check(Constants.sow_pl_appliances_cooking_residential);
+					type(Constants.sow_pl_appliances_cook_equip_res_qty, "1");
+				} else {
+					check(Constants.sow_sp_type_antifreeze);
+					select(Constants.sow_sp_select_primary_Water_sytem, "N/A");
+					select(Constants.sow_sp_select_secondary_Water_sytem, "N/A");
+					scrollTo(Constants.sow_sp_reference_standard_nfpa13);
+					check(Constants.sow_sp_reference_standard_nfpa13);
+					select(Constants.sow_sp_select_design_criteria, "Pipe Schedule");
+					check(Constants.sow_sp_specify_pump_na);
+				}
 			} else {
 				int b = 0, c = 1;
 				for (int i = 1; i <= 5; i++) {
@@ -164,52 +176,66 @@ public class DobSOWPage extends TestBase {
 //			filterJob(user);
 			test = rep.startTest("ASW");
 			click(Constants.scope_of_work_step);
-			int b = 0, c = 1;
-			for (int i = 1; i <= 5; i++) {
-				waitVisible("//span[text()='Work Type']");
-				multiClick(Constants.add);
-				waitVisible(Constants.sow_modal);
-				waitVisible(Constants.sow_detail_select_category);
-				select(Constants.sow_detail_select_category, data[b + i]);
-				wait(1);
-				select(Constants.sow_detail_select_scope_includes, data[c + b + i]);
-				if (driver.findElement(By.xpath("//input[@id='txtSDNumOfUnits']")).isDisplayed())
-					type("//input[@id='txtSDNumOfUnits']", "1");
-				if (driver.findElement(By.xpath("//input[@id='txtSDFloor']")).isDisplayed())
-					type("//input[@id='txtSDFloor']", "1");
-				if (driver.findElement(By.xpath("//input[@id='txtSDTypeOfUnit']")).isDisplayed())
-					type("//input[@id='txtSDTypeOfUnit']", "1");
-				click(Constants.global_save_form_button);
-				waitInvisible(Constants.global_save_form_button);
-				wait(3);
-				if (count(Constants.trash_can_icon) == num_items)
-					break;
-				b = b + 1;
-			}
-			if(num_items >= 2) {
-				b = 0;
-				c = 1;
+			
+			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-12-03 Add SOW-SD using new UI
+				scrollAllWayUp();
+				check(Constants.sow_sd_type_automatic_sd);
+				select(Constants.sow_sd_select_class, "I");
+				radio(Constants.sow_sd_combined_sd_sp_no);
+				select(Constants.sow_sd_select_primary_water_system, "N/A");
+				select(Constants.sow_sd_select_secondary_water_system, "N/A");
+				scrollTo(Constants.sow_sd_reference_standard_nfpa14);
+				check(Constants.sow_sd_reference_standard_nfpa14);
+				select(Constants.sow_sd_select_design_criteria, "Pipe Schedule");
+				check(Constants.sow_sd_pump_na);
+			} else {
+				int b = 0, c = 1;
 				for (int i = 1; i <= 5; i++) {
 					waitVisible("//span[text()='Work Type']");
-					multiClick("(" + Constants.add + ")[2]");
+					multiClick(Constants.add);
 					waitVisible(Constants.sow_modal);
 					waitVisible(Constants.sow_detail_select_category);
 					select(Constants.sow_detail_select_category, data[b + i]);
 					wait(1);
 					select(Constants.sow_detail_select_scope_includes, data[c + b + i]);
-					if (driver.findElement(By.xpath("//input[@id='txtSDNumOfUnits']")).isDisplayed())
-						type("//input[@id='txtSDNumOfUnits']", "1");
-					if (driver.findElement(By.xpath("//input[@id='txtSDFloor']")).isDisplayed())
-						type("//input[@id='txtSDFloor']", "1");
-					if (driver.findElement(By.xpath("//input[@id='txtSDTypeOfUnit']")).isDisplayed())
-						type("//input[@id='txtSDTypeOfUnit']", "1");
+					if (driver.findElement(By.xpath("//input[@id='txtSDNumOfUnits']")).isDisplayed()) {
+						type("//input[@id='txtSDNumOfUnits']", "1");}
+					if (driver.findElement(By.xpath("//input[@id='txtSDFloor']")).isDisplayed()) {
+						type("//input[@id='txtSDFloor']", "1");}
+					if (driver.findElement(By.xpath("//input[@id='txtSDTypeOfUnit']")).isDisplayed()) {
+						type("//input[@id='txtSDTypeOfUnit']", "1");}
 					click(Constants.global_save_form_button);
 					waitInvisible(Constants.global_save_form_button);
-//					b = b + 1;
-					wait(2);
-					if (count(Constants.trash_can_icon) >+ num_items)
-						break;
+					wait(3);
+					if (count(Constants.trash_can_icon) == num_items) {
+						break;}
 					b = b + 1;
+				}
+				if(num_items >= 2) {
+					b = 0;
+					c = 1;
+					for (int i = 1; i <= 5; i++) {
+						waitVisible("//span[text()='Work Type']");
+						multiClick("(" + Constants.add + ")[2]");
+						waitVisible(Constants.sow_modal);
+						waitVisible(Constants.sow_detail_select_category);
+						select(Constants.sow_detail_select_category, data[b + i]);
+						wait(1);
+						select(Constants.sow_detail_select_scope_includes, data[c + b + i]);
+						if (driver.findElement(By.xpath("//input[@id='txtSDNumOfUnits']")).isDisplayed()) {
+							type("//input[@id='txtSDNumOfUnits']", "1");}
+						if (driver.findElement(By.xpath("//input[@id='txtSDFloor']")).isDisplayed()) {
+							type("//input[@id='txtSDFloor']", "1"); }
+						if (driver.findElement(By.xpath("//input[@id='txtSDTypeOfUnit']")).isDisplayed()) {
+							type("//input[@id='txtSDTypeOfUnit']", "1"); }
+						click(Constants.global_save_form_button);
+						waitInvisible(Constants.global_save_form_button);
+	//					b = b + 1;
+						wait(2);
+						if (count(Constants.trash_can_icon) >+ num_items) {
+							break; }
+						b = b + 1;
+					}
 				}
 			}
 			click(Constants.global_save_step_button);
