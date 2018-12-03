@@ -72,12 +72,16 @@ public class SdNew extends TestBase {
 		DobTR8Page tr8 = PageFactory.initElements(driver, DobTR8Page.class);
 		DobSignaturesPage signature = PageFactory.initElements(driver, DobSignaturesPage.class);
 		DobDocumentsPage docs = PageFactory.initElements(driver, DobDocumentsPage.class);
+		
+		
 		dash.selectWorkTypePlumbing(data.get("work_type"));
 		pw1.locationImfo(data.get("address"));
 		type(Constants.pw1_1_apt_suite_number, testname);
 		pw1.workOnFloors(data.get("work_on_floors"));
 		pw1.applicantInfoPlumbing(data.get("user_info"));
-		pw1.reviewtype(data.get("filing_review_type"));
+		if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-12-03
+			pw1.reviewtype(data.get("filing_review_type"));
+		}
 		pw1.workTypesPlumbing(data.get("new_existing_both"));
 		pw1.additionalInforPlumbing(data.get("additional_info"));
 		pw1.additionalConciderations(data.get("additional_conciderations"));
@@ -92,8 +96,8 @@ public class SdNew extends TestBase {
 		tr8.energyCodeProgressPlumbing(data.get("tr8"));
 		tr8.energyCodeSignaturePlumbing(data.get("tr8"));
 		signature.applicantStatementsSignature(data.get("signatures"));
-		signature.ownerSignature(data.get("owner_signature"));
 		docs.uploadDocuments(data.get("documents"));
+		signature.ownerSignature(data.get("owner_signature"));
 //		pw1.previewToFile(data.get("preview_to_file"));
 		successMessage(data.get("description"));
 	}
