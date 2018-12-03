@@ -645,6 +645,24 @@ public class Constants {
 	public static final String sow_pl_appliances_cooking_residential = "//input[@ng-model='ScopeOfWorkPLCommon.GasObj.CookingEquipmentresidential']"; // JG 2018-11-29
 	public static final String sow_pl_appliances_cook_equip_res_qty = "//input[@ng-model='ScopeOfWorkPLCommon.GasObj.CookingeuipmentResidentialQty']"; // JG 2018-11-29
 	
+	// Scope Of Work - Sprinklers // JG 2018-12-03 new UI
+	public static final String sow_sp_type_antifreeze = "//input[@ng-model='ScopeOfWorkSPCommon.AntiFreeze']";
+	public static final String sow_sp_select_primary_Water_sytem = "//select[@ng-model='ScopeOfWorkSPCommon.ChoosePrimaryWaterSystem']";
+	public static final String sow_sp_select_secondary_Water_sytem = "//select[@ng-model='ScopeOfWorkSPCommon.ChooseSecondaryWaterSystem']";
+	public static final String sow_sp_reference_standard_nfpa13 = "//input[@ng-model='ScopeOfWorkSPCommon.Nfpa13']";
+	public static final String sow_sp_select_design_criteria = "//select[@ng-model='ScopeOfWorkSPCommon.SpecificDesignCriteria']";
+	public static final String sow_sp_specify_pump_na = "//input[@ng-model='ScopeOfWorkSPCommon.NA']";
+	
+	// Scope Of Work - Standpipes // JG 2018-12-03 new UI
+	public static final String sow_sd_type_automatic_sd = "//input[@ng-model='ScopeOfWorkSDCommon.Automaticsdsystem']";
+	public static final String sow_sd_select_class = "//select[@ng-model='ScopeOfWorkSDCommon.SpecifyClass']";
+	public static final String sow_sd_combined_sd_sp_no = "//input[@ng-model='ScopeOfWorkSDCommon.IscombinedspsdSystem'][@ng-value='false']";
+	public static final String sow_sd_select_primary_water_system = "//select[@ng-model='ScopeOfWorkSDCommon.ChoosePrimaryWaterSystem']";
+	public static final String sow_sd_select_secondary_water_system = "//select[@ng-model='ScopeOfWorkSDCommon.ChooseSecondaryWaterSystem']";
+	public static final String sow_sd_reference_standard_nfpa14 = "//input[@ng-model='ScopeOfWorkSDCommon.Nfpa14']";
+	public static final String sow_sd_select_design_criteria = "//select[@ng-model='ScopeOfWorkSDCommon.SpecificDesignCriteria']";
+	public static final String sow_sd_pump_na = "//input[@ng-model='ScopeOfWorkSDCommon.NA']";
+	
 	public static final String sow_modal = "//h4[text()='Scope of Work Detail']";
 	
 	public static final String sow_detail_select_category = "//select[@id='ModalSectionType']";
