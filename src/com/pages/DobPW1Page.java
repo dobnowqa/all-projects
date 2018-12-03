@@ -635,7 +635,7 @@ public class DobPW1Page extends TestBase {
 						radio(Constants.pw1_9_adult_establishment_no);
 						radio(Constants.pw1_9_quality_housing_no);
 					} else {
-						if (count(Constants.pw1_9_landmark_approval_number) > 1) { // JG 2018-11-30 only here for certain addresses
+						if (count(Constants.pw1_9_landmark_approval_number) > 0) { // JG 2018-11-30 only here for certain addresses
 							type(Constants.pw1_9_landmark_approval_number, "1");
 						}
 						radio(Constants.pw1_9_unmapped_cco_street_no_8085);
@@ -662,9 +662,10 @@ public class DobPW1Page extends TestBase {
 			}
 			select(Constants.pw1_10_code_compliance_path, comp[0]);
 			select(Constants.pw1_10_energy_nalysis, comp[1]);
-			if (count(Constants.pw1_10_no_tr8_inspections_req) > 0) { //JG 2018-11-29
-				check(Constants.pw1_10_no_tr8_inspections_req);
-			}
+			// JG 2018-12-03 TODO: only check this to suppress TR8
+//			if (count(Constants.pw1_10_no_tr8_inspections_req) > 0) { //JG 2018-11-29
+//				check(Constants.pw1_10_no_tr8_inspections_req);
+//			}
 	 	}
 	}
 /*	// 10. NYCEEC Compliance SUBS
