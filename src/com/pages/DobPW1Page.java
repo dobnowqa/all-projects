@@ -1029,11 +1029,14 @@ public class DobPW1Page extends TestBase {
 				waitInvisible(Constants.file_button);
 			}
 			reportPass("previewToFile");
-			waitVisible(Constants.ok_button);
+//			waitVisible(Constants.ok_button); // JG 2018-12-04 is OK button supposed to be here for all paths? 
 			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("filing_message"));
 			wait(1); // JG 2018-11-29 
-			clickButton("OK");
-			waitInvisible(Constants.ok_button);
+			if (count(Constants.ok_button) > 0) {
+				waitVisible(Constants.ok_button);
+				clickButton("OK");
+				waitInvisible(Constants.ok_button);
+			}
 			assertFilingStatus("Pending");
 			reportPass("previewToFile");
 		}
