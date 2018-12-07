@@ -168,8 +168,8 @@ public class Constants {
 	public static final String filing_next_button_8085 = "//button[@ng-click='Submit()']"; // JG 2018-11-16 button ng-click changed
 	
 	public static final String job_filing_next_button = "//span[@class=''][text()='Next']";
-	public static final String job_filing_standard_plan = "//input[@ng-model='ProfessionalCertificate'][@ng-value='1']"; // JG 2018-11-30
-	public static final String job_filing_professional_certification = "//input[@ng-model='ProfessionalCertificate'][@ng-value='2']"; // JG 2018-11-30
+	public static final String job_filing_review_type_standard = "//input[@ng-model='ProfessionalCertificate'][@value='1']"; // JG 2018-11-30
+	public static final String job_filing_review_type_professional = "//input[@ng-model='ProfessionalCertificate'][@value='2']"; // JG 2018-11-30
 	public static final String job_filing_submit_button = "//button[@ng-click='Submit()']"; // JG 2018-11-30
 //	public static final String device_elevator = "//input[@type='radio'][@id='rdNewAppDevice4']";
 	
@@ -399,6 +399,12 @@ public class Constants {
 /*	public static final String pw1_13_occupancy_classification = "//select[@id='ddlPWOccupancyClassification']";
 	public static final String pw1_13_construction_classification = "//select[@id='ddlPWConstructionClassification']";
 	public static final String pw1_13_multiple_dwelling_classification = "//select[@id='ddlPWMultipleDwelling']";*/
+	public static final String pw1_13_select_primary_structural_system = "//select[@ng-model='FormObj.ZoningFields.PrimaryStructuralSystem']";
+	public static final String pw1_13_select_structural_occupancy_risk_existing = "//select[@ng-model='FormObj.ZoningFields.StructuralOccupancyRiskCat']";
+	public static final String pw1_13_select_structural_occupancy_risk_proposed = "//select[@ng-model='FormObj.ZoningFields.ProposedStructuralOccupancyRiskCat']";
+	public static final String pw1_13_select_seismic_design_existing = "//select[@ng-model='FormObj.ZoningFields.SeismicDesignCat']";
+	public static final String pw1_13_select_seismic_design_proposed = "//select[@ng-model='FormObj.ZoningFields.ProposedSeismicDesignCategory']";
+	
 	public static final String pw1_13_building_type_8085 = "//select[@id='ddlBuildingType']";
 	public static final String pw1_13_mixed_use_type_yes = "(//input[@name='rblPWMixedBuildType'])[1]";
 	public static final String pw1_13_mixed_use_type_no = "(//input[@name='rblPWMixedBuildType'])[2]";
@@ -407,8 +413,10 @@ public class Constants {
 	public static final String pw1_13_building_height_proposed = "//input[@id='txtPWBuildingHeightPro']";
 	public static final String pw1_13_building_stories_existing = "//input[@id='txtPWBuildingStoriesExi']";
 	public static final String pw1_13_building_stories_proposed = "//input[@id='txtPWBuildingStoriesPro']";
-	public static final String pw1_13_building_dwelling_units_existing = "//input[@id='txtPWBuildingDwellingUnitsExi']";
-	public static final String pw1_13_building_dwelling_units_proposed = "//input[@id='txtPWBuildingDwellingUnitsPro']";
+	public static final String pw1_13_dwelling_units_existing = "//input[@ng-model='FormObj.ZoningFields.ExistingDwellingUnits']"; // JG 2018-12-06 Dwelling Units 
+	public static final String pw1_13_dwelling_units_proposed = "//input[@ng-model='FormObj.ZoningFields.ProposedDwellingUnits']"; // JG 2018-12-06 Dwelling Units 
+	public static final String pw1_13_building_dwelling_units_existing = "//input[@id='txtPWBuildingDwellingUnitsExi']"; // JG 2018-12-06 Structural Footprint 
+	public static final String pw1_13_building_dwelling_units_proposed = "//input[@id='txtPWBuildingDwellingUnitsPro']"; // JG 2018-12-06 Structural Footprint
 	public static final String pw1_13_site_tidal_yes = "//input[@id='rdPWSiteTidal1']";
 	public static final String pw1_13_site_tidal_no = "//input[@id='rdPWSiteTidal2']";
 	public static final String pw1_13_occupancy_classification_existing = "//select[@id='ddlPWReviewReq3']";
@@ -662,6 +670,14 @@ public class Constants {
 	public static final String sow_sd_reference_standard_nfpa14 = "//input[@ng-model='ScopeOfWorkSDCommon.Nfpa14']";
 	public static final String sow_sd_select_design_criteria = "//select[@ng-model='ScopeOfWorkSDCommon.SpecificDesignCriteria']";
 	public static final String sow_sd_pump_na = "//input[@ng-model='ScopeOfWorkSDCommon.NA']";
+	
+	// Scope Of Work - Structural // JG 2018-12-05 new work type
+	public static final String sow_st_prefab_wood_joists_yes = "//input[@id='rdPrefabWoodJoists1']";
+	public static final String sow_st_prefab_wood_joists_no  = "//input[@id='rdPrefabWoodJoists2']";
+	public static final String sow_st_cold_formed_steel_yes = "//input[@id='rdStructuralColdformedSteel1']";
+	public static final String sow_st_cold_formed_steel_no  = "//input[@id='rdStructuralColdformedSteel2']";
+	public static final String sow_st_open_web_steel_posts_yes = "//input[@id='rdOpenWebSteelPosts1']";
+	public static final String sow_st_open_web_steel_posts_no  = "//input[@name='rdOpenWebSteelPosts2']";
 	
 	public static final String sow_modal = "//h4[text()='Scope of Work Detail']";
 	
