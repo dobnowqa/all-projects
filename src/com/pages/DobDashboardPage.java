@@ -20,10 +20,10 @@ public class DobDashboardPage extends TestBase {
 					check("//span[contains(text(),'" +worktype+ "')]/../preceding-sibling::div/input[@type='checkbox']");
 				}
 				click(Constants.filing_next_button);
-				waitUntilElementInVisible(Constants.filing_next_button,2);
-				if (count(Constants.job_filing_standard_plan) > 0) { //JG 2018-11-30
-					radio(Constants.job_filing_standard_plan);
-					radio(Constants.job_filing_submit_button);
+//				waitUntilElementInVisible(Constants.filing_next_button,2);  // JG 2018-12-06 let's see what happens if we don't wait for anything on the "Job filing includes:" popup to be invisible...
+				if (count(Constants.job_filing_review_type_standard) > 0) { //JG 2018-12-06 TODO: make this selection dynamic
+					radio(Constants.job_filing_review_type_standard);
+					click(Constants.job_filing_submit_button);
 				}					
 			} else {
 				waitVisible(Constants.filing_next_button);
@@ -55,10 +55,10 @@ public class DobDashboardPage extends TestBase {
 					check("//span[contains(text(),'" +worktype+ "')]/../preceding-sibling::div/input[@type='checkbox']");
 				}
 				click(Constants.filing_next_button);
-				waitUntilElementInVisible(Constants.filing_next_button,2);
-				if (count(Constants.job_filing_standard_plan) > 0) { //JG 2018-11-30
-					radio(Constants.job_filing_standard_plan);
-					radio(Constants.job_filing_submit_button);
+//				waitUntilElementInVisible(Constants.filing_next_button,2);  // JG 2018-12-06 let's see what happens if we don't wait for anything on the "Job filing includes:" popup to be invisible...
+				if (count(Constants.job_filing_review_type_standard) > 0) { //JG 2018-11-30
+					radio(Constants.job_filing_review_type_standard);
+					click(Constants.job_filing_submit_button);
 				}
 			} else {
 	 		waitVisible(Constants.filing_next_button);

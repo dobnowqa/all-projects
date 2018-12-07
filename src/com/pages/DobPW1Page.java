@@ -143,7 +143,7 @@ public class DobPW1Page extends TestBase {
 	
 	// 2. Applicant Info
 		public void applicantInfo(String user_info) {	
-			if(!user_info.equals("")){
+			if (!user_info.equals("")) {
 				String[] data = user_info.split(" :: ");
 				test = rep.startTest("Applicant Info");
 				if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-29
@@ -153,14 +153,13 @@ public class DobPW1Page extends TestBase {
 				email(data[0]);
 				select(Constants.license_type_list, data[1]);
 				wait(1);
-				if(count(Constants.business_name_list) > 0)
+				if (count(Constants.business_name_list) > 0) {
 					select(Constants.business_name_list, data[2]);
-/*				if(CONFIG.getProperty("env").contains("8085"))
-					select(Constants.business_name_list, data[2])*/;
-					if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-29
-						click(Constants.pw1_11_job_description_accordion);
-					}
-					type(Constants.job_description_for_new_work, user_info);
+				}
+				if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-29
+					click(Constants.pw1_11_job_description_accordion);
+				}
+				type(Constants.job_description_for_new_work, user_info);
 		 		scrollToElement(Constants.global_save_step_button);
 				click(Constants.global_save_step_button);
 				if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-10-30 TEST Filing buttons changed
@@ -174,11 +173,11 @@ public class DobPW1Page extends TestBase {
 				clickButton("OK");
 				waitInvisible(Constants.ok_button);
 		 	}
-		} 
+		}
 
 		// 2. Applicant Info PL/SP/SD
 		public void applicantInfoPlumbing(String user_info) {	
-			if(!user_info.equals("")){
+			if (!user_info.equals("")){
 				String[] data = user_info.split(" :: ");
 				test = rep.startTest("Applicant Info");
 				if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-29
@@ -188,8 +187,9 @@ public class DobPW1Page extends TestBase {
 				email(data[0]);
 				select(Constants.license_type_list, data[1]);
 				wait(1);
-				if(count(Constants.business_name_list) > 0)
+				if (count(Constants.business_name_list) > 0) {
 					select(Constants.business_name_list, data[2]);
+				}
 				if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-29
 					click(Constants.pw1_11_job_description_accordion);
 				}
@@ -286,7 +286,11 @@ public class DobPW1Page extends TestBase {
 		if (!new_existing_both.equals("")) {
 			test = rep.startTest("workTypes");
 			String[] data = new_existing_both.split(" :: ");
-			scrollToElement("//span[contains(text(),'Work Types')]");
+			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-29
+				click(Constants.pw1_6_work_types_accordion);
+			} else {
+				scrollToElement("//span[contains(text(),'Work Types')]");
+			}
 			wait(1);
 			if (!data[0].equals("N"))
 				radio("//input[@type='radio'][@name='rdNewApp'][@value='" + data[0] + "']");
@@ -310,7 +314,38 @@ public class DobPW1Page extends TestBase {
 				radio("//input[@id='rdSDClass'][@value='" + data[9] + "']");
 		}
 	}
-
+	
+	// 6. Work Types Structural
+	public void workTypesStructural(String new_existing_both) {
+		if (!new_existing_both.equals("")) {
+			test = rep.startTest("workTypesStructural");
+			String[] data = new_existing_both.split(" :: ");
+			click(Constants.pw1_6_work_types_accordion);
+			if (!data[0].equals("N"))
+				radio("//input[@type='radio'][@name='rdNewApp'][@value='" + data[0] + "']"); // New Work
+			if (!data[1].equals("N"))
+				check("//input[@ng-model='FormObj.STConcreteType']"); // Concrete
+			if (!data[2].equals("N"))
+				check("//input[@ng-model='FormObj.STAluminumType']"); // Aluminum 
+			if (!data[3].equals("N"))
+				check("//input[@ng-model='FormObj.STMasonryType']"); // Masonry
+			if (!data[4].equals("N"))
+				check("//input[@ng-model='FormObj.STSteelType']"); // Steel
+			if (!data[5].equals("N"))
+				check("//input[@ng-model='FormObj.STWoodType']"); // Wood
+			if (!data[6].equals("N"))
+				check("//input[@ng-model='FormObj.STSignStructureType']"); // Sign Structure
+			if (!data[7].equals("N"))
+				check("//input[@ng-model='FormObj.STTemporaryStructuralBracingType']"); // Temporary Structural Bracing
+			if (!data[8].equals("N"))
+				check("//input[@ng-model='FormObj.GCPartialDemolitionType']"); // Partial Demolition
+			if (!data[9].equals("N"))
+				check("//input[@ng-model='FormObj.RaisingAndMovingofbuildings']"); // Raising and Moving of Buildings
+			if (!data[10].equals("N"))
+				check("//input[@ng-model='FormObj.STOtherMiscellaneousType']"); // Other/Miscellaneous
+		}
+	}
+	
 	// 6. Work Types Antenna (new PW1 UI) // JG 2018-10-31
 	public void workTypesAntenna(String new_existing_both) {
 		if (!new_existing_both.equals("")) {
@@ -617,6 +652,24 @@ public class DobPW1Page extends TestBase {
 				if (count(Constants.pw1_9_otcr_approval_required_no) > 0) { // JG 2018-11-28 added for new UI plumbing
 					radio(Constants.pw1_9_otcr_approval_required_no);
 				}
+				if (count("//input[@ng-model='FormObj.BuildingGreater'][@value='true']") > 0) { // 2018-12-06 added for Structural
+					radio("//input[@ng-model='FormObj.BuildingGreater'][@value='true']");
+				}
+				if (count("//input[@ng-model='FormObj.StructureDesignBased'][@value='false']") > 0) { // 2018-12-06 added for Structural
+					radio("//input[@ng-model='FormObj.StructureDesignBased'][@value='false']");
+				}
+				if (count("//input[@ng-model='FormObj.STDemolishing50orMoreoftheArea'][@value='false']") > 0) { // 2018-12-06 added for Structural
+					radio("//input[@ng-model='FormObj.STDemolishing50orMoreoftheArea'][@value='false']");
+				}
+				if (count("//input[@ng-model='FormObj.STConcreteForFootingsFullySupported'][@value='false']") > 0) { // 2018-12-06 added for Structural
+					radio("//input[@ng-model='FormObj.STConcreteForFootingsFullySupported'][@value='false']");
+				}
+				if (count("//input[@ng-model='FormObj.STConcretePlacementlessThan50cy'][@value='false']") > 0) { // 2018-12-06 added for Structural
+					radio("//input[@ng-model='FormObj.STConcretePlacementlessThan50cy'][@value='false']");
+				}
+				if (count("//input[@id='txtPWNYSLicenseNumber']") > 0) { // 2018-12-06 added for Structural
+					type("//input[@id='txtPWNYSLicenseNumber']", "005551");
+				}
 			}
 		}
 	}
@@ -731,7 +784,31 @@ public class DobPW1Page extends TestBase {
 						select(Constants.pw1_13_multiple_dwelling_classification, "Class A-OL-Old Law Tenement");
 					}
 					select_val(Constants.pw1_13_building_type_8085, "1");
+					scrollTo(Constants.pw1_13_mixed_use_type_no_8085);
 					radio(Constants.pw1_13_mixed_use_type_no_8085);
+					if (count(Constants.pw1_13_select_primary_structural_system) > 0) {
+						select(Constants.pw1_13_select_primary_structural_system, "Concrete (CIP)");
+					}
+					if (count(Constants.pw1_13_select_structural_occupancy_risk_existing) > 0) {
+						select(Constants.pw1_13_select_structural_occupancy_risk_existing, "I-Low Hazard to Human Life");
+					}
+					if (count(Constants.pw1_13_select_structural_occupancy_risk_proposed) > 0) {
+						select(Constants.pw1_13_select_structural_occupancy_risk_proposed, "I-Low Hazard to Human Life");
+					}
+					if (count(Constants.pw1_13_select_seismic_design_existing) > 0) {
+						select(Constants.pw1_13_select_seismic_design_existing, "Category A");
+					}
+					if (count(Constants.pw1_13_select_seismic_design_proposed) > 0) {
+						select(Constants.pw1_13_select_seismic_design_proposed, "Category A");
+					}
+					if (count(Constants.pw1_13_dwelling_units_existing) > 0) { // Dwelling Units
+						type(Constants.pw1_13_dwelling_units_existing, "41");
+						type(Constants.pw1_13_dwelling_units_proposed, "42");
+					}
+					if (count(Constants.pw1_13_building_dwelling_units_existing) > 0) { // Structural Footprint
+						type(Constants.pw1_13_building_dwelling_units_existing, "51");
+						type(Constants.pw1_13_building_dwelling_units_proposed, "52");
+					}
 				} else {
 					radio(Constants.pw1_13_mixed_use_type_no);
 					type(Constants.pw1_13_building_height_existing, "100");
@@ -868,26 +945,31 @@ public class DobPW1Page extends TestBase {
 		if(!sitechar.equals("")){
 			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-01 TEST-ENV new PW1 UI - back to PW1 tab
 				click(Constants.pw1_tab);
-				scrollToElement(Constants.pw1_20_site_characteristics_accordion); //JG 2018-11-29
 				click(Constants.pw1_20_site_characteristics_accordion); //JG 2018-11-29
+				radio(Constants.pw1_20_tidal_wetlands_no_8085);
+				radio(Constants.pw1_20_coastal_erosion_hazard_area_no);
+				radio(Constants.pw1_20_fire_districs_no);
+				radio(Constants.pw1_20_freshwater_wetlands_no);
+				radio(Constants.pw1_20_urban_renewal_no);
+				radio(Constants.pw1_20A_flood_hazard_area_no);
 				click(Constants.pw1_22_asbestos_abatement_accordion); //JG 2018-11-29
+				radio(Constants.pw1_22_exempt_from_asbestos);
 				click(Constants.pw1_24_comments_accordion); //JG 2018-11-29
-				scrollTo(Constants.pw1_20_tidal_wetlands_no_8085);
-				radio(Constants.pw1_20_tidal_wetlands_no_8085);				
-			} else {				
+				type(Constants.pw1_24_comments, convertedTimestamp());
+			} else {
 				radio(Constants.pw1_20_tidal_wetlands_no);
 				if(count(Constants.pw1_18_fire_alarm_proposed_no) > 0) {
 					radio(Constants.pw1_18_fire_alarm_proposed_no);
 				}
+				radio(Constants.pw1_20_coastal_erosion_hazard_area_no);
+				radio(Constants.pw1_20_fire_districs_no);
+				radio(Constants.pw1_20_freshwater_wetlands_no);
+				radio(Constants.pw1_20_urban_renewal_no);
+				radio(Constants.pw1_20A_flood_hazard_area_no);
+				radio(Constants.pw1_22_exempt_from_asbestos);
+	//			type(Constants.pw1_comments_textarea, convertedTimestamp());
+				type(Constants.pw1_24_comments, convertedTimestamp());
 			}
-			radio(Constants.pw1_20_coastal_erosion_hazard_area_no);
-			radio(Constants.pw1_20_fire_districs_no);
-			radio(Constants.pw1_20_freshwater_wetlands_no);
-			radio(Constants.pw1_20_urban_renewal_no);
-			radio(Constants.pw1_20A_flood_hazard_area_no);
-			radio(Constants.pw1_22_exempt_from_asbestos);
-//			type(Constants.pw1_comments_textarea, convertedTimestamp());
-			type(Constants.pw1_24_comments, convertedTimestamp());
 		}
 	}
 	
@@ -1027,15 +1109,16 @@ public class DobPW1Page extends TestBase {
 				check(Constants.final_legal_contect_checkbox);
 				click(Constants.file_button);
 				waitInvisible(Constants.file_button);
-			}
-			reportPass("previewToFile");
-//			waitVisible(Constants.ok_button); // JG 2018-12-04 is OK button supposed to be here for all paths? 
-			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("filing_message"));
-			wait(1); // JG 2018-11-29 
-			if (count(Constants.ok_button) > 0) {
-				waitVisible(Constants.ok_button);
-				clickButton("OK");
-				waitInvisible(Constants.ok_button);
+				// JG 2018-12-16 moved the following inside the "if not 8085" statement:
+	//			reportPass("previewToFile"); // JG 2018-12-16 I don't think this is needed, it's the last line of this method.
+	//			waitVisible(Constants.ok_button); // JG 2018-12-04 is OK button supposed to be here for all paths? 
+				verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("filing_message"));
+				wait(1); // JG 2018-11-29 
+				if (count(Constants.ok_button) > 0) {
+					waitVisible(Constants.ok_button);
+					clickButton("OK");
+					waitInvisible(Constants.ok_button);
+				}
 			}
 			assertFilingStatus("Pending");
 			reportPass("previewToFile");

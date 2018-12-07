@@ -247,6 +247,27 @@ public class DobSOWPage extends TestBase {
 		}
 	}
 	
+	public void scopeOfWorkStructural(String sow) {
+		if (!sow.equals("")) {
+			String[] data = sow.split(" :: "); // JG 2018-12-05 TODO: Use 'data' to dynamically select options.
+			System.out.println(convertedTimestamp() + " **************** scopeOfWorkStructural");
+			test = rep.startTest("ASW");
+			click(Constants.scope_of_work_step);
+			scrollAllWayUp();
+			radio(Constants.sow_st_prefab_wood_joists_no);
+			radio(Constants.sow_st_cold_formed_steel_no);
+			radio(Constants.sow_st_open_web_steel_posts_no);
+			
+			click(Constants.global_save_step_button);
+			waitUntilISpinnersInvisible();
+			waitVisible(Constants.ok_button);
+			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
+//			clickButton("OK"); // JG 2018-12-06 not clickable, try constant instead...
+			click(Constants.ok_button);
+			waitInvisible(Constants.ok_button);
+		}
+	}
+
 	public void scopeOfWorkScaffold(String asw) {
 		if (!asw.equals("")) {
 			String[] data = asw.split(" :: ");

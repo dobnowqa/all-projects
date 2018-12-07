@@ -673,5 +673,77 @@ public class DobTR1Page extends TestBase {
 		reportPass("specialInspectorSignaturePlumbing");
 	}
 
-
+	public void specialInspectorSignatureStructural(String tr1) {
+		if (!tr1.equals("")) {
+			String[] data = tr1.split(" :: ");
+			System.out.println(convertedTimestamp() + " **************** TR1 specialInspectorSignatureStructural");
+			filterJob(data[1]);
+			test = rep.startTest("TR1 specialInspectorSignatureStructural");
+			click(Constants.tr1_technical_report_step);
+			waitVisible(Constants.tr1_are_you_special_inspector);
+			waitVisible(Constants.tr1_are_you_progress_inspector);
+			check(Constants.tr1_are_you_special_inspector);
+			check(Constants.tr1_are_you_progress_inspector);
+			wait(3);
+			test.log(LogStatus.INFO, " specialInspectorSignatureStructural");
+			
+			// JG 2018-12-05 Edit the 'Special Inspection...' record.
+			click("(//i[@class='fa fa-edit'])[3]");
+			wait(2);
+			select(Constants.tr1_license_type, OR_PROPERTIES.getProperty("special_inspector_lisence"));
+			type(Constants.tr1_agency_number, data[3]);
+			wait(2);
+			waitVisible(Constants.tr1_valid_label);
+			check(Constants.tr1_i_take_responcibility);
+			check(Constants.tr1_i_understand_my_failure_to_file);
+			check(Constants.tr1_i_understand_and_agree);
+			click(Constants.tr1_save_progress_inspection_button_8085);
+			waitInvisible(Constants.tr1_save_progress_inspection_button_8085);					
+			waitVisible(Constants.ok_button);
+			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_updated"));
+			clickButton("OK");
+			waitInvisible(Constants.ok_button);
+			wait(1);
+			click("(//span[text()='Required'])[1]");
+			waitVisible(Constants.tr1_browse_button);
+			send(Constants.tr1_browse_button, Constants.uploadFolder + "upload.png");
+			click(Constants.tr1_upload_button);
+			waitInvisible(Constants.tr1_please_wait_message);
+			waitVisible(Constants.tr1_upload_succesfull_message);
+			waitUntilISpinnersInvisible();
+			waitVisible(Constants.ok_button);
+			clickButton("OK");
+			waitInvisible(Constants.ok_button);
+			
+			// JG 2018-12-05 Edit the 'Progress Inspection...' record.
+			scrollAllWayDown();
+			click("(//i[@class='fa fa-edit'])[4]");
+			wait(2);
+			email(OR_PROPERTIES.getProperty("special_inspector_email"));
+			select(Constants.tr1_license_type, OR_PROPERTIES.getProperty("special_inspector_lisence"));
+			wait(1);
+			check(Constants.tr1_i_take_responcibility);
+			check(Constants.tr1_i_understand_my_failure_to_file);
+			check(Constants.tr1_i_understand_and_agree);
+			click(Constants.tr1_save_progress_inspection_button_8085);
+			waitInvisible(Constants.tr1_save_progress_inspection_button_8085);					
+			waitVisible(Constants.ok_button);
+			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_updated"));
+			clickButton("OK");
+			waitInvisible(Constants.ok_button);
+			wait(1);
+			click("(//span[text()='Required'])[1]");
+			waitVisible(Constants.tr1_browse_button);
+			send(Constants.tr1_browse_button, Constants.uploadFolder + "upload.png");
+			click(Constants.tr1_upload_button);
+			waitInvisible(Constants.tr1_please_wait_message);
+			waitVisible(Constants.tr1_upload_succesfull_message);
+			waitUntilISpinnersInvisible();
+			waitVisible(Constants.ok_button);
+			clickButton("OK");
+			waitInvisible(Constants.ok_button);
+		}
+		reportPass("specialInspectorSignatureStructural");
+	}
+	
 }
