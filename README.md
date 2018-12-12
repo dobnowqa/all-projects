@@ -1,6 +1,7 @@
-# 1. Click green button “Clone or download’
-# 2. Select ‘Download ZIP’
-# 3. Goto: downloads folder (C:\Users\USERNAME\Downloads)
-# 4. Double-click ‘all-projects-master’
-# 5. Copy ‘all-projects-master’ to your workspace (eclipse-workspace)
-# 6. Rename ‘all-projects-master’ to 'dob'
+# 1. Go to https://github.com/dobnowqa/all-projects
+# 2. Click green button â€œClone or downloadâ€™
+# 3. Click â€œDownload ZIPâ€
+# 4. Go to: downloads folder (usually C:\Users\USERNAME\Downloads)
+# 5. Extract â€œall-projects-master.zipâ€
+# 6. Rename â€œall-projects-masterâ€ to â€œdobâ€
+# 7. Copy â€œdobâ€ to your workspace (C:\framework\eclipse-workspace) over-writing the â€œdobâ€ folder already there.
