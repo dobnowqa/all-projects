@@ -25,10 +25,10 @@ import com.pages.DobSignaturesPage;
 import com.relevantcodes.extentreports.LogStatus;
 
 public class StNew extends TestBase {
-	// Test creates job for new structural work.
-	// Test needs to run with config.properties environment = "plumbing"
+	// This test case uses DOBNOW to create an application/job/filing for new-work for Structural (ST).
+	// This test case needs to run with config.properties environment = "plumbing"	
 	String testname = "StNew";
-	// File used for PL, SP, SD & ST work types.
+	// The following file is used for PL, SP, SD, ST, MH and BE work types:
 	Xls_Reader xlsx = new Xls_Reader(Constants.testCasesPlm); 
 	
 	@BeforeSuite
@@ -91,7 +91,7 @@ public class StNew extends TestBase {
 		pw3.costAffidavit(data.get("pw3"));
 		tr1.specialInspection(data.get("tr1"));
 		tr1.specialInspectorSignatureStructural(data.get("tr1"));
-		// JG 2018-12-06 as of today, TR8 is not working for Structural:
+		// JG 2018-12-11 as of now, TR8 is not working for Structural (Currently no requirements are available to be added.)
 //		tr8.energyCodeProgressInspection(data.get("tr8"));
 //		tr8.energyCodeSignature(data.get("tr8"));
 		signature.applicantStatementsSignature(data.get("signatures"));

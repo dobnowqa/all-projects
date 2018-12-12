@@ -4,8 +4,6 @@ import com.util.Constants;
 import com.util.TestUtil;
 import com.util.Xls_Reader;
 import java.util.Hashtable;
-import java.util.List;
-
 import org.testng.SkipException;
 import org.testng.annotations.Test;
 import org.testng.annotations.AfterMethod;
@@ -13,8 +11,6 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
 import com.base.TestBase;
@@ -102,9 +98,9 @@ public class PlLegalization extends TestBase {
 		tr8.energyCodeProgressPlumbing(data.get("tr8"));
 		tr8.energyCodeSignaturePlumbing(data.get("tr8"));
 		signature.applicantStatementsSignature(data.get("signatures"));
-		signature.ownerSignature(data.get("owner_signature"));
 		docs.uploadDocuments(data.get("documents"));
-//		pw1.previewToFile(data.get("preview_to_file"));
+		signature.ownerSignature(data.get("owner_signature"));
+		pw1.previewToFile(data.get("preview_to_file"));
 		successMessage(data.get("description"));
 
 	}

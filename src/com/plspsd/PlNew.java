@@ -29,7 +29,10 @@ import com.pages.DobSignaturesPage;
 import com.relevantcodes.extentreports.LogStatus;
 
 public class PlNew extends TestBase {
+	// This test case uses DOBNOW to create an application/job/filing for new-work for Plumbing (PL).
+	// This test case needs to run with config.properties environment = "plumbing"
 	String testname = this.getClass().getSimpleName();
+	// The following file is used for PL, SP, SD, ST, MH and BE work types:
 	Xls_Reader xlsx = new Xls_Reader(Constants.testCasesPlm);
 	
 	@BeforeSuite
@@ -103,11 +106,11 @@ public class PlNew extends TestBase {
 		pw1.siteCharacteristics(data.get("site_characteristics"));
 		pw1.savePW1(data.get("save_pw1"));
 		asw.scopeOfWorkPlumbingNew(data.get("asw"));
-//		asw.scopeOfWorkPlumbingLegalization(data.get("asw")); // JG leave commented out except for legal work
+//		asw.scopeOfWorkPlumbingLegalization(data.get("asw")); // leave commented out except for legal work
 		pw3.costAffidavitPlumbingNew(data.get("pw3"));
-//		pw3.costAffidavitPlumbingLegalization(data.get("pw3")); // JG leave commented out except for legal work
+//		pw3.costAffidavitPlumbingLegalization(data.get("pw3")); // leave commented out except for legal work
 		tr1.specialInspectionPlumbingNew(data.get("tr1"));
-//		tr1.specialInspectionPlumbingLegalization(data.get("tr1")); // JG leave commented out except for legal work
+//		tr1.specialInspectionPlumbingLegalization(data.get("tr1")); // leave commented out except for legal work
 		tr1.specialInspectorSignaturePlumbing(data.get("tr1"));
 		tr8.energyCodeProgressPlumbing(data.get("tr8"));
 		tr8.energyCodeSignaturePlumbing(data.get("tr8"));

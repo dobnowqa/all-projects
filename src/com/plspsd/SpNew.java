@@ -25,8 +25,10 @@ import com.pages.DobSignaturesPage;
 import com.relevantcodes.extentreports.LogStatus;
 
 public class SpNew extends TestBase {
-	
+	// This test case uses DOBNOW to create an application/job/filing for new-work for Sprinklers (SP).
+	// This test case needs to run with config.properties environment = "plumbing"	
 	String testname = "SpNew";
+	// The following file is used for PL, SP, SD, ST, MH and BE work types:
 	Xls_Reader xlsx = new Xls_Reader(Constants.testCasesPlm);
 	
 	@BeforeSuite
@@ -90,17 +92,18 @@ public class SpNew extends TestBase {
 		pw1.siteCharacteristics(data.get("site_characteristics"));
 		pw1.savePW1(data.get("save_pw1"));
 		asw.scopeOfWorkPlumbingNew(data.get("asw"));
-//		asw.scopeOfWorkPlumbingLegalization(data.get("asw"));
+//		asw.scopeOfWorkPlumbingLegalization(data.get("asw")); // leave commented out except for legal work
 		pw3.costAffidavitPlumbingNew(data.get("pw3"));
-//		pw3.costAffidavitPlumbingLegalization(data.get("pw3"));
+//		pw3.costAffidavitPlumbingLegalization(data.get("pw3")); // leave commented out except for legal work
 		tr1.specialInspectionPlumbing(data.get("tr1"));
 		tr1.specialInspectorSignaturePlumbing(data.get("tr1"));
-		tr8.energyCodeProgressPlumbing(data.get("tr8"));
-		tr8.energyCodeSignaturePlumbing(data.get("tr8"));
+		// JG 2018-12-11 as of now, TR8 is not working for this work type (Currently no requirements are available to be added.)
+//		tr8.energyCodeProgressPlumbing(data.get("tr8"));
+//		tr8.energyCodeSignaturePlumbing(data.get("tr8"));
 		signature.applicantStatementsSignature(data.get("signatures"));
 		docs.uploadDocuments(data.get("documents"));
 		signature.ownerSignature(data.get("owner_signature"));
-//		pw1.previewToFile(data.get("preview_to_file"));
+		pw1.previewToFile(data.get("preview_to_file"));
 		successMessage(data.get("description"));
 	}
 
@@ -110,7 +113,7 @@ public class SpNew extends TestBase {
 	@Test(priority = 13, dataProvider = "getTestData", dependsOnMethods = {"PreviewToFile"})
 	public void CPEAcceptDocsTest(Hashtable<String, String> data) {
 		CrmTaskFormPage task_form = PageFactory.initElements(driver, CrmTaskFormPage.class);
-		task_form.viewAcceptDocuments(data.get("chief_plan_examiner"));
+		task_form.viewAcceptDocuments(data.get("chief_pla n_examiner"));
 	}
 
 	// CPE ASSIGN

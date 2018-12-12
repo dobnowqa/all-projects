@@ -25,8 +25,10 @@ import com.pages.DobSignaturesPage;
 import com.relevantcodes.extentreports.LogStatus;
 
 public class SdNew extends TestBase {
-	
+	// This test case uses DOBNOW to create an application/job/filing for new-work for Standpipe (SD).
+	// This test case needs to run with config.properties environment = "plumbing"	
 	String testname = "SdNew";
+	// The following file is used for PL, SP, SD, ST, MH and BE work types:
 	Xls_Reader xlsx = new Xls_Reader(Constants.testCasesPlm);
 	
 	@BeforeSuite
@@ -98,7 +100,7 @@ public class SdNew extends TestBase {
 		signature.applicantStatementsSignature(data.get("signatures"));
 		docs.uploadDocuments(data.get("documents"));
 		signature.ownerSignature(data.get("owner_signature"));
-//		pw1.previewToFile(data.get("preview_to_file"));
+		pw1.previewToFile(data.get("preview_to_file"));
 		successMessage(data.get("description"));
 	}
 	

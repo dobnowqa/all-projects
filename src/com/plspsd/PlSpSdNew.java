@@ -11,12 +11,14 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
-import org.openqa.selenium.support.PageFactory;
-
 import com.base.TestBase;
+import com.pages.CrmDocs;
+import com.pages.CrmTaskFormPage;
+import com.pages.DobDS1Page;
 import com.pages.DobDashboardPage;
 import com.pages.DobDocumentsPage;
 import com.pages.DobPW1Page;
+import com.pages.DobPW2Page;
 import com.pages.DobSOWPage;
 import com.pages.DobPW3Page;
 import com.pages.DobTR1Page;
@@ -25,8 +27,7 @@ import com.pages.DobSignaturesPage;
 import com.relevantcodes.extentreports.LogStatus;
 
 public class PlSpSdNew extends TestBase {
-
-	String testname = "PlSpSdNew";
+	String testname = this.getClass().getSimpleName();
 	Xls_Reader xlsx = new Xls_Reader(Constants.testCasesPlm);
 
 	@BeforeSuite
@@ -54,8 +55,21 @@ public class PlSpSdNew extends TestBase {
 	public Object[][] getTestData() {
 		return TestUtil.getData(testname, xlsx);
 	}
+	
+	DobDashboardPage dash = new  DobDashboardPage();
+	DobPW1Page pw1 = new  DobPW1Page();
+	DobDS1Page ds1 = new DobDS1Page();
+	DobSOWPage asw = new DobSOWPage();
+	DobPW3Page pw3 = new DobPW3Page();
+	DobTR1Page tr1 = new DobTR1Page();
+	DobTR8Page tr8 = new DobTR8Page();
+	DobPW2Page pw2 = new DobPW2Page();
+	DobSignaturesPage signature = new DobSignaturesPage();
+	DobDocumentsPage docs = new DobDocumentsPage();
+	CrmTaskFormPage task_form = new CrmTaskFormPage();
+	CrmDocs crmdocs = new CrmDocs();
 
-	@Test(dataProvider = "getTestData", invocationCount = 1)
+	@Test(dataProvider = "getTestData", invocationCount = 50)
 	public void Base(Hashtable<String, String> data) {
 		if (!TestUtil.isExecutable(testname, xlsx) || data.get("Runmode").equals("N"))
 			throw new SkipException("Skipping test");
@@ -64,15 +78,9 @@ public class PlSpSdNew extends TestBase {
 		test.log(LogStatus.INFO, data.get("description"));
 		test = rep.startTest("Test Case Data");
 		test.log(LogStatus.INFO, data.toString());
-		DobDashboardPage dash = PageFactory.initElements(driver, DobDashboardPage.class);
-		DobPW1Page pw1 = PageFactory.initElements(driver, DobPW1Page.class);
-		DobSOWPage asw = PageFactory.initElements(driver, DobSOWPage.class);
-		DobPW3Page pw3 = PageFactory.initElements(driver, DobPW3Page.class);
-		DobTR1Page tr1 = PageFactory.initElements(driver, DobTR1Page.class);
-		DobTR8Page tr8 = PageFactory.initElements(driver, DobTR8Page.class);
-		DobSignaturesPage signature = PageFactory.initElements(driver, DobSignaturesPage.class);
-		DobDocumentsPage docs = PageFactory.initElements(driver, DobDocumentsPage.class);
+
 		
+
 
 
 		
@@ -98,8 +106,8 @@ public class PlSpSdNew extends TestBase {
 		tr1.specialInspectorSignaturePlumbing(data.get("tr1"));
 		tr8.energyCodeProgressPlumbing(data.get("tr8"));
 		tr8.energyCodeSignaturePlumbing(data.get("tr8"));
-		docs.uploadDocuments(data.get("documents"));
 		signature.applicantStatementsSignature(data.get("signatures"));
+		docs.uploadDocuments(data.get("documents"));
 		signature.ownerSignature(data.get("owner_signature"));	
 		pw1.previewToFile(data.get("preview_to_file"));
 		successMessage(data.get("description"));
