@@ -345,6 +345,44 @@ public class DobPW1Page extends TestBase {
 				check("//input[@ng-model='FormObj.STOtherMiscellaneousType']"); // Other/Miscellaneous
 		}
 	}
+
+	// 6. Work Types Mechanical Systems
+	public void workTypesMechanicalSystems(String new_existing_both) {
+		if (!new_existing_both.equals("")) {
+			test = rep.startTest("workTypesMechanicalSystems");
+			String[] data = new_existing_both.split(" :: ");
+			click(Constants.pw1_6_work_types_accordion);
+			if (!data[0].equals("N"))
+				radio("//input[@type='radio'][@name='rdNewApp'][@value='" + data[0] + "']"); // New Work
+			if (!data[1].equals("N"))
+				check("//input[@ng-model='FormObj.MSHeatingSystem']"); // Heating System
+			if (!data[2].equals("N"))
+				check("//input[@ng-model='FormObj.MSVentilationSystem']"); // Ventilation System 
+			if (!data[3].equals("N"))
+				check("//input[@ng-model='FormObj.MSAirConditioningSystem']"); // Air Conditioning System
+			if (!data[4].equals("N"))
+				check("//input[@ng-model='FormObj.MSRefrigeration']"); // Refrigeration
+			if (!data[5].equals("N"))
+				check("//input[@ng-model='FormObj.MSCoolingTowers']"); // Cooling Towers
+			if (!data[6].equals("N"))
+				check("//input[@ng-model='FormObj.MSAssociatedductSandpiping']"); // Associated Ducts and Piping
+			if (!data[7].equals("N"))
+				check("//input[@ng-model='FormObj.MSGenerator']"); // Generator
+			if (!data[8].equals("N"))
+				check("//input[@ng-model='FormObj.MSOther']"); // Other
+		}
+	}
+	
+	// 6. Work Types Boiler Equipment
+	public void workTypesBoilerEquipment(String new_existing_both) {
+		if (!new_existing_both.equals("")) {
+			test = rep.startTest("workTypesBoilerEquipment");
+			String[] data = new_existing_both.split(" :: ");
+			click(Constants.pw1_6_work_types_accordion);
+			if (!data[0].equals("N"))
+				radio("//input[@type='radio'][@name='rdNewApp'][@value='" + data[0] + "']"); // New Work
+		}
+	}
 	
 	// 6. Work Types Antenna (new PW1 UI) // JG 2018-10-31
 	public void workTypesAntenna(String new_existing_both) {
@@ -670,6 +708,9 @@ public class DobPW1Page extends TestBase {
 				if (count("//input[@id='txtPWNYSLicenseNumber']") > 0) { // 2018-12-06 added for Structural
 					type("//input[@id='txtPWNYSLicenseNumber']", "005551");
 				}
+				if (count(Constants.pw1_9_more_than_5_floors_no) > 0) { // 2018-12-11 added for Sprinklers
+					radio(Constants.pw1_9_more_than_5_floors_no);
+				}
 			}
 		}
 	}
@@ -721,10 +762,12 @@ public class DobPW1Page extends TestBase {
 			}
 			select(Constants.pw1_10_code_compliance_path, comp[0]);
 			select(Constants.pw1_10_energy_nalysis, comp[1]);
-			// JG 2018-12-03 TODO: only check this to suppress TR8
-//			if (count(Constants.pw1_10_no_tr8_inspections_req) > 0) { //JG 2018-11-29
-//				check(Constants.pw1_10_no_tr8_inspections_req);
-//			}
+			// JG 2018-12-11 only check this to suppress TR8
+			if (count(Constants.pw1_10_no_tr8_inspections_req) > 0) {
+				if (comp[2].equals("N")) {
+					check(Constants.pw1_10_no_tr8_inspections_req);
+				}
+			}
 	 	}
 	}
 /*	// 10. NYCEEC Compliance SUBS
@@ -805,18 +848,20 @@ public class DobPW1Page extends TestBase {
 						type(Constants.pw1_13_dwelling_units_existing, "41");
 						type(Constants.pw1_13_dwelling_units_proposed, "42");
 					}
-					if (count(Constants.pw1_13_building_dwelling_units_existing) > 0) { // Structural Footprint
-						type(Constants.pw1_13_building_dwelling_units_existing, "51");
-						type(Constants.pw1_13_building_dwelling_units_proposed, "52");
-					}
 				} else {
 					radio(Constants.pw1_13_mixed_use_type_no);
 					type(Constants.pw1_13_building_height_existing, "100");
 					type(Constants.pw1_13_building_height_proposed, "111");
-					type(Constants.pw1_13_building_stories_existing, "1");
-					type(Constants.pw1_13_building_stories_proposed, "2");
 					type(Constants.pw1_13_building_dwelling_units_existing, "50");
 					type(Constants.pw1_13_building_dwelling_units_proposed, "51");
+				}
+				if (count(Constants.pw1_13_building_stories_existing) > 0) { // Building Code: Building Stories
+					type(Constants.pw1_13_building_stories_existing, "1");
+					type(Constants.pw1_13_building_stories_proposed, "2");
+				}
+				if (count(Constants.pw1_13_building_dwelling_units_existing) > 0) { // Structural Footprint
+					type(Constants.pw1_13_building_dwelling_units_existing, "51");
+					type(Constants.pw1_13_building_dwelling_units_proposed, "52");
 				}
 		 	}
 		}

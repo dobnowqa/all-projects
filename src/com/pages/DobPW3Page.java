@@ -16,9 +16,9 @@ public class DobPW3Page extends TestBase {
 			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-02: new PW1 UI
 				waitVisible(Constants.add_button_8085);
 				click(Constants.add_button_8085);
-				if (!data[0].equals("Structural")) { // JG 2018-12-05 Structural is already selected.
-					select_val(Constants.pw3_select_categogy, "number:4");
-				}
+//				if (!data[0].equals("Structural")) { // JG 2018-12-07 ALL new UI worktypes should have category auto-selected, not just Structural
+//					select_val(Constants.pw3_select_categogy, "number:4");
+//				}
 				type(Constants.pw3_cost_details_description_sign, data[0]);
 				type(Constants.pw3_area_units_8085, data[1]);
 				type(Constants.pw3_unit_cost_sign, data[2]);

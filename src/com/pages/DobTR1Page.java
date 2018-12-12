@@ -57,6 +57,61 @@ public class DobTR1Page extends TestBase {
 			reportPass("Success");
 		}
 	}
+	
+	public void specialInspectionMechanicalSystems(String tr1) {
+		if (!tr1.equals("")) {
+			String[] data = tr1.split(" :: ");
+			System.out.println(convertedTimestamp() + " **************** TR1 specialInspectionMechanicalSystems");
+			filterJob(user);
+			test = rep.startTest("TR1 Inspection");
+			click(Constants.tr1_technical_report_step);
+			check(Constants.tr1_are_you_special_inspector);
+//			check(Constants.tr1_are_you_progress_inspector); // JG 2018-12-07 as of now, only the special inspector needs to be entered.
+			
+			// Edit the Special Inspection row to enter the inspector email:
+			click("(//i[@class='fa fa-edit'])[last()-1]");
+			email(data[1]);
+			select(Constants.tr1_license_type, data[2]);
+			type(Constants.tr1_agency_number, data[3]);
+			//keyPressTab(Constants.tr1_agency_number);
+			wait(2);
+			click(Constants.tr1_save_progress_inspection_button_8085);
+			waitInvisible(Constants.tr1_save_progress_inspection_button_8085);
+			waitUntilISpinnersInvisible();
+			waitVisible(Constants.ok_button);
+			clickButton("OK");
+			waitInvisible(Constants.ok_button);
+			reportPass("Success");
+		}
+	}
+	
+	public void specialInspectionBoilerEquipment(String tr1) {
+		if (!tr1.equals("")) {
+			String[] data = tr1.split(" :: ");
+			System.out.println(convertedTimestamp() + " **************** TR1 specialInspectionBoilerEquipment");
+			filterJob(user);
+			test = rep.startTest("TR1 Inspection");
+			click(Constants.tr1_technical_report_step);
+			wait(1);
+			check(Constants.tr1_are_you_special_inspector);
+			
+			// Edit the Special Inspection row to enter the inspector email:
+			click("(//i[@class='fa fa-edit'])[last()]");
+			email(data[1]);
+			select(Constants.tr1_license_type, data[2]);
+			type(Constants.tr1_agency_number, data[3]);
+			//keyPressTab(Constants.tr1_agency_number);
+			wait(2);
+			click(Constants.tr1_save_progress_inspection_button_8085);
+			waitInvisible(Constants.tr1_save_progress_inspection_button_8085);
+			waitUntilISpinnersInvisible();
+			waitVisible(Constants.ok_button);
+			clickButton("OK");
+			waitInvisible(Constants.ok_button);
+			reportPass("Success");
+		}
+	}
+	
 	public void specialInspectorSignature(String tr1) {
 		if (!tr1.equals("")) {
 			String[] data = tr1.split(" :: ");
@@ -646,6 +701,7 @@ public class DobTR1Page extends TestBase {
 				}					
 				waitVisible(Constants.ok_button);
 				verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_updated"));
+				wait(1);
 				clickButton("OK");
 				waitInvisible(Constants.ok_button);
 				wait(2);
@@ -688,7 +744,7 @@ public class DobTR1Page extends TestBase {
 			test.log(LogStatus.INFO, " specialInspectorSignatureStructural");
 			
 			// JG 2018-12-05 Edit the 'Special Inspection...' record.
-			click("(//i[@class='fa fa-edit'])[3]");
+			click("(//i[@class='fa fa-edit'])[last()-1]");
 			wait(2);
 			select(Constants.tr1_license_type, OR_PROPERTIES.getProperty("special_inspector_lisence"));
 			type(Constants.tr1_agency_number, data[3]);
@@ -717,7 +773,7 @@ public class DobTR1Page extends TestBase {
 			
 			// JG 2018-12-05 Edit the 'Progress Inspection...' record.
 			scrollAllWayDown();
-			click("(//i[@class='fa fa-edit'])[4]");
+			click("(//i[@class='fa fa-edit'])[last()]");
 			wait(2);
 			email(OR_PROPERTIES.getProperty("special_inspector_email"));
 			select(Constants.tr1_license_type, OR_PROPERTIES.getProperty("special_inspector_lisence"));
@@ -744,6 +800,118 @@ public class DobTR1Page extends TestBase {
 			waitInvisible(Constants.ok_button);
 		}
 		reportPass("specialInspectorSignatureStructural");
+	}
+
+	public void specialInspectorSignatureMechanicalSystems(String tr1) {
+		if (!tr1.equals("")) {
+			String[] data = tr1.split(" :: ");
+			System.out.println(convertedTimestamp() + " **************** TR1 specialInspectorSignatureMechanicalSystems");
+			filterJob(data[1]);
+			test = rep.startTest("TR1 specialInspectorSignatureMechanicalSystems");
+			click(Constants.tr1_technical_report_step);
+			waitVisible(Constants.tr1_are_you_special_inspector);
+			waitVisible(Constants.tr1_are_you_progress_inspector);
+			check(Constants.tr1_are_you_special_inspector);
+			check(Constants.tr1_are_you_progress_inspector);
+			wait(3);
+			test.log(LogStatus.INFO, " specialInspectorSignatureMechanicalSystems");
+			
+			// JG 2018-12-05 Edit the 'Special Inspection...' record.
+			click("(//i[@class='fa fa-edit'])[last()-1]");
+			wait(2);
+			check(Constants.tr1_i_take_responcibility);
+			check(Constants.tr1_i_understand_my_failure_to_file);
+			check(Constants.tr1_i_understand_and_agree);
+			click(Constants.tr1_save_progress_inspection_button_8085);
+			waitInvisible(Constants.tr1_save_progress_inspection_button_8085);					
+			waitVisible(Constants.ok_button);
+			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_updated"));
+			clickButton("OK");
+			waitInvisible(Constants.ok_button);
+			wait(1);
+			click("(//span[text()='Required'])[1]");
+			waitVisible(Constants.tr1_browse_button);
+			send(Constants.tr1_browse_button, Constants.uploadFolder + "upload.png");
+			click(Constants.tr1_upload_button);
+			waitInvisible(Constants.tr1_please_wait_message);
+			waitVisible(Constants.tr1_upload_succesfull_message);
+			waitUntilISpinnersInvisible();
+			waitVisible(Constants.ok_button);
+			clickButton("OK");
+			waitInvisible(Constants.ok_button);
+			
+			// JG 2018-12-05 Edit the 'Progress Inspection...' record.
+			scrollAllWayDown();
+			click("(//i[@class='fa fa-edit'])[last()]");
+			wait(2);
+			email(data[1]);
+			select(Constants.tr1_license_type, data[2]);
+			wait(1);
+			check(Constants.tr1_i_take_responcibility);
+			check(Constants.tr1_i_understand_my_failure_to_file);
+			check(Constants.tr1_i_understand_and_agree);
+			click(Constants.tr1_save_progress_inspection_button_8085);
+			waitInvisible(Constants.tr1_save_progress_inspection_button_8085);					
+			waitVisible(Constants.ok_button);
+			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_updated"));
+			clickButton("OK");
+			waitInvisible(Constants.ok_button);
+			wait(1);
+			click("(//span[text()='Required'])[1]");
+			waitVisible(Constants.tr1_browse_button);
+			send(Constants.tr1_browse_button, Constants.uploadFolder + "upload.png");
+			click(Constants.tr1_upload_button);
+			waitInvisible(Constants.tr1_please_wait_message);
+			waitVisible(Constants.tr1_upload_succesfull_message);
+			waitUntilISpinnersInvisible();
+			waitVisible(Constants.ok_button);
+			clickButton("OK");
+			waitInvisible(Constants.ok_button);
+		}
+		reportPass("specialInspectorSignatureMechanicalSystems");
+	}
+
+	public void specialInspectorSignatureBoilerEquipment(String tr1) {
+		if (!tr1.equals("")) {
+			String[] data = tr1.split(" :: ");
+			System.out.println(convertedTimestamp() + " **************** TR1 specialInspectorSignatureBoilerEquipment");
+			filterJob(data[1]);
+			test = rep.startTest("TR1 specialInspectorSignatureBoilerEquipment");
+			click(Constants.tr1_technical_report_step);
+			waitVisible(Constants.tr1_are_you_special_inspector);
+//			waitVisible(Constants.tr1_are_you_progress_inspector);
+			scrollAllWayUp();
+			check(Constants.tr1_are_you_special_inspector);
+//			check(Constants.tr1_are_you_progress_inspector);
+			wait(3);
+			test.log(LogStatus.INFO, " specialInspectorSignatureBoilerEquipment");
+			
+			// JG 2018-12-10 Edit the 'Special Inspection...' record.
+			click("(//i[@class='fa fa-edit'])[last()]");
+			wait(2);
+			check(Constants.tr1_i_take_responcibility);
+			check(Constants.tr1_i_understand_my_failure_to_file);
+			check(Constants.tr1_i_understand_and_agree);
+			click(Constants.tr1_save_progress_inspection_button_8085);
+			waitInvisible(Constants.tr1_save_progress_inspection_button_8085);					
+			waitVisible(Constants.ok_button);
+			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_updated"));
+			wait(1);
+			clickButton("OK");
+			waitInvisible(Constants.ok_button);
+			wait(1);
+			click("(//span[text()='Required'])[1]");
+			waitVisible(Constants.tr1_browse_button);
+			send(Constants.tr1_browse_button, Constants.uploadFolder + "upload.png");
+			click(Constants.tr1_upload_button);
+			waitInvisible(Constants.tr1_please_wait_message);
+			waitVisible(Constants.tr1_upload_succesfull_message);
+			waitUntilISpinnersInvisible();
+			waitVisible(Constants.ok_button);
+			clickButton("OK");
+			waitInvisible(Constants.ok_button);
+		}
+		reportPass("specialInspectorSignatureBoilerEquipment");
 	}
 	
 }

@@ -268,6 +268,84 @@ public class DobSOWPage extends TestBase {
 		}
 	}
 
+	public void scopeOfWorkMechanicalSystems(String sow) {
+		if (!sow.equals("")) {
+			String[] data = sow.split(" :: "); // JG 2018-12-05 TODO: Use 'data' to dynamically select options.
+			System.out.println(convertedTimestamp() + " **************** scopeOfWorkMechanicalSystems");
+			test = rep.startTest("ASW");
+			click(Constants.scope_of_work_step);
+			scrollAllWayUp();
+			click(Constants.sow_mh_button_add);
+			select(Constants.sow_mh_select_sub_category, "Heating Systems");
+			
+			type(Constants.sow_mh_item_name, "Test Item Name");
+			type(Constants.sow_mh_item_description,"Test Item Description");
+			type(Constants.sow_mh_item_location, "Test Item Location");
+			type(Constants.sow_mh_number_of_items, "2");
+			type(Constants.sow_mh_capacity_number, "3");
+			select(Constants.sow_mh_select_capacity_units, "BTU");
+			type(Constants.sow_mh_equipment_efficiency, "4");
+			select(Constants.sow_mh_select_equipment_units, "COP");
+			type(Constants.sow_mh_manufacturer_name, "Test Manufacturer Name");
+			type(Constants.sow_mh_model_name, "Test Model Name");
+			radio(Constants.sow_mh_certificate_of_compliance_no);
+			type(Constants.sow_mh_certificate_number_for_listing, "Test Certification Number");
+			click(Constants.sow_mh_mechanical_information_add);
+			type(Constants.sow_mh_sum_total_heating, "1000");
+			type(Constants.sow_mh_sum_total_cooling, "20000");
+			click(Constants.global_save_step_button);
+			waitUntilISpinnersInvisible();
+			waitVisible(Constants.ok_button);
+			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
+//			clickButton("OK"); // JG 2018-12-06 not clickable, try constant instead...
+			click(Constants.ok_button);
+			waitInvisible(Constants.ok_button);
+		}
+	}
+
+	public void scopeOfWorkBoilerEquipment(String sow) {
+		if (!sow.equals("")) {
+			String[] data = sow.split(" :: "); // JG 2018-12-05 TODO: Use 'data' to dynamically select options.
+			System.out.println(convertedTimestamp() + " **************** scopeOfWorkBoilerEquipment");
+			test = rep.startTest("ASW");
+			click(Constants.scope_of_work_step);
+			scrollAllWayUp();
+			click(Constants.sow_be_boiler_specifications_accordion);
+			select(Constants.sow_be_select_proposed_boiler_rating, "High Pressure");
+			type(Constants.sow_be_proposed_max_allowable_wp, "1000");
+			select(Constants.sow_be_select_proposed_boiler_type, "Hot Water Heating");
+			select(Constants.sow_be_select_proposed_boiler_energy_source, "Electric");
+			select(Constants.sow_be_select_proposed_boiler_classification, "Conventional(Standard)");
+			type(Constants.sow_be_sum_total_rated_input_capacity, "2000");
+			click(Constants.sow_be_boiler_specifications_accordion);
+			
+			click(Constants.sow_be_chimney_information_accordion);
+			select(Constants.sow_be_select_connected_to_vent_or_chimney, "Chimney");
+//			radio(Constants.sow_be_radio_new_installation_of_chimney_yes);
+//			radio(Constants.sow_be_radio_new_installation_of_chimney_no);
+//			type(Constants.sow_be_job_number_of_associated_chimney_work, "???");
+			select(Constants.sow_be_select_type_of_venting_material, "Stainless Steel");
+//			select(Constants.sow_be_select_chimney_lining, "???");
+			click(Constants.sow_be_chimney_information_accordion);
+			
+			click(Constants.sow_be_oil_burner_lmp_accordion);
+//			email(Constants.sow_be_select_ob_lmp_email, "boilersoil@gmail.com");
+			email2("boilersoil@gmail.com");
+			select(Constants.sow_be_select_license_type, "Oil Burner Installer");
+			check(Constants.sow_be_check_licensed_installer);
+			click(Constants.sow_be_oil_burner_lmp_accordion);
+						
+			click(Constants.global_save_step_button);
+			waitUntilISpinnersInvisible();
+			waitVisible(Constants.ok_button);
+			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
+			wait(1);
+//			clickButton("OK"); // JG 2018-12-06 not clickable, try constant instead...
+			click(Constants.ok_button);
+			waitInvisible(Constants.ok_button);
+		}
+	}
+	
 	public void scopeOfWorkScaffold(String asw) {
 		if (!asw.equals("")) {
 			String[] data = asw.split(" :: ");

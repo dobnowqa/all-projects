@@ -16,11 +16,21 @@ public class DobDashboardPage extends TestBase {
 			click(Constants.job_filing_button);
 			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-30 go back to using 'Next' button
 				waitVisible(Constants.filing_next_button);
-				if (count("//span[contains(text(),'" +worktype+ "')]") > 0) {
-					check("//span[contains(text(),'" +worktype+ "')]/../preceding-sibling::div/input[@type='checkbox']");
+				if (worktype.contains("Mechanical Work")) {
+					check("//span[contains(text(),'Mechanical Work')]/../preceding-sibling::div/input[@type='checkbox']");
+					click(Constants.filing_next_button);
+					if (worktype.contains("Mechanical Systems")) {
+						radio("(//input[@name='rdNewApp'])[1]");
+					} else {
+						radio("(//input[@name='rdNewApp'])[2]");
+					}
+				} else {
+					if (count("//span[contains(text(),'" +worktype+ "')]") > 0) {
+						check("//span[contains(text(),'" +worktype+ "')]/../preceding-sibling::div/input[@type='checkbox']");
+					}
 				}
 				click(Constants.filing_next_button);
-//				waitUntilElementInVisible(Constants.filing_next_button,2);  // JG 2018-12-06 let's see what happens if we don't wait for anything on the "Job filing includes:" popup to be invisible...
+//				waitUntilElementInVisible(Constants.filing_next_button,2);  // JG 2018-12-06 what happens if we don't wait for anything on the "Job filing includes:" popup to be invisible...
 				if (count(Constants.job_filing_review_type_standard) > 0) { //JG 2018-12-06 TODO: make this selection dynamic
 					radio(Constants.job_filing_review_type_standard);
 					click(Constants.job_filing_submit_button);
@@ -39,6 +49,29 @@ public class DobDashboardPage extends TestBase {
 	 		reportPass("selectWorkType");
 		}
 	}
+	
+	public void selectWorkTypeBoilerEquipment(String worktype) {	
+		if(!worktype.equals("")){
+			System.out.println(convertedTimestamp() + " **************** New Filing - selectWorkTypeBoilerEquipment");
+			loginToPortal(OR_PROPERTIES.getProperty("user_email"));
+			test = rep.startTest("Dash Select Work Type");
+			click(Constants.job_filing_button);
+			waitVisible(Constants.filing_next_button);
+			check("//span[contains(text(),'Mechanical Work')]/../preceding-sibling::div/input[@type='checkbox']");
+			click(Constants.filing_next_button);
+			radio("(//input[@name='rdNewApp'])[2]"); // JG 2018-12-10 Boiler Equipment radio button
+			click(Constants.filing_next_button);
+			radio("(//input[@name='rdBoilerScopeofWork'])[1]"); // JG 2018-12-10 New Installation radio button
+			click(Constants.filing_next_button);
+			radio(Constants.job_filing_review_type_standard); // JG 2018-12-10 Standard Plan Examination radio button
+			click(Constants.job_filing_submit_button);
+	 		waitInvisible(Constants.filing_next_button);
+	 		select(Constants.pw1_filing_info_select_scope_includes, "Boiler");
+	 		click(Constants.pw1_filing_info_accordion);
+	 		reportPass("selectWorkTypeBoilerEquipment");
+		}
+	}
+	
 	public void selectWorkTypePlumbing(String worktype) {	
 		if(!worktype.equals("")){
 			System.out.println(convertedTimestamp() + " **************** New Filing - selectWorkTypePlumbing");
