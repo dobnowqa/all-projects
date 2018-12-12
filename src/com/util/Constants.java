@@ -687,24 +687,24 @@ public class Constants {
 	public static final String sow_st_open_web_steel_posts_no  = "//input[@name='rdOpenWebSteelPosts2']";
 	
 	// Scope Of Work - Mechanical Systems // JG 2018-12-06 new work type
-	public static final String sow_mh_button_add = "//button[@ng-click='openSOWMechanicalPopup()']";
-	public static final String sow_mh_select_sub_category = "//select[@id='ddlsubcat']";
-	public static final String sow_mh_item_name = "//input[@id='txtItem']";
-	public static final String sow_mh_item_description = "//input[@id='txtItemText']";
-	public static final String sow_mh_item_location = "//input[@id='txtLocation']";
-	public static final String sow_mh_number_of_items = "//input[@id='txtNumberOfItems']";
-	public static final String sow_mh_capacity_number = "//input[@id='txtCapacityNumber']";
-	public static final String sow_mh_select_capacity_units = "//select[@id='ddlCapacity']";
-	public static final String sow_mh_equipment_efficiency = "//input[@id='txtEquipmentEfficiency']";
-	public static final String sow_mh_select_equipment_units = "//select[@id='ddlEquipmentUnits']";
-	public static final String sow_mh_manufacturer_name = "//input[@id='txtManufacturerName']";
-	public static final String sow_mh_model_name = "//input[@id='txtModelName']";
-	public static final String sow_mh_certificate_of_compliance_yes = "//input[@id='rdCertificateofComplianceNeeded1']";
-	public static final String sow_mh_certificate_of_compliance_no  = "//input[@id='rdCertificateofComplianceNeeded2']";
-	public static final String sow_mh_certificate_number_for_listing  = "//input[@id='txtCertificationNumberForListing']";
-	public static final String sow_mh_sum_total_heating = "//input[@id='txtMEQ1']";
-	public static final String sow_mh_sum_total_cooling = "//input[@id='txtMEQ2']";
-	public static final String sow_mh_mechanical_information_add = "//button[@ng-click='SaveMechanicalSOW()']";
+	public static final String sow_ms_button_add = "//button[@ng-click='openSOWMechanicalPopup()']";
+	public static final String sow_ms_select_sub_category = "//select[@id='ddlsubcat']";
+	public static final String sow_ms_item_name = "//input[@id='txtItem']";
+	public static final String sow_ms_item_description = "//input[@id='txtItemText']";
+	public static final String sow_ms_item_location = "//input[@id='txtLocation']";
+	public static final String sow_ms_number_of_items = "//input[@id='txtNumberOfItems']";
+	public static final String sow_ms_capacity_number = "//input[@id='txtCapacityNumber']";
+	public static final String sow_ms_select_capacity_units = "//select[@id='ddlCapacity']";
+	public static final String sow_ms_equipment_efficiency = "//input[@id='txtEquipmentEfficiency']";
+	public static final String sow_ms_select_equipment_units = "//select[@id='ddlEquipmentUnits']";
+	public static final String sow_ms_manufacturer_name = "//input[@id='txtManufacturerName']";
+	public static final String sow_ms_model_name = "//input[@id='txtModelName']";
+	public static final String sow_ms_certificate_of_compliance_yes = "//input[@id='rdCertificateofComplianceNeeded1']";
+	public static final String sow_ms_certificate_of_compliance_no  = "//input[@id='rdCertificateofComplianceNeeded2']";
+	public static final String sow_ms_certificate_number_for_listing  = "//input[@id='txtCertificationNumberForListing']";
+	public static final String sow_ms_sum_total_heating = "//input[@id='txtMEQ1']";
+	public static final String sow_ms_sum_total_cooling = "//input[@id='txtMEQ2']";
+	public static final String sow_ms_mechanical_information_add = "//button[@ng-click='SaveMechanicalSOW()']";
 
 	// Scope Of Work - Boiler Equipment // JG 2018-12-10 
 	public static final String sow_be_boiler_specifications_accordion = "//div[@slidediv='boilerSpecifications']";
@@ -865,9 +865,9 @@ public class Constants {
 	public static final String tr8_select_requirement_code = "//button[@class='ui-select-bootstrap'][@ng-click='toggleSelect()']";
 	public static final String tr8_select_requirement_code_field = "//input[@placeholder='Filter']";
 	public static final String tr8_select_requirement_code_filter = "//a[@ng-click='select(i); focus()']";
+	public static final String tr8_add_energy_code_progress_inspection = "(//button[contains(@ng-click, 'EnergyCodeInspOptionsModal(')])[last()]"; // JG 2018-12-12 added for plumbing
 	public static final String tr8_edit_progress_inspection_category = "//*[@id='fixedviews']/div[2]/div/div/div[10]/div[2]/div/div[2]/div[2]/div/div/div/div[8]/button";
 	public static final String tr8_edit_special_inspection_category = "//*[@id='TR8ProgressInsptGrid']/div[1]/div[2]/div[2]/div/div/div/div[8]/button";
-	
 	public static final String tr8_edit_special_inspection_category_sign = "(//i[@class='fa fa-edit'])[2]";
 
 	public static final String tr8_inspector_email = "//input[@id='txtInspecterEmail']";

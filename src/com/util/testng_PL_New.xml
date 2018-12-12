@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="BE MH PL SD SP ST" allow-return-values="true">
+<suite name="BE MS PL SD SP ST" allow-return-values="true">
 
 <listeners>
     <listener class-name="listener.TestsListenerAdapter" />
@@ -11,9 +11,9 @@
     </classes>
 </test>
 
-<test name="MhNew">
+<test name="MsNew">
     <classes>
-     <class name="com.plspsd.MhNew" />
+     <class name="com.plspsd.MsNew" />
     </classes>
 </test>
 
