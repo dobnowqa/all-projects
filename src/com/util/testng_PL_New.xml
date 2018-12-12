@@ -1,0 +1,44 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="BE MH PL SD SP ST" allow-return-values="true">
+
+<listeners>
+    <listener class-name="listener.TestsListenerAdapter" />
+</listeners>
+
+<test name="BeNew">
+    <classes>
+     <class name="com.plspsd.BeNew" />
+    </classes>
+</test>
+
+<test name="MhNew">
+    <classes>
+     <class name="com.plspsd.MhNew" />
+    </classes>
+</test>
+
+<test name="PlNew">
+    <classes>
+     <class name="com.plspsd.PlNew" />
+    </classes>
+</test>
+
+<test name="SdNew">
+    <classes>
+     <class name="com.plspsd.SdNew" />
+    </classes>
+</test>
+
+<test name="SpNew">
+    <classes>
+     <class name="com.plspsd.SpNew" />
+    </classes>
+</test>
+
+<test name="StNew">
+    <classes>
+     <class name="com.plspsd.StNew" />
+    </classes>
+</test>
+
+</suite>

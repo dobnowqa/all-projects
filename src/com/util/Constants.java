@@ -182,6 +182,11 @@ public class Constants {
 	//div[@class='ui-grid-cell-contents' and contains(text(),'Yes')]
 	//a[contains(.,'Plans/Work (PW1)')]
 // Plans/Work (PW1)
+	//	   0. Filing Information
+	public static final String pw1_filing_info_accordion = "//div[@slidediv='filingInformationDiv']";
+	public static final String pw1_filing_info_select_scope_of_work = "//select[@id='ddlBurnerSoWFI']";
+	public static final String pw1_filing_info_select_scope_includes = "//select[@id='rdWorktype']";	
+	
 	//     1. Location Information
 	public static final String pw1_1_location_information_accordion = "//div[@slidediv='locationInformationDiv']"; // JG 2018-11-29  
 	public static final String pw1_1_house_number = "//input[contains(@id,'LocHouse')]";
@@ -358,6 +363,8 @@ public class Constants {
 	public static final String pw1_9_stability_affected_by_work_no = "//input[@name='rdPWStructuralStab'][@value='false']";
 	public static final String pw1_9_impact_water_supply_yes = "//input[@ng-model='FormObj.PLlWorkImpactTheWaterSupply'][@value='true']";
 	public static final String pw1_9_impact_water_supply_no = "//input[@ng-model='FormObj.PLlWorkImpactTheWaterSupply'][@value='false']";
+	public static final String pw1_9_more_than_5_floors_yes = "//input[@ng-model='FormObj.SPSowInvolvemoreThan5ContiguousFloors'][@value='true']";
+	public static final String pw1_9_more_than_5_floors_no  = "//input[@ng-model='FormObj.SPSowInvolvemoreThan5ContiguousFloors'][@value='false']";
 	public static final String pw1_9_otcr_approval_required_yes = "//input[@ng-model='FormObj.STAlternativeMaterialsRequiredanOTCR'][@value='true']";
 	public static final String pw1_9_otcr_approval_required_no = "//input[@ng-model='FormObj.STAlternativeMaterialsRequiredanOTCR'][@value='false']";
 	public static final String pw1_9_landmark_approval_number = "//input[@id='txtPWLandmarkApprovalNumber']"; // JG 2018-11-30
@@ -389,7 +396,7 @@ public class Constants {
 	public static final String job_description_for_new_work = "//textarea[contains(@id,'JobDesc')]";
 	public static final String job_description_legalization = "//textarea[@id='txtPWLegalizationJobDesc']";
 	//     12. Zoning Characteristics
-	public static final String zoning_information_tab = "//a[@class='segoeUISemiBold ng-binding'][contains(text(),'Zoning Information')]"; // JG 2018-11-01 new PW1 UI
+	public static final String zoning_information_tab = "//a[@class='segoeUISemiBold ng-binding ng-scope'][contains(text(),'Zoning Information')]"; // JG 2018-11-01 new PW1 UI
 	public static final String pw1_12_district = "//input[@id='txtPWDistrictS']";
 	public static final String pw1_12_district_8085 = "//select[@id='ddlPWReviewReq1'][@ng-model='FormObj.ZoningFields.Districts']"; // JG 2018-11-01 new PW1 UI, changed from text-box to drop-down
 	public static final String pw1_12_overlay = "//input[@id='txtPWOverlay']";
@@ -679,6 +686,47 @@ public class Constants {
 	public static final String sow_st_open_web_steel_posts_yes = "//input[@id='rdOpenWebSteelPosts1']";
 	public static final String sow_st_open_web_steel_posts_no  = "//input[@name='rdOpenWebSteelPosts2']";
 	
+	// Scope Of Work - Mechanical Systems // JG 2018-12-06 new work type
+	public static final String sow_mh_button_add = "//button[@ng-click='openSOWMechanicalPopup()']";
+	public static final String sow_mh_select_sub_category = "//select[@id='ddlsubcat']";
+	public static final String sow_mh_item_name = "//input[@id='txtItem']";
+	public static final String sow_mh_item_description = "//input[@id='txtItemText']";
+	public static final String sow_mh_item_location = "//input[@id='txtLocation']";
+	public static final String sow_mh_number_of_items = "//input[@id='txtNumberOfItems']";
+	public static final String sow_mh_capacity_number = "//input[@id='txtCapacityNumber']";
+	public static final String sow_mh_select_capacity_units = "//select[@id='ddlCapacity']";
+	public static final String sow_mh_equipment_efficiency = "//input[@id='txtEquipmentEfficiency']";
+	public static final String sow_mh_select_equipment_units = "//select[@id='ddlEquipmentUnits']";
+	public static final String sow_mh_manufacturer_name = "//input[@id='txtManufacturerName']";
+	public static final String sow_mh_model_name = "//input[@id='txtModelName']";
+	public static final String sow_mh_certificate_of_compliance_yes = "//input[@id='rdCertificateofComplianceNeeded1']";
+	public static final String sow_mh_certificate_of_compliance_no  = "//input[@id='rdCertificateofComplianceNeeded2']";
+	public static final String sow_mh_certificate_number_for_listing  = "//input[@id='txtCertificationNumberForListing']";
+	public static final String sow_mh_sum_total_heating = "//input[@id='txtMEQ1']";
+	public static final String sow_mh_sum_total_cooling = "//input[@id='txtMEQ2']";
+	public static final String sow_mh_mechanical_information_add = "//button[@ng-click='SaveMechanicalSOW()']";
+
+	// Scope Of Work - Boiler Equipment // JG 2018-12-10 
+	public static final String sow_be_boiler_specifications_accordion = "//div[@slidediv='boilerSpecifications']";
+	public static final String sow_be_select_proposed_boiler_rating = "//select[@id='ddlPropBoilerRating']";
+	public static final String sow_be_proposed_max_allowable_wp = "//input[@id='txtMawp']";
+	public static final String sow_be_select_proposed_boiler_type = "//select[@id='ddlPropBoilerType']";
+	public static final String sow_be_select_proposed_boiler_energy_source = "//select[@id='ddlPropEnergySource']";
+	public static final String sow_be_select_proposed_boiler_classification = "//select[@id='ddlPropEnergyClass']";
+	public static final String sow_be_sum_total_rated_input_capacity = "//input[@id='boilerheatcapac']";
+	
+	public static final String sow_be_chimney_information_accordion = "//div[@slidediv='chimneyInformation']";
+	public static final String sow_be_select_connected_to_vent_or_chimney = "//select[@id='ddlAppConnectedVentChimney']";
+	public static final String sow_be_radio_new_installation_of_chimney_yes = "//input[@id='rdNewChimneyInstallation1']";
+	public static final String sow_be_radio_new_installation_of_chimney_no  = "//input[@id='rdNewChimneyInstallation2']";
+	public static final String sow_be_job_number_of_associated_chimney_work  = "//input[@id='txtChimneyWorkJobNo']";
+	public static final String sow_be_select_type_of_venting_material = "//select[@id='ddlVentingMaterial']";
+	public static final String sow_be_select_chimney_lining = "//select[@id='ddlChimneyLining']";
+	public static final String sow_be_oil_burner_lmp_accordion = "//div[@slidediv='oilBurnerSpecifications']";
+	public static final String sow_be_select_ob_lmp_email = "//input[@ng-model='bindModel.Email']"; // JG 2018-12-10 TODO: make xpath unique
+	public static final String sow_be_select_license_type = "//select[@id='LicBoilerPWAppLicType']";
+	public static final String sow_be_check_licensed_installer = "//input[@id='chkLicensedInstaller']";
+
 	public static final String sow_modal = "//h4[text()='Scope of Work Detail']";
 	
 	public static final String sow_detail_select_category = "//select[@id='ModalSectionType']";
