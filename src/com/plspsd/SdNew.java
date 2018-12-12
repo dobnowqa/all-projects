@@ -28,7 +28,7 @@ public class SdNew extends TestBase {
 	// This test case uses DOBNOW to create an application/job/filing for new-work for Standpipe (SD).
 	// This test case needs to run with config.properties environment = "plumbing"	
 	String testname = "SdNew";
-	// The following file is used for PL, SP, SD, ST, MH and BE work types:
+	// The following file is used for PL, SP, SD, ST, MS and BE work types:
 	Xls_Reader xlsx = new Xls_Reader(Constants.testCasesPlm);
 	
 	@BeforeSuite
@@ -57,6 +57,7 @@ public class SdNew extends TestBase {
 		return TestUtil.getData(testname, xlsx);
 	}
 
+	// Execute the Base test, using the data defined above, to create the number of jobs equal to invocationCount.
 	@Test(dataProvider = "getTestData",invocationCount = 1)
 	public void Base(Hashtable<String, String> data) {
 		if (!TestUtil.isExecutable(testname, xlsx) || data.get("Runmode").equals("N"))
@@ -95,12 +96,13 @@ public class SdNew extends TestBase {
 		pw3.costAffidavitPlumbing(data.get("pw3"));
 		tr1.specialInspectionPlumbing(data.get("tr1"));
 		tr1.specialInspectorSignaturePlumbing(data.get("tr1"));
-		tr8.energyCodeProgressPlumbing(data.get("tr8"));
-		tr8.energyCodeSignaturePlumbing(data.get("tr8"));
+		// JG 2018-12-12 TR8 is not working for this work type (Currently no requirements are available to be added.) When ready to test, enable TR8 using NYCECC Compliance section. 
+//		tr8.energyCodeProgressPlumbing(data.get("tr8"));
+//		tr8.energyCodeSignaturePlumbing(data.get("tr8"));
 		signature.applicantStatementsSignature(data.get("signatures"));
 		docs.uploadDocuments(data.get("documents"));
 		signature.ownerSignature(data.get("owner_signature"));
-		pw1.previewToFile(data.get("preview_to_file"));
+//		pw1.previewToFile(data.get("preview_to_file")); // comment-out for Filing Status to remain Pre-Filing
 		successMessage(data.get("description"));
 	}
 	
