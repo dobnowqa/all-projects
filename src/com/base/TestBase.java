@@ -1519,6 +1519,16 @@ public class TestBase {
 		}
 	}
 	
+	public void email2(String email) {
+		email = email.toUpperCase();
+		driver.findElement(By.xpath("(//input[contains(@placeholder,'Please enter email address')])[last()-1]")).sendKeys(email);
+		wait(2);
+		if (count("//strong[text()='" + email + "']") > 0) {
+			doubleclick("//strong[text()='" + email + "']");
+			wait(3);
+		}
+	}
+	
 	public void clickButton(String button_name) {
 		test.log(LogStatus.INFO, "Clicking button " + button_name);
 		WebDriverWait wait = new WebDriverWait(driver, 30);
