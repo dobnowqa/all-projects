@@ -72,7 +72,8 @@ public class DobDocumentsPage extends TestBase {
 					waitVisible(Constants.ok_button);
 //					assertNotification(TEXT_PROPERTIES.getProperty("job_filing_saved"), "job_filing_saved");
 					verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
-					clickButton("OK");
+					click(Constants.ok_button); // JG 2018-12-12 use this instead of line below because sometimes there's a second OK popup which is not clickable.
+//					clickButton("OK");
 					waitInvisible(Constants.ok_button);
 				}
 			}

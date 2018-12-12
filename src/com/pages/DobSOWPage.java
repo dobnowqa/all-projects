@@ -63,7 +63,8 @@ public class DobSOWPage extends TestBase {
 					waitUntilISpinnersInvisible();
 					waitVisible(Constants.ok_button);
 					verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
-					clickButton("OK");
+					click(Constants.ok_button); // JG 2018-12-12 use this instead of line below because sometimes there's a second OK popup which is not clickable.
+//					clickButton("OK");
 					waitInvisible(Constants.ok_button);
 				}
 				click(Constants.sow_pl_add_sow_pl);
@@ -275,24 +276,24 @@ public class DobSOWPage extends TestBase {
 			test = rep.startTest("ASW");
 			click(Constants.scope_of_work_step);
 			scrollAllWayUp();
-			click(Constants.sow_mh_button_add);
-			select(Constants.sow_mh_select_sub_category, "Heating Systems");
+			click(Constants.sow_ms_button_add);
+			select(Constants.sow_ms_select_sub_category, "Heating Systems");
 			
-			type(Constants.sow_mh_item_name, "Test Item Name");
-			type(Constants.sow_mh_item_description,"Test Item Description");
-			type(Constants.sow_mh_item_location, "Test Item Location");
-			type(Constants.sow_mh_number_of_items, "2");
-			type(Constants.sow_mh_capacity_number, "3");
-			select(Constants.sow_mh_select_capacity_units, "BTU");
-			type(Constants.sow_mh_equipment_efficiency, "4");
-			select(Constants.sow_mh_select_equipment_units, "COP");
-			type(Constants.sow_mh_manufacturer_name, "Test Manufacturer Name");
-			type(Constants.sow_mh_model_name, "Test Model Name");
-			radio(Constants.sow_mh_certificate_of_compliance_no);
-			type(Constants.sow_mh_certificate_number_for_listing, "Test Certification Number");
-			click(Constants.sow_mh_mechanical_information_add);
-			type(Constants.sow_mh_sum_total_heating, "1000");
-			type(Constants.sow_mh_sum_total_cooling, "20000");
+			type(Constants.sow_ms_item_name, "Test Item Name");
+			type(Constants.sow_ms_item_description,"Test Item Description");
+			type(Constants.sow_ms_item_location, "Test Item Location");
+			type(Constants.sow_ms_number_of_items, "2");
+			type(Constants.sow_ms_capacity_number, "3");
+			select(Constants.sow_ms_select_capacity_units, "BTU");
+			type(Constants.sow_ms_equipment_efficiency, "4");
+			select(Constants.sow_ms_select_equipment_units, "COP");
+			type(Constants.sow_ms_manufacturer_name, "Test Manufacturer Name");
+			type(Constants.sow_ms_model_name, "Test Model Name");
+			radio(Constants.sow_ms_certificate_of_compliance_no);
+			type(Constants.sow_ms_certificate_number_for_listing, "Test Certification Number");
+			click(Constants.sow_ms_mechanical_information_add);
+			type(Constants.sow_ms_sum_total_heating, "1000");
+			type(Constants.sow_ms_sum_total_cooling, "20000");
 			click(Constants.global_save_step_button);
 			waitUntilISpinnersInvisible();
 			waitVisible(Constants.ok_button);

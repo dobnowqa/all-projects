@@ -116,17 +116,19 @@ public class DobPW3Page extends TestBase {
 			for (int i = 1; i <= 5; i++) {
 				click(Constants.pw3_cost_affidavit_step);
 				waitVisible("//span[text()='Description of Work']");
-				multiClick(Constants.add);
 				if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-27
-					if (!data[i].equals("Sprinkler")) { // JG 2018-12-03 in new UI, Sprinklers is already selected.
-						select(Constants.pw3_select_categogy, data[i]);
-					}
+					scrollAllWayUp();
+					click(Constants.add_button_8085);
+//					if (!data[i].equals("Sprinkler")) { // JG 2018-12-12 in new UI, Category of Work is already selected.
+//						select(Constants.pw3_select_categogy, data[i]);
+//					}
 					type(Constants.pw3_area_units_8085, "1");
 					type(Constants.pw3_unit_cost_sign, "1111");
 					type(Constants.pw3_cost_details_description_sign, pw3);
 					click(Constants.pw3_save_button_8085);
 					clickButton("OK");
 				} else {
+					multiClick(Constants.add);
 					select(Constants.pw3_select_categogy, data[i]);
 					type(Constants.pw3_area_units, "1");
 					type(Constants.pw3_unit_cost, "1111");

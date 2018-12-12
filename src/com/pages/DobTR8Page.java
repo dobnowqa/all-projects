@@ -173,38 +173,27 @@ public class DobTR8Page extends TestBase {
 			test = rep.startTest("energyCodeProgressPlumbing");
 			click(Constants.tr8_technical_report_energy_step);
 			check(Constants.tr8_are_you_progress_inspector);
-			if(count("//span[contains(text(),'Legalization')]") > 0)
-				add_button = "(//*[text()='Add'])[last()]";			
-			if(count("//span[contains(text(),'New Work')]") > 0)
-				add_button = "//*[text()='Add']";
-			for (int i = 1; i < 20; i++) {
-				waitVisible("//span[text()='Requirement']");
-				multiClick(add_button);
+			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-12-12: new UI, just add 1 new TR8
+				click(Constants.tr8_add_energy_code_progress_inspection);
 				click(Constants.tr8_select_requirement_code);
 				type(Constants.tr8_select_requirement_code_field, data[1]);
 				click(Constants.tr8_select_requirement_code_filter);
 				click(Constants.inspection_label);
 				email(data[2]);
 				select(Constants.tr1_license_type, data[3]);
-				if (text(Constants.tr1_license_type).contains(data[3])) {
-					if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-14: new PW1 UI
-						click(Constants.tr8_save_progress_inspection_button);
-					} else {
-						click(Constants.tr8_save_progress_inspection_button_8085);
-					}
-					waitVisible(Constants.ok_button);
-					verifyNotification(Constants.notification,
-							TEXT_PROPERTIES.getProperty("inspection_requirements_added"));
-					clickButton("OK");
-					waitInvisible(Constants.ok_button);
-				}
+				click(Constants.tr8_save_progress_inspection_button_8085);
+				waitVisible(Constants.ok_button);
+				verifyNotification(Constants.notification,
+						TEXT_PROPERTIES.getProperty("inspection_requirements_added"));
+				click(Constants.ok_button);
+				waitInvisible(Constants.ok_button);
 				wait(2);
-				if (count("//div[text()='" + data[1] + "']") >= 1)
-					break;
-			}
-			if (Integer.valueOf(data[0]) > 1) {
+			} else {
+				if(count("//span[contains(text(),'Legalization')]") > 0)
+					add_button = "(//*[text()='Add'])[last()]";			
+				if(count("//span[contains(text(),'New Work')]") > 0)
+					add_button = "//*[text()='Add']";
 				for (int i = 1; i < 20; i++) {
-					add_button = "(//*[text()='Add'])[last()]";	
 					waitVisible("//span[text()='Requirement']");
 					multiClick(add_button);
 					click(Constants.tr8_select_requirement_code);
@@ -214,19 +203,39 @@ public class DobTR8Page extends TestBase {
 					email(data[2]);
 					select(Constants.tr1_license_type, data[3]);
 					if (text(Constants.tr1_license_type).contains(data[3])) {
-						if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-14: new PW1 UI
-							click(Constants.tr8_save_progress_inspection_button);
-						} else {
-							click(Constants.tr8_save_progress_inspection_button_8085);
-						}
+						click(Constants.tr8_save_progress_inspection_button);
 						waitVisible(Constants.ok_button);
 						verifyNotification(Constants.notification,
 								TEXT_PROPERTIES.getProperty("inspection_requirements_added"));
 						clickButton("OK");
 						waitInvisible(Constants.ok_button);
 					}
-					if (count("//div[text()='" + data[1] + "']") >= Integer.valueOf(data[0]))
+					wait(2);
+					if (count("//div[text()='" + data[1] + "']") >= 1)
 						break;
+				}
+				if (Integer.valueOf(data[0]) > 1) {
+					for (int i = 1; i < 20; i++) {
+						add_button = "(//*[text()='Add'])[last()]";	
+						waitVisible("//span[text()='Requirement']");
+						multiClick(add_button);
+						click(Constants.tr8_select_requirement_code);
+						type(Constants.tr8_select_requirement_code_field, data[1]);
+						click(Constants.tr8_select_requirement_code_filter);
+						click(Constants.inspection_label);
+						email(data[2]);
+						select(Constants.tr1_license_type, data[3]);
+						if (text(Constants.tr1_license_type).contains(data[3])) {
+							click(Constants.tr8_save_progress_inspection_button);
+							waitVisible(Constants.ok_button);
+							verifyNotification(Constants.notification,
+									TEXT_PROPERTIES.getProperty("inspection_requirements_added"));
+							clickButton("OK");
+							waitInvisible(Constants.ok_button);
+						}
+						if (count("//div[text()='" + data[1] + "']") >= Integer.valueOf(data[0]))
+							break;
+					}
 				}
 			}
 			reportPass("energyCodeProgressPlumbing");

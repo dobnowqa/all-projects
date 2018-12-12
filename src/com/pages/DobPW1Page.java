@@ -206,7 +206,8 @@ public class DobPW1Page extends TestBase {
 				waitUntilElementVisible(Constants.ok_button, 30);
 				assertNotification(TEXT_PROPERTIES.getProperty("job_filing_saved"), "pw1 saved");
 				wait(1);
-				clickButton("OK");
+				click(Constants.ok_button); // JG 2018-12-12 use this instead of line below because sometimes there's a second OK popup which is not clickable.
+//				clickButton("OK");
 				waitInvisible(Constants.ok_button);
 		 	}
 		} 

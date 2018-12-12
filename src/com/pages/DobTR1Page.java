@@ -65,6 +65,7 @@ public class DobTR1Page extends TestBase {
 			filterJob(user);
 			test = rep.startTest("TR1 Inspection");
 			click(Constants.tr1_technical_report_step);
+			scrollAllWayUp();
 			check(Constants.tr1_are_you_special_inspector);
 //			check(Constants.tr1_are_you_progress_inspector); // JG 2018-12-07 as of now, only the special inspector needs to be entered.
 			
@@ -684,21 +685,24 @@ public class DobTR1Page extends TestBase {
 				test.log(LogStatus.INFO, " specialInspectorSignaturePlumbing");
 				if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-28
 					click("(//i[@class='fa fa-edit'])[" + i + "]");
-				} else {
-					click("(//i[@class='fa fa-edit'])[last()]");
-				}
-				wait(2);
-				waitVisible(Constants.tr1_valid_label);
-				check(Constants.tr1_i_take_responcibility);
-				check(Constants.tr1_i_understand_my_failure_to_file);
-				check(Constants.tr1_i_understand_and_agree);
-				if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-28
+					wait(2);
+					waitVisible(Constants.tr1_valid_label);
+					check(Constants.tr1_i_take_responcibility);
+					check(Constants.tr1_i_understand_my_failure_to_file);
+					check(Constants.tr1_i_understand_and_agree);
 					click(Constants.tr1_save_progress_inspection_button);
 					waitInvisible(Constants.tr1_save_progress_inspection_button);
 				} else {
+					click("(//i[@class='fa fa-edit'])[last()]");
+					wait(2);
+					waitVisible(Constants.tr1_valid_label);
+					scrollAllWayUp();
+					check(Constants.tr1_i_take_responcibility);
+					check(Constants.tr1_i_understand_my_failure_to_file);
+					check(Constants.tr1_i_understand_and_agree);
 					click(Constants.tr1_save_progress_inspection_button_8085);
 					waitInvisible(Constants.tr1_save_progress_inspection_button_8085);
-				}					
+				}
 				waitVisible(Constants.ok_button);
 				verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_updated"));
 				wait(1);
