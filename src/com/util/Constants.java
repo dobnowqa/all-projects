@@ -186,6 +186,30 @@ public class Constants {
 	public static final String pw1_filing_info_accordion = "//div[@slidediv='filingInformationDiv']";
 	public static final String pw1_filing_info_select_scope_of_work = "//select[@id='ddlBurnerSoWFI']";
 	public static final String pw1_filing_info_select_scope_includes = "//select[@id='rdWorktype']";	
+
+	//	   0. List of Boiler Equipment
+	public static final String pw1_list_boiler_equipment_accordion = "//div[@slidediv='boilerEquipmentList']";
+	public static final String pw1_list_boiler_equipment_add = "//button[@ng-click='AddBoilerDevice()']";
+	public static final String pw1_list_boiler_equipment_edit = "//i[@class='glyphicon glyphicon-edit']";
+	public static final String pw1_list_boiler_equipment_select_occupancy_type = "//select[@id='ddlOccupancySoW']";
+	public static final String pw1_list_boiler_equipment_boiler_manufacturer = "//input[@id='txtBoilerManufacturer']";
+	public static final String pw1_list_boiler_equipment_boiler_model_number = "//input[@id='txtModelNo']";
+	public static final String pw1_list_boiler_equipment_select_agency_name = "//select[@id='drpULCSAETLNo']";
+	public static final String pw1_list_boiler_equipment_certification_number = "//input[@id='txtBoilerCertificationNumber']";
+	public static final String pw1_list_boiler_equipment_located_in = "//input[@id='txtLocatedInExisting']";
+	public static final String pw1_list_boiler_equipment_efficiency = "//input[@id='txtEfficiency']";
+	public static final String pw1_list_boiler_equipment_input_capacity = "//input[@id='txtInputCapacity']";
+	public static final String pw1_list_boiler_equipment_select_design = "//select[@ng-model='Boiler.Design']";
+	public static final String pw1_list_boiler_equipment_single_only_yes = "//input[@id='rdHeatingSingleApt1']";
+	public static final String pw1_list_boiler_equipment_single_only_no  = "//input[@id='rdHeatingSingleApt2']";
+	public static final String pw1_list_boiler_equipment_pressure_relief = "//input[@id='txtPressureSettingRelief']";
+	public static final String pw1_list_boiler_equipment_select_internal_access = "//select[@id='ddlInternalAccess']";
+	public static final String pw1_list_boiler_equipment_associated_cogen_yes = "//input[@id='rdAssociatedCOGEN1']";
+	public static final String pw1_list_boiler_equipment_associated_cogen_no  = "//input[@id='rdAssociatedCOGEN2']";
+	public static final String pw1_list_boiler_equipment_select_material  = "//select[@id='ddlConstructionMaterial']";
+	public static final String pw1_list_boiler_equipment_servicing_location_address = "//input[@id='txtServicingLoc']";
+	public static final String pw1_list_boiler_equipment_servicing_location_floor = "//input[@id='txtServicingLocFloor']";
+	public static final String pw1_list_boiler_equipment_comments = "//textarea[@id='Comments']";
 	
 	//     1. Location Information
 	public static final String pw1_1_location_information_accordion = "//div[@slidediv='locationInformationDiv']"; // JG 2018-11-29  
@@ -921,6 +945,8 @@ public class Constants {
 	public static final String ss_partner_email = "//input[@id='txtPWAppEmail1']";
 	public static final String ss_i_understand_and_agrree = "//input[@id='chkPWOwnerAcknowledge']";
 	public static final String ss_save_button = "//*[@id='fixedviews']/div[4]/button[1]";
+	public static final String ss_no_boiler_placed_in_operation = "//input[@id='DesignApplicantStatementsMainCheckOBI']"; // JG 2018-12-17
+	
 // Documents 
 	public static final String documents_step = "//a[contains(.,'Documents')]";
 	
