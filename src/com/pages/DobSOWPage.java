@@ -63,8 +63,7 @@ public class DobSOWPage extends TestBase {
 					waitUntilISpinnersInvisible();
 					waitVisible(Constants.ok_button);
 					verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
-					click(Constants.ok_button); // JG 2018-12-12 use this instead of line below because sometimes there's a second OK popup which is not clickable.
-//					clickButton("OK");
+					clickButton("OK");// JG 2018-12-13 clickButton is supposed to click the OK button for all pop-ups whenever multiple pop-ups happen, but it doesn't always work in the new UI.
 					waitInvisible(Constants.ok_button);
 				}
 				click(Constants.sow_pl_add_sow_pl);
@@ -259,6 +258,27 @@ public class DobSOWPage extends TestBase {
 			radio(Constants.sow_st_cold_formed_steel_no);
 			radio(Constants.sow_st_open_web_steel_posts_no);
 			
+			if (!data[1].equals("N"))
+				check("//input[@ng-model='STScopeOfWork.STConcreteType']"); // Concrete
+			if (!data[2].equals("N"))
+				check("//input[@ng-model='STScopeOfWork.STAluminumType']"); // Aluminum 
+			if (!data[3].equals("N"))
+				check("//input[@ng-model='STScopeOfWork.STMasonryType']"); // Masonry
+			if (!data[4].equals("N"))
+				check("//input[@ng-model='STScopeOfWork.STSteelType']"); // Steel
+			if (!data[5].equals("N"))
+				check("//input[@ng-model='STScopeOfWork.STWoodType']"); // Wood
+			if (!data[6].equals("N"))
+				check("//input[@ng-model='STScopeOfWork.STSignStructureType']"); // Sign Structure
+			if (!data[7].equals("N"))
+				check("//input[@ng-model='STScopeOfWork.STTemporaryStructuralBracingType']"); // Temporary Structural Bracing
+			if (!data[8].equals("N"))
+				check("//input[@ng-model='STScopeOfWork.GCPartialDemolitionType']"); // Partial Demolition
+			if (!data[9].equals("N"))
+				check("//input[@ng-model='STScopeOfWork.RaisingAndMovingofbuildings']"); // Raising and Moving of Buildings
+			if (!data[10].equals("N"))
+				check("//input[@ng-model='STScopeOfWork.STOtherMiscellaneousType']"); // Other/Miscellaneous
+			
 			click(Constants.global_save_step_button);
 			waitUntilISpinnersInvisible();
 			waitVisible(Constants.ok_button);
@@ -323,17 +343,17 @@ public class DobSOWPage extends TestBase {
 			click(Constants.sow_be_chimney_information_accordion);
 			select(Constants.sow_be_select_connected_to_vent_or_chimney, "Chimney");
 //			radio(Constants.sow_be_radio_new_installation_of_chimney_yes);
-//			radio(Constants.sow_be_radio_new_installation_of_chimney_no);
+			radio(Constants.sow_be_radio_new_installation_of_chimney_no);
 //			type(Constants.sow_be_job_number_of_associated_chimney_work, "???");
-			select(Constants.sow_be_select_type_of_venting_material, "Stainless Steel");
-//			select(Constants.sow_be_select_chimney_lining, "???");
+//			select(Constants.sow_be_select_type_of_venting_material, "Stainless Steel");
+			select(Constants.sow_be_select_chimney_lining, "The chimney does not require lining");
 			click(Constants.sow_be_chimney_information_accordion);
 			
 			click(Constants.sow_be_oil_burner_lmp_accordion);
 //			email(Constants.sow_be_select_ob_lmp_email, "boilersoil@gmail.com");
 			email2("boilersoil@gmail.com");
 			select(Constants.sow_be_select_license_type, "Oil Burner Installer");
-			check(Constants.sow_be_check_licensed_installer);
+//			check(Constants.sow_be_check_licensed_installer);
 			click(Constants.sow_be_oil_burner_lmp_accordion);
 						
 			click(Constants.global_save_step_button);

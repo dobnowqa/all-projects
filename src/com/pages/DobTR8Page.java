@@ -150,7 +150,8 @@ public class DobTR8Page extends TestBase {
 			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_updated"));
 			click(Constants.ok_button);
 			waitInvisible(Constants.ok_button);
-			click(Constants.upload_document_icon_8085);
+//			click(Constants.upload_document_icon_8085);
+			click("(//i[@class='fa fa-upload ng-scope'])[last()]");
 			send(Constants.tr1_browse_button, Constants.uploadFolder + "upload.png");
 			wait(1);
 			click(Constants.tr1_upload_button);

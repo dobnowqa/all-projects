@@ -149,29 +149,38 @@ public class DobPW1Page extends TestBase {
 				if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-29
 					scrollTo(Constants.pw1_2_stakeholders_accordion);
 					click(Constants.pw1_2_stakeholders_accordion);
-				}
-				email(data[0]);
-				select(Constants.license_type_list, data[1]);
-				wait(1);
-				if (count(Constants.business_name_list) > 0) {
-					select(Constants.business_name_list, data[2]);
-				}
-				if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-29
+					email(data[0]);
+					select(Constants.license_type_list, data[1]);
+					wait(1);
+					if (count(Constants.business_name_list) > 0) {
+						select(Constants.business_name_list, data[2]);
+					}
 					click(Constants.pw1_11_job_description_accordion);
-				}
-				type(Constants.job_description_for_new_work, user_info);
-		 		scrollToElement(Constants.global_save_step_button);
-				click(Constants.global_save_step_button);
-				if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-10-30 TEST Filing buttons changed
+					type(Constants.job_description_for_new_work, user_info);
+					click(Constants.global_save_step_button);
 					click(Constants.pw1_confirm_save_button_8085);
+					waitInvisible(Constants.global_loading_spinner);
+					waitUntilElementVisible(Constants.ok_button, 30);
+					assertNotification(TEXT_PROPERTIES.getProperty("job_filing_saved"), "pw1 saved");
+					click(Constants.ok_button);
+					waitInvisible(Constants.ok_button);
 				} else {
-					click(Constants.pw1_confirm_save_button);
+					email(data[0]);
+					select(Constants.license_type_list, data[1]);
+					wait(1);
+					if (count(Constants.business_name_list) > 0) {
+						select(Constants.business_name_list, data[2]);
+					}
+					type(Constants.job_description_for_new_work, user_info);
+					scrollToElement(Constants.global_save_step_button);
+					click(Constants.global_save_step_button);
+					click(Constants.pw1_confirm_save_button);					
+					waitInvisible(Constants.global_loading_spinner);
+					waitUntilElementVisible(Constants.ok_button, 30);
+					assertNotification(TEXT_PROPERTIES.getProperty("job_filing_saved"), "pw1 saved");
+					clickButton("OK");
+					waitInvisible(Constants.ok_button);
 				}
-				waitInvisible(Constants.global_loading_spinner);
-				waitUntilElementVisible(Constants.ok_button, 30);
-				assertNotification(TEXT_PROPERTIES.getProperty("job_filing_saved"), "pw1 saved");
-				clickButton("OK");
-				waitInvisible(Constants.ok_button);
 		 	}
 		}
 
@@ -324,26 +333,6 @@ public class DobPW1Page extends TestBase {
 			click(Constants.pw1_6_work_types_accordion);
 			if (!data[0].equals("N"))
 				radio("//input[@type='radio'][@name='rdNewApp'][@value='" + data[0] + "']"); // New Work
-			if (!data[1].equals("N"))
-				check("//input[@ng-model='FormObj.STConcreteType']"); // Concrete
-			if (!data[2].equals("N"))
-				check("//input[@ng-model='FormObj.STAluminumType']"); // Aluminum 
-			if (!data[3].equals("N"))
-				check("//input[@ng-model='FormObj.STMasonryType']"); // Masonry
-			if (!data[4].equals("N"))
-				check("//input[@ng-model='FormObj.STSteelType']"); // Steel
-			if (!data[5].equals("N"))
-				check("//input[@ng-model='FormObj.STWoodType']"); // Wood
-			if (!data[6].equals("N"))
-				check("//input[@ng-model='FormObj.STSignStructureType']"); // Sign Structure
-			if (!data[7].equals("N"))
-				check("//input[@ng-model='FormObj.STTemporaryStructuralBracingType']"); // Temporary Structural Bracing
-			if (!data[8].equals("N"))
-				check("//input[@ng-model='FormObj.GCPartialDemolitionType']"); // Partial Demolition
-			if (!data[9].equals("N"))
-				check("//input[@ng-model='FormObj.RaisingAndMovingofbuildings']"); // Raising and Moving of Buildings
-			if (!data[10].equals("N"))
-				check("//input[@ng-model='FormObj.STOtherMiscellaneousType']"); // Other/Miscellaneous
 		}
 	}
 
@@ -384,6 +373,45 @@ public class DobPW1Page extends TestBase {
 				radio("//input[@type='radio'][@name='rdNewApp'][@value='" + data[0] + "']"); // New Work
 		}
 	}
+
+	
+	// 6. List of Boiler Equipment
+	public void listOfBoilerEquipment(String new_existing_both) {
+		if (!new_existing_both.equals("")) {
+			test = rep.startTest("listOfBoilerEquipment");
+			String[] data = new_existing_both.split(" :: ");
+			scrollAllWayUp();
+//			click(Constants.pw1_list_boiler_equipment_accordion); // JG 2018-12-17 no need to click, the accordion is open by default
+			click(Constants.pw1_list_boiler_equipment_add);
+			click(Constants.ok_button);
+			click(Constants.pw1_list_boiler_equipment_edit);
+			select(Constants.pw1_list_boiler_equipment_select_occupancy_type, "Commercial");
+			type(Constants.pw1_list_boiler_equipment_boiler_manufacturer, "Test Boiler Manufacturer");
+			type(Constants.pw1_list_boiler_equipment_boiler_model_number, "Test Boiler Model Number");
+			select(Constants.pw1_list_boiler_equipment_select_agency_name, "CSA");
+			type(Constants.pw1_list_boiler_equipment_certification_number, "233233");
+			type(Constants.pw1_list_boiler_equipment_located_in, "Test located in the basement");
+			type(Constants.pw1_list_boiler_equipment_efficiency, "28759");
+			type(Constants.pw1_list_boiler_equipment_input_capacity, "29959");
+			select(Constants.pw1_list_boiler_equipment_select_design, "Fire-tube");
+			radio(Constants.pw1_list_boiler_equipment_single_only_no);
+			type(Constants.pw1_list_boiler_equipment_pressure_relief, "123456789");
+			select(Constants.pw1_list_boiler_equipment_select_internal_access, "Handhole");
+			radio(Constants.pw1_list_boiler_equipment_associated_cogen_no);
+			select(Constants.pw1_list_boiler_equipment_select_material, "Cast Iron");
+			type(Constants.pw1_list_boiler_equipment_servicing_location_address, "123 Main Street");
+			type(Constants.pw1_list_boiler_equipment_servicing_location_floor, "Test servicing location floor");
+			type(Constants.pw1_list_boiler_equipment_comments, "Test boiler equipment comments");
+			click(Constants.global_save_form_button_8085);
+			waitUntilISpinnersInvisible();
+			waitVisible(Constants.ok_button);
+			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
+//			clickButton("OK"); // JG 2018-12-06 not clickable, try constant instead...
+			click(Constants.ok_button);
+			waitInvisible(Constants.ok_button);
+		}
+	}
+
 	
 	// 6. Work Types Antenna (new PW1 UI) // JG 2018-10-31
 	public void workTypesAntenna(String new_existing_both) {

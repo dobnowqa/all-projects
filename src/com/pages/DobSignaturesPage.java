@@ -11,6 +11,7 @@ public class DobSignaturesPage extends TestBase {
 			filterJob(user);	
 			test = rep.startTest("applicantStatementsSignature");
 			refreshPage(); //JG 2018-11-28: need to refresh for elements to be clickable
+			waitUntilISpinnersInvisible();
 			click(Constants.ss_statement_signatures_step);
 			waitUntilISpinnersInvisible();
 			if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-14: new PW1 UI
@@ -29,6 +30,9 @@ public class DobSignaturesPage extends TestBase {
 				check(Constants.ss_i_havepersonally_reviewed_all_information_8085);
 			}			
 			wait(2); // JG 2018-11-14
+			if (signatures.contains("boiler")) {
+				check(Constants.ss_no_boiler_placed_in_operation);
+			}
 //			scrollTo("//h3[contains(text(),'Owner - Statements & Signatures')]"); // JG 2018-11-14 //rblPWFeeExceptReqNonPro
 			if(signatures.contains("profit"))
 				radio(Constants.ss_fee_exemption_reques_non_profit_yes+ "[@value='false']");
