@@ -88,6 +88,7 @@ public class BeNew extends TestBase {
 		pw1.buildingCharacteristics(data.get("building_charcteristics")); // Zoning Info
 		pw1.siteCharacteristics(data.get("site_characteristics"));
 		pw1.savePW1(data.get("save_pw1"));
+		pw1.listOfBoilerEquipment("new_existing_both");
 		asw.scopeOfWorkBoilerEquipment(data.get("asw"));
 		pw3.costAffidavit(data.get("pw3"));
 		tr1.specialInspectionBoilerEquipment(data.get("tr1"));
