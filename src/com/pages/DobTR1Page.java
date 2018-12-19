@@ -85,6 +85,34 @@ public class DobTR1Page extends TestBase {
 			reportPass("Success");
 		}
 	}
+
+	public void specialInspectionStructural(String tr1) {
+		if (!tr1.equals("")) {
+			String[] data = tr1.split(" :: ");
+			System.out.println(convertedTimestamp() + " **************** TR1 specialInspectionStructural");
+			filterJob(user);
+			test = rep.startTest("TR1 Inspection");
+			click(Constants.tr1_technical_report_step);
+			scrollAllWayUp();
+			check(Constants.tr1_are_you_special_inspector);
+//			check(Constants.tr1_are_you_progress_inspector); // JG 2018-12-07 as of now, only the special inspector needs to be entered.
+			
+			// Edit the Special Inspection row to enter the inspector email:
+			click("(//i[@class='fa fa-edit'])[last()-1]");
+			email(OR_PROPERTIES.getProperty("special_inspector_email"));
+			select(Constants.tr1_license_type, data[2]);
+			type(Constants.tr1_agency_number, data[3]);
+			wait(2);
+			click(Constants.tr1_save_progress_inspection_button_8085);
+			waitInvisible(Constants.tr1_save_progress_inspection_button_8085);
+			waitUntilISpinnersInvisible();
+			waitVisible(Constants.ok_button);
+			clickButton("OK");
+			waitInvisible(Constants.ok_button);
+			reportPass("Success");
+		}
+	}
+
 	
 	public void specialInspectionBoilerEquipment(String tr1) {
 		if (!tr1.equals("")) {
