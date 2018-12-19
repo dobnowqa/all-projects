@@ -90,7 +90,7 @@ public class StNew extends TestBase {
 		pw1.savePW1(data.get("save_pw1"));
 		asw.scopeOfWorkStructural(data.get("asw"));
 		pw3.costAffidavit(data.get("pw3"));
-		tr1.specialInspection(data.get("tr1"));
+		tr1.specialInspectionStructural(data.get("tr1"));
 		tr1.specialInspectorSignatureStructural(data.get("tr1"));
 		// JG 2018-12-12 TR8 is not working for this work type (Currently no requirements are available to be added.) When ready to test, enable TR8 using NYCECC Compliance section.
 //		tr8.energyCodeProgressInspection(data.get("tr8"));
