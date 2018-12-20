@@ -12,7 +12,7 @@ public class DobSOWPage extends TestBase {
 	
 	public void scopeOfWork(String asw) {	
 		if(!asw.equals("")){
-			System.out.println(convertedTimestamp() + " **************** ScopeOfWorkTest");
+			System.out.println(convertedTimestamp() + " **************** scopeOfWork");
 //			filterJob(user);		
 			test = rep.startTest("ASW");
 			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-02: new PW1 UI
@@ -172,13 +172,21 @@ public class DobSOWPage extends TestBase {
 		if (!sow.equals("")) {
 			String[] data = sow.split(" :: ");
 			int num_items = Integer.valueOf(data[0]);
-			System.out.println(convertedTimestamp() + " **************** ScopeOfWorkTest");
+			System.out.println(convertedTimestamp() + " **************** scopeOfWorkPlumbing");
 //			filterJob(user);
 			test = rep.startTest("ASW");
 			click(Constants.scope_of_work_step);
 			
 			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-12-03 Add SOW-SD using new UI
 				scrollAllWayUp();
+				click("//span[text()='Add scope of work']");
+				select("//select[@id='SOWInstallationWork']", "New Installation");
+				select("//select[@id='SOWInstallationType']", "Regular Installation");
+				type("//input[@id='SOWTotalQuantity']", "1");
+				check("//input[@type='checkbox'][@ng-model='row.entity.isSelected']");
+				click("//button[@type='submit']");
+				clickButton("OK");
+				wait(1);
 				check(Constants.sow_sd_type_automatic_sd);
 				select(Constants.sow_sd_select_class, "I");
 				radio(Constants.sow_sd_combined_sd_sp_no);

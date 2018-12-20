@@ -740,6 +740,9 @@ public class DobPW1Page extends TestBase {
 				if (count(Constants.pw1_9_more_than_5_floors_no) > 0) { // 2018-12-11 added for Sprinklers
 					radio(Constants.pw1_9_more_than_5_floors_no);
 				}
+				if (count(Constants.pw1_9_require_standpipe_service_24hrs_no) > 0) { // 2018-12-20 added for Standpipe
+					radio(Constants.pw1_9_require_standpipe_service_24hrs_no);
+				}
 			}
 		}
 	}

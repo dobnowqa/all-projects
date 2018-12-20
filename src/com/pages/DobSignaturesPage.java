@@ -63,6 +63,7 @@ public class DobSignaturesPage extends TestBase {
 			wait(1); // JG 2018-11-30
 			clickButton("OK");
 			waitInvisible(Constants.ok_button);
+			reportPass("applicantStatementsSignature");
 		}
 	}
 	public void signatures(String signatures) {	

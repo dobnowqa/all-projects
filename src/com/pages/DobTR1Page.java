@@ -171,16 +171,17 @@ public class DobTR1Page extends TestBase {
 					check(Constants.tr1_i_understand_and_agree);
 					if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-13: new PW1 UI
 						click(Constants.tr1_save_progress_inspection_button);
-					} else {
-						click(Constants.tr1_save_progress_inspection_button_8085);
-					}
-					waitVisible(Constants.ok_button);
-					verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_updated"));
-					clickButton("OK");
-					waitInvisible(Constants.ok_button);
-					if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-13: new PW1 UI
+						waitVisible(Constants.ok_button);
+						verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_updated"));
+						clickButton("OK");
+						waitInvisible(Constants.ok_button);
 						waitInvisible(Constants.tr1_save_progress_inspection_button);
 					} else {
+						click(Constants.tr1_save_progress_inspection_button_8085);
+						waitVisible(Constants.ok_button);
+						verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_saved_success"));
+						clickButton("OK");
+						waitInvisible(Constants.ok_button);
 						waitInvisible(Constants.tr1_save_progress_inspection_button_8085);
 					}
 				}
@@ -198,16 +199,17 @@ public class DobTR1Page extends TestBase {
 				check(Constants.tr1_i_understand_and_agree);
 				if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-13: new PW1 UI
 					click(Constants.tr1_save_progress_inspection_button);
-				} else {
-					click(Constants.tr1_save_progress_inspection_button_8085);
-				}
-				waitVisible(Constants.ok_button);
-				verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_updated"));
-				clickButton("OK");
-				waitInvisible(Constants.ok_button);
-				if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-13: new PW1 UI
+					waitVisible(Constants.ok_button);
+					verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_updated"));
+					clickButton("OK");
+					waitInvisible(Constants.ok_button);
 					waitInvisible(Constants.tr1_save_progress_inspection_button);
 				} else {
+					click(Constants.tr1_save_progress_inspection_button_8085);
+					waitVisible(Constants.ok_button);
+					verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_saved_success"));
+					clickButton("OK");
+					waitInvisible(Constants.ok_button);
 					waitInvisible(Constants.tr1_save_progress_inspection_button_8085);
 				}
 				if (count(Constants.identified_yes_label) > 0)
@@ -409,14 +411,18 @@ public class DobTR1Page extends TestBase {
 						if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-12-03
 							click(Constants.tr1_save_progress_inspection_button_8085);
 							waitInvisible(Constants.tr1_save_progress_inspection_button_8085);
+							waitUntilISpinnersInvisible();
+							waitVisible(Constants.ok_button);
+							verifyNotification(Constants.notification,
+								TEXT_PROPERTIES.getProperty("tr_saved_success"));
 						} else {
 							click(Constants.tr1_save_progress_inspection_button);
 							waitInvisible(Constants.tr1_save_progress_inspection_button);
-						}
-						waitUntilISpinnersInvisible();
-						waitVisible(Constants.ok_button);
-						verifyNotification(Constants.notification,
+							waitUntilISpinnersInvisible();
+							waitVisible(Constants.ok_button);
+							verifyNotification(Constants.notification,
 								TEXT_PROPERTIES.getProperty("inspection_requirements_updated"));
+						}
 						clickButton("OK");
 						waitInvisible(Constants.ok_button);
 					} else {
@@ -530,13 +536,16 @@ public class DobTR1Page extends TestBase {
 				if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-14: new PW1 UI
 					click(Constants.global_save_form_button);
 					waitInvisible(Constants.global_save_form_button);
+					waitUntilISpinnersInvisible();
+					waitVisible(Constants.ok_button);
+					verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_updated"));
 				} else {
 					click(Constants.tr1_save_progress_inspection_button_8085);
 					waitInvisible(Constants.tr1_save_progress_inspection_button_8085);
+					waitUntilISpinnersInvisible();
+					waitVisible(Constants.ok_button);
+					verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_saved_success"));
 				}
-				waitUntilISpinnersInvisible();
-				waitVisible(Constants.ok_button);
-				verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_updated"));
 				clickButton("OK");
 				waitInvisible(Constants.ok_button);
 				if (count(Constants.identified_yes_label) > 1)
@@ -720,6 +729,8 @@ public class DobTR1Page extends TestBase {
 					check(Constants.tr1_i_understand_and_agree);
 					click(Constants.tr1_save_progress_inspection_button);
 					waitInvisible(Constants.tr1_save_progress_inspection_button);
+					waitVisible(Constants.ok_button);
+					verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_updated"));
 				} else {
 					click("(//i[@class='fa fa-edit'])[last()]");
 					wait(2);
@@ -730,9 +741,9 @@ public class DobTR1Page extends TestBase {
 					check(Constants.tr1_i_understand_and_agree);
 					click(Constants.tr1_save_progress_inspection_button_8085);
 					waitInvisible(Constants.tr1_save_progress_inspection_button_8085);
+					waitVisible(Constants.ok_button);
+					verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_saved_success"));
 				}
-				waitVisible(Constants.ok_button);
-				verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_updated"));
 				wait(1);
 				clickButton("OK");
 				waitInvisible(Constants.ok_button);
@@ -788,7 +799,7 @@ public class DobTR1Page extends TestBase {
 			click(Constants.tr1_save_progress_inspection_button_8085);
 			waitInvisible(Constants.tr1_save_progress_inspection_button_8085);					
 			waitVisible(Constants.ok_button);
-			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_updated"));
+			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_saved_success"));
 			clickButton("OK");
 			waitInvisible(Constants.ok_button);
 			wait(1);
@@ -816,7 +827,7 @@ public class DobTR1Page extends TestBase {
 			click(Constants.tr1_save_progress_inspection_button_8085);
 			waitInvisible(Constants.tr1_save_progress_inspection_button_8085);					
 			waitVisible(Constants.ok_button);
-			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_updated"));
+			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_saved_success"));
 			clickButton("OK");
 			waitInvisible(Constants.ok_button);
 			wait(1);
@@ -857,7 +868,7 @@ public class DobTR1Page extends TestBase {
 			click(Constants.tr1_save_progress_inspection_button_8085);
 			waitInvisible(Constants.tr1_save_progress_inspection_button_8085);					
 			waitVisible(Constants.ok_button);
-			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_updated"));
+			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_saved_success"));
 			clickButton("OK");
 			waitInvisible(Constants.ok_button);
 			wait(1);
@@ -885,7 +896,7 @@ public class DobTR1Page extends TestBase {
 			click(Constants.tr1_save_progress_inspection_button_8085);
 			waitInvisible(Constants.tr1_save_progress_inspection_button_8085);					
 			waitVisible(Constants.ok_button);
-			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_updated"));
+			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_saved_success"));
 			clickButton("OK");
 			waitInvisible(Constants.ok_button);
 			wait(1);
@@ -927,7 +938,7 @@ public class DobTR1Page extends TestBase {
 			click(Constants.tr1_save_progress_inspection_button_8085);
 			waitInvisible(Constants.tr1_save_progress_inspection_button_8085);					
 			waitVisible(Constants.ok_button);
-			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_updated"));
+			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_saved_success"));
 			wait(1);
 			clickButton("OK");
 			waitInvisible(Constants.ok_button);
