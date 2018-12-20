@@ -39,7 +39,6 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -1602,7 +1601,7 @@ public class TestBase {
 		try {
 			double d = Double.parseDouble(str);
 			int a = Integer.valueOf(str);
-			System.out.println("# of Answers is numeric " + d);
+			System.out.println("# of Answers is numeric double value: " + d + " integer value: " + a); // JG 2018-12-19 added the display of a. 
 		} catch (NumberFormatException nfe) {
 			System.out.println("# of Answers not numeric.");
 			return false;
