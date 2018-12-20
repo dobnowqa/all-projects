@@ -20,7 +20,6 @@ import com.pages.DobPW1Page;
 import com.pages.DobSOWPage;
 import com.pages.DobPW3Page;
 import com.pages.DobTR1Page;
-import com.pages.DobTR8Page;
 import com.pages.DobSignaturesPage;
 import com.relevantcodes.extentreports.LogStatus;
 
@@ -72,7 +71,7 @@ public class SdNew extends TestBase {
 		DobSOWPage asw = PageFactory.initElements(driver, DobSOWPage.class);
 		DobPW3Page pw3 = PageFactory.initElements(driver, DobPW3Page.class);
 		DobTR1Page tr1 = PageFactory.initElements(driver, DobTR1Page.class);
-		DobTR8Page tr8 = PageFactory.initElements(driver, DobTR8Page.class);
+//		DobTR8Page tr8 = PageFactory.initElements(driver, DobTR8Page.class); // JG 2018-12-19 comment out due to TR8 not used
 		DobSignaturesPage signature = PageFactory.initElements(driver, DobSignaturesPage.class);
 		DobDocumentsPage docs = PageFactory.initElements(driver, DobDocumentsPage.class);
 		
