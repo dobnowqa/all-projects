@@ -46,11 +46,11 @@ public class Paa150 extends TestBase {
 	public void quit() {
 		quitDriver();
 	}
-//	JG: Changing to Chrome needs to happen when the preferred config is Chrome, but some prior function needed IE.
-//	@AfterClass
-//	public void setChrome() {
-//		setConfigBrowser("Chrome");
-//	}
+	
+	@AfterClass
+	public void setChrome() {
+		setConfigBrowser("Chrome");
+	}
 
 	@AfterSuite(alwaysRun=true)
 	public void killDrivers() {

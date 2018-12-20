@@ -38,11 +38,10 @@ public class PlumbingGas extends TestBase {
 		quitDriver();
 	}
 	
-	// JG: I run IE, so I don't want it set to Chrome.
-//	@AfterClass
-//	public void setChrome() {
-//		setConfigBrowser("Chrome");
-//	}
+	@AfterClass
+	public void setChrome() {
+		setConfigBrowser("Chrome");
+	}
 
 	@AfterSuite(alwaysRun=true)
 	public void killDrivers() {
