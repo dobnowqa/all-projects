@@ -373,13 +373,15 @@ public class Constants {
 	
 	public static final String pw1_9_modular_construct_nys_no_8085 = "//input[@ng-model='FormObj.GCModularConstnyState'][@value='false']"; // JG 2018-11-21
 	public static final String pw1_9_modular_construct_nyc_no_8085 = "//input[@ng-model='FormObj.GCModularConstunderNYC'][@value='false']"; // JG 2018-11-21
+	public static final String pw1_9_require_standpipe_service_24hrs_yes = "//input[@ng-model='FormObj.SDSowRequireTheStandPipeService'][@value='true']";  // JG 2018-12-20
+	public static final String pw1_9_require_standpipe_service_24hrs_no  = "//input[@ng-model='FormObj.SDSowRequireTheStandPipeService'][@value='false']"; // JG 2018-12-20
 	
 	public static final String pw1_9_bsa_calendar_numbers_yes = "//input[@name='rdPWBSACalender'][@value='true']";
-	public static final String pw1_9_provide_bsa = "//textarea[@id='txtPWProvideBSA']";
 	public static final String pw1_9_bsa_calendar_numbers_no = "//input[@name='rdPWBSACalender'][@value='false']";
+	public static final String pw1_9_provide_bsa = "//textarea[@id='txtPWProvideBSA']";
 	public static final String pw1_9_cpc_calendar_numbers_yes = "//input[@name='rdPWCPCCalender'][@value='true']";
-	public static final String pw1_9_last_each_law_number = "//textarea[@id='txtPWCPCCalendarNumbers']";
 	public static final String pw1_9_cpc_calendar_numbers_no = "//input[@name='rdPWCPCCalender'][@value='false']";
+	public static final String pw1_9_last_each_law_number = "//textarea[@id='txtPWCPCCalendarNumbers']";
 	public static final String pw1_9_high_rise_team_tracking = "//input[@id='txtPWHighRiseTeamtracking']";
 	public static final String pw1_9_includes_partial_demolition_yes = "//input[@id='rdPWWorkIncludes'][@value='true']";
 	public static final String pw1_9_includes_partial_demolition_no = "//input[@id='rdPWWorkIncludes'][@value='false']";
