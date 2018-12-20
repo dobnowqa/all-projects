@@ -4,7 +4,6 @@ import com.util.Constants;
 import com.util.TestUtil;
 import com.util.Xls_Reader;
 import java.util.Hashtable;
-import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.Test;
 import org.testng.annotations.AfterMethod;
@@ -19,9 +18,6 @@ import com.pages.DobDashboardPage;
 import com.pages.DobDocumentsPage;
 import com.pages.DobPW1Page;
 import com.pages.DobSOWPage;
-import com.pages.DobPW3Page;
-import com.pages.DobTR1Page;
-import com.pages.DobTR8Page;
 import com.pages.DobSignaturesPage;
 import com.relevantcodes.extentreports.LogStatus;
 
@@ -69,7 +65,7 @@ public class FnLegalization extends TestBase {
 		DobPW1Page pw1 = PageFactory.initElements(driver, DobPW1Page.class);
 		DobSOWPage asw = PageFactory.initElements(driver, DobSOWPage.class);
 //		DobPW3Page pw3 = PageFactory.initElements(driver, DobPW3Page.class);
-		DobTR1Page tr1 = PageFactory.initElements(driver, DobTR1Page.class);
+//		DobTR1Page tr1 = PageFactory.initElements(driver, DobTR1Page.class); // JG 2018-12-19 commented-out because temp not in use
 //		DobTR8Page tr8 = PageFactory.initElements(driver, DobTR8Page.class);
 		DobSignaturesPage signature = PageFactory.initElements(driver, DobSignaturesPage.class);
 		DobDocumentsPage docs = PageFactory.initElements(driver, DobDocumentsPage.class);
@@ -98,7 +94,7 @@ public class FnLegalization extends TestBase {
 		signature.applicantStatementsSignature(data.get("signatures"));
 		signature.ownerSignature(data.get("owner_signature"));
 		docs.uploadDocuments(data.get("documents"));
-//		pw1.previewToFile(data.get("preview_to_file"));
+		pw1.previewToFile(data.get("preview_to_file"));
 		successMessage(data.get("description"));
 	}
 

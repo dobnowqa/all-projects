@@ -18,7 +18,6 @@ import com.pages.DobDashboardPage;
 import com.pages.DobDocumentsPage;
 import com.pages.DobPW1Page;
 import com.pages.DobSOWPage;
-import com.pages.DobTR1Page;
 import com.pages.DobSignaturesPage;
 import com.relevantcodes.extentreports.LogStatus;
 
@@ -66,7 +65,7 @@ public class FnLegalizationProfCert extends TestBase {
 		DobPW1Page pw1 = PageFactory.initElements(driver, DobPW1Page.class);
 		DobSOWPage asw = PageFactory.initElements(driver, DobSOWPage.class);
 //		DobPW3Page pw3 = PageFactory.initElements(driver, DobPW3Page.class);
-		DobTR1Page tr1 = PageFactory.initElements(driver, DobTR1Page.class);
+//		DobTR1Page tr1 = PageFactory.initElements(driver, DobTR1Page.class); // JG 2018-12-19 temp not in use
 //		DobTR8Page tr8 = PageFactory.initElements(driver, DobTR8Page.class);
 		DobSignaturesPage signature = PageFactory.initElements(driver, DobSignaturesPage.class);
 		DobDocumentsPage docs = PageFactory.initElements(driver, DobDocumentsPage.class);
@@ -95,7 +94,7 @@ public class FnLegalizationProfCert extends TestBase {
 		signature.applicantStatementsSignature(data.get("signatures"));
 		signature.ownerSignature(data.get("owner_signature"));
 		docs.uploadDocuments(data.get("documents"));
-//		pw1.previewToFile(data.get("preview_to_file"));
+		pw1.previewToFile(data.get("preview_to_file"));
 		successMessage(data.get("description"));
 	}
 
