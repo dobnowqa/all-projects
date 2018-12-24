@@ -77,17 +77,18 @@ public class MsNew extends TestBase {
 		DobDocumentsPage docs = PageFactory.initElements(driver, DobDocumentsPage.class);
 		
 		dash.selectWorkType(data.get("work_type"));
-		pw1.locationImfo(data.get("address"));
-		type(Constants.pw1_1_apt_suite_number, testname); // Used for tracking which test created the job.
-		pw1.workOnFloors(data.get("work_on_floors"));
-		pw1.applicantInfo(data.get("user_info"));
-		pw1.workTypesMechanicalSystems(data.get("new_existing_both"));
-		pw1.additionalInfo(data.get("additional_info"));
-		pw1.additionalConciderations(data.get("additional_conciderations"));
-		pw1.complianceNYCECC(data.get("nycecc"));
+		pw1.enterLocationInformation(data.get("address"));
+		pw1.addWorkOnFloors(data.get("work_on_floors"));
+		pw1.enterApplicantInformation(data.get("user_info"));
+		pw1.enterWorkTypesMechanicalSystems(data.get("new_existing_both"));
+		pw1.enterAdditionalInformation(data.get("additional_info"));
+		pw1.enterAdditionalConsiderations(data.get("additional_conciderations"));
+		pw1.enterNYCECCCompliance(data.get("nycecc"));
+		pw1.enterJobDescription();
+		pw1.enterSiteCharacteristics(data.get("site_characteristics"));
+		pw1.savePW1FirstTime(data.get("save_pw1"));		
 		pw1.buildingCharacteristics(data.get("building_charcteristics")); // Zoning Info
-		pw1.siteCharacteristics(data.get("site_characteristics"));
-		pw1.savePW1(data.get("save_pw1"));
+		pw1.savePW1("skip_number");
 		asw.scopeOfWorkMechanicalSystems(data.get("asw"));
 		pw3.costAffidavit(data.get("pw3"));
 		tr1.specialInspectionMechanicalSystems(data.get("tr1")); // JG 2018-12-07 there's already a TR1 Special Inspection by default.
