@@ -346,6 +346,7 @@ public class DobSOWPage extends TestBase {
 			select(Constants.sow_be_select_proposed_boiler_energy_source, "Electric");
 			select(Constants.sow_be_select_proposed_boiler_classification, "Conventional(Standard)");
 			type(Constants.sow_be_sum_total_rated_input_capacity, "2000");
+			scrollAllWayUp();
 			click(Constants.sow_be_boiler_specifications_accordion);
 			
 			click(Constants.sow_be_chimney_information_accordion);

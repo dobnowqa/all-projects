@@ -31,16 +31,20 @@ public class DobSignaturesPage extends TestBase {
 			}			
 			wait(2); // JG 2018-11-14
 			if (signatures.contains("boiler")) {
-				check(Constants.ss_no_boiler_placed_in_operation);
+				if (count(Constants.ss_no_boiler_placed_in_operation) > 0) {
+					check(Constants.ss_no_boiler_placed_in_operation);
+				}
 			}
 //			scrollTo("//h3[contains(text(),'Owner - Statements & Signatures')]"); // JG 2018-11-14 //rblPWFeeExceptReqNonPro
-			if(signatures.contains("profit"))
-				radio(Constants.ss_fee_exemption_reques_non_profit_yes+ "[@value='false']");
-			else
-				radio(Constants.ss_fee_exemption_reques_non_profit_yes+ "[@value='true']");
+			if (count(Constants.ss_fee_exemption_reques_non_profit_yes) > 0) {
+				if(signatures.contains("profit")) {
+					radio(Constants.ss_fee_exemption_reques_non_profit_yes+ "[@value='false']");
+				} else {
+					radio(Constants.ss_fee_exemption_reques_non_profit_yes+ "[@value='true']");
+				}
+			}
 //			radio(Constants.ss_fee_exemption_reques_non_profit_yes);
 			radio(Constants.ss_owners_certifications_yes);
-			radio(Constants.ss_building_to_be_altered_demolished_no);
 			radio(Constants.ss_building_to_be_altered_demolished_no);
 //			radio(Constants.ss_owner_is_not_required_to_notify_yes);
 			if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-15
@@ -154,12 +158,23 @@ public class DobSignaturesPage extends TestBase {
 			test = rep.startTest("Owner Sign");
 			click(Constants.ss_statement_signatures_step);
 			wait(2);
-			scrollToElement(Constants.ss_i_understand_and_agrree);
-			check(Constants.ss_i_understand_and_agrree);
 			if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-14: new PW1 UI
+				scrollToElement(Constants.ss_i_understand_and_agrree);
+				check(Constants.ss_i_understand_and_agrree);
 				scrollToElement(Constants.ss_save_button);
 				click(Constants.ss_save_button);
 			} else {
+				scrollDown();
+				check(Constants.ss_i_understand_and_agrree_8085);
+				if (count(Constants.ss_i_affirm_nycecc_requirements) > 0) {
+					check(Constants.ss_i_affirm_nycecc_requirements);
+				}
+				if (count(Constants.ss_num_dwelling_units_occupied) > 0) {
+					type(Constants.ss_num_dwelling_units_occupied, "1");
+				}
+				if (count(Constants.ss_deed_holder_is_non_profit_no) > 0) {
+					radio(Constants.ss_deed_holder_is_non_profit_no);
+				}
 				click(Constants.save_button);
 			}
 			waitInvisible(Constants.global_loading_spinner);

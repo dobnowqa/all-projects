@@ -53,173 +53,208 @@ public class DobPW1Page extends TestBase {
 	@FindBy(xpath=Constants.pw1_16_agencies_required_documents)
 	public WebElement pw1_16_agencies_required_documents;
 	
-	// 1. Location Info	
-		public void locationImfo(String address) {	
-			if(!address.equals("")){
-				System.out.println(convertedTimestamp() + " **************** " + "PW1");
-				test = rep.startTest("PW1");
-				String[] data = address.split(" :: ");
-				if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-29
-					click(Constants.pw1_1_location_information_accordion);
-				}
-				type(Constants.pw1_1_house_number, data[0]);
-				type(Constants.pw1_1_street_name,data[1]);
-				select(Constants.pw1_1_borough, data[2]);
-				type(Constants.pw1_1_block, data[3]);
-				type(Constants.pw1_1_lot, data[4]);
+	// 1. Location Imfo	
+	public void locationImfo(String address) {	
+		if(!address.equals("")){
+			System.out.println(convertedTimestamp() + " **************** " + "PW1");
+			test = rep.startTest("PW1");
+			String[] data = address.split(" :: ");
+			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-29
+				click(Constants.pw1_1_location_information_accordion);
 			}
+			type(Constants.pw1_1_house_number, data[0]);
+			type(Constants.pw1_1_street_name,data[1]);
+			select(Constants.pw1_1_borough, data[2]);
+			type(Constants.pw1_1_block, data[3]);
+			type(Constants.pw1_1_lot, data[4]);
 		}
-		//Work on Floor
-		public void workOnFloors(String work_on_floors) {	
-			if(!work_on_floors.equals("")){
-				test = rep.startTest("Work On Floors");
-				if(work_on_floors.contains(" :: ") && count("//input[@id='txtPWLocWorkFloor']") == 0) { // JG  2018-11-27 work_on_floors changed to use ::
-					String[] data = work_on_floors.split(" :: ");
-					click(Constants.pw1_1_add_work_floors_button);
-					if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-10-30 TEST-ENV elements changed
-						select(Constants.pw1_1_work_on_floors_select_code_and_description_8085, data[0]);
-						type(Constants.pw1_1_work_on_floors_floor_number_from, data[1]);
-						type(Constants.pw1_1_work_on_floors_floor_number_to, data[2]);
-						type(Constants.pw1_1_work_on_floors_description_of_work, convertedTimestamp());
-						click(Constants.pw1_1_work_on_floors_add_button_8085);
-						// JG 2018-10-30 TODO: the following 3 values are now entered in a different tab:
+	}
+	// 1. Enter Location Information	
+	public void enterLocationInformation(String address) {	
+		if(!address.equals("")){
+			System.out.println(convertedTimestamp() + " **************** " + "PW1");
+			test = rep.startTest("Location Information");
+			String[] data = address.split(" :: ");
+			click(Constants.pw1_1_location_information_accordion); // TODO: routine to open accordion
+			type(Constants.pw1_1_house_number, data[0]);
+			type(Constants.pw1_1_street_name,data[1]);
+			select(Constants.pw1_1_borough, data[2]);
+			type(Constants.pw1_1_block, data[3]);
+			type(Constants.pw1_1_lot, data[4]);
+			type(Constants.pw1_1_apt_suite_number, data[5]); 
+			click(Constants.pw1_1_location_information_accordion); // TODO: routine to close accordion
+		}
+	}
+
+	//Work on Floor
+	public void workOnFloors(String work_on_floors) {	
+		if(!work_on_floors.equals("")){
+			test = rep.startTest("Work On Floors");
+			if(work_on_floors.contains(" :: ") && count("//input[@id='txtPWLocWorkFloor']") == 0) { // JG  2018-11-27 work_on_floors changed to use ::
+				String[] data = work_on_floors.split(" :: ");
+				click(Constants.pw1_1_add_work_floors_button);
+				if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-10-30 TEST-ENV elements changed
+					select(Constants.pw1_1_work_on_floors_select_code_and_description_8085, data[0]);
+					type(Constants.pw1_1_work_on_floors_floor_number_from, data[1]);
+					type(Constants.pw1_1_work_on_floors_floor_number_to, data[2]);
+					type(Constants.pw1_1_work_on_floors_description_of_work, convertedTimestamp());
+					click(Constants.pw1_1_work_on_floors_add_button_8085);
+					// JG 2018-10-30 TODO: the following 3 values are now entered in a different tab:
 //						type(Constants.pw1_13_building_height_proposed, "111");
 //						type(Constants.pw1_13_building_stories_proposed, "2");
 //						type(Constants.pw1_13_building_dwelling_units_proposed, "51");
-					} else {
-						select(Constants.pw1_1_work_on_floors_select_code_and_description, data[0]);
-						type(Constants.pw1_1_work_on_floors_floor_number_from, data[1]);
-						type(Constants.pw1_1_work_on_floors_floor_number_to, data[2]);
-						type(Constants.pw1_1_work_on_floors_description_of_work, convertedTimestamp());
-						click(Constants.pw1_1_work_on_floors_add_button);
-						type(Constants.pw1_13_building_height_proposed, "111");
-						type(Constants.pw1_13_building_stories_proposed, "2");
-						type(Constants.pw1_13_building_dwelling_units_proposed, "51");
-					}					
-				} else
+				} else {
+					select(Constants.pw1_1_work_on_floors_select_code_and_description, data[0]);
+					type(Constants.pw1_1_work_on_floors_floor_number_from, data[1]);
+					type(Constants.pw1_1_work_on_floors_floor_number_to, data[2]);
+					type(Constants.pw1_1_work_on_floors_description_of_work, convertedTimestamp());
+					click(Constants.pw1_1_work_on_floors_add_button);
+					type(Constants.pw1_13_building_height_proposed, "111");
+					type(Constants.pw1_13_building_stories_proposed, "2");
+					type(Constants.pw1_13_building_dwelling_units_proposed, "51");
+				}					
+			} else
 //					type("//input[@id='txtPWLocWorkFloor']", work_on_floors); // JG  2018-11-27 work_on_floors changed to use ::
-					type("//input[@id='txtPWLocWorkFloor']", "1");
-			}
+				type("//input[@id='txtPWLocWorkFloor']", "1");
 		}
-		//Work on Floor	Subs
-	public void workOnFloorsSubs(String work_type) {
-			String[] data = work_type.split(" :: ");
-			test = rep.startTest("Work On Floors Subs");
-			if(work_type.contains("Plumbing")||work_type.contains("Sprinklers")||work_type.contains("StandPipe")) {
-				waitUntilElementVisible(Constants.plumbing_work_on_floors, 30);
-				type(Constants.plumbing_work_on_floors, "1");
-			}
-			if(work_type.contains("Antenna")||work_type.contains("SidewalkShed")||work_type.contains("SupportedScaffold")||work_type.contains("Sign")||work_type.contains("ConstructionFence")) {
-				click(Constants.pw1_1_add_work_floors_button);
-				select(Constants.pw1_1_work_on_floors_select_code_and_description, "Attic");
-		 		type(Constants.pw1_1_work_on_floors_floor_number_from, "1");
-		 		type(Constants.pw1_1_work_on_floors_floor_number_to, "1");
-		 		type(Constants.pw1_1_work_on_floors_description_of_work, convertedTimestamp());
-		 		click(Constants.pw1_1_work_on_floors_add_button);
-			}
-			if(work_type.contains("Electrical")) {
-				type(Constants.el_ge1_job_description, convertedTimestamp());
-				select(Constants.el_gi_building_use_type, "A One Family");
-			}
 	}
 
-/*		// 2. Applicant Info
-		public void applicantInfo(String description) {	
-			if(!description.equals("")){
-				test = rep.startTest("Applicant Info");
-				email(OR_PROPERTIES.getProperty("user_email"));
-				select(Constants.license_type_list, OR_PROPERTIES.getProperty("applicant_lisence_type"));
-		 		type(Constants.job_description_for_new_work, description + " ");
-		 		scrollToElement(Constants.global_save_step_button);
-				click(Constants.global_save_step_button);
-				click(Constants.pw1_confirm_save_button);
-				waitInvisible(Constants.global_loading_spinner);
-				waitUntilElementVisible(Constants.ok_button, 30);
-				assertNotification(TEXT_PROPERTIES.getProperty("job_filing_saved"), "job_filing_saved pw1");
-				clickButton("OK");
-				waitInvisible(Constants.ok_button);
-		 	}
-		}*/
-	
-	// 2. Applicant Info
-		public void applicantInfo(String user_info) {	
-			if (!user_info.equals("")) {
-				String[] data = user_info.split(" :: ");
-				test = rep.startTest("Applicant Info");
-				if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-29
-					scrollTo(Constants.pw1_2_stakeholders_accordion);
-					click(Constants.pw1_2_stakeholders_accordion);
-					email(data[0]);
-					select(Constants.license_type_list, data[1]);
-					wait(1);
-					if (count(Constants.business_name_list) > 0) {
-						select(Constants.business_name_list, data[2]);
-					}
-					click(Constants.pw1_11_job_description_accordion);
-					type(Constants.job_description_for_new_work, user_info);
-					click(Constants.global_save_step_button);
-					click(Constants.pw1_confirm_save_button_8085);
-					waitInvisible(Constants.global_loading_spinner);
-					waitUntilElementVisible(Constants.ok_button, 30);
-					assertNotification(TEXT_PROPERTIES.getProperty("job_filing_saved"), "pw1 saved");
-					click(Constants.ok_button);
-					waitInvisible(Constants.ok_button);
-				} else {
-					email(data[0]);
-					select(Constants.license_type_list, data[1]);
-					wait(1);
-					if (count(Constants.business_name_list) > 0) {
-						select(Constants.business_name_list, data[2]);
-					}
-					type(Constants.job_description_for_new_work, user_info);
-					scrollToElement(Constants.global_save_step_button);
-					click(Constants.global_save_step_button);
-					click(Constants.pw1_confirm_save_button);					
-					waitInvisible(Constants.global_loading_spinner);
-					waitUntilElementVisible(Constants.ok_button, 30);
-					assertNotification(TEXT_PROPERTIES.getProperty("job_filing_saved"), "pw1 saved");
-					clickButton("OK");
-					waitInvisible(Constants.ok_button);
-				}
-		 	}
+	//Add Work on Floors (within Location Information)
+	public void addWorkOnFloors(String work_on_floors) {	
+		if(!work_on_floors.equals("")){
+			test = rep.startTest("Work On Floors");
+			String[] data = work_on_floors.split(" :: ");
+			click(Constants.pw1_1_location_information_accordion); // open
+			click(Constants.pw1_1_add_work_on_floors_button);
+			select(Constants.pw1_1_work_on_floors_select_code_and_description_8085, data[0]);
+			type(Constants.pw1_1_work_on_floors_floor_number_from, data[1]);
+			type(Constants.pw1_1_work_on_floors_floor_number_to, data[2]);
+			type(Constants.pw1_1_work_on_floors_description_of_work, convertedTimestamp());
+			click(Constants.pw1_1_work_on_floors_add_button_8085);
+			click(Constants.pw1_1_location_information_accordion); // close
 		}
+	}
 
-		// 2. Applicant Info PL/SP/SD
-		public void applicantInfoPlumbing(String user_info) {	
-			if (!user_info.equals("")){
-				String[] data = user_info.split(" :: ");
-				test = rep.startTest("Applicant Info");
-				if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-29
-					scrollTo(Constants.pw1_2_stakeholders_accordion); //JG 2018-11-30
-					click(Constants.pw1_2_stakeholders_accordion);
-				}
+		
+	//Work on Floor	Subs
+	public void workOnFloorsSubs(String work_type) {
+		String[] data = work_type.split(" :: ");
+		test = rep.startTest("Work On Floors Subs");
+		if(work_type.contains("Plumbing")||work_type.contains("Sprinklers")||work_type.contains("StandPipe")) {
+			waitUntilElementVisible(Constants.plumbing_work_on_floors, 30);
+			type(Constants.plumbing_work_on_floors, "1");
+		}
+		if(work_type.contains("Antenna")||work_type.contains("SidewalkShed")||work_type.contains("SupportedScaffold")||work_type.contains("Sign")||work_type.contains("ConstructionFence")) {
+			click(Constants.pw1_1_add_work_floors_button);
+			select(Constants.pw1_1_work_on_floors_select_code_and_description, "Attic");
+	 		type(Constants.pw1_1_work_on_floors_floor_number_from, "1");
+	 		type(Constants.pw1_1_work_on_floors_floor_number_to, "1");
+	 		type(Constants.pw1_1_work_on_floors_description_of_work, convertedTimestamp());
+	 		click(Constants.pw1_1_work_on_floors_add_button);
+		}
+		if(work_type.contains("Electrical")) {
+			type(Constants.el_ge1_job_description, convertedTimestamp());
+			select(Constants.el_gi_building_use_type, "A One Family");
+		}
+	}
+
+	// 2. Applicant Info
+	public void applicantInfo(String user_info) {	
+		if (!user_info.equals("")) {
+			String[] data = user_info.split(" :: ");
+			test = rep.startTest("Applicant Info");
+			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-29
+				scrollTo(Constants.pw1_2_stakeholders_accordion);
+				click(Constants.pw1_2_stakeholders_accordion);
 				email(data[0]);
 				select(Constants.license_type_list, data[1]);
 				wait(1);
 				if (count(Constants.business_name_list) > 0) {
 					select(Constants.business_name_list, data[2]);
 				}
-				if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-29
-					click(Constants.pw1_11_job_description_accordion);
-				}
-		 		type(Constants.job_description_for_new_work, user_info);
-		 		// JG 2018-11-26 add the following so plumbing applicant info can be run independently, like regular applicant info (and maybe fix the null pointer exception?)  
-		 		scrollToElement(Constants.global_save_step_button);
+				click(Constants.pw1_11_job_description_accordion);
+				type(Constants.job_description_for_new_work, user_info);
 				click(Constants.global_save_step_button);
-				if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-10-30 TEST Filing buttons changed
-					click(Constants.pw1_confirm_save_button_8085);
-				} else {
-					click(Constants.pw1_confirm_save_button);
-				}
+				click(Constants.pw1_confirm_save_button_8085);
 				waitInvisible(Constants.global_loading_spinner);
 				waitUntilElementVisible(Constants.ok_button, 30);
 				assertNotification(TEXT_PROPERTIES.getProperty("job_filing_saved"), "pw1 saved");
-				wait(1);
-				click(Constants.ok_button); // JG 2018-12-12 use this instead of line below because sometimes there's a second OK popup which is not clickable.
-//				clickButton("OK");
+				click(Constants.ok_button);
 				waitInvisible(Constants.ok_button);
-		 	}
-		} 
+			} else {
+				email(data[0]);
+				select(Constants.license_type_list, data[1]);
+				wait(1);
+				if (count(Constants.business_name_list) > 0) {
+					select(Constants.business_name_list, data[2]);
+				}
+				type(Constants.job_description_for_new_work, user_info);
+				scrollToElement(Constants.global_save_step_button);
+				click(Constants.global_save_step_button);
+				click(Constants.pw1_confirm_save_button);					
+				waitInvisible(Constants.global_loading_spinner);
+				waitUntilElementVisible(Constants.ok_button, 30);
+				assertNotification(TEXT_PROPERTIES.getProperty("job_filing_saved"), "pw1 saved");
+				clickButton("OK");
+				waitInvisible(Constants.ok_button);
+			}
+	 	}
+	}
+
+	// 2. Enter Applicant Information (within Stakeholders)
+	public void enterApplicantInformation(String user_info) {	
+		if (!user_info.equals("")) {
+			String[] data = user_info.split(" :: ");
+			test = rep.startTest("Applicant Info");
+			click(Constants.pw1_2_stakeholders_accordion); // open
+			email(data[0]);
+			select(Constants.license_type_list, data[1]);
+			wait(1);
+			if (count(Constants.business_name_list) > 0) {
+				select(Constants.business_name_list, data[2]);
+			}
+			click(Constants.pw1_2_stakeholders_accordion); // close
+			
+			// TODO: Enter "3. Filing Representative Class I / Preparer", which is also within Stakeholders
+	 	}
+	}
+	
+	// 2. Applicant Info PL/SP/SD
+	public void applicantInfoPlumbing(String user_info) {	
+		if (!user_info.equals("")){
+			String[] data = user_info.split(" :: ");
+			test = rep.startTest("Applicant Info");
+			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-29
+				scrollTo(Constants.pw1_2_stakeholders_accordion); //JG 2018-11-30
+				click(Constants.pw1_2_stakeholders_accordion);
+			}
+			email(data[0]);
+			select(Constants.license_type_list, data[1]);
+			wait(1);
+			if (count(Constants.business_name_list) > 0) {
+				select(Constants.business_name_list, data[2]);
+			}
+			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-29
+				click(Constants.pw1_11_job_description_accordion);
+			}
+	 		type(Constants.job_description_for_new_work, user_info);
+	 		// JG 2018-11-26 add the following so plumbing applicant info can be run independently, like regular applicant info (and maybe fix the null pointer exception?)  
+	 		scrollToElement(Constants.global_save_step_button);
+			click(Constants.global_save_step_button);
+			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-10-30 TEST Filing buttons changed
+				click(Constants.pw1_confirm_save_button_8085);
+			} else {
+				click(Constants.pw1_confirm_save_button);
+			}
+			waitInvisible(Constants.global_loading_spinner);
+			waitUntilElementVisible(Constants.ok_button, 30);
+			assertNotification(TEXT_PROPERTIES.getProperty("job_filing_saved"), "pw1 saved");
+			wait(1);
+			click(Constants.ok_button); // JG 2018-12-12 use this instead of line below because sometimes there's a second OK popup which is not clickable.
+//				clickButton("OK");
+			waitInvisible(Constants.ok_button);
+	 	}
+	} 
 		
 	public void applicantInfoSubs(String user_info) {	
 		if(!user_info.equals("")){
@@ -337,11 +372,11 @@ public class DobPW1Page extends TestBase {
 	}
 
 	// 6. Work Types Mechanical Systems
-	public void workTypesMechanicalSystems(String new_existing_both) {
+	public void enterWorkTypesMechanicalSystems(String new_existing_both) {
 		if (!new_existing_both.equals("")) {
-			test = rep.startTest("workTypesMechanicalSystems");
+			test = rep.startTest("enterWorkTypesMechanicalSystems");
 			String[] data = new_existing_both.split(" :: ");
-			click(Constants.pw1_6_work_types_accordion);
+			click(Constants.pw1_6_work_types_accordion); // open
 			if (!data[0].equals("N"))
 				radio("//input[@type='radio'][@name='rdNewApp'][@value='" + data[0] + "']"); // New Work
 			if (!data[1].equals("N"))
@@ -360,6 +395,7 @@ public class DobPW1Page extends TestBase {
 				check("//input[@ng-model='FormObj.MSGenerator']"); // Generator
 			if (!data[8].equals("N"))
 				check("//input[@ng-model='FormObj.MSOther']"); // Other
+			click(Constants.pw1_6_work_types_accordion); // close
 		}
 	}
 	
@@ -513,6 +549,7 @@ public class DobPW1Page extends TestBase {
 				radio(Constants.pw1_6_sign_legalization);
 	 	}
 	}*/
+	
 // 8. Additional Information	
 	public void additionalInfo(String costareatype) {	
 		if(!costareatype.equals("")){
@@ -532,6 +569,22 @@ public class DobPW1Page extends TestBase {
 			}
 		}
 	}
+
+	// 8. Additional Information	
+	public void enterAdditionalInformation(String additional_info) {	
+		if(!additional_info.equals("")){
+			String[] data = additional_info.split(" :: ");
+			click(Constants.pw1_8_additional_information_accordion); // open
+			type(Constants.pw1_8_estimated_new_work_cost, data[0]);
+			type(Constants.pw1_8_total_new_work_floor_area, data[1]);			
+			radio(Constants.pw1_8_associated_no_8085); // JG 2018-11-19 new PW UI radio button 
+			radio(Constants.pw1_8_associated_bis_job_number_no); // JG 2018-11-19 new PW UI radio button
+			click(Constants.pw1_8_additional_information_accordion); // close
+		}
+	}
+
+	
+	
 	// 8. Additional Information 2
 	public void additionalInfo2(String additional_info) {
 		if (!additional_info.equals("")) {
@@ -746,6 +799,113 @@ public class DobPW1Page extends TestBase {
 			}
 		}
 	}
+	
+	// Enter Additional Considerations, Limitations or Restrictions
+	public void enterAdditionalConsiderations(String additional_conciderations) {
+		if (!additional_conciderations.equals("")) {
+			test = rep.startTest("enterAdditionalConsiderations");
+			String[] data = additional_conciderations.split(" :: ");
+			wait(1);
+			click(Constants.pw1_9_additional_considerations_accordion); // open
+			scrollToElement(Constants.pw1_9_additional_considerations_accordion);
+			wait(1);
+			if (count(Constants.pw1_9_review_requested_under_code) > 0) { // ALL WORK TYPES
+				send(Constants.pw1_9_review_requested_under_code, "2014");
+				if (count(Constants.pw1_9_change_number_stories_no) > 0) { //JG 2018-11-29
+					radio(Constants.pw1_9_change_number_stories_no);
+				}
+				if (count(Constants.pw1_9_facade_alteration_yes_8085) > 0) { 
+						radio("//input[@name='rdPWfacadealteration'][@value='" + data[1] + "']");
+				}
+				scrollToElement(Constants.pw1_9_review_requested_under_code);
+				wait(1);
+				radio("//input[@name='rdPWestablishmenttab'][@value='" + data[2] + "']");
+//					radio("//input[@name='rdPWQualityHousing'][@value='" + data[3] + "']"); // JG 2018-11-01 required per dd, but not present
+				if (count(Constants.pw1_9_landmark_approval_number) > 0) {
+					type(Constants.pw1_9_landmark_approval_number, "1");
+				}
+				radio("//input[@name='rdPWBSACalender'][@value='false']"); // JG 2018-11-27 data[4] has 1, but needs to be false
+				radio("//input[@name='rdPWCPCCalender'][@value='false']"); // JG 2018-11-27 data[5] has 1, but needs to be false
+				if (count("//input[@ng-model='FormObj.WorkIncludesPartialDemolition'][@value='true']") > 0) { // JG 2018-11-30 for cc/pl, use the below logic.
+					radio("//input[@ng-model='FormObj.WorkIncludesPartialDemolition'][@value='" + data[6] + "']");
+				}
+				if (additional_conciderations.equals("Y")) {
+					radio("//input[@ng-model='FormObj.WorkIncludesPartialDemolition'][@value='true']");
+				}
+				if (additional_conciderations.equals("N")) {
+					radio("//input[@ng-model='FormObj.WorkIncludesPartialDemolition'][@value='false']");
+				}
+				if (count("//input[@ng-model='FormObj.StructuralStabilityAffected'][@value='" + data[7] + "']") > 0) { // JG 2018-11-27 only in antenna:
+					radio("//input[@ng-model='FormObj.StructuralStabilityAffected'][@value='" + data[7] + "']");
+				}		
+			}
+			if (count("//input[@id='rdPWLMCC']") > 0) // SIGN
+				radio("//input[@id='rdPWLMCC'][@value='" + data[4] + "']");	
+			if(count("//input[@name='rdPWSiteSafety']") > 0) // SIGN
+				radio(Constants.pw1_9_site_safety_job_no);
+			if (count("//input[@id='rdPWReviewReq1']") > 0) { // BOILERS
+				radio("//input[@id='rdPWReviewReq1'][@value='" + data[0] + "']");
+				radio("//input[@name='rdPWLittleSite'][@value='" + data[1] + "']");
+				radio("//input[@name='rdPWAdultEstablishment'][@value='" + data[2] + "']");
+				radio("//input[@name='rdPWUnmappedCCoStreet1'][@value='" + data[3] + "']");
+				radio("//input[@id='rdPWRequestLegalization'][@value='" + data[4] + "']");
+				radio("//input[@name='rdPWPermanentRemoval'][@value='" + data[5] + "']");
+				radio("//input[@name='rdPWCrfnRestrictive'][@value='" + data[6] + "']");
+				radio("//input[@name='rdPWCrfnFilingToAddress'][@value='" + data[7] + "']");
+				radio("//input[@name='rdPWCrfnComplyingToLocal'][@value='" + data[8] + "']");
+			}
+			if (count("//input[@ng-model='FormObj.UnmappedCCOStreet'][@value='1']") > 0) { // 2018-11-27 not in plumbing
+				radio("//input[@ng-model='FormObj.UnmappedCCOStreet'][@value='1']");
+			}
+			radio("//input[@ng-model='FormObj.CRFNRestrictiveDeclaration'][@value='false']");
+			radio("//input[@ng-model='FormObj.ComplyingToLocalLaws'][@value='false']");
+			radio("//input[@ng-model='FormObj.IsFilingtoAddressViolations'][@value='false']");
+			radio("//input[@ng-model='FormObj.GCModularConstnyState'][@value='false']");
+			radio("//input[@ng-model='FormObj.GCModularConstunderNYC'][@value='false']");
+			if (count("//input[@ng-model='FormObj.RaisingAndMovingofbuildings'][@value='false']") > 0) { // 2018-11-27 not in plumbing
+				radio("//input[@ng-model='FormObj.RaisingAndMovingofbuildings'][@value='false']");
+			}
+			if (count("//input[@ng-model='FormObj.STWorkOnInteriorofBuilding'][@value='false']") > 0) { // 2018-11-27 not in plumbing
+				radio("//input[@ng-model='FormObj.STWorkOnInteriorofBuilding'][@value='false']");
+			}
+			if (count("//input[@ng-model='FormObj.STWorkonExteriorofBuilding'][@value='false']") > 0) { // 2018-11-27 not in plumbing
+				radio("//input[@ng-model='FormObj.STWorkonExteriorofBuilding'][@value='false']");
+			}
+			if (count(Constants.pw1_9_impact_water_supply_no) > 0) { // JG 2018-11-28 added for new UI plumbing
+				radio(Constants.pw1_9_impact_water_supply_no);
+			}
+			if (count(Constants.pw1_9_otcr_approval_required_no) > 0) { // JG 2018-11-28 added for new UI plumbing
+				radio(Constants.pw1_9_otcr_approval_required_no);
+			}
+			if (count("//input[@ng-model='FormObj.BuildingGreater'][@value='true']") > 0) { // 2018-12-06 added for Structural
+				radio("//input[@ng-model='FormObj.BuildingGreater'][@value='true']");
+			}
+			if (count("//input[@ng-model='FormObj.StructureDesignBased'][@value='false']") > 0) { // 2018-12-06 added for Structural
+				radio("//input[@ng-model='FormObj.StructureDesignBased'][@value='false']");
+			}
+			if (count("//input[@ng-model='FormObj.STDemolishing50orMoreoftheArea'][@value='false']") > 0) { // 2018-12-06 added for Structural
+				radio("//input[@ng-model='FormObj.STDemolishing50orMoreoftheArea'][@value='false']");
+			}
+			if (count("//input[@ng-model='FormObj.STConcreteForFootingsFullySupported'][@value='false']") > 0) { // 2018-12-06 added for Structural
+				radio("//input[@ng-model='FormObj.STConcreteForFootingsFullySupported'][@value='false']");
+			}
+			if (count("//input[@ng-model='FormObj.STConcretePlacementlessThan50cy'][@value='false']") > 0) { // 2018-12-06 added for Structural
+				radio("//input[@ng-model='FormObj.STConcretePlacementlessThan50cy'][@value='false']");
+			}
+			if (count("//input[@id='txtPWNYSLicenseNumber']") > 0) { // 2018-12-06 added for Structural
+				type("//input[@id='txtPWNYSLicenseNumber']", "005551");
+			}
+			if (count(Constants.pw1_9_more_than_5_floors_no) > 0) { // 2018-12-11 added for Sprinklers
+				radio(Constants.pw1_9_more_than_5_floors_no);
+			}
+			if (count(Constants.pw1_9_require_standpipe_service_24hrs_no) > 0) { // 2018-12-20 added for Standpipe
+				radio(Constants.pw1_9_require_standpipe_service_24hrs_no);
+			}
+			scrollAllWayUp();
+			click(Constants.pw1_9_additional_considerations_accordion); // close
+		}
+	}
+
 	// 9. Additional Considerations Curb Cut
 			public void additionalConciderationsCurb(String demolition) {	
 				if(!demolition.equals("")){
@@ -787,32 +947,53 @@ public class DobPW1Page extends TestBase {
 		if(!nycecc.equals("")){
 			String[] comp = nycecc.split(" :: ");
 			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-29
-				click(Constants.pw1_10_nycecc_compliance_accordion);
-				radio(Constants.pw1_10_work_in_compliance_with_nycecc_8085);
+				if (count(Constants.pw1_10_nycecc_compliance_accordion) > 0) {
+					click(Constants.pw1_10_nycecc_compliance_accordion);
+					radio(Constants.pw1_10_work_in_compliance_with_nycecc_8085);
+					select(Constants.pw1_10_code_compliance_path, comp[0]);
+					select(Constants.pw1_10_energy_nalysis, comp[1]);
+					// JG 2018-12-11 only check this to suppress TR8
+					if (count(Constants.pw1_10_no_tr8_inspections_req) > 0) {
+						if (comp[2].equals("N")) {
+							check(Constants.pw1_10_no_tr8_inspections_req);
+						}
+					}
+				}
 			} else {
 				radio(Constants.pw1_10_work_in_compliance_with_nycecc);
-			}
-			select(Constants.pw1_10_code_compliance_path, comp[0]);
-			select(Constants.pw1_10_energy_nalysis, comp[1]);
-			// JG 2018-12-11 only check this to suppress TR8
-			if (count(Constants.pw1_10_no_tr8_inspections_req) > 0) {
-				if (comp[2].equals("N")) {
-					check(Constants.pw1_10_no_tr8_inspections_req);
-				}
+				select(Constants.pw1_10_code_compliance_path, comp[0]);
+				select(Constants.pw1_10_energy_nalysis, comp[1]);
 			}
 	 	}
 	}
-/*	// 10. NYCEEC Compliance SUBS
-		public void complianceNYCECCSubs(String nycecc) {	
-			if(!nycecc.equals("")){
-				String[] newvalue = nycecc.split("::");
-				String compliance_path = newvalue[0];
-				String energy_analyiys = newvalue[1];
-				radio(Constants.pw1_10_work_in_compliance_with_nycecc);
-				type(Constants.pw1_10_code_compliance_path, compliance_path);
-				type(Constants.pw1_10_energy_nalysis, energy_analyiys);
-		 	}
-		}*/
+	
+	// 10. Enter NYCECC Compliance
+	public void enterNYCECCCompliance(String nycecc) {	
+		if(!nycecc.equals("")){
+			String[] comp = nycecc.split(" :: ");
+			if (count(Constants.pw1_10_nycecc_compliance_accordion) > 0) {
+				click(Constants.pw1_10_nycecc_compliance_accordion); // open
+				radio(Constants.pw1_10_work_in_compliance_with_nycecc_8085);
+				select(Constants.pw1_10_code_compliance_path, comp[0]);
+				select(Constants.pw1_10_energy_nalysis, comp[1]);
+				// JG 2018-12-11 only check this to suppress TR8
+				if (count(Constants.pw1_10_no_tr8_inspections_req) > 0) {
+					if (comp[2].equals("N")) {
+						check(Constants.pw1_10_no_tr8_inspections_req);
+					}
+				}
+				click(Constants.pw1_10_nycecc_compliance_accordion); // close
+			}
+	 	}
+	}
+
+	// 11. Enter Job Description
+	public void enterJobDescription() {	
+		click(Constants.pw1_11_job_description_accordion); // open
+		type(Constants.job_description_for_new_work, "Test job description");
+		scrollAllWayUp();
+		click(Constants.pw1_11_job_description_accordion); // close
+	}
 
 // 12. Zoning Characteristics
 	public void zonningCharacteristics(String characteristics) {	
@@ -859,7 +1040,8 @@ public class DobPW1Page extends TestBase {
 						select(Constants.pw1_13_multiple_dwelling_classification, "Class A-OL-Old Law Tenement");
 					}
 					select_val(Constants.pw1_13_building_type_8085, "1");
-					scrollTo(Constants.pw1_13_mixed_use_type_no_8085);
+					scrollDown();
+					wait(1);
 					radio(Constants.pw1_13_mixed_use_type_no_8085);
 					if (count(Constants.pw1_13_select_primary_structural_system) > 0) {
 						select(Constants.pw1_13_select_primary_structural_system, "Concrete (CIP)");
@@ -1003,6 +1185,7 @@ public class DobPW1Page extends TestBase {
 			radio("//input[contains(@name,'rblPWPropFireSup')][@value='" +data[3]+ "']");
 		}
 	}
+	
 	//18 Sign
 	public void fireProtectionEquipment2(String fireequipment) {	
 		if(!fireequipment.equals("")){
@@ -1011,9 +1194,7 @@ public class DobPW1Page extends TestBase {
 			radio(Constants.pw1_18_sprinkler_existing_no);
 			radio(Constants.pw1_18_sprinkler_proposed_no);
 			radio(Constants.pw1_18_standpipe_existing_no);
-			radio(Constants.pw1_18_standpipe_proposed_no);
-
-			
+			radio(Constants.pw1_18_standpipe_proposed_no);			
 		}
 	}	
 	
@@ -1049,7 +1230,33 @@ public class DobPW1Page extends TestBase {
 			}
 		}
 	}
-	
+
+	// 20. Enter Site Characteristics	
+	public void enterSiteCharacteristics(String sitechar) {	
+		if(!sitechar.equals("")){
+			click(Constants.pw1_20_site_characteristics_accordion); // open
+			radio(Constants.pw1_20_tidal_wetlands_no_8085);
+			radio(Constants.pw1_20_coastal_erosion_hazard_area_no);
+			scrollToElement(Constants.pw1_9_additional_considerations_accordion);
+			wait(1);
+			radio(Constants.pw1_20_fire_districs_no);
+			radio(Constants.pw1_20_freshwater_wetlands_no);
+			radio(Constants.pw1_20_urban_renewal_no);
+			radio(Constants.pw1_20A_flood_hazard_area_no);
+			scrollAllWayUp();
+			wait(1);
+			click(Constants.pw1_20_site_characteristics_accordion); // close
+			scrollDown();
+			click(Constants.pw1_22_asbestos_abatement_accordion); // open
+			radio(Constants.pw1_22_exempt_from_asbestos);
+			click(Constants.pw1_22_asbestos_abatement_accordion); // close
+			
+			click(Constants.pw1_24_comments_accordion); // open
+			type(Constants.pw1_24_comments, convertedTimestamp());
+			click(Constants.pw1_24_comments_accordion); // close
+			}
+		}
+
 	public void signDetails(String sign_details) {	
 		if(!sign_details.equals("")){
 			test = rep.startTest("signDetails");
@@ -1101,7 +1308,7 @@ public class DobPW1Page extends TestBase {
 //			driver.findElement(By.xpath("//textarea[@id='txtPWComments']")).sendKeys("this is comments");			
 		}
 	}*/
-	
+		
 // SAVE PW1	
 	public void savePW1(String save) {	
 		if(!save.equals("")){
@@ -1118,14 +1325,39 @@ public class DobPW1Page extends TestBase {
 			waitInvisible(Constants.ok_button);
 			wait(2);
 			waitClickableOr("//b[contains(text(),'Job#')]", "//strong[@class='ng-binding']");
-			if(count("//strong[@class='ng-binding']") > 0) { // ELECERICAL // JG 2018-11-01 also indicates new PW1 UI, but doesn't start with space, so go to 9. 
-				addToProps("job_number", text(Constants.el_job_label).substring(0, 9).trim());
-			} else {			
-				addToProps("job_number", text(Constants.job_label).trim().substring(6, 15).trim());
+			if (!save.equals("skip_number")) {
+				if(count("//strong[@class='ng-binding']") > 0) { // ELECERICAL // JG 2018-11-01 also indicates new PW1 UI, but doesn't start with space, so go to 9. 
+					addToProps("job_number", text(Constants.el_job_label).substring(0, 9).trim());
+				} else {			
+					addToProps("job_number", text(Constants.job_label).trim().substring(6, 15).trim());
+				}
 			}
 	 	}
 		reportPass("savePW1");
 	}
+		
+	// SAVE PW1	First Time
+	public void savePW1FirstTime(String save) {	
+		if(!save.equals("")){
+			test = rep.startTest("savePW1FirstTime");
+			click(Constants.global_save_step_button);
+			click(Constants.pw1_confirm_save_button_8085);
+			waitInvisible(Constants.global_loading_spinner);
+			waitUntilElementVisible(Constants.ok_button, 30);
+			assertNotification(TEXT_PROPERTIES.getProperty("job_filing_saved"), "pw1 saved");
+			click(Constants.ok_button);
+			waitInvisible(Constants.ok_button);
+			wait(2);
+			waitClickableOr("//b[contains(text(),'Job#')]", "//strong[@class='ng-binding']");
+			if(count("//strong[@class='ng-binding']") > 0) { // ELECERICAL // JG 2018-11-01 also indicates new PW1 UI, but doesn't start with space, so go to 9. 
+				addToProps("job_number", text(Constants.el_job_label).substring(0, 9).trim());
+			} else {			
+				addToProps("job_number", text(Constants.job_label).trim().substring(6, 15).trim());
+		 	}
+			reportPass("savePW1FirstTime");
+		}
+	}
+	
 	public void savePW1_subs(String save) {	
 		if(!save.equals("")){
 			test = rep.startTest("Save PW1_subs");
