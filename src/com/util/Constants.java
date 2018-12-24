@@ -227,6 +227,7 @@ public class Constants {
 	// Work on floors
 	public static final String plumbing_work_on_floors = "//input[@id='txtPWLocWorkFloor']";
 	public static final String pw1_1_add_work_floors_button = "//button[contains(.,'Add')]";//button[contains(.,' Add')]
+	public static final String pw1_1_add_work_on_floors_button = "(//button[contains(.,'Add')])[1]"; // JG 2018-12-21
 	public static final String pw1_1_add_work_floors_button_subs = "//button[@ng-click='PlanWorkAntennaLocationModal()']";
 	public static final String pw1_work_on_floors_location = "//select[@id='ddlCADescWork']";
 	public static final String pw1_1_work_on_floors_select_code_and_description = "//select[@id='ddlCADescWork']";
@@ -946,8 +947,13 @@ public class Constants {
 	public static final String ss_owner_type = "//select[@id='ddlPWOwnerType']";
 	public static final String ss_partner_email = "//input[@id='txtPWAppEmail1']";
 	public static final String ss_i_understand_and_agrree = "//input[@id='chkPWOwnerAcknowledge']";
+	public static final String ss_i_understand_and_agrree_8085 = "(//input[@id='chkPWOwnerAcknowledge'])[1]";
 	public static final String ss_save_button = "//*[@id='fixedviews']/div[4]/button[1]";
 	public static final String ss_no_boiler_placed_in_operation = "//input[@id='DesignApplicantStatementsMainCheckOBI']"; // JG 2018-12-17
+	public static final String ss_i_affirm_nycecc_requirements = "//input[@id='ApplicantStatementsRegisteredArchitect']"; // JG 2018-12-21
+	public static final String ss_num_dwelling_units_occupied = "//input[@id='txtPWNumberOfDwelling']"; // JG 2018-12-21
+	public static final String ss_deed_holder_is_non_profit_yes = "//input[@id='rblPWIsNonProfit1']"; // JG 2018-12-21
+	public static final String ss_deed_holder_is_non_profit_no  = "//input[@id='rblPWIsNonProfit2']"; // JG 2018-12-21
 	
 // Documents 
 	public static final String documents_step = "//a[contains(.,'Documents')]";
