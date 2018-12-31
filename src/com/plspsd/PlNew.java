@@ -32,7 +32,7 @@ public class PlNew extends TestBase {
 	// This test case uses DOBNOW to create an application/job/filing for new-work for Plumbing (PL).
 	// This test case needs to run with config.properties environment = "plumbing"
 	String testname = this.getClass().getSimpleName();
-	// The following file is used for PL, SP, SD, ST, MS and BE work types:
+	// The following file is used for PL, SP, and SD work types:
 	Xls_Reader xlsx = new Xls_Reader(Constants.testCasesPlm);
 	
 	@BeforeSuite
@@ -93,7 +93,7 @@ public class PlNew extends TestBase {
 		
 		dash.selectWorkTypePlumbing(data.get("work_type"));
 		pw1.locationImfo(data.get("address"));
-		type(Constants.pw1_1_apt_suite_number, testname);
+//		type(Constants.pw1_1_apt_suite_number, testname); // Apt/Suite field was reduced to 3 chars; now being populated in Location Info method
 		pw1.workOnFloors(data.get("work_on_floors"));
 		pw1.applicantInfoPlumbing(data.get("user_info"));
 		if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-30
