@@ -1,5 +1,5 @@
 # How to update your DOBNOW automation scripts:
-# 1. It's a good idea to make a backup copy of your dob folder - C:\framework\eclipse-workspace\dob.
+# 1. Close your local Eclipse and make a backup copy of your dob folder - C:\framework\eclipse-workspace\dob.
 # 2. Go to https://github.com/dobnowqa/all-projects.
 # 3. Click green button “Clone or download’.
 # 4. Click “Download ZIP”.
