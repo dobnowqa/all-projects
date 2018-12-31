@@ -249,7 +249,7 @@ public class TestBase {
 			pw2_user = Constants.AJOETEST2;
 			pw2_lic = Constants.PROFENG;
 		}		
-		if (CONFIG.getProperty("env").contains("plumbing")) {
+		if (CONFIG.getProperty("env").contains("plumbing") || CONFIG.getProperty("env").contains("bemsst")) {
 			user = Constants.AJOETEST2;
 			owner = Constants.APPLEROME18;
 			tr1_user = Constants.DOBTESTING123;
