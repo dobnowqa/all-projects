@@ -1,0 +1,36 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="BE MS ST" allow-return-values="true">
+
+<!--
+This suite executes all 3 'new job' tests that use ENV=bemsst 
+-->
+
+<listeners>
+    <listener class-name="listener.TestsListenerAdapter" />
+</listeners>
+
+<!--
+-->
+<test name="BeNew">
+    <classes>
+     <class name="com.bemsst.BeNew" />
+    </classes>
+</test>
+
+<!--
+-->
+<test name="MsNew">
+    <classes>
+     <class name="com.bemsst.MsNew" />
+    </classes>
+</test>
+
+<!--
+-->
+<test name="StNew">
+    <classes>
+     <class name="com.bemsst.StNew" />
+    </classes>
+</test>
+
+</suite>

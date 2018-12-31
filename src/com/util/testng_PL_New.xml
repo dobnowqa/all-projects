@@ -1,21 +1,16 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="BE MS PL SD SP ST" allow-return-values="true">
+<suite name="PL SD SP" allow-return-values="true">
+
+<!--
+This suite executes all 3 'new job' tests that use ENV=plumbing 
+-->
 
 <listeners>
     <listener class-name="listener.TestsListenerAdapter" />
 </listeners>
 
-<test name="BeNew">
-    <classes>
-     <class name="com.plspsd.BeNew" />
-    </classes>
-</test>
-
-<test name="MsNew">
-    <classes>
-     <class name="com.plspsd.MsNew" />
-    </classes>
-</test>
+<!--
+-->
 
 <test name="PlNew">
     <classes>
@@ -35,10 +30,5 @@
     </classes>
 </test>
 
-<test name="StNew">
-    <classes>
-     <class name="com.plspsd.StNew" />
-    </classes>
-</test>
 
 </suite>

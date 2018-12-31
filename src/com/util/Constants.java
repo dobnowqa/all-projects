@@ -12,6 +12,7 @@ public class Constants {
 	public static String testCases = System.getProperty("user.dir")+"\\src\\com\\data\\Test Cases.xlsx";
 	public static String testCasesSubs = System.getProperty("user.dir")+"\\src\\com\\data\\Test Cases subs.xlsx";	
 	public static String testCasesPlm = System.getProperty("user.dir")+"\\src\\com\\data\\Test Cases Pl.xlsx";
+	public static String testCasesBEMSST = System.getProperty("user.dir")+"\\src\\com\\data\\Test Cases BEMSST.xlsx";
 	public static String testCasesFab4 = System.getProperty("user.dir")+"\\src\\com\\data\\Test Cases Fab4.xlsx";
 	public static String testCasesesEctrical = System.getProperty("user.dir")+"\\src\\com\\data\\Test Cases Elc.xlsx";
 	public static String testCasesesElevator = System.getProperty("user.dir")+"\\src\\com\\data\\Test Cases Elv.xlsx";
@@ -199,7 +200,7 @@ public class Constants {
 	public static final String pw1_list_boiler_equipment_located_in = "//input[@id='txtLocatedInExisting']";
 	public static final String pw1_list_boiler_equipment_efficiency = "//input[@id='txtEfficiency']";
 	public static final String pw1_list_boiler_equipment_input_capacity = "//input[@id='txtInputCapacity']";
-	public static final String pw1_list_boiler_equipment_select_design = "//select[@ng-model='Boiler.Design']";
+	public static final String pw1_list_boiler_equipment_select_design = "//select[@ng-model='Boiler.BoilerObj.Design']";
 	public static final String pw1_list_boiler_equipment_single_only_yes = "//input[@id='rdHeatingSingleApt1']";
 	public static final String pw1_list_boiler_equipment_single_only_no  = "//input[@id='rdHeatingSingleApt2']";
 	public static final String pw1_list_boiler_equipment_pressure_relief = "//input[@id='txtPressureSettingRelief']";
@@ -953,7 +954,9 @@ public class Constants {
 	public static final String ss_i_affirm_nycecc_requirements = "//input[@id='ApplicantStatementsRegisteredArchitect']"; // JG 2018-12-21
 	public static final String ss_num_dwelling_units_occupied = "//input[@id='txtPWNumberOfDwelling']"; // JG 2018-12-21
 	public static final String ss_deed_holder_is_non_profit_yes = "//input[@id='rblPWIsNonProfit1']"; // JG 2018-12-21
-	public static final String ss_deed_holder_is_non_profit_no  = "//input[@id='rblPWIsNonProfit2']"; // JG 2018-12-21
+	public static final String ss_deed_holder_is_non_profit_no  = "//input[@id='rblPWIsNonProfit2']"; // JG 2018-12-21//input[@id='DesignApplicantStatements']
+	public static final String ss_owner_easement_agreement_restrictive_declaration = "//input[@id='DesignApplicantStatements']"; // JG 2018-12-28
+	public static final String ss_owner_agreement_with_statements_signatures_terms = "//input[@ng-model='FormObj.OwnerSealAndSignature.OwnerStatementsMainCheckPW1']"; // JG 2018-12-28
 	
 // Documents 
 	public static final String documents_step = "//a[contains(.,'Documents')]";
