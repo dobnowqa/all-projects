@@ -50,6 +50,38 @@ public class DobPW3Page extends TestBase {
 			reportPass("Success");
 		}
 	}
+	
+	public void addCostAffidavit(String pw3) {
+		if (!pw3.equals("")) {
+			String[] data = pw3.split(" :: ");
+			System.out.println(convertedTimestamp() + " **************** PW3 addCostAffidavit");
+//			filterJob(user);
+			test = rep.startTest("PW3");
+			click(Constants.pw3_cost_affidavit_step);
+			waitVisible(Constants.add_button_8085);
+			scrollAllWayUp();
+			click(Constants.add_button_8085);
+			type(Constants.pw3_cost_details_description_sign, data[0]);
+			type(Constants.pw3_area_units_8085, data[1]);
+			type(Constants.pw3_unit_cost_sign, data[2]);
+			click(Constants.pw3_cost_details_save_button);
+			waitInvisible(Constants.pw3_cost_details_save_button);
+			clickButton("OK");
+			click(Constants.global_save_step_button);
+//			waitVisible(Constants.global_loading_spinner);
+			waitUntilISpinnersInvisible();
+			waitVisible(Constants.ok_button);
+			assertNotification(TEXT_PROPERTIES.getProperty("job_filing_saved"), "job_filing_saved");
+			wait(2);
+			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
+			wait(2);
+			clickButton("OK");
+			waitInvisible(Constants.ok_button);
+			reportPass("Success");
+		}
+	}
+
+	
 /*	public void costAffidavitPlumbing(String pw3) {
 		if (!pw3.equals("")) {
 			String[] data = pw3.split(" :: ");
@@ -143,7 +175,9 @@ public class DobPW3Page extends TestBase {
 			waitUntilISpinnersInvisible();
 			wait(1); // JG 2018-11-29
 			waitVisible(Constants.ok_button);
+			wait(2);
 			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
+			wait(2);
 			clickButton("OK");
 			waitInvisible(Constants.ok_button);
 		}

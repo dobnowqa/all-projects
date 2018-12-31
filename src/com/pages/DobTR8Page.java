@@ -138,6 +138,7 @@ public class DobTR8Page extends TestBase {
 			filterJob(data[2]);
 			test = rep.startTest("TR8 Energy Sign");
 			click(Constants.tr8_technical_report_energy_step);
+			wait(2);
 			check(Constants.tr8_are_you_progress_inspector);
 			wait(2);
 			click("(//i[@class='fa fa-edit'])[last()]");

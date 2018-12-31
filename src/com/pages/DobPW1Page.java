@@ -52,7 +52,19 @@ public class DobPW1Page extends TestBase {
 	public WebElement pw1_16_infront_of_ajoining_no;
 	@FindBy(xpath=Constants.pw1_16_agencies_required_documents)
 	public WebElement pw1_16_agencies_required_documents;
-	
+
+	// 0. Enter Filing Information	
+	public void enterFilingInformation(String reviewType) {	
+		if(!reviewType.equals("")){
+			System.out.println(convertedTimestamp() + " **************** PW1 enterFilingInformation");
+			test = rep.startTest("enterFilingInformation");
+			if (reviewType.contains("Standard")) {
+				select(Constants.pw1_filing_info_select_scope_includes, "Boiler");
+			}
+			click(Constants.pw1_filing_info_accordion);
+		}
+	}
+			
 	// 1. Location Imfo	
 	public void locationImfo(String address) {	
 		if(!address.equals("")){
@@ -72,7 +84,7 @@ public class DobPW1Page extends TestBase {
 	// 1. Enter Location Information	
 	public void enterLocationInformation(String address) {	
 		if(!address.equals("")){
-			System.out.println(convertedTimestamp() + " **************** " + "PW1");
+			System.out.println(convertedTimestamp() + " **************** PW1 enterLocationInformation");
 			test = rep.startTest("Location Information");
 			String[] data = address.split(" :: ");
 			click(Constants.pw1_1_location_information_accordion); // TODO: routine to open accordion
@@ -86,7 +98,7 @@ public class DobPW1Page extends TestBase {
 		}
 	}
 
-	//Work on Floor
+	// Work on Floors
 	public void workOnFloors(String work_on_floors) {	
 		if(!work_on_floors.equals("")){
 			test = rep.startTest("Work On Floors");
@@ -119,9 +131,10 @@ public class DobPW1Page extends TestBase {
 		}
 	}
 
-	//Add Work on Floors (within Location Information)
+	// Add Work on Floors (within Location Information)
 	public void addWorkOnFloors(String work_on_floors) {	
 		if(!work_on_floors.equals("")){
+			System.out.println(convertedTimestamp() + " **************** PW1 addWorkOnFloors");
 			test = rep.startTest("Work On Floors");
 			String[] data = work_on_floors.split(" :: ");
 			click(Constants.pw1_1_location_information_accordion); // open
@@ -135,8 +148,7 @@ public class DobPW1Page extends TestBase {
 		}
 	}
 
-		
-	//Work on Floor	Subs
+	// Work on Floors Subsequent
 	public void workOnFloorsSubs(String work_type) {
 		String[] data = work_type.split(" :: ");
 		test = rep.startTest("Work On Floors Subs");
@@ -204,6 +216,7 @@ public class DobPW1Page extends TestBase {
 	// 2. Enter Applicant Information (within Stakeholders)
 	public void enterApplicantInformation(String user_info) {	
 		if (!user_info.equals("")) {
+			System.out.println(convertedTimestamp() + " **************** PW1 enterApplicantInformation");
 			String[] data = user_info.split(" :: ");
 			test = rep.startTest("Applicant Info");
 			click(Constants.pw1_2_stakeholders_accordion); // open
@@ -248,10 +261,11 @@ public class DobPW1Page extends TestBase {
 			}
 			waitInvisible(Constants.global_loading_spinner);
 			waitUntilElementVisible(Constants.ok_button, 30);
+			wait(1);
 			assertNotification(TEXT_PROPERTIES.getProperty("job_filing_saved"), "pw1 saved");
 			wait(1);
-			click(Constants.ok_button); // JG 2018-12-12 use this instead of line below because sometimes there's a second OK popup which is not clickable.
-//				clickButton("OK");
+//			click(Constants.ok_button);
+			clickButton("OK");
 			waitInvisible(Constants.ok_button);
 	 	}
 	} 
@@ -360,20 +374,24 @@ public class DobPW1Page extends TestBase {
 		}
 	}
 	
-	// 6. Work Types Structural
-	public void workTypesStructural(String new_existing_both) {
+	// Enter Filing Review Type, Work Type/ Filing Includes (generic)
+	public void enterWorkTypes(String new_existing_both) {
 		if (!new_existing_both.equals("")) {
-			test = rep.startTest("workTypesStructural");
+			System.out.println(convertedTimestamp() + " **************** PW1 enterWorkTypes");
+			test = rep.startTest("enterWorkTypes");
 			String[] data = new_existing_both.split(" :: ");
 			click(Constants.pw1_6_work_types_accordion);
-			if (!data[0].equals("N"))
+			if (!data[0].equals("N")) {
 				radio("//input[@type='radio'][@name='rdNewApp'][@value='" + data[0] + "']"); // New Work
+			}
+			click(Constants.pw1_6_work_types_accordion); // close
 		}
 	}
 
-	// 6. Work Types Mechanical Systems
+	// Enter Filing Review Type, Work Type/ Filing Includes (Mechanical Systems)
 	public void enterWorkTypesMechanicalSystems(String new_existing_both) {
 		if (!new_existing_both.equals("")) {
+			System.out.println(convertedTimestamp() + " **************** PW1 enterWorkTypesMechanicalSystems");
 			test = rep.startTest("enterWorkTypesMechanicalSystems");
 			String[] data = new_existing_both.split(" :: ");
 			click(Constants.pw1_6_work_types_accordion); // open
@@ -398,24 +416,14 @@ public class DobPW1Page extends TestBase {
 			click(Constants.pw1_6_work_types_accordion); // close
 		}
 	}
-	
-	// 6. Work Types Boiler Equipment
-	public void workTypesBoilerEquipment(String new_existing_both) {
+		
+	// Add Boiler Equipment Device
+	public void addBoilerEquipmentDevice(String new_existing_both) {
 		if (!new_existing_both.equals("")) {
-			test = rep.startTest("workTypesBoilerEquipment");
+			System.out.println(convertedTimestamp() + " **************** PW1 addBoilerEquipmentDevice");
+			test = rep.startTest("addBoilerEquipmentDevice");
 			String[] data = new_existing_both.split(" :: ");
-			click(Constants.pw1_6_work_types_accordion);
-			if (!data[0].equals("N"))
-				radio("//input[@type='radio'][@name='rdNewApp'][@value='" + data[0] + "']"); // New Work
-		}
-	}
-
-	
-	// 6. List of Boiler Equipment
-	public void listOfBoilerEquipment(String new_existing_both) {
-		if (!new_existing_both.equals("")) {
-			test = rep.startTest("listOfBoilerEquipment");
-			String[] data = new_existing_both.split(" :: ");
+			click(Constants.pw1_tab);
 			scrollAllWayUp();
 //			click(Constants.pw1_list_boiler_equipment_accordion); // JG 2018-12-17 no need to click, the accordion is open by default
 			click(Constants.pw1_list_boiler_equipment_add);
@@ -447,7 +455,6 @@ public class DobPW1Page extends TestBase {
 			waitInvisible(Constants.ok_button);
 		}
 	}
-
 	
 	// 6. Work Types Antenna (new PW1 UI) // JG 2018-10-31
 	public void workTypesAntenna(String new_existing_both) {
@@ -570,9 +577,10 @@ public class DobPW1Page extends TestBase {
 		}
 	}
 
-	// 8. Additional Information	
+	// 8. Enter Additional Information	
 	public void enterAdditionalInformation(String additional_info) {	
 		if(!additional_info.equals("")){
+			System.out.println(convertedTimestamp() + " **************** PW1 enterAdditionalInformation");
 			String[] data = additional_info.split(" :: ");
 			click(Constants.pw1_8_additional_information_accordion); // open
 			type(Constants.pw1_8_estimated_new_work_cost, data[0]);
@@ -634,7 +642,7 @@ public class DobPW1Page extends TestBase {
 			if(count(Constants.job_description_legalization) > 0)
 				type(Constants.job_description_legalization, convertedTimestamp() + " legalization");		}
 	}
-	// 8. Additional Information	
+	// 8. Additional Information Subsequent	
 		public void additionalInfoSubs(String costareatype) {	
 			if(!costareatype.equals("")){
 				String[] newvalue = costareatype.split(" :: ");
@@ -803,6 +811,7 @@ public class DobPW1Page extends TestBase {
 	// Enter Additional Considerations, Limitations or Restrictions
 	public void enterAdditionalConsiderations(String additional_conciderations) {
 		if (!additional_conciderations.equals("")) {
+			System.out.println(convertedTimestamp() + " **************** PW1 enterAdditionalConsiderations");
 			test = rep.startTest("enterAdditionalConsiderations");
 			String[] data = additional_conciderations.split(" :: ");
 			wait(1);
@@ -817,13 +826,17 @@ public class DobPW1Page extends TestBase {
 				if (count(Constants.pw1_9_facade_alteration_yes_8085) > 0) { 
 						radio("//input[@name='rdPWfacadealteration'][@value='" + data[1] + "']");
 				}
-				scrollToElement(Constants.pw1_9_review_requested_under_code);
+				if (count("//input[@ng-model='FormObj.UnmappedCCOStreet'][@value='1']") > 0) { // 2018-11-27 not in plumbing
+					radio("//input[@ng-model='FormObj.UnmappedCCOStreet'][@value='1']");
+				}
+				scrollAllWayUp();
 				wait(1);
 				radio("//input[@name='rdPWestablishmenttab'][@value='" + data[2] + "']");
 //					radio("//input[@name='rdPWQualityHousing'][@value='" + data[3] + "']"); // JG 2018-11-01 required per dd, but not present
 				if (count(Constants.pw1_9_landmark_approval_number) > 0) {
 					type(Constants.pw1_9_landmark_approval_number, "1");
 				}
+				scrollToElement(Constants.pw1_9_review_requested_under_code);
 				radio("//input[@name='rdPWBSACalender'][@value='false']"); // JG 2018-11-27 data[4] has 1, but needs to be false
 				radio("//input[@name='rdPWCPCCalender'][@value='false']"); // JG 2018-11-27 data[5] has 1, but needs to be false
 				if (count("//input[@ng-model='FormObj.WorkIncludesPartialDemolition'][@value='true']") > 0) { // JG 2018-11-30 for cc/pl, use the below logic.
@@ -854,9 +867,7 @@ public class DobPW1Page extends TestBase {
 				radio("//input[@name='rdPWCrfnFilingToAddress'][@value='" + data[7] + "']");
 				radio("//input[@name='rdPWCrfnComplyingToLocal'][@value='" + data[8] + "']");
 			}
-			if (count("//input[@ng-model='FormObj.UnmappedCCOStreet'][@value='1']") > 0) { // 2018-11-27 not in plumbing
-				radio("//input[@ng-model='FormObj.UnmappedCCOStreet'][@value='1']");
-			}
+			scrollDown();
 			radio("//input[@ng-model='FormObj.CRFNRestrictiveDeclaration'][@value='false']");
 			radio("//input[@ng-model='FormObj.ComplyingToLocalLaws'][@value='false']");
 			radio("//input[@ng-model='FormObj.IsFilingtoAddressViolations'][@value='false']");
@@ -970,6 +981,7 @@ public class DobPW1Page extends TestBase {
 	// 10. Enter NYCECC Compliance
 	public void enterNYCECCCompliance(String nycecc) {	
 		if(!nycecc.equals("")){
+			System.out.println(convertedTimestamp() + " **************** PW1 enterNYCECCCompliance");
 			String[] comp = nycecc.split(" :: ");
 			if (count(Constants.pw1_10_nycecc_compliance_accordion) > 0) {
 				click(Constants.pw1_10_nycecc_compliance_accordion); // open
@@ -989,6 +1001,7 @@ public class DobPW1Page extends TestBase {
 
 	// 11. Enter Job Description
 	public void enterJobDescription() {	
+		System.out.println(convertedTimestamp() + " **************** PW1 enterJobDescription");
 		click(Constants.pw1_11_job_description_accordion); // open
 		type(Constants.job_description_for_new_work, "Test job description");
 		scrollAllWayUp();
@@ -1080,6 +1093,70 @@ public class DobPW1Page extends TestBase {
 		 	}
 		}
 
+
+	// 13. Zoning Information - Enter Building Characteristics
+	public void enterBuildingCharacteristics(String building_charcteristics) {
+		if(!building_charcteristics.equals("")){
+			System.out.println(convertedTimestamp() + " **************** Zoning Information - enterBuildingCharacteristics");
+			test = rep.startTest("enterBuildingCharacteristics");
+			click(Constants.zoning_information_tab);
+			scrollAllWayUp();
+			if (count(Constants.pw1_13_site_tidal_no) > 0) {
+				radio(Constants.pw1_13_site_tidal_no);
+			}
+			if (count(Constants.pw1_13_occupancy_classification_existing) > 0) {
+				select(Constants.pw1_13_occupancy_classification_existing, "A-High Hazard");
+			}
+			if (count(Constants.pw1_13_occupancy_classification_proposed) > 0) {
+				select(Constants.pw1_13_occupancy_classification_proposed, "A-High Hazard");
+			}
+			if (count(Constants.pw1_13_2014_code_apply_no) > 0) {
+				radio(Constants.pw1_13_2014_code_apply_no);
+			}
+			if (count(Constants.pw1_13_construction_classification_existing) > 0) {
+				select(Constants.pw1_13_construction_classification_existing, "I-A 4-Hour Protected (Non-Combustible)");
+			}
+			if (count(Constants.pw1_13_construction_classification_proposed) > 0) {
+				select(Constants.pw1_13_construction_classification_proposed, "I-A 4-Hour Protected (Non-Combustible)");
+			}
+			if (count(Constants.pw1_13_multiple_dwelling_classification) > 0) {
+				select(Constants.pw1_13_multiple_dwelling_classification, "Class A-OL-Old Law Tenement");
+			}
+			select_val(Constants.pw1_13_building_type_8085, "1");
+			scrollDown();
+			wait(1);
+			radio(Constants.pw1_13_mixed_use_type_no_8085);
+			if (count(Constants.pw1_13_select_primary_structural_system) > 0) {
+				select(Constants.pw1_13_select_primary_structural_system, "Concrete (CIP)");
+			}
+			if (count(Constants.pw1_13_select_structural_occupancy_risk_existing) > 0) {
+				select(Constants.pw1_13_select_structural_occupancy_risk_existing, "I-Low Hazard to Human Life");
+			}
+			if (count(Constants.pw1_13_select_structural_occupancy_risk_proposed) > 0) {
+				select(Constants.pw1_13_select_structural_occupancy_risk_proposed, "I-Low Hazard to Human Life");
+			}
+			if (count(Constants.pw1_13_select_seismic_design_existing) > 0) {
+				select(Constants.pw1_13_select_seismic_design_existing, "Category A");
+			}
+			if (count(Constants.pw1_13_select_seismic_design_proposed) > 0) {
+				select(Constants.pw1_13_select_seismic_design_proposed, "Category A");
+			}
+			if (count(Constants.pw1_13_dwelling_units_existing) > 0) { // Dwelling Units
+				type(Constants.pw1_13_dwelling_units_existing, "41");
+				type(Constants.pw1_13_dwelling_units_proposed, "42");
+			}
+
+			if (count(Constants.pw1_13_building_stories_existing) > 0) { // Building Code: Building Stories
+				type(Constants.pw1_13_building_stories_existing, "1");
+				type(Constants.pw1_13_building_stories_proposed, "2");
+			}
+			if (count(Constants.pw1_13_building_dwelling_units_existing) > 0) { // Structural Footprint
+				type(Constants.pw1_13_building_dwelling_units_existing, "51");
+				type(Constants.pw1_13_building_dwelling_units_proposed, "52");
+			}
+	 	}
+	}	
+		
 		public void buildingCharMixedSubs(String building_charcteristics) {
 			if(building_charcteristics.equals("Y")){
 				System.out.println(convertedTimestamp() + " **************** buildingCharMixedSubs");
@@ -1234,6 +1311,7 @@ public class DobPW1Page extends TestBase {
 	// 20. Enter Site Characteristics	
 	public void enterSiteCharacteristics(String sitechar) {	
 		if(!sitechar.equals("")){
+			System.out.println(convertedTimestamp() + " **************** PW1 enterSiteCharacteristics");
 			click(Constants.pw1_20_site_characteristics_accordion); // open
 			radio(Constants.pw1_20_tidal_wetlands_no_8085);
 			radio(Constants.pw1_20_coastal_erosion_hazard_area_no);
@@ -1320,7 +1398,9 @@ public class DobPW1Page extends TestBase {
 			if(count(Constants.pw1_confirm_save_button) > 0)
 				click(Constants.pw1_confirm_save_button);
 			waitVisible60(Constants.ok_button);
+			wait(2);
 			assertNotification(TEXT_PROPERTIES.getProperty("job_filing_saved"), "saveForm savePW1");
+			wait(2);
 			clickButton("OK");
 			waitInvisible(Constants.ok_button);
 			wait(2);
@@ -1336,25 +1416,33 @@ public class DobPW1Page extends TestBase {
 		reportPass("savePW1");
 	}
 		
-	// SAVE PW1	First Time
-	public void savePW1FirstTime(String save) {	
+	// Save Job
+	public void saveJob(String save) {	
 		if(!save.equals("")){
-			test = rep.startTest("savePW1FirstTime");
+			System.out.println(convertedTimestamp() + " **************** PW1 saveJob");
+			test = rep.startTest("saveJob");
 			click(Constants.global_save_step_button);
-			click(Constants.pw1_confirm_save_button_8085);
+			if (count(Constants.pw1_confirm_save_button_8085) > 0) {
+				click(Constants.pw1_confirm_save_button_8085);
+			}
 			waitInvisible(Constants.global_loading_spinner);
 			waitUntilElementVisible(Constants.ok_button, 30);
+			wait(2);
 			assertNotification(TEXT_PROPERTIES.getProperty("job_filing_saved"), "pw1 saved");
-			click(Constants.ok_button);
+//			click(Constants.ok_button);
+			wait(2);
+			clickButton("OK");
 			waitInvisible(Constants.ok_button);
 			wait(2);
 			waitClickableOr("//b[contains(text(),'Job#')]", "//strong[@class='ng-binding']");
-			if(count("//strong[@class='ng-binding']") > 0) { // ELECERICAL // JG 2018-11-01 also indicates new PW1 UI, but doesn't start with space, so go to 9. 
-				addToProps("job_number", text(Constants.el_job_label).substring(0, 9).trim());
-			} else {			
-				addToProps("job_number", text(Constants.job_label).trim().substring(6, 15).trim());
-		 	}
-			reportPass("savePW1FirstTime");
+			if (save.equals("get_number")) {
+				if(count("//strong[@class='ng-binding']") > 0) { // ELECERICAL // JG 2018-11-01 also indicates new PW1 UI, but doesn't start with space, so go to 9. 
+					addToProps("job_number", text(Constants.el_job_label).substring(0, 9).trim());
+				} else {			
+					addToProps("job_number", text(Constants.job_label).trim().substring(6, 15).trim());
+			 	}
+			}
+			reportPass("saveJob");
 		}
 	}
 	

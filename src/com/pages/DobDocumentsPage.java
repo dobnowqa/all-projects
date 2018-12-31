@@ -12,7 +12,7 @@ public class DobDocumentsPage extends TestBase {
 
 	public void uploadDocuments(String upload_file) {
 		if (!upload_file.equals("")) {
-			System.out.println(convertedTimestamp() + " **************** uploadDocuments");
+			System.out.println(convertedTimestamp() + " **************** Documents - uploadDocuments");
 //			filterJob(user);
 			test = rep.startTest("Upload Documents");
 			click(Constants.documents_step);
@@ -71,9 +71,10 @@ public class DobDocumentsPage extends TestBase {
 					waitUntilISpinnersInvisible();
 					waitVisible(Constants.ok_button);
 //					assertNotification(TEXT_PROPERTIES.getProperty("job_filing_saved"), "job_filing_saved");
+					wait(2);
 					verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
-					click(Constants.ok_button); // JG 2018-12-12 use this instead of line below because sometimes there's a second OK popup which is not clickable.
-//					clickButton("OK");
+					wait(2);
+					clickButton("OK");// JG 2018-12-13 clickButton is supposed to click the OK button for all pop-ups whenever multiple pop-ups happen, but it doesn't always work in the new UI.
 					waitInvisible(Constants.ok_button);
 				}
 			}

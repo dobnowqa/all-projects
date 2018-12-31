@@ -62,8 +62,10 @@ public class DobSOWPage extends TestBase {
 					click(Constants.global_save_step_button);
 					waitUntilISpinnersInvisible();
 					waitVisible(Constants.ok_button);
+					wait(2);
 					verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
-					clickButton("OK");// JG 2018-12-13 clickButton is supposed to click the OK button for all pop-ups whenever multiple pop-ups happen, but it doesn't always work in the new UI.
+					wait(2);
+					clickButton("OK");
 					waitInvisible(Constants.ok_button);
 				}
 				click(Constants.sow_pl_add_sow_pl);
@@ -72,12 +74,16 @@ public class DobSOWPage extends TestBase {
 				type(Constants.sow_pl_total_quantity, "1");
 				click(Constants.sow_pl_work_on_floor_check);
 				click(Constants.sow_pl_save_button);
-				waitVisible(Constants.ok_button);
-				clickButton("OK");
-				waitInvisible(Constants.ok_button);
+				// JG 2018-12-28 there is no OK pop-up at this time.
+//				waitVisible(Constants.ok_button);
+//				clickButton("OK");
+//				waitInvisible(Constants.ok_button);
 				// JG 2018-11-29 add the following for new UI:
+				wait(2);
+				scrollDown();
 				if (count(Constants.sow_pl_select_operating_pressure) > 0) {
 					select(Constants.sow_pl_select_operating_pressure, "Low Pressure");
+					check(Constants.sow_pl_riser_information_na);
 					check(Constants.sow_pl_type_of_meter_individual);
 					click(Constants.sow_pl_add_work_on_floors);
 					select(Constants.sow_pl_select_work_on_floors_type, "Individual");
@@ -85,7 +91,7 @@ public class DobSOWPage extends TestBase {
 					type(Constants.sow_pl_work_on_floors_quantity, "1");
 					click(Constants.sow_pl_save_button);
 					waitInvisible(Constants.sow_pl_save_button);
-					check(Constants.sow_pl_riser_information_na);
+					scrollAllWayDown();
 					check(Constants.sow_pl_gas_use_cooking_residential);
 					check(Constants.sow_pl_appliances_cooking_residential);
 					type(Constants.sow_pl_appliances_cook_equip_res_qty, "1");
@@ -255,10 +261,10 @@ public class DobSOWPage extends TestBase {
 		}
 	}
 	
-	public void scopeOfWorkStructural(String sow) {
+	public void enterScopeOfWorkStructural(String sow) {
 		if (!sow.equals("")) {
 			String[] data = sow.split(" :: "); // JG 2018-12-05 TODO: Use 'data' to dynamically select options.
-			System.out.println(convertedTimestamp() + " **************** scopeOfWorkStructural");
+			System.out.println(convertedTimestamp() + " **************** SOW enterScopeOfWorkStructural");
 			test = rep.startTest("ASW");
 			click(Constants.scope_of_work_step);
 			scrollAllWayUp();
@@ -297,10 +303,10 @@ public class DobSOWPage extends TestBase {
 		}
 	}
 
-	public void scopeOfWorkMechanicalSystems(String sow) {
+	public void addScopeOfWorkMechanicalSystems(String sow) {
 		if (!sow.equals("")) {
 			String[] data = sow.split(" :: "); // JG 2018-12-05 TODO: Use 'data' to dynamically select options.
-			System.out.println(convertedTimestamp() + " **************** scopeOfWorkMechanicalSystems");
+			System.out.println(convertedTimestamp() + " **************** SOW addScopeOfWorkMechanicalSystems");
 			test = rep.startTest("ASW");
 			click(Constants.scope_of_work_step);
 			scrollAllWayUp();
@@ -332,10 +338,10 @@ public class DobSOWPage extends TestBase {
 		}
 	}
 
-	public void scopeOfWorkBoilerEquipment(String sow) {
+	public void enterScopeOfWorkBoilerEquipment(String sow) {
 		if (!sow.equals("")) {
 			String[] data = sow.split(" :: "); // JG 2018-12-05 TODO: Use 'data' to dynamically select options.
-			System.out.println(convertedTimestamp() + " **************** scopeOfWorkBoilerEquipment");
+			System.out.println(convertedTimestamp() + " **************** SOW enterScopeOfWorkBoilerEquipment");
 			test = rep.startTest("ASW");
 			click(Constants.scope_of_work_step);
 			scrollAllWayUp();
@@ -358,20 +364,23 @@ public class DobSOWPage extends TestBase {
 			select(Constants.sow_be_select_chimney_lining, "The chimney does not require lining");
 			click(Constants.sow_be_chimney_information_accordion);
 			
+/* comment out until this is implemented, scheduled for 2019-01-03
 			click(Constants.sow_be_oil_burner_lmp_accordion);
 //			email(Constants.sow_be_select_ob_lmp_email, "boilersoil@gmail.com");
 			email2("boilersoil@gmail.com");
 			select(Constants.sow_be_select_license_type, "Oil Burner Installer");
 //			check(Constants.sow_be_check_licensed_installer);
 			click(Constants.sow_be_oil_burner_lmp_accordion);
+*/
 						
 			click(Constants.global_save_step_button);
 			waitUntilISpinnersInvisible();
 			waitVisible(Constants.ok_button);
+			wait(2);
 			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
-			wait(1);
-//			clickButton("OK"); // JG 2018-12-06 not clickable, try constant instead...
-			click(Constants.ok_button);
+			wait(2);
+			clickButton("OK");
+//			click(Constants.ok_button);
 			waitInvisible(Constants.ok_button);
 		}
 	}

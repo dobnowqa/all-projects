@@ -7,11 +7,10 @@ public class DobSignaturesPage extends TestBase {
 
 	public void applicantStatementsSignature(String signatures) {
 		if(!signatures.equals("")){
-			System.out.println(convertedTimestamp() + " **************** Applicant Sign");
+			System.out.println(convertedTimestamp() + " **************** Statements & Signatures - Applicant Signatures");
 			filterJob(user);	
 			test = rep.startTest("applicantStatementsSignature");
-			refreshPage(); //JG 2018-11-28: need to refresh for elements to be clickable
-			waitUntilISpinnersInvisible();
+			waitUntilElementVisible(Constants.ss_statement_signatures_step, 30);
 			click(Constants.ss_statement_signatures_step);
 			waitUntilISpinnersInvisible();
 			if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-14: new PW1 UI
@@ -153,7 +152,7 @@ public class DobSignaturesPage extends TestBase {
 	}
 	public void ownerSignature(String owner_signature) {	
 		if(!owner_signature.equals("")){
-			System.out.println(convertedTimestamp() + " **************** Owner Sign");
+			System.out.println(convertedTimestamp() + " **************** Statements & Signatures - Owner Signatures");
 			filterJob(OR_PROPERTIES.getProperty("owner_email"));
 			test = rep.startTest("Owner Sign");
 			click(Constants.ss_statement_signatures_step);
@@ -174,6 +173,12 @@ public class DobSignaturesPage extends TestBase {
 				}
 				if (count(Constants.ss_deed_holder_is_non_profit_no) > 0) {
 					radio(Constants.ss_deed_holder_is_non_profit_no);
+				}
+				if (count(Constants.ss_owner_easement_agreement_restrictive_declaration) > 0) {
+					check(Constants.ss_owner_easement_agreement_restrictive_declaration);
+				}
+				if (count(Constants.ss_owner_agreement_with_statements_signatures_terms) > 0) {
+					check(Constants.ss_owner_agreement_with_statements_signatures_terms);
 				}
 				click(Constants.save_button);
 			}

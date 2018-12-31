@@ -49,29 +49,70 @@ public class DobDashboardPage extends TestBase {
 	 		reportPass("selectWorkType");
 		}
 	}
-	
-	public void selectWorkTypeBoilerEquipment(String worktype) {	
+	//********************************************* begin separate methods for each step in the new job filing selection process:********
+	public void selectJobFilingIncludes(String worktype) {
 		if(!worktype.equals("")){
-			System.out.println(convertedTimestamp() + " **************** New Filing - selectWorkTypeBoilerEquipment");
+			String includesValue = worktype;
+			if (worktype.contains("Mechanical Work")) {
+				includesValue = "Mechanical Work";
+			}
+			System.out.println(convertedTimestamp() + " **************** New Filing - selectJobFilingIncludes " + includesValue);
 			loginToPortal(OR_PROPERTIES.getProperty("user_email"));
-			test = rep.startTest("Dash Select Work Type");
+			test = rep.startTest("Dashboard Select Job Filing Includes");
+			
 			click(Constants.job_filing_button);
 			waitVisible(Constants.filing_next_button);
-			check("//span[contains(text(),'Mechanical Work')]/../preceding-sibling::div/input[@type='checkbox']");
+			check("//span[contains(text(),'" + includesValue + "')]/../preceding-sibling::div/input[@type='checkbox']");			
 			click(Constants.filing_next_button);
-			radio("(//input[@name='rdNewApp'])[2]"); // JG 2018-12-10 Boiler Equipment radio button
-			click(Constants.filing_next_button);
-			radio("(//input[@name='rdBoilerScopeofWork'])[1]"); // JG 2018-12-10 New Installation radio button
-			click(Constants.filing_next_button);
-			radio(Constants.job_filing_review_type_standard); // JG 2018-12-10 Standard Plan Examination radio button
-			click(Constants.job_filing_submit_button);
-	 		waitInvisible(Constants.filing_next_button);
-	 		select(Constants.pw1_filing_info_select_scope_includes, "Boiler");
-	 		click(Constants.pw1_filing_info_accordion);
-	 		reportPass("selectWorkTypeBoilerEquipment");
 		}
 	}
 	
+	public void selectMechanicalWorkType(String worktype) {	
+		if(!worktype.equals("")){
+			System.out.println(convertedTimestamp() + " **************** Dashboard - selectMechanicalWorkType");
+
+			if (worktype.contains("Mechanical Systems")) {
+				radio("(//input[@name='rdNewApp'])[1]"); // Mechanical Systems 
+			} else {
+				radio("(//input[@name='rdNewApp'])[2]"); // Boiler Equipment
+			}
+			click(Constants.filing_next_button);			
+		}
+	}
+	
+	public void selectBoilerWorkType(String worktype) {	
+		if(!worktype.equals("")){
+			System.out.println(convertedTimestamp() + " **************** Dashboard - selectBoilerWorkType");
+			if (worktype.contains("New")) {
+				radio("(//input[@name='rdBoilerScopeofWork'])[1]"); 
+			} else if (worktype.contains("Replacement")) {
+				radio("(//input[@name='rdBoilerScopeofWork'])[2]"); 
+			} else if (worktype.contains("Modification")) {
+				radio("(//input[@name='rdBoilerScopeofWork'])[3]"); 
+			} else if (worktype.contains("Abandoning")) {
+				radio("(//input[@name='rdBoilerScopeofWork'])[4]"); 
+			} else if (worktype.contains("Removal")) {
+				radio("(//input[@name='rdBoilerScopeofWork'])[5]"); 
+			}
+
+			click(Constants.filing_next_button);			
+		}
+	}
+	
+	public void selectFilingReviewType(String reviewType) {	
+		if(!reviewType.equals("")){
+			System.out.println(convertedTimestamp() + " **************** Dashboard - selectFilingReviewType");
+			if (reviewType.contains("Standard")) {
+				radio(Constants.job_filing_review_type_standard); // Standard Plan Examination or Review
+			} else {
+				radio(Constants.job_filing_review_type_professional); // Professional Certification
+			}
+			click(Constants.job_filing_submit_button);
+		}
+	}
+	
+//********************************************* end separate methods for each step in the new job filing selection process:********
+		
 	public void selectWorkTypePlumbing(String worktype) {	
 		if(!worktype.equals("")){
 			System.out.println(convertedTimestamp() + " **************** New Filing - selectWorkTypePlumbing");
