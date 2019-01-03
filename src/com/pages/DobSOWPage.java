@@ -110,6 +110,7 @@ public class DobSOWPage extends TestBase {
 					check(Constants.sow_pl_appliances_cooking_residential);
 					type(Constants.sow_pl_appliances_cook_equip_res_qty, "1");
 				} else {
+					scrollUp();
 					check(Constants.sow_sp_type_antifreeze);
 					select(Constants.sow_sp_select_primary_Water_sytem, "N/A");
 					select(Constants.sow_sp_select_secondary_Water_sytem, "N/A");
