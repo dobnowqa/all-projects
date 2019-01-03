@@ -101,7 +101,7 @@ public class TestBase {
 			props.setProperty("browser", browser);
 			fileName.close();
 			FileOutputStream outFileName = new FileOutputStream(Constants.CONFIG_FILE_PATH);
-			props.store(outFileName, "# BROWSERS :: IE  Chrome  ENVIRONMENTS ::  443 444 8085 + WORK TYPES:: antenna curbcut plumbing electrical elevators fab4 laa patpa");
+			props.store(outFileName, "# BROWSERS :: IE  Chrome  ENVIRONMENTS ::  443 444 8085 + WORK TYPES:: antenna curbcut plumbing electrical elevators fab4 laa patpa plspsd bemsst");
 			outFileName.close();
 			// props.load(fileName);
 			FileInputStream fs = new FileInputStream(Constants.CONFIG_FILE_PATH);
@@ -1163,6 +1163,7 @@ public class TestBase {
 	public void addToProps(String prop_name, String value) {
 		if (!prop_name.equals("")) {
 			test = rep.startTest("Add To Props " +prop_name+ "=" +value );
+//			System.out.println(convertedTimestamp() + " **************** Add to properties prop_name: " + prop_name + " value: " + value);
 			try {
 				FileInputStream fileName = new FileInputStream(Constants.JOB_NUMBER);
 				Properties props = new Properties();
@@ -1170,7 +1171,7 @@ public class TestBase {
 				props.setProperty(prop_name, value);
 				fileName.close();
 				FileOutputStream outFileName = new FileOutputStream(Constants.JOB_NUMBER);
-				props.store(outFileName, "# BROWSERS :: IE  Chrome  ENVIRONMENTS ::  443 444 8085 + WORK TYPES:: antenna curbcut plumbing electrical elevators fab4 laa patpa");
+				props.store(outFileName, "# BROWSERS :: IE  Chrome  ENVIRONMENTS ::  443 444 8085 + WORK TYPES:: antenna curbcut plumbing electrical elevators fab4 laa patpa plspsd bemsst");
 				outFileName.close();
 				// props.load(fileName);
 				FileInputStream fs = new FileInputStream(Constants.JOB_NUMBER);
