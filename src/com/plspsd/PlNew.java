@@ -81,7 +81,7 @@ public class PlNew extends TestBase {
 	public void Base(Hashtable<String, String> data) {
 		if (!TestUtil.isExecutable(testname, xlsx) || data.get("Runmode").equals("N"))
 			throw new SkipException("Skipping test");
-		System.out.println("BEGIN " + convertedTimestamp() + " **************** " + data.get("description"));
+		System.out.println("BEGIN " + convertedTimestamp() + " **************** " + testname + ": " + data.get("description"));
 		String filing_review_type_variable = "filing_review_type"; //JG 2018-11-26 
 		if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-26
 			filing_review_type_variable = "filing_review_type_8085";
@@ -93,7 +93,6 @@ public class PlNew extends TestBase {
 		
 		dash.selectWorkTypePlumbing(data.get("work_type"));
 		pw1.locationImfo(data.get("address"));
-//		type(Constants.pw1_1_apt_suite_number, testname); // Apt/Suite field was reduced to 3 chars; now being populated in Location Info method
 		pw1.workOnFloors(data.get("work_on_floors"));
 		pw1.applicantInfoPlumbing(data.get("user_info"));
 		if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-30

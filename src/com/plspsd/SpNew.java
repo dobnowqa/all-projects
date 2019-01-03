@@ -26,8 +26,8 @@ import com.relevantcodes.extentreports.LogStatus;
 public class SpNew extends TestBase {
 	// This test case uses DOBNOW to create an application/job/filing for new-work for Sprinklers (SP).
 	// This test case needs to run with config.properties environment = "plumbing"	
-	String testname = "SpNew";
-	// The following file is used for PL, SP, SD, ST, MS and BE work types:
+	String testname = this.getClass().getSimpleName();
+	// The following file is used for PL, SP, and SD work types:
 	Xls_Reader xlsx = new Xls_Reader(Constants.testCasesPlm);
 	
 	@BeforeSuite
@@ -61,7 +61,7 @@ public class SpNew extends TestBase {
 	public void Base(Hashtable<String, String> data) {
 		if (!TestUtil.isExecutable(testname, xlsx) || data.get("Runmode").equals("N"))
 			throw new SkipException("Skipping test");
-		System.out.println("BEGIN " + convertedTimestamp() + " **************** " + data.get("description"));
+		System.out.println("BEGIN " + convertedTimestamp() + " **************** " + testname + ": " + data.get("description"));
 		test = rep.startTest(data.get("description"));
 		test.log(LogStatus.INFO, data.get("description"));
 		test = rep.startTest("Test Case Data");
@@ -78,7 +78,6 @@ public class SpNew extends TestBase {
 		
 		dash.selectWorkTypePlumbing(data.get("work_type"));
 		pw1.locationImfo(data.get("address"));
-		type(Constants.pw1_1_apt_suite_number, testname);
 		pw1.workOnFloors(data.get("work_on_floors"));
 		pw1.applicantInfoPlumbing(data.get("user_info"));
 		if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-12-03
