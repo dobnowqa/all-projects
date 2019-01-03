@@ -186,6 +186,7 @@ public class DobSignaturesPage extends TestBase {
 			waitVisible(Constants.ok_button);
 			wait(1); // JG 2018-11-30
 			assertNotification(TEXT_PROPERTIES.getProperty("job_filing_saved"), "job_filing_saved owner sign");
+			wait(1);  // JG 2019-01-03
 			clickButton("OK");
 			waitInvisible(Constants.ok_button);
 			filterJob(user);
