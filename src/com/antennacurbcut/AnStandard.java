@@ -29,7 +29,10 @@ import com.pages.CrmDocs;
 import com.relevantcodes.extentreports.LogStatus;
 
 public class AnStandard extends TestBase {
+	// This test case uses DOBNOW to create an application/job/filing for new-work for Antenna (AN).
+	// This test case needs to run with config.properties environment = "antenna"	
 	String testname = this.getClass().getSimpleName();
+	// The following file is used for AN & CC work types:
 	Xls_Reader xlsx = new Xls_Reader(Constants.testCases);
 	
 	@BeforeSuite
@@ -76,11 +79,12 @@ public class AnStandard extends TestBase {
 	CrmTaskFormPage task_form = new CrmTaskFormPage();
 	CrmDocs crmdocs = new CrmDocs();
 	
+	// Execute the Portal test, using the data defined above, to create the number of jobs equal to invocationCount.
 	@Test(priority = 0, dataProvider = "getTestData", invocationCount = 1)
 	public void Portal(Hashtable<String, String> data) {
 		if (!TestUtil.isExecutable(testname, xlsx) || data.get("Runmode").equals("N"))
 			throw new SkipException("Skipping test");
-		System.out.println("BEGIN " + convertedTimestamp() + " **************** " + data.get("description")+ " " +env);
+		System.out.println("BEGIN " + convertedTimestamp() + " **************** " + testname + ": " + data.get("description") + " " + env);
 		String filing_review_type_variable = "filing_review_type"; //JG 2018-10-31 original field in the Excel (data) sheet
 		if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-10-30 TEST-ENV new PW UI
 			filing_review_type_variable = "filing_review_type_8085"; //JG 2018-10-30 new field in the Excel (data) sheet
@@ -94,7 +98,6 @@ public class AnStandard extends TestBase {
 						
 			dash.selectWorkType(data.get("work_type")); // JG 2018-11-30 TODO: pass the filing_review_type value to indicate 'standard' or 'pro'
 			pw1.locationImfo(data.get("address"));
-			type(Constants.pw1_1_apt_suite_number, testname);
 			pw1.workOnFloors(data.get("work_on_floors"));
 			pw1.applicantInfo(data.get("user_info"));
 //			pw1.reviewtype(data.get("filing_review_type")); // JG 2018-10-31 use the following instead:
@@ -128,7 +131,7 @@ public class AnStandard extends TestBase {
 			signature.applicantStatementsSignature(data.get("signatures"));
 			docs.uploadDocuments(data.get("documents"));
 			signature.ownerSignature(data.get("owner_signature"));
-			pw1.previewToFile(data.get("preview_to_file"));
+//			pw1.previewToFile(data.get("preview_to_file"));
 //			// ASSIGN TO TEAM
 //			task_form.centralAssigner(data.get("cpe_acpe"));
 		}

@@ -22,7 +22,9 @@ import com.pages.DobSOWPage;
 import com.relevantcodes.extentreports.LogStatus;
 
 public class PayInitialByCheckTest extends TestBase {
-	
+	// This test case uses DOBNOW to pay the amount due for a job in Pre-Filing Status. It filters for a job based on the value in the 'filter' column of the data (xls) file.
+	// Be sure to set the config.properties environment = to the appropriate group based on the filter value.
+	String testname = this.getClass().getSimpleName();	
 	Xls_Reader xlsx = new Xls_Reader(Constants.testCases);
 	
 	@BeforeSuite
@@ -60,7 +62,7 @@ public class PayInitialByCheckTest extends TestBase {
 	public void Base(Hashtable<String, String> data) {
 		if (!TestUtil.isExecutable("PayInitialByCheckTest", xlsx) || data.get("Runmode").equals("N"))
 			throw new SkipException("Skipping test");
-		System.out.println("BEGIN " + convertedTimestamp() + " **************** " + data.get("description"));
+		System.out.println("BEGIN " + convertedTimestamp() + " **************** " + testname + ": " + data.get("description") + " " + env);
 		test = rep.startTest(data.get("description"));
 		test.log(LogStatus.INFO, data.get("description"));
 		test = rep.startTest("Test Case Data");
@@ -69,13 +71,15 @@ public class PayInitialByCheckTest extends TestBase {
 		DobSOWPage asw = PageFactory.initElements(driver, DobSOWPage.class);
 		DobPW3Page pw3 = PageFactory.initElements(driver, DobPW3Page.class);
 		
-
-		
 		dash.filterToPay(data.get("filter"));
-		addToProps("job_number", text(Constants.job_label).trim().substring(6, 15).trim());	
-		asw.scopeOfWork(data.get("asw"));
-		pw3.costAffidavit(data.get("pw3"));
-		setConfigBrowser("IE");
+		if (CONFIG.getProperty("env").contains("8085")) { //JG 201-01-02 
+			addToProps("job_number", text(Constants.el_job_label).substring(0, 9).trim());
+		} else {
+			addToProps("job_number", text(Constants.job_label).trim().substring(6, 15).trim());
+			asw.scopeOfWork(data.get("asw"));
+			pw3.costAffidavit(data.get("pw3"));
+			setConfigBrowser("IE");
+		}
 	}
 	
 	// PAY NOW / CITY PAY

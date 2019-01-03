@@ -27,7 +27,10 @@ import com.base.TestBase;
 import com.relevantcodes.extentreports.LogStatus;
 
 public class CcStandard extends TestBase {
+	// This test case uses DOBNOW to create an application/job/filing for new-work for CurbCut (CC).
+	// This test case needs to run with config.properties environment = "curbcut"
 	String testname = this.getClass().getSimpleName();
+	// The following file is used for AN & CC work types:
 	Xls_Reader xlsx = new Xls_Reader(Constants.testCases);
 	
 	@BeforeSuite
@@ -68,12 +71,12 @@ public class CcStandard extends TestBase {
 	DobDocumentsPage docs = new DobDocumentsPage();
 	CrmTaskFormPage task_form = new CrmTaskFormPage();
 	CrmDocs crmdocs = new CrmDocs();
-	
+	// Execute the Portal test, using the data defined above, to create the number of jobs equal to invocationCount.
 	@Test(priority = 0, dataProvider = "getTestData", invocationCount = 1)
 	public void Portal(Hashtable<String, String> data) {
 		if (!TestUtil.isExecutable(testname, xlsx) || data.get("Runmode").equals("N"))
 			throw new SkipException("Skipping test");
-		System.out.println("BEGIN " + convertedTimestamp() + " **************** " + data.get("description")+ " " +env);
+		System.out.println("BEGIN " + convertedTimestamp() + " **************** " + testname + ": " + data.get("description") + " " + env);
 		String filing_review_type_variable = "filing_review_type"; //JG 2018-11-21 
 		if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-21
 			filing_review_type_variable = "filing_review_type_8085";
@@ -92,7 +95,6 @@ public class CcStandard extends TestBase {
 			dash.selectWorkType(data.get("work_type"));
 		}
 		pw1.locationImfo(data.get("address"));
-		type(Constants.pw1_1_apt_suite_number, testname);
 		
 		if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-21
 			pw1.workOnFloors(data.get("work_on_floors")); // JG 2018-11-20 new per Data Dictionary	
