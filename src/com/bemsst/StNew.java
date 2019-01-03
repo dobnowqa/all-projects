@@ -26,7 +26,7 @@ import com.relevantcodes.extentreports.LogStatus;
 public class StNew extends TestBase {
 	// This test case uses DOBNOW to create an application/job/filing for new-work for Structural (ST).
 	// This test case needs to run with config.properties environment = "bemsst"	
-	String testname = "StNew";
+	String testname = this.getClass().getSimpleName();
 	// The following file is used for BE, MS and ST work types:
 	Xls_Reader xlsx = new Xls_Reader(Constants.testCasesBEMSST); 
 	
@@ -61,7 +61,7 @@ public class StNew extends TestBase {
 	public void Base(Hashtable<String, String> data) {
 		if (!TestUtil.isExecutable(testname, xlsx) || data.get("Runmode").equals("N"))
 			throw new SkipException("Skipping test");
-		System.out.println("BEGIN " + convertedTimestamp() + " **************** " + data.get("description"));
+		System.out.println("BEGIN " + convertedTimestamp() + " **************** " + testname + ": " + data.get("description"));
 		test = rep.startTest(data.get("description"));
 		test.log(LogStatus.INFO, data.get("description"));
 		test = rep.startTest("Test Case Data");
