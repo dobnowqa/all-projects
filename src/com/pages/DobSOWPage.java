@@ -12,13 +12,15 @@ public class DobSOWPage extends TestBase {
 	
 	public void scopeOfWork(String asw) {	
 		if(!asw.equals("")){
-			System.out.println(convertedTimestamp() + " **************** scopeOfWork");
+			System.out.println(convertedTimestamp() + " **************** SOW scopeOfWork");
 //			filterJob(user);		
 			test = rep.startTest("ASW");
-			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-02: new PW1 UI
-				refreshPage(); //JG 2018-11-02: need to refresh for elements to be clickable
-			}
-			click(Constants.antenna_scope_of_work_step);
+//			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-02: new PW1 UI
+//				refreshPage(); //JG 2018-11-02: need to refresh for elements to be clickable
+//			}
+//			click(Constants.antenna_scope_of_work_step);
+			click(Constants.scope_of_work_step);
+			scrollAllWayUp();
 			waitVisible(Constants.asw_specify_supporting_structures_for_antenna_array_rrh);
 			String[] data = asw.split(" :: ");
 			wait(1); // JG 2018-11-19
@@ -74,10 +76,22 @@ public class DobSOWPage extends TestBase {
 				type(Constants.sow_pl_total_quantity, "1");
 				click(Constants.sow_pl_work_on_floor_check);
 				click(Constants.sow_pl_save_button);
-				// JG 2018-12-28 there is no OK pop-up at this time.
-//				waitVisible(Constants.ok_button);
-//				clickButton("OK");
-//				waitInvisible(Constants.ok_button);
+				// JG 2010-01-02 per bug 20863, there is no OK pop-up, so instead click Save
+				waitVisible(Constants.ok_button);
+				if (count(Constants.ok_button) > 0) {
+					clickButton("OK");
+					waitInvisible(Constants.ok_button);
+				} else {
+					click(Constants.global_save_step_button);
+					waitInvisible(Constants.global_loading_spinner);
+					waitUntilElementVisible(Constants.ok_button, 30);
+					wait(2);
+					assertNotification(TEXT_PROPERTIES.getProperty("job_filing_saved"), "pw1 saved");
+					wait(2);
+					clickButton("OK");
+					waitInvisible(Constants.ok_button);
+					wait(2);
+				}
 				// JG 2018-11-29 add the following for new UI:
 				wait(2);
 				scrollDown();

@@ -19,8 +19,9 @@ public class CityPayPage extends TestBase {
 					wait(2);
 					if (pay_now.contains("Elevator")) { // ELEVATOR
 						// DO NOTHING
-					} else
+					} else {
 						filterJob(user);
+					}
 					test = rep.startTest("City Pay");
 					if (pay_now.contains("Elevator") || pay_now.contains("patpa")) { // ELEVATOR / PA TPA
 						clickAndWait("//span[text()='Pay Now']", Constants.pay_now_yes_button);
@@ -28,6 +29,7 @@ public class CityPayPage extends TestBase {
 						clickButton("Yes");
 						waitInvisible(Constants.pay_now_yes_button);
 					} else {
+						scrollDown();
 						clickAndWait(Constants.pay_now_button, Constants.pay_now_confirm_button); // REST OF WORK TYPES
 //						click(Constants.pay_now_button); // REST OF WORK TYPES
 						waitUntilISpinnersInvisible();
@@ -91,8 +93,8 @@ public class CityPayPage extends TestBase {
 					type(Constants.pay_city_cc, "New York");
 					type(Constants.pay_zip_cc, "10021");
 					type(Constants.pay_phone_cc, "2125558888");
-					type(Constants.pay_email_cc, "jgrove@buildings.nyc.gov");
-					type(Constants.pay_email_confirm_cc, "jgrove@buildings.nyc.gov");
+					type(Constants.pay_email_cc, "dobtest06@gmail.com");
+					type(Constants.pay_email_confirm_cc, "dobtest06@gmail.com");
 					click(Constants.pay_continue_button_cc);
 					waitInvisible60(Constants.pay_continue_button_cc);
 					click(Constants.pay_next_button);
@@ -108,8 +110,8 @@ public class CityPayPage extends TestBase {
 					type(Constants.pay_city, "New York");
 					type(Constants.pay_zip, "10021");
 					type(Constants.pay_phone, "2125558888");
-					type(Constants.pay_email, "jgrove@buildings.nyc.gov");
-					type(Constants.pay_email_confirm, "jgrove@buildings.nyc.gov");
+					type(Constants.pay_email, "dobtest06@gmail.com");
+					type(Constants.pay_email_confirm, "dobtest06@gmail.com");
 					click(Constants.pay_continue_button_ec);
 					waitInvisible60(Constants.pay_continue_button_ec);
 					click(Constants.pay_next_button);
@@ -251,8 +253,8 @@ public class CityPayPage extends TestBase {
 					type(Constants.pay_city_cc, "New York");
 					type(Constants.pay_zip_cc, "10021");
 					type(Constants.pay_phone_cc, "2125558888");
-					type(Constants.pay_email_cc, "jgrove@buildings.nyc.gov");
-					type(Constants.pay_email_confirm_cc, "jgrove@buildings.nyc.gov");
+					type(Constants.pay_email_cc, "dobtest06@gmail.com");
+					type(Constants.pay_email_confirm_cc, "dobtest06@gmail.com");
 					click(Constants.pay_continue_button_cc);
 					waitInvisible60(Constants.pay_continue_button_cc);
 					click(Constants.pay_next_button);
@@ -268,8 +270,8 @@ public class CityPayPage extends TestBase {
 					type(Constants.pay_city, "New York");
 					type(Constants.pay_zip, "10021");
 					type(Constants.pay_phone, "2125558888");
-					type(Constants.pay_email, "jgrove@buildings.nyc.gov");
-					type(Constants.pay_email_confirm, "jgrove@buildings.nyc.gov");
+					type(Constants.pay_email, "dobtest06@gmail.com");
+					type(Constants.pay_email_confirm, "dobtest06@gmail.com");
 					click(Constants.pay_continue_button_ec);
 					waitInvisible60(Constants.pay_continue_button_ec);
 					click(Constants.pay_next_button);

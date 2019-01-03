@@ -190,7 +190,9 @@ public class DobPW1Page extends TestBase {
 				click(Constants.pw1_confirm_save_button_8085);
 				waitInvisible(Constants.global_loading_spinner);
 				waitUntilElementVisible(Constants.ok_button, 30);
+				wait(1);
 				assertNotification(TEXT_PROPERTIES.getProperty("job_filing_saved"), "pw1 saved");
+				wait(1);
 				click(Constants.ok_button);
 				waitInvisible(Constants.ok_button);
 			} else {
@@ -1192,7 +1194,7 @@ public class DobPW1Page extends TestBase {
 		if(!accessto.equals("")){
 			test = rep.startTest("curbCutDescription");
 			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-21
-				click(Constants.pw1_16_scope_of_work_tab);
+				click(Constants.scope_of_work_step);
 				waitUntilElementVisible(Constants.pw1_16_size_of_cutout_8085,30);
 //				scrollTo(Constants.pw1_16_size_of_cutout_8085);
 				scrollAllWayUp(); // JG 2018-11-26

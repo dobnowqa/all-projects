@@ -579,8 +579,8 @@ public class LaaPage extends TestBase {
 					type(Constants.pay_city_cc, "New York");
 					type(Constants.pay_zip_cc, "10021");
 					type(Constants.pay_phone_cc, "2125558888");
-					type(Constants.pay_email_cc, "jgrove@buildings.nyc.gov");
-					type(Constants.pay_email_confirm_cc, "jgrove@buildings.nyc.gov");
+					type(Constants.pay_email_cc, "dobtest06@gmail.com");
+					type(Constants.pay_email_confirm_cc, "dobtest06@gmail.com");
 					click(Constants.pay_continue_button_cc);
 					waitInvisible60(Constants.pay_continue_button_cc);
 					click(Constants.pay_next_button);
@@ -596,8 +596,8 @@ public class LaaPage extends TestBase {
 					type(Constants.pay_city, "New York");
 					type(Constants.pay_zip, "10021");
 					type(Constants.pay_phone, "2125558888");
-					type(Constants.pay_email, "jgrove@buildings.nyc.gov");
-					type(Constants.pay_email_confirm, "jgrove@buildings.nyc.gov");
+					type(Constants.pay_email, "dobtest06@gmail.com");
+					type(Constants.pay_email_confirm, "dobtest06@gmail.com");
 					click(Constants.pay_continue_button_ec);
 					waitInvisible60(Constants.pay_continue_button_ec);
 					click(Constants.pay_next_button);
@@ -733,8 +733,8 @@ public class LaaPage extends TestBase {
 					type(Constants.pay_city_cc, "New York");
 					type(Constants.pay_zip_cc, "10021");
 					type(Constants.pay_phone_cc, "2125558888");
-					type(Constants.pay_email_cc, "jgrove@buildings.nyc.gov");
-					type(Constants.pay_email_confirm_cc, "jgrove@buildings.nyc.gov");
+					type(Constants.pay_email_cc, "dobtest06@gmail.com");
+					type(Constants.pay_email_confirm_cc, "dobtest06@gmail.com");
 					click(Constants.pay_continue_button_cc);
 					waitInvisible60(Constants.pay_continue_button_cc);
 					click(Constants.pay_next_button);
@@ -750,8 +750,8 @@ public class LaaPage extends TestBase {
 					type(Constants.pay_city, "New York");
 					type(Constants.pay_zip, "10021");
 					type(Constants.pay_phone, "2125558888");
-					type(Constants.pay_email, "jgrove@buildings.nyc.gov");
-					type(Constants.pay_email_confirm, "jgrove@buildings.nyc.gov");
+					type(Constants.pay_email, "dobtest06@gmail.com");
+					type(Constants.pay_email_confirm, "dobtest06@gmail.com");
 					click(Constants.pay_continue_button_ec);
 					waitInvisible60(Constants.pay_continue_button_ec);
 					click(Constants.pay_next_button);

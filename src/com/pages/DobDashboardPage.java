@@ -642,8 +642,8 @@ public class DobDashboardPage extends TestBase {
 			type(Constants.pay_city, "New York");
 			type(Constants.pay_zip, "10021");
 			type(Constants.pay_phone, "2125558888");
-			type(Constants.pay_email, "jgrove@buildings.nyc.gov");
-			type(Constants.pay_email_confirm, "jgrove@buildings.nyc.gov");
+			type(Constants.pay_email, "dobtest06@gmail.com");
+			type(Constants.pay_email_confirm, "dobtest06@gmail.com");
 			click(Constants.pay_continue_button);
 			click(Constants.pay_next_button);
 			type(Constants.pay_name_on_account, "don pedro");

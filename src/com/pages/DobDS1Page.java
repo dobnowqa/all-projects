@@ -28,7 +28,9 @@ public class DobDS1Page extends TestBase {
 			scrollToElement(Constants.save_button);
 			click(Constants.save_button);
 			waitVisible60(Constants.ok_button);
+			wait(1);
 			assertNotification(TEXT_PROPERTIES.getProperty("job_filing_saved"), "job_filing_saved");
+			wait(1);
 			clickButton("OK");
 			waitInvisible(Constants.ok_button);
 		}
