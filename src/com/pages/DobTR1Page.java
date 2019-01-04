@@ -17,7 +17,9 @@ public class DobTR1Page extends TestBase {
 			test = rep.startTest("TR1 Inspection");
 			click(Constants.tr1_technical_report_step);
 			if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-13: new PW1 UI
-				check(Constants.tr1_are_you_special_inspector);
+				if (count(Constants.tr1_are_you_special_inspector) > 0) {
+					check(Constants.tr1_are_you_special_inspector);
+				}
 				check(Constants.tr1_are_you_progress_inspector);
 			}
 			for (int i = 1; i < 100; i++) {
@@ -28,18 +30,14 @@ public class DobTR1Page extends TestBase {
 				click(Constants.tr1_select_requirement_code_filter);
 				click(Constants.inspection_label);
 				email(OR_PROPERTIES.getProperty("special_inspector_email"));
-				if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-13: new PW1 UI
-					select(Constants.tr1_license_type, OR_PROPERTIES.getProperty("special_inspector_lisence"));
-					type(Constants.tr1_agency_number, data[3]);
-					//keyPressTab(Constants.tr1_agency_number);
-					wait(2);
-					if (count(Constants.green_valid_label) > 0) {
-						break;
-					} else {
-						click(Constants.global_cancel_button);
-					}
-				} else {
+				select(Constants.tr1_license_type, OR_PROPERTIES.getProperty("special_inspector_lisence"));
+				type(Constants.tr1_agency_number, data[3]);
+				//keyPressTab(Constants.tr1_agency_number);
+				wait(2);
+				if (count(Constants.green_valid_label) > 0) {
 					break;
+				} else {
+					click(Constants.global_cancel_button);
 				}
 			}
 			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-02: new PW1 UI
@@ -66,9 +64,12 @@ public class DobTR1Page extends TestBase {
 			test = rep.startTest("TR1 Inspection");
 			click(Constants.tr1_technical_report_step);
 			scrollAllWayUp();
-			check(Constants.tr1_are_you_special_inspector);
-//			check(Constants.tr1_are_you_progress_inspector); // JG 2018-12-07 as of now, only the special inspector needs to be entered.
-			
+			if (count(Constants.tr1_are_you_special_inspector) > 0) {
+				check(Constants.tr1_are_you_special_inspector);
+			}
+			if (count(Constants.tr1_are_you_progress_inspector) > 0) {
+				check(Constants.tr1_are_you_progress_inspector); // JG 2018-12-07 as of now, only the special inspector needs to be entered.
+			}
 			// Edit the Special Inspection row to enter the inspector email:
 			click("(//i[@class='fa fa-edit'])[last()-1]");
 			email(data[1]);
@@ -94,9 +95,12 @@ public class DobTR1Page extends TestBase {
 			test = rep.startTest("TR1 Inspection");
 			click(Constants.tr1_technical_report_step);
 			scrollAllWayUp();
-			check(Constants.tr1_are_you_special_inspector);
-//			check(Constants.tr1_are_you_progress_inspector); // JG 2018-12-07 as of now, only the special inspector needs to be entered.
-			
+			if (count(Constants.tr1_are_you_special_inspector) > 0) { // JG 2019-01-04 no more check boxes asking if you're an inspector? Just check them if they're present.
+				check(Constants.tr1_are_you_special_inspector);				
+			}
+			if (count(Constants.tr1_are_you_progress_inspector) > 0) {
+				check(Constants.tr1_are_you_progress_inspector); // JG 2018-12-07 as of now, only the special inspector needs to be entered.
+			}			
 			// Edit the Special Inspection row to enter the inspector email:
 			click("(//i[@class='fa fa-edit'])[last()-1]");
 			email(OR_PROPERTIES.getProperty("special_inspector_email"));
@@ -122,8 +126,9 @@ public class DobTR1Page extends TestBase {
 			test = rep.startTest("TR1 Inspection");
 			click(Constants.tr1_technical_report_step);
 			wait(1);
-			check(Constants.tr1_are_you_special_inspector);
-			
+			if (count(Constants.tr1_are_you_special_inspector) > 0) { // JG 2019-01-04 no more check boxes asking if you're an inspector? Just check them if they're present.
+				check(Constants.tr1_are_you_special_inspector);
+			}			
 			// Edit the Special Inspection row to enter the inspector email:
 			click("(//i[@class='fa fa-edit'])[last()]");
 			email(data[1]);
@@ -149,7 +154,9 @@ public class DobTR1Page extends TestBase {
 			test = rep.startTest("TR1 specialInspectorSignature");
 			for (int i = 1; i < 100; i++) {
 				click(Constants.tr1_technical_report_step);
-				check(Constants.tr1_are_you_special_inspector);
+				if (count(Constants.tr1_are_you_special_inspector) > 0) {
+					check(Constants.tr1_are_you_special_inspector);
+				}
 				check(Constants.tr1_are_you_progress_inspector);
 				if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-13: new PW1 UI
 					click("//i[@class='fa fa-edit']"); // DO NOT CAHNGE TO LAST()
@@ -159,24 +166,23 @@ public class DobTR1Page extends TestBase {
 				waitVisible("//h4[text()='Special Inspection Category']");
 				waitVisible(Constants.tr1_agency_number);
 				wait(3);
-				if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-13: new PW1 UI
-					select(Constants.license_type_list_8085, data[2]); // DO NOT CAHNGE TO LAST()
-					type(Constants.tr1_agency_number, "005551");
-					wait(3);
-				}
-//				System.out.println(count(Constants.green_valid_label));
-				if (count(Constants.green_valid_label) > 0) {
-					check(Constants.tr1_i_take_responcibility);
-					check(Constants.tr1_i_understand_my_failure_to_file);
-					check(Constants.tr1_i_understand_and_agree);
-					if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-13: new PW1 UI
+				if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-13: new PW1 UI
+					if (count(Constants.green_valid_label) > 0) {
+						check(Constants.tr1_i_take_responcibility);
+						check(Constants.tr1_i_understand_my_failure_to_file);
+						check(Constants.tr1_i_understand_and_agree);
 						click(Constants.tr1_save_progress_inspection_button);
 						waitVisible(Constants.ok_button);
 						verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_updated"));
 						clickButton("OK");
 						waitInvisible(Constants.ok_button);
 						waitInvisible(Constants.tr1_save_progress_inspection_button);
-					} else {
+					}
+				} else {
+					if (count(Constants.green_valid_label_8085) > 0) {
+						check(Constants.tr1_i_take_responcibility);
+						check(Constants.tr1_i_understand_my_failure_to_file);
+						check(Constants.tr1_i_understand_and_agree);
 						click(Constants.tr1_save_progress_inspection_button_8085);
 						waitVisible(Constants.ok_button);
 						verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_saved_success"));
@@ -188,7 +194,6 @@ public class DobTR1Page extends TestBase {
 				wait(2);
 				if (count(Constants.identified_yes_label) > 0)
 					break;
-//				System.out.println(text(Constants.license_type_list));
 				if (!text(Constants.license_type_list).contains(data[2]));
 					select(Constants.license_type_list, data[2]); // DO NOT CAHNGE TO LAST()
 				if ((count(Constants.tr1_agency_number) > 0))
@@ -250,7 +255,6 @@ public class DobTR1Page extends TestBase {
 					waitInvisible(Constants.ok_button);
 				}				
 			}
-//			filterJob(user);
 			reportPass("Success");
 		}
 	}
@@ -263,7 +267,9 @@ public class DobTR1Page extends TestBase {
 			test = rep.startTest("TR1 specialInspectionPlumbingNew");
 			test.log(LogStatus.INFO, " specialInspectionPlumbingNew");
 			clickAndWait(Constants.tr1_technical_report_step, Constants.tr1_are_you_special_inspector);
-			check(Constants.tr1_are_you_special_inspector);
+			if (count(Constants.tr1_are_you_special_inspector) > 0) {
+				check(Constants.tr1_are_you_special_inspector);
+			}
 //			if (count(Constants.edit_icon) > 0) {
 				for (int i = 1; i < 5; i++) {
 					waitVisible("//span[text()='Requirement']");
@@ -304,7 +310,9 @@ public class DobTR1Page extends TestBase {
 			test = rep.startTest("TR1 specialInspectionPlumbingNew");
 			test.log(LogStatus.INFO, " specialInspectionPlumbingNew");
 			clickAndWait(Constants.tr1_technical_report_step, Constants.tr1_are_you_special_inspector);
-			check(Constants.tr1_are_you_special_inspector);
+			if (count(Constants.tr1_are_you_special_inspector) > 0) { // JG 2019-01-04 no more check boxes asking if you're an inspector? Just check them if they're present.
+				check(Constants.tr1_are_you_special_inspector);
+			}
 //			if (count(Constants.edit_icon) > 0) {
 				for (int i = 1; i < 5; i++) {
 					waitVisible("//span[text()='Requirement']");
@@ -351,7 +359,9 @@ public class DobTR1Page extends TestBase {
 			test = rep.startTest("TR1 specialInspectionPlumbingLegalization");
 			test.log(LogStatus.INFO, " specialInspectionPlumbingLegalization");
 			clickAndWait(Constants.tr1_technical_report_step, Constants.tr1_are_you_special_inspector);
-			check(Constants.tr1_are_you_special_inspector);
+			if (count(Constants.tr1_are_you_special_inspector) > 0) {
+				check(Constants.tr1_are_you_special_inspector);
+			}
 //			if (count(Constants.edit_icon) > 0) {
 				for (int i = 1; i < 5; i++) {
 					waitVisible("//span[text()='Requirement']");
@@ -392,7 +402,9 @@ public class DobTR1Page extends TestBase {
 			test = rep.startTest("TR1 Inspection");
 			test.log(LogStatus.INFO, " specialInspectionPlumbing");
 			clickAndWait(Constants.tr1_technical_report_step, Constants.tr1_are_you_special_inspector);
-			check(Constants.tr1_are_you_special_inspector);
+			if (count(Constants.tr1_are_you_special_inspector) > 0) {
+				check(Constants.tr1_are_you_special_inspector);
+			}
 			if (count(Constants.edit_icon) > 0) {
 				// wait(22);
 				for (int i = 1; i <= count(Constants.edit_icon); i++) {
@@ -661,7 +673,9 @@ public class DobTR1Page extends TestBase {
 				filterJob(tr1_user);
 				test = rep.startTest("TR1 progressInspectionSign");
 				click(Constants.tr1_technical_report_step);
-				check(Constants.tr1_are_you_special_inspector);
+				if (count(Constants.tr1_are_you_special_inspector) > 0) {
+					check(Constants.tr1_are_you_special_inspector);
+				}
 				check(Constants.tr1_are_you_progress_inspector);
 				for (int a = 1; a <= 5; a++) {
 					click("(//i[@class='fa fa-edit'])[last()]");

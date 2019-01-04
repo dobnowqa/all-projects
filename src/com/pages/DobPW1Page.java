@@ -60,6 +60,7 @@ public class DobPW1Page extends TestBase {
 			test = rep.startTest("enterFilingInformation");
 			if (reviewType.contains("Standard")) {
 				select(Constants.pw1_filing_info_select_scope_includes, "Boiler");
+				select(Constants.pw1_filing_info_select_boiler_energy_source, "Gas");
 			}
 			click(Constants.pw1_filing_info_accordion);
 		}

@@ -146,7 +146,9 @@ public class DobSOWPage extends TestBase {
 			click(Constants.global_save_step_button);
 			waitUntilISpinnersInvisible();
 			waitVisible(Constants.ok_button);
+			wait(1);
 			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
+			wait(1);
 			clickButton("OK");
 			waitInvisible(Constants.ok_button);
 		}
@@ -200,7 +202,7 @@ public class DobSOWPage extends TestBase {
 			
 			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-12-03 Add SOW-SD using new UI
 				scrollAllWayUp();
-				click("//span[text()='Add scope of work']");
+				click(Constants.sow_pl_add_sow_pl);
 				select("//select[@id='SOWInstallationWork']", "New Installation");
 				select("//select[@id='SOWInstallationType']", "Regular Installation");
 				type("//input[@id='SOWTotalQuantity']", "1");
@@ -346,9 +348,10 @@ public class DobSOWPage extends TestBase {
 			click(Constants.global_save_step_button);
 			waitUntilISpinnersInvisible();
 			waitVisible(Constants.ok_button);
+			wait(1);
 			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
-//			clickButton("OK"); // JG 2018-12-06 not clickable, try constant instead...
-			click(Constants.ok_button);
+			wait(1);
+			clickButton("OK");
 			waitInvisible(Constants.ok_button);
 		}
 	}
@@ -364,7 +367,7 @@ public class DobSOWPage extends TestBase {
 			select(Constants.sow_be_select_proposed_boiler_rating, "High Pressure");
 			type(Constants.sow_be_proposed_max_allowable_wp, "1000");
 			select(Constants.sow_be_select_proposed_boiler_type, "Hot Water Heating");
-			select(Constants.sow_be_select_proposed_boiler_energy_source, "Electric");
+//			select(Constants.sow_be_select_proposed_boiler_energy_source, "Electric"); // JG 2019-01-04 moved to 'Filing Information' section
 			select(Constants.sow_be_select_proposed_boiler_classification, "Conventional(Standard)");
 			type(Constants.sow_be_sum_total_rated_input_capacity, "2000");
 			scrollAllWayUp();

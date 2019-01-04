@@ -289,6 +289,7 @@ public class DobTR8Page extends TestBase {
 			filterJob(data[2]);
 			test = rep.startTest("TR8 Energy Code Signature");
 			click(Constants.tr8_technical_report_energy_step);
+			wait(2);
 			check(Constants.tr8_are_you_progress_inspector);
 			wait(3);
 			for (int i = 1; i <= 20; i++) {
