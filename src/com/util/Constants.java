@@ -186,7 +186,8 @@ public class Constants {
 	//	   0. Filing Information
 	public static final String pw1_filing_info_accordion = "//div[@slidediv='filingInformationDiv']";
 	public static final String pw1_filing_info_select_scope_of_work = "//select[@id='ddlBurnerSoWFI']";
-	public static final String pw1_filing_info_select_scope_includes = "//select[@id='rdWorktype']";	
+	public static final String pw1_filing_info_select_scope_includes = "//select[@id='rdWorktype']";
+	public static final String pw1_filing_info_select_boiler_energy_source = "//select[@id='ddlPropEnergySource']";
 
 	//	   0. List of Boiler Equipment
 	public static final String pw1_list_boiler_equipment_accordion = "//div[@slidediv='boilerEquipmentList']";
@@ -671,7 +672,7 @@ public class Constants {
 	public static final String sow_pl_gas = "//input[@ng-model='ScopeOfWorkPLCommon.Gas']";
 	public static final String sow_pl_water_sanitary = "//input[@ng-model='ScopeOfWorkPLCommon.WaterSanitary']";
 	public static final String sow_pl_plsp = "//input[@ng-model='ScopeOfWorkPLCommon.PLSP']";
-	public static final String sow_pl_add_sow_pl = "//span[text()='Add scope of work']";
+	public static final String sow_pl_add_sow_pl = "//span[text()='Add Scope of Work']";
 	public static final String sow_pl_select_scope_includes = "//select[@id='SOWInstallationWork']";
 	public static final String sow_pl_select_type = "//select[@id='SOWInstallationType']";
 	public static final String sow_pl_total_quantity = "//input[@id='SOWTotalQuantity']";
@@ -1042,6 +1043,7 @@ public class Constants {
 	public static final String tr1_valid_label = "//i[@ng-if='ShowAgencyvalid']";
 	//public static final String green_valid_label = "//i[@style='color:forestgreen'][text()='Valid']";
 	public static final String green_valid_label = "//i[@style='color:forestgreen']";
+	public static final String green_valid_label_8085 = "//i[@style='color: forestgreen;']";
 	
 	public static final String crm_user = "//span[contains(@title,'BUILD001')]";
 	//  ELEVATORS
