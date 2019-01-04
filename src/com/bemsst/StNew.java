@@ -12,8 +12,8 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.openqa.selenium.support.PageFactory;
-
 import com.base.TestBase;
+
 import com.pages.DobDashboardPage;
 import com.pages.DobDocumentsPage;
 import com.pages.DobPW1Page;
@@ -66,14 +66,14 @@ public class StNew extends TestBase {
 		test.log(LogStatus.INFO, data.get("description"));
 		test = rep.startTest("Test Case Data");
 		test.log(LogStatus.INFO, data.toString());
-		DobDashboardPage dash = PageFactory.initElements(driver, DobDashboardPage.class);
-		DobPW1Page pw1 = PageFactory.initElements(driver, DobPW1Page.class);
-		DobSOWPage asw = PageFactory.initElements(driver, DobSOWPage.class);
-		DobPW3Page pw3 = PageFactory.initElements(driver, DobPW3Page.class);
-		DobTR1Page tr1 = PageFactory.initElements(driver, DobTR1Page.class);
-//		DobTR8Page tr8 = PageFactory.initElements(driver, DobTR8Page.class); // JG 2018-12-19 comment out due to TR8 not used
-		DobSignaturesPage signature = PageFactory.initElements(driver, DobSignaturesPage.class);
-		DobDocumentsPage docs = PageFactory.initElements(driver, DobDocumentsPage.class);
+		DobDashboardPage 	dash = PageFactory.initElements(driver, DobDashboardPage.class);
+		DobPW1Page 			pw1  = PageFactory.initElements(driver, DobPW1Page.class);
+		DobSOWPage 			asw  = PageFactory.initElements(driver, DobSOWPage.class);
+		DobPW3Page 			pw3  = PageFactory.initElements(driver, DobPW3Page.class);
+		DobTR1Page 			tr1  = PageFactory.initElements(driver, DobTR1Page.class);
+//		DobTR8Page 			tr8  = PageFactory.initElements(driver, DobTR8Page.class); // JG 2018-12-19 comment out due to TR8 not used
+		DobSignaturesPage 	signature = PageFactory.initElements(driver, DobSignaturesPage.class);
+		DobDocumentsPage 	docs = PageFactory.initElements(driver, DobDocumentsPage.class);
 		
 		dash.selectJobFilingIncludes(data.get("work_type"));	
 		dash.selectFilingReviewType(data.get("filing_review_type"));
