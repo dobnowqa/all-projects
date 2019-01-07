@@ -412,15 +412,26 @@ public class DobSOWPage extends TestBase {
 			test = rep.startTest("scopeOfWorkScaffold");
 			click(Constants.scope_of_work_step);
 			for (int i = 1; i <= 5; i++) {
-				waitVisible("//span[text()='Supported Scaffold']");
+//				waitVisible("//span[text()='Supported Scaffold']");
+				wait(1);
 				if (!data[1].contains("N"))
 					check(Constants.sidewalk_shed);
 				if (!data[2].contains("N"))
 					check(Constants.construction_fence);
 				select(Constants.scaffold_type, data[3]);
-				radio(Constants.scaffold_going_to_extend_no);
+				if (count(Constants.scaffold_going_to_extend_no) > 0 ) {
+					radio(Constants.scaffold_going_to_extend_no);
+				}
+				if (count(Constants.scaffold_going_to_extend_beyond_property_no) > 0) {
+					radio(Constants.scaffold_going_to_extend_beyond_property_no);
+				}
 				select(Constants.how_scaffold_supported, data[5]);
-				radio(Constants.scaffold_any_related_equipment_no);
+				if (count(Constants.scaffold_any_related_equipment_no) > 0) {
+					radio(Constants.scaffold_any_related_equipment_no);
+				}
+				if (count(Constants.scaffold_any_related_construction_equipment_no) > 0) {
+					radio(Constants.scaffold_any_related_construction_equipment_no);
+				}
 				wait(1);
 				if (count(Constants.completed_checkmark) > 0) {
 					click(Constants.global_save_step_button);
@@ -549,7 +560,7 @@ public class DobSOWPage extends TestBase {
 			click(Constants.scope_of_work_step);
 			for (int i = 1; i <= 5; i++) {
 				scrollAllWayDown();
-				if(count("//span[text()='Construction Fence']") > 0) {
+				if(count("//span[text()='Construction Fence']") > 0 || count("//div[h3='Construction Fence Scope of Work']") > 0) {
 					type(Constants.fence_height, data[3]);
 					select(Constants.fence_location, data[4]);
 					wait(1);

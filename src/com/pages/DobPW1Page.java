@@ -834,8 +834,10 @@ public class DobPW1Page extends TestBase {
 				}
 				scrollAllWayUp();
 				wait(1);
-				radio("//input[@name='rdPWestablishmenttab'][@value='" + data[2] + "']");
+				if (count("//input[@name='rdPWestablishmenttab'][@value='" + data[2] + "']") > 0) {
+				    radio("//input[@name='rdPWestablishmenttab'][@value='" + data[2] + "']");
 //					radio("//input[@name='rdPWQualityHousing'][@value='" + data[3] + "']"); // JG 2018-11-01 required per dd, but not present
+				}
 				if (count(Constants.pw1_9_landmark_approval_number) > 0) {
 					type(Constants.pw1_9_landmark_approval_number, "1");
 				}
@@ -1126,7 +1128,9 @@ public class DobPW1Page extends TestBase {
 				select(Constants.pw1_13_multiple_dwelling_classification, "Class A-OL-Old Law Tenement");
 			}
 			select_val(Constants.pw1_13_building_type_8085, "1");
-			scrollDown();
+			if (!building_charcteristics.equals("X")){
+				scrollDown();
+			}
 			wait(1);
 			radio(Constants.pw1_13_mixed_use_type_no_8085);
 			if (count(Constants.pw1_13_select_primary_structural_system) > 0) {
@@ -1178,6 +1182,9 @@ public class DobPW1Page extends TestBase {
 		public void constructionEquipment(String equipment) {	
 			if(!equipment.equals("")){
 				String[] data = equipment.split(" :: ");
+				if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-21
+					click(Constants.pw1_15_construction_equipment_accordion); // open
+				}
 				if(count(Constants.construction_material_fence) > 0)
 					select(Constants.construction_material_fence, data[0]);
 				if(count(Constants.describe_construction_material) > 0) // txtPWConstructionMaterial
@@ -1186,6 +1193,9 @@ public class DobPW1Page extends TestBase {
 					type(Constants.construction_material_sidewalk, data[2]);
 				if(count(Constants.size_of_shed) > 0)
 					type(Constants.size_of_shed, data[3]);
+				if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-21
+					click(Constants.pw1_15_construction_equipment_accordion); // close
+				}
 		 	}
 		}
 		
@@ -1338,6 +1348,16 @@ public class DobPW1Page extends TestBase {
 			}
 		}
 
+	// 24. Enter PW1 Comments	
+	public void enterPw1Comments(String sitechar) {	
+		if(!sitechar.equals("")){
+			System.out.println(convertedTimestamp() + " **************** PW1 enterPw1Comments");
+			click(Constants.pw1_24_comments_accordion); // open
+			type(Constants.pw1_24_comments, convertedTimestamp());
+			click(Constants.pw1_24_comments_accordion); // close
+			}
+		}
+	
 	public void signDetails(String sign_details) {	
 		if(!sign_details.equals("")){
 			test = rep.startTest("signDetails");
