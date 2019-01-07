@@ -464,7 +464,7 @@ public class Constants {
 	public static final String pw1_13_multiple_dwelling_classification = "//select[@id='ddlMultipledWellingClassification']";
 	
 // 15
-	
+	public static final String pw1_15_construction_equipment_accordion = "//div[@slidediv='section15Div']"; // JG 2019-01-07
 	public static final String construction_material_fence = "//select[@id='ddlPWConstructionMaterial']";
 	public static final String describe_construction_material = "//input[@id='txtPWConstructionMaterial']";
 	public static final String construction_material_sidewalk = "(//input[@id='txtPWConstructionMaterial'])[last()]";
@@ -651,8 +651,12 @@ public class Constants {
 	
 	public static final String scaffold_type = "//select[@id='ddlShedType']";
 	public static final String scaffold_going_to_extend_no  = "//input[@id='rdsupportedscaffold'][@value='false']";
+	public static final String scaffold_going_to_extend_beyond_property_yes = "//input[@id='rdsupportedscaffoldYes']";
+	public static final String scaffold_going_to_extend_beyond_property_no  = "//input[@id='rdsupportedscaffoldNo']";
 	public static final String how_scaffold_supported = "//select[@id='ddlScaffoldSupported']";
 	public static final String scaffold_any_related_equipment_no = "//input[@id='rdRelatedConstruction'][@value='false']";
+	public static final String scaffold_any_related_construction_equipment_yes = "//input[@id='rdRelatedConstructionYes']";
+	public static final String scaffold_any_related_construction_equipment_no  = "//input[@id='rdRelatedConstructionNo']";
 	
 	public static final String shed_type = "//select[@id='ddlSidewalkShedType']";
 	public static final String sidewalk_going_to_extend_no  = "//input[@id='rdSideWalksupportedscaffold'][@value='false']";
