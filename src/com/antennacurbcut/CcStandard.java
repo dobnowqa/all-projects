@@ -71,12 +71,13 @@ public class CcStandard extends TestBase {
 	DobDocumentsPage docs = new DobDocumentsPage();
 	CrmTaskFormPage task_form = new CrmTaskFormPage();
 	CrmDocs crmdocs = new CrmDocs();
+	
 	// Execute the Portal test, using the data defined above, to create the number of jobs equal to invocationCount.
 	@Test(priority = 0, dataProvider = "getTestData", invocationCount = 1)
 	public void Portal(Hashtable<String, String> data) {
 		if (!TestUtil.isExecutable(testname, xlsx) || data.get("Runmode").equals("N"))
 			throw new SkipException("Skipping test");
-		System.out.println("BEGIN " + convertedTimestamp() + " **************** " + testname + ": " + data.get("description") + " " + env);
+		System.out.println(convertedTimestamp() + " ******BEGIN***** " + testname + ": " + data.get("description") + " " + env);
 		String filing_review_type_variable = "filing_review_type"; //JG 2018-11-21 
 		if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-21
 			filing_review_type_variable = "filing_review_type_8085";
@@ -129,7 +130,8 @@ public class CcStandard extends TestBase {
 		signature.applicantStatementsSignature(data.get("signatures"));
 		docs.uploadDocuments(data.get("documents"));
 		signature.ownerSignature(data.get("owner_signature"));
-		pw1.previewToFile(data.get("preview_to_file"));
+//		pw1.previewToFile(data.get("preview_to_file"));
+		successMessage(data.get("description"));
 	}
  	
 /*	// CPE VIEW-ACCEPT DOCS

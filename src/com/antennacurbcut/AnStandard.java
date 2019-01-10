@@ -84,7 +84,7 @@ public class AnStandard extends TestBase {
 	public void Portal(Hashtable<String, String> data) {
 		if (!TestUtil.isExecutable(testname, xlsx) || data.get("Runmode").equals("N"))
 			throw new SkipException("Skipping test");
-		System.out.println("BEGIN " + convertedTimestamp() + " **************** " + testname + ": " + data.get("description") + " " + env);
+		System.out.println(convertedTimestamp() + " ******BEGIN***** " + testname + ": " + data.get("description") + " " + env);
 		String filing_review_type_variable = "filing_review_type"; //JG 2018-10-31 original field in the Excel (data) sheet
 		if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-10-30 TEST-ENV new PW UI
 			filing_review_type_variable = "filing_review_type_8085"; //JG 2018-10-30 new field in the Excel (data) sheet
@@ -132,6 +132,7 @@ public class AnStandard extends TestBase {
 			docs.uploadDocuments(data.get("documents"));
 			signature.ownerSignature(data.get("owner_signature"));
 //			pw1.previewToFile(data.get("preview_to_file"));
+			successMessage(data.get("description"));
 //			// ASSIGN TO TEAM
 //			task_form.centralAssigner(data.get("cpe_acpe"));
 		}
