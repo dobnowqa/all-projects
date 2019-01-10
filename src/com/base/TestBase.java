@@ -916,7 +916,8 @@ public class TestBase {
 	}
 
 	public String convertedTimestamp() {
-		DateFormat dateFormat = new SimpleDateFormat("M-d HH:mm:ss"); // 07/31/2014 16:31
+//		DateFormat dateFormat = new SimpleDateFormat("M-d HH:mm:ss"); // 07/31/2014 16:31
+		DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD HH:mm:ss"); // JG 2019-01-09 11:14:00
 		timestamp = dateFormat.format(Calendar.getInstance().getTime());
 		return timestamp;
 	}
@@ -1453,7 +1454,7 @@ public class TestBase {
 	public void successMessage(String msg) {
 		test = rep.startTest("COMPLETED SUCCESSFULLY " +msg);
 		test.log(LogStatus.PASS, "SUCCESS " + msg);
-		System.out.println("SUCCESS " + convertedTimestamp() + " **************** " + msg);
+		System.out.println(convertedTimestamp() + " *****SUCCESS**** " + msg);
 	}
 	
 	public void email(String email) {
