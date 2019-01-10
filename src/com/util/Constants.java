@@ -192,26 +192,26 @@ public class Constants {
 	//	   0. List of Boiler Equipment
 	public static final String pw1_list_boiler_equipment_accordion = "//div[@slidediv='boilerEquipmentList']";
 	public static final String pw1_list_boiler_equipment_add = "//button[@ng-click='AddBoilerDevice()']";
-	public static final String pw1_list_boiler_equipment_edit = "//i[@class='glyphicon glyphicon-edit']";
-	public static final String pw1_list_boiler_equipment_select_occupancy_type = "//select[@id='ddlOccupancySoW']";
-	public static final String pw1_list_boiler_equipment_boiler_manufacturer = "//input[@id='txtBoilerManufacturer']";
-	public static final String pw1_list_boiler_equipment_boiler_model_number = "//input[@id='txtModelNo']";
-	public static final String pw1_list_boiler_equipment_select_agency_name = "//select[@id='drpULCSAETLNo']";
-	public static final String pw1_list_boiler_equipment_certification_number = "//input[@id='txtBoilerCertificationNumber']";
-	public static final String pw1_list_boiler_equipment_located_in = "//input[@id='txtLocatedInExisting']";
-	public static final String pw1_list_boiler_equipment_efficiency = "//input[@id='txtEfficiency']";
-	public static final String pw1_list_boiler_equipment_input_capacity = "//input[@id='txtInputCapacity']";
-	public static final String pw1_list_boiler_equipment_select_design = "//select[@ng-model='Boiler.BoilerObj.Design']";
-	public static final String pw1_list_boiler_equipment_single_only_yes = "//input[@id='rdHeatingSingleApt1']";
-	public static final String pw1_list_boiler_equipment_single_only_no  = "//input[@id='rdHeatingSingleApt2']";
-	public static final String pw1_list_boiler_equipment_pressure_relief = "//input[@id='txtPressureSettingRelief']";
-	public static final String pw1_list_boiler_equipment_select_internal_access = "//select[@id='ddlInternalAccess']";
-	public static final String pw1_list_boiler_equipment_associated_cogen_yes = "//input[@id='rdAssociatedCOGEN1']";
-	public static final String pw1_list_boiler_equipment_associated_cogen_no  = "//input[@id='rdAssociatedCOGEN2']";
-	public static final String pw1_list_boiler_equipment_select_material  = "//select[@id='ddlConstructionMaterial']";
-	public static final String pw1_list_boiler_equipment_servicing_location_address = "//input[@id='txtServicingLoc']";
-	public static final String pw1_list_boiler_equipment_servicing_location_floor = "//input[@id='txtServicingLocFloor']";
-	public static final String pw1_list_boiler_equipment_comments = "//textarea[@id='Comments']";
+	public static final String pw1_list_boiler_equipment_edit = "(//i[@class='glyphicon glyphicon-edit'])[last()]";
+	public static final String pw1_list_boiler_equipment_select_occupancy_type = "(//select[@id='ddlOccupancySoW'])[last()]";
+	public static final String pw1_list_boiler_equipment_boiler_manufacturer = "(//input[@id='txtBoilerManufacturer'])[last()]";
+	public static final String pw1_list_boiler_equipment_boiler_model_number = "(//input[@id='txtModelNo'])[last()]";
+	public static final String pw1_list_boiler_equipment_select_agency_name = "(//select[@id='drpULCSAETLNo'])[last()]";
+	public static final String pw1_list_boiler_equipment_certification_number = "(//input[@id='txtBoilerCertificationNumber'])[last()]";
+	public static final String pw1_list_boiler_equipment_located_in = "(//input[@id='txtLocatedInExisting'])[last()]";
+	public static final String pw1_list_boiler_equipment_efficiency = "(//input[@id='txtEfficiency'])[last()]";
+	public static final String pw1_list_boiler_equipment_input_capacity = "(//input[@id='txtInputCapacity'])[last()]";
+	public static final String pw1_list_boiler_equipment_select_design = "(//select[@ng-model='Boiler.BoilerObj.Design'])[last()]";
+	public static final String pw1_list_boiler_equipment_single_only_yes = "(//input[@id='rdHeatingSingleApt1'])[last()]";
+	public static final String pw1_list_boiler_equipment_single_only_no  = "(//input[@id='rdHeatingSingleApt2'])[last()]";
+	public static final String pw1_list_boiler_equipment_pressure_relief = "(//input[@id='txtPressureSettingRelief'])[last()]";
+	public static final String pw1_list_boiler_equipment_select_internal_access = "(//select[@id='ddlInternalAccess'])[last()]";
+	public static final String pw1_list_boiler_equipment_associated_cogen_yes = "(//input[@id='rdAssociatedCOGEN1'])[last()]";
+	public static final String pw1_list_boiler_equipment_associated_cogen_no  = "(//input[@id='rdAssociatedCOGEN2'])[last()]";
+	public static final String pw1_list_boiler_equipment_select_material  = "(//select[@id='ddlConstructionMaterial'])[last()]";
+	public static final String pw1_list_boiler_equipment_servicing_location_address = "(//input[@id='txtServicingLoc'])[last()]";
+	public static final String pw1_list_boiler_equipment_servicing_location_floor = "(//input[@id='txtServicingLocFloor'])[last()]";
+	public static final String pw1_list_boiler_equipment_comments = "(//textarea[@id='Comments'])[last()]";
 	
 	//     1. Location Information
 	public static final String pw1_1_location_information_accordion = "//div[@slidediv='locationInformationDiv']"; // JG 2018-11-29  
@@ -468,8 +468,10 @@ public class Constants {
 	public static final String construction_material_fence = "//select[@id='ddlPWConstructionMaterial']";
 	public static final String describe_construction_material = "//input[@id='txtPWConstructionMaterial']";
 	public static final String construction_material_sidewalk = "(//input[@id='txtPWConstructionMaterial'])[last()]";
-	
 	public static final String size_of_shed = "//input[@id='txtPWShedSize']";
+	public static final String pw1_15_sidewalk_construction_material = "//input[@id='txtPWSidewalkShedMaterial']"; // JG 2019-01-08
+	public static final String pw1_15_sidewalk_bsa_mea_otcr_approval_number = "//input[@id='txtPWApprovalNumber']"; // JG 2019-01-08
+	
 	
 // 16. Curb Cut Description
 	public static final String pw1_16_scope_of_work_tab = "//a[@class='segoeUISemiBold ng-binding'][contains(text(),'Scope of Work')]"; // JG 2018-11-01 new PW1 UI
@@ -645,9 +647,7 @@ public class Constants {
 	public static final String sign_arterial_highway_no = "//input[@id='radArterialhighwayt'][@value='0']";
 	public static final String sign_within_view_of_park_no  = "//input[@id='radParkAcre'][@value='0']";
 	
-	
-	public static final String sidewalk_shed = "//input[@id='radParkAcre']";
-	public static final String construction_fence = "//input[@id='chkCAWrkTypeSd']";
+
 	
 	public static final String scaffold_type = "//select[@id='ddlShedType']";
 	public static final String scaffold_going_to_extend_no  = "//input[@id='rdsupportedscaffold'][@value='false']";
@@ -658,11 +658,18 @@ public class Constants {
 	public static final String scaffold_any_related_construction_equipment_yes = "//input[@id='rdRelatedConstructionYes']";
 	public static final String scaffold_any_related_construction_equipment_no  = "//input[@id='rdRelatedConstructionNo']";
 	
+	// Scope Of Work - Sidewalk Shed
+	public static final String sidewalk_shed = "//input[@id='radParkAcre']";
 	public static final String shed_type = "//select[@id='ddlSidewalkShedType']";
 	public static final String sidewalk_going_to_extend_no  = "//input[@id='rdSideWalksupportedscaffold'][@value='false']";
+	public static final String sow_sh_sidewalk_shed_extend_beyond_property_yes = "//input[@id='rdSideWalksupportedscaffoldYes']";
+	public static final String sow_sh_sidewalk_shed_extend_beyond_property_no  = "//input[@id='rdSideWalksupportedscaffoldNo']";
 	public static final String how_shed_supported = "//select[@id='ddlSideWalkScaffoldSupported']";
 	public static final String sidewalk_any_related_equipment_no  = "//input[@id='rdSideWalkRelatedConstruction'][@value='false']";
+	public static final String sow_sh_sidewalk_shed_any_related_equipment_yes = "//input[@id='rdSideWalkRelatedConstructionYes']";
+	public static final String sow_sh_sidewalk_shed_any_related_equipment_no  = "//input[@id='rdSideWalkRelatedConstructionNo']";
 	
+	public static final String construction_fence = "//input[@id='chkCAWrkTypeSd']";
 	public static final String fence_height = "//input[@id='SoWFenceHeight']";
 	public static final String fence_location = "//select[@id='ddlLocationOfFence']";
 	
