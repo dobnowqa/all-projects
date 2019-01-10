@@ -13,14 +13,13 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.openqa.selenium.support.PageFactory;
 import com.base.TestBase;
-
 import com.pages.DobDashboardPage;
 import com.pages.DobDocumentsPage;
 import com.pages.DobPW1Page;
-import com.pages.DobPW3Page;
 import com.pages.DobSOWPage;
-
+import com.pages.DobPW3Page;
 import com.pages.DobTR1Page;
+import com.pages.DobTR8Page;
 import com.pages.DobSignaturesPage;
 import com.relevantcodes.extentreports.LogStatus;
 
@@ -62,7 +61,7 @@ public class FnNew extends TestBase {
 	public void Base(Hashtable<String, String> data) {
 		if (!TestUtil.isExecutable(testname, xlsx) || data.get("Runmode").equals("N"))
 			throw new SkipException("Skipping test");
-		System.out.println("BEGIN " + convertedTimestamp() + " **************** " + testname + ": " + data.get("description"));
+		System.out.println(convertedTimestamp() + " ******BEGIN***** " + testname + ": " + data.get("description") + " " + env);
 		test = rep.startTest(data.get("description"));
 		test.log(LogStatus.INFO, data.get("description"));
 		test = rep.startTest("Test Case Data");
@@ -72,11 +71,13 @@ public class FnNew extends TestBase {
 		DobSOWPage 			asw  = PageFactory.initElements(driver, DobSOWPage.class);
 		DobPW3Page 			pw3  = PageFactory.initElements(driver, DobPW3Page.class);
 		DobTR1Page 			tr1  = PageFactory.initElements(driver, DobTR1Page.class);
-//		DobTR8Page 			tr8  = PageFactory.initElements(driver, DobTR8Page.class);
+		DobTR8Page 			tr8  = PageFactory.initElements(driver, DobTR8Page.class);
 		DobSignaturesPage 	signature = PageFactory.initElements(driver, DobSignaturesPage.class);
 		DobDocumentsPage 	docs = PageFactory.initElements(driver, DobDocumentsPage.class);
 		
-		dash.selectJobFilingIncludes(data.get("work_type"));	
+		dash.selectJobFilingIncludes(data.get("work_type"));
+
+		
 		dash.selectFilingReviewType(data.get("filing_review_type"));
 //		dash.selectWorkType(data.get("work_type"));
 		
@@ -85,42 +86,27 @@ public class FnNew extends TestBase {
 		pw1.enterApplicantInformation(data.get("user_info"));
 		pw1.enterWorkTypes(data.get("new_existing_both"));
 		pw1.enterAdditionalInformation(data.get("additional_info"));
-		pw1.enterAdditionalConsiderations(data.get("additional_conciderations"));
 		pw1.enterNYCECCCompliance(data.get("nycecc"));
 		pw1.enterJobDescription();
+//		pw1.enterSiteCharacteristics(data.get("site_characteristics"));
+//		pw1.enterAsbestosAbatementCompliance(data.get("site_characteristics"));
 		pw1.constructionEquipment(data.get("equipment"));
 		pw1.enterPw1Comments(data.get("site_characteristics"));
 		pw1.saveJob("get_number");
+		pw1.enterAdditionalConsiderations(data.get("additional_conciderations"));
 		pw1.enterBuildingCharacteristics(data.get("building_charcteristics")); // Zoning Info
 		pw1.saveJob("skip_number");
 		asw.scopeOfWorkFence(data.get("asw"));
+//		pw1.addBoilerEquipmentDevice("new_existing_both"); // no equipment device for this work type
 		pw3.addCostAffidavit(data.get("pw3"));
 //		tr1.specialInspection(data.get("tr1"));  // temp not in use
 //		tr1.specialInspectorSignature(data.get("tr1")); // temp not in use
 
-//		pw1.locationImfo(data.get("address"));
-////		type(Constants.pw1_1_apt_suite_number, testname);
-//		pw1.workOnFloors(data.get("work_on_floors"));
-//		pw1.applicantInfo(data.get("user_info"));
-//		pw1.reviewtype(data.get("filing_review_type"));
-//		pw1.directive14acceptanceRequested(data.get("directive_14"));
-//		pw1.workTypes(data.get("new_existing_both")); // workTypeScaffold
-//		pw1.additionalInfo2(data.get("additional_info"));
-//		pw1.additionalConciderations(data.get("additional_conciderations"));
-//		pw1.complianceNYCECC(data.get("nycecc"));
-//		pw1.zonningCharacteristics(data.get("zonning"));
-//		pw1.buildingCharacteristics(data.get("building_charcteristics"));
-//		pw1.constructionEquipment(data.get("equipment"));
-//		pw1.fireProtectionEquipment2(data.get("fire_equipment"));
-//		pw1.siteCharacteristics(data.get("site_characteristics"));
-//		pw1.savePW1(data.get("save_pw1"));
-//		asw.scopeOfWorkFence(data.get("asw"));
-//		tr1.progressInspection(data.get("tr1")); // temp not in use
 
 		signature.applicantStatementsSignature(data.get("signatures"));
 		docs.uploadDocuments(data.get("documents"));
 		signature.ownerSignature(data.get("owner_signature"));
-		pw1.previewToFile(data.get("preview_to_file"));
+//		pw1.previewToFile(data.get("preview_to_file"));
 		successMessage(data.get("description"));
 	}
 
