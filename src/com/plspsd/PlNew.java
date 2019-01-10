@@ -32,7 +32,7 @@ public class PlNew extends TestBase {
 	// This test case uses DOBNOW to create an application/job/filing for new-work for Plumbing (PL).
 	// This test case needs to run with config.properties environment = "plumbing"
 	String testname = this.getClass().getSimpleName();
-	// The following file is used for PL, SP, and SD work types:
+	// The following file is used for PL, SP and SD work types:
 	Xls_Reader xlsx = new Xls_Reader(Constants.testCasesPlm);
 	
 	@BeforeSuite
@@ -81,7 +81,7 @@ public class PlNew extends TestBase {
 	public void Base(Hashtable<String, String> data) {
 		if (!TestUtil.isExecutable(testname, xlsx) || data.get("Runmode").equals("N"))
 			throw new SkipException("Skipping test");
-		System.out.println("BEGIN " + convertedTimestamp() + " **************** " + testname + ": " + data.get("description"));
+		System.out.println(convertedTimestamp() + " ******BEGIN***** " + testname + ": " + data.get("description") + " " + env);
 		String filing_review_type_variable = "filing_review_type"; //JG 2018-11-26 
 		if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-26
 			filing_review_type_variable = "filing_review_type_8085";

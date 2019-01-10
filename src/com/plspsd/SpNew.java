@@ -12,7 +12,6 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.openqa.selenium.support.PageFactory;
-
 import com.base.TestBase;
 import com.pages.DobDashboardPage;
 import com.pages.DobDocumentsPage;
@@ -20,6 +19,7 @@ import com.pages.DobPW1Page;
 import com.pages.DobSOWPage;
 import com.pages.DobPW3Page;
 import com.pages.DobTR1Page;
+import com.pages.DobTR8Page;
 import com.pages.DobSignaturesPage;
 import com.relevantcodes.extentreports.LogStatus;
 
@@ -27,7 +27,7 @@ public class SpNew extends TestBase {
 	// This test case uses DOBNOW to create an application/job/filing for new-work for Sprinklers (SP).
 	// This test case needs to run with config.properties environment = "plumbing"	
 	String testname = this.getClass().getSimpleName();
-	// The following file is used for PL, SP, and SD work types:
+	// The following file is used for PL, SP and SD work types:
 	Xls_Reader xlsx = new Xls_Reader(Constants.testCasesPlm);
 	
 	@BeforeSuite
@@ -61,20 +61,19 @@ public class SpNew extends TestBase {
 	public void Base(Hashtable<String, String> data) {
 		if (!TestUtil.isExecutable(testname, xlsx) || data.get("Runmode").equals("N"))
 			throw new SkipException("Skipping test");
-		System.out.println("BEGIN " + convertedTimestamp() + " **************** " + testname + ": " + data.get("description"));
+		System.out.println(convertedTimestamp() + " ******BEGIN***** " + testname + ": " + data.get("description") + " " + env);
 		test = rep.startTest(data.get("description"));
 		test.log(LogStatus.INFO, data.get("description"));
 		test = rep.startTest("Test Case Data");
 		test.log(LogStatus.INFO, data.toString());
-		DobDashboardPage dash = PageFactory.initElements(driver, DobDashboardPage.class);
-		DobPW1Page pw1 = PageFactory.initElements(driver, DobPW1Page.class);
-		DobSOWPage asw = PageFactory.initElements(driver, DobSOWPage.class);
-		DobPW3Page pw3 = PageFactory.initElements(driver, DobPW3Page.class);
-		DobTR1Page tr1 = PageFactory.initElements(driver, DobTR1Page.class);
-//		DobTR8Page tr8 = PageFactory.initElements(driver, DobTR8Page.class); // JG 2018-12-19 comment out due to TR8 not used
-		DobSignaturesPage signature = PageFactory.initElements(driver, DobSignaturesPage.class);
-		DobDocumentsPage docs = PageFactory.initElements(driver, DobDocumentsPage.class);
-
+		DobDashboardPage 	dash = PageFactory.initElements(driver, DobDashboardPage.class);
+		DobPW1Page 			pw1  = PageFactory.initElements(driver, DobPW1Page.class);
+		DobSOWPage 			asw  = PageFactory.initElements(driver, DobSOWPage.class);
+		DobPW3Page 			pw3  = PageFactory.initElements(driver, DobPW3Page.class);
+		DobTR1Page 			tr1  = PageFactory.initElements(driver, DobTR1Page.class);
+		DobTR8Page 			tr8  = PageFactory.initElements(driver, DobTR8Page.class);
+		DobSignaturesPage 	signature = PageFactory.initElements(driver, DobSignaturesPage.class);
+		DobDocumentsPage 	docs = PageFactory.initElements(driver, DobDocumentsPage.class);
 		
 		dash.selectWorkTypePlumbing(data.get("work_type"));
 		pw1.locationImfo(data.get("address"));
