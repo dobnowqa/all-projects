@@ -401,6 +401,7 @@ public class DobTR1Page extends TestBase {
 //			filterJob(user);
 			test = rep.startTest("TR1 Inspection");
 			test.log(LogStatus.INFO, " specialInspectionPlumbing");
+			wait(2);
 			clickAndWait(Constants.tr1_technical_report_step, Constants.tr1_are_you_special_inspector);
 			if (count(Constants.tr1_are_you_special_inspector) > 0) {
 				check(Constants.tr1_are_you_special_inspector);
@@ -952,6 +953,7 @@ public class DobTR1Page extends TestBase {
 			click(Constants.tr1_save_progress_inspection_button_8085);
 			waitInvisible(Constants.tr1_save_progress_inspection_button_8085);					
 			waitVisible(Constants.ok_button);
+			wait(1);
 			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_saved_success"));
 			wait(1);
 			clickButton("OK");

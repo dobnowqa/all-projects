@@ -145,6 +145,7 @@ public class DobPW1Page extends TestBase {
 			type(Constants.pw1_1_work_on_floors_floor_number_to, data[2]);
 			type(Constants.pw1_1_work_on_floors_description_of_work, convertedTimestamp());
 			click(Constants.pw1_1_work_on_floors_add_button_8085);
+			wait(1);
 			click(Constants.pw1_1_location_information_accordion); // close
 		}
 	}
@@ -426,36 +427,42 @@ public class DobPW1Page extends TestBase {
 			System.out.println(convertedTimestamp() + " **************** PW1 addBoilerEquipmentDevice");
 			test = rep.startTest("addBoilerEquipmentDevice");
 			String[] data = new_existing_both.split(" :: ");
-			click(Constants.pw1_tab);
-			scrollAllWayUp();
-//			click(Constants.pw1_list_boiler_equipment_accordion); // JG 2018-12-17 no need to click, the accordion is open by default
-			click(Constants.pw1_list_boiler_equipment_add);
-			click(Constants.ok_button);
-			click(Constants.pw1_list_boiler_equipment_edit);
-			select(Constants.pw1_list_boiler_equipment_select_occupancy_type, "Commercial");
-			type(Constants.pw1_list_boiler_equipment_boiler_manufacturer, "Test Boiler Manufacturer");
-			type(Constants.pw1_list_boiler_equipment_boiler_model_number, "Test Boiler Model Number");
-			select(Constants.pw1_list_boiler_equipment_select_agency_name, "CSA");
-			type(Constants.pw1_list_boiler_equipment_certification_number, "233233");
-			type(Constants.pw1_list_boiler_equipment_located_in, "Test located in the basement");
-			type(Constants.pw1_list_boiler_equipment_efficiency, "28759");
-			type(Constants.pw1_list_boiler_equipment_input_capacity, "29959");
-			select(Constants.pw1_list_boiler_equipment_select_design, "Fire-tube");
-			radio(Constants.pw1_list_boiler_equipment_single_only_no);
-			type(Constants.pw1_list_boiler_equipment_pressure_relief, "123456789");
-			select(Constants.pw1_list_boiler_equipment_select_internal_access, "Handhole");
-			radio(Constants.pw1_list_boiler_equipment_associated_cogen_no);
-			select(Constants.pw1_list_boiler_equipment_select_material, "Cast Iron");
-			type(Constants.pw1_list_boiler_equipment_servicing_location_address, "123 Main Street");
-			type(Constants.pw1_list_boiler_equipment_servicing_location_floor, "Test servicing location floor");
-			type(Constants.pw1_list_boiler_equipment_comments, "Test boiler equipment comments");
-			click(Constants.global_save_form_button_8085);
-			waitUntilISpinnersInvisible();
-			waitVisible(Constants.ok_button);
-			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
-//			clickButton("OK"); // JG 2018-12-06 not clickable, try constant instead...
-			click(Constants.ok_button);
-			waitInvisible(Constants.ok_button);
+			click(Constants.pw1_list_boiler_equipment_accordion); // JG 2019-01-10 need to open because the accordion was closed when entering Additional Considerations
+			for (int i = 1; i <= Integer.valueOf(data[1]); i++) {
+				click(Constants.pw1_tab);
+				scrollAllWayUp();
+				click(Constants.pw1_list_boiler_equipment_add);
+				wait(1);
+				click(Constants.ok_button);
+				wait(1);
+				click(Constants.pw1_list_boiler_equipment_edit);
+				select(Constants.pw1_list_boiler_equipment_select_occupancy_type, "Commercial");
+				type(Constants.pw1_list_boiler_equipment_boiler_manufacturer, "Test Boiler Manufacturer");
+				type(Constants.pw1_list_boiler_equipment_boiler_model_number, "Test Boiler Model Number");
+				select(Constants.pw1_list_boiler_equipment_select_agency_name, "CSA");
+				type(Constants.pw1_list_boiler_equipment_certification_number, "233233");
+				String equipmentLocatedIn = "Boiler equipment located in: " + Integer.toString(i);
+				type(Constants.pw1_list_boiler_equipment_located_in, equipmentLocatedIn);
+				type(Constants.pw1_list_boiler_equipment_efficiency, "28759");
+				type(Constants.pw1_list_boiler_equipment_input_capacity, "29959");
+				select(Constants.pw1_list_boiler_equipment_select_design, "Fire-tube");
+				radio(Constants.pw1_list_boiler_equipment_single_only_no);
+				type(Constants.pw1_list_boiler_equipment_pressure_relief, "123456789");
+				select(Constants.pw1_list_boiler_equipment_select_internal_access, "Handhole");
+				radio(Constants.pw1_list_boiler_equipment_associated_cogen_no);
+				select(Constants.pw1_list_boiler_equipment_select_material, "Cast Iron");
+				type(Constants.pw1_list_boiler_equipment_servicing_location_address, "123 Main Street");
+				type(Constants.pw1_list_boiler_equipment_servicing_location_floor, "Test servicing location floor");
+				type(Constants.pw1_list_boiler_equipment_comments, "Test boiler equipment comments");
+				click(Constants.global_save_form_button_8085);
+				waitUntilISpinnersInvisible();
+				waitVisible(Constants.ok_button);
+				wait(1);
+				verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
+				wait(1);
+				clickButton("OK");
+				waitInvisible(Constants.ok_button);
+			}
 		}
 	}
 	
@@ -817,7 +824,12 @@ public class DobPW1Page extends TestBase {
 			System.out.println(convertedTimestamp() + " **************** PW1 enterAdditionalConsiderations");
 			test = rep.startTest("enterAdditionalConsiderations");
 			String[] data = additional_conciderations.split(" :: ");
+			scrollAllWayUp();
 			wait(1);
+			 if (count(Constants.pw1_list_boiler_equipment_accordion) > 0) {
+				 click(Constants.pw1_list_boiler_equipment_accordion); // close
+			}
+			scrollDown();
 			click(Constants.pw1_9_additional_considerations_accordion); // open
 			scrollToElement(Constants.pw1_9_additional_considerations_accordion);
 			wait(1);
@@ -918,6 +930,7 @@ public class DobPW1Page extends TestBase {
 				radio(Constants.pw1_9_require_standpipe_service_24hrs_no);
 			}
 			scrollAllWayUp();
+			wait(1);
 			click(Constants.pw1_9_additional_considerations_accordion); // close
 		}
 	}
@@ -1029,6 +1042,20 @@ public class DobPW1Page extends TestBase {
 	 	}
 	}
 
+	// 12. Enter Zoning Characteristics
+	public void enterZoningCharacteristics(String characteristics) {
+		if(!characteristics.equals("")){
+			System.out.println(convertedTimestamp() + " **************** Zoning Information - enterZoningCharacteristics");
+			test = rep.startTest("enterZoningCharacteristics");
+			click(Constants.zoning_information_tab);
+			scrollAllWayUp();
+			select_val(Constants.pw1_12_district_8085,"BPC"); //JG 2018-11-01 TODO: use a variable instead of "BPC"  
+			type(Constants.pw1_12_overlay, "2");
+			type(Constants.pw1_12_special_district, "3");
+			type(Constants.pw1_12_map_number, "4");
+		}
+	}
+
 	// 13. Building Characteristics
 		public void buildingCharacteristics(String building_charcteristics) {
 			if(!building_charcteristics.equals("")){
@@ -1097,7 +1124,6 @@ public class DobPW1Page extends TestBase {
 				}
 		 	}
 		}
-
 
 	// 13. Zoning Information - Enter Building Characteristics
 	public void enterBuildingCharacteristics(String building_charcteristics) {
@@ -1181,21 +1207,34 @@ public class DobPW1Page extends TestBase {
 		// 15.Construction Equipment
 		public void constructionEquipment(String equipment) {	
 			if(!equipment.equals("")){
+				System.out.println(convertedTimestamp() + " **************** PW1 constructionEquipment");
 				String[] data = equipment.split(" :: ");
 				if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-21
 					click(Constants.pw1_15_construction_equipment_accordion); // open
 				}
-				if(count(Constants.construction_material_fence) > 0)
+				if (count(Constants.construction_material_fence) > 0) {
 					select(Constants.construction_material_fence, data[0]);
-				if(count(Constants.describe_construction_material) > 0) // txtPWConstructionMaterial
+				}
+				if (count(Constants.describe_construction_material) > 0) { // txtPWConstructionMaterial
 					type(Constants.describe_construction_material, data[1]);
-				if(count(Constants.construction_material_sidewalk) > 0) 
+				}
+				if (count(Constants.construction_material_sidewalk) > 0) { 
 					type(Constants.construction_material_sidewalk, data[2]);
-				if(count(Constants.size_of_shed) > 0)
+				}
+				if (count(Constants.pw1_15_sidewalk_construction_material) > 0) {
+					type(Constants.pw1_15_sidewalk_construction_material, data[2]);
+				}
+				if (count(Constants.size_of_shed) > 0) {
 					type(Constants.size_of_shed, data[3]);
+				}
+				if (count(Constants.pw1_15_sidewalk_bsa_mea_otcr_approval_number) > 0) {
+					type(Constants.pw1_15_sidewalk_bsa_mea_otcr_approval_number, data[4]);
+				}			
 				if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-21
 					click(Constants.pw1_15_construction_equipment_accordion); // close
 				}
+		 	} else {
+		 		System.out.println(convertedTimestamp() + " **************** No Construction Equipment entered");
 		 	}
 		}
 		
@@ -1326,28 +1365,39 @@ public class DobPW1Page extends TestBase {
 		if(!sitechar.equals("")){
 			System.out.println(convertedTimestamp() + " **************** PW1 enterSiteCharacteristics");
 			click(Constants.pw1_20_site_characteristics_accordion); // open
+			
 			radio(Constants.pw1_20_tidal_wetlands_no_8085);
 			radio(Constants.pw1_20_coastal_erosion_hazard_area_no);
-			scrollToElement(Constants.pw1_9_additional_considerations_accordion);
-			wait(1);
+//			scrollToElement(Constants.pw1_9_additional_considerations_accordion);
+//			wait(1);
 			radio(Constants.pw1_20_fire_districs_no);
 			radio(Constants.pw1_20_freshwater_wetlands_no);
 			radio(Constants.pw1_20_urban_renewal_no);
 			radio(Constants.pw1_20A_flood_hazard_area_no);
-			scrollAllWayUp();
-			wait(1);
+//			scrollAllWayUp();
+//			wait(1);
 			click(Constants.pw1_20_site_characteristics_accordion); // close
-			scrollDown();
+//			scrollDown();
+//			click(Constants.pw1_22_asbestos_abatement_accordion); // open
+//			radio(Constants.pw1_22_exempt_from_asbestos);
+//			click(Constants.pw1_22_asbestos_abatement_accordion); // close
+//			
+//			click(Constants.pw1_24_comments_accordion); // open
+//			type(Constants.pw1_24_comments, convertedTimestamp());
+//			click(Constants.pw1_24_comments_accordion); // close
+		}
+	}
+
+	// 22. Enter Asbestos Abatement Compliance	
+	public void enterAsbestosAbatementCompliance(String sitechar) {	
+		if(!sitechar.equals("")){
+			System.out.println(convertedTimestamp() + " **************** PW1 enterAsbestosAbatementCompliance");
 			click(Constants.pw1_22_asbestos_abatement_accordion); // open
 			radio(Constants.pw1_22_exempt_from_asbestos);
 			click(Constants.pw1_22_asbestos_abatement_accordion); // close
-			
-			click(Constants.pw1_24_comments_accordion); // open
-			type(Constants.pw1_24_comments, convertedTimestamp());
-			click(Constants.pw1_24_comments_accordion); // close
-			}
 		}
-
+	}
+	
 	// 24. Enter PW1 Comments	
 	public void enterPw1Comments(String sitechar) {	
 		if(!sitechar.equals("")){
@@ -1355,8 +1405,8 @@ public class DobPW1Page extends TestBase {
 			click(Constants.pw1_24_comments_accordion); // open
 			type(Constants.pw1_24_comments, convertedTimestamp());
 			click(Constants.pw1_24_comments_accordion); // close
-			}
 		}
+	}
 	
 	public void signDetails(String sign_details) {	
 		if(!sign_details.equals("")){

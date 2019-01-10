@@ -61,9 +61,9 @@ public class DobSignaturesPage extends TestBase {
 			click(Constants.save_button);
 			waitUntilISpinnersInvisible();
 			waitVisible(Constants.ok_button);
-			wait(1); // JG 2018-11-30
+			wait(2); // JG 2018-11-30
 			assertNotification(TEXT_PROPERTIES.getProperty("job_filing_saved"), "job_filing_saved ss");
-			wait(1); // JG 2018-11-30
+			wait(2); // JG 2018-11-30
 			clickButton("OK");
 			waitInvisible(Constants.ok_button);
 			reportPass("applicantStatementsSignature");

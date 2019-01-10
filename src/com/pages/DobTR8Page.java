@@ -48,6 +48,8 @@ public class DobTR8Page extends TestBase {
 				}
 			}
 			reportPass("Success");
+		} else {
+			System.out.println(convertedTimestamp() + " **************** TR8 no energyCodeProgressInspection");
 		}
 	}
 
@@ -128,6 +130,8 @@ public class DobTR8Page extends TestBase {
 			waitInvisible(Constants.ok_button);
 			reportPass("Success");
 			filterJob(user);
+		} else {
+			System.out.println(convertedTimestamp() + " **************** TR8 no energyCodeSignature");
 		}
 	}
 

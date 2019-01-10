@@ -5,10 +5,6 @@ import com.base.TestBase;
 import com.util.Constants;
 
 public class DobSOWPage extends TestBase {
-/*	WebDriver driver;
-	public DobSOWPage(WebDriver dr) {
-		driver = dr;
-	}*/
 	
 	public void scopeOfWork(String asw) {	
 		if(!asw.equals("")){
@@ -208,8 +204,22 @@ public class DobSOWPage extends TestBase {
 				type("//input[@id='SOWTotalQuantity']", "1");
 				check("//input[@type='checkbox'][@ng-model='row.entity.isSelected']");
 				click("//button[@type='submit']");
-				clickButton("OK");
-				wait(1);
+				// JG 2019-01-10 per bug 20863, there is no OK pop-up, so instead click Save
+				waitVisible(Constants.ok_button);
+				if (count(Constants.ok_button) > 0) {
+					clickButton("OK");
+					waitInvisible(Constants.ok_button);
+				} else {
+					click(Constants.global_save_step_button);
+					waitInvisible(Constants.global_loading_spinner);
+					waitUntilElementVisible(Constants.ok_button, 30);
+					wait(2);
+					assertNotification(TEXT_PROPERTIES.getProperty("job_filing_saved"), "pw1 saved");
+					wait(2);
+					clickButton("OK");
+					waitInvisible(Constants.ok_button);
+				}
+				wait(2);
 				check(Constants.sow_sd_type_automatic_sd);
 				select(Constants.sow_sd_select_class, "I");
 				radio(Constants.sow_sd_combined_sd_sp_no);
@@ -272,7 +282,9 @@ public class DobSOWPage extends TestBase {
 			click(Constants.global_save_step_button);
 			waitUntilISpinnersInvisible();
 			waitVisible(Constants.ok_button);
+			wait(2);
 			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
+			wait(2);
 			clickButton("OK");
 			waitInvisible(Constants.ok_button);
 		}
@@ -313,9 +325,10 @@ public class DobSOWPage extends TestBase {
 			click(Constants.global_save_step_button);
 			waitUntilISpinnersInvisible();
 			waitVisible(Constants.ok_button);
+			wait(2);
 			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
-//			clickButton("OK"); // JG 2018-12-06 not clickable, try constant instead...
-			click(Constants.ok_button);
+			wait(1);
+			clickButton("OK");
 			waitInvisible(Constants.ok_button);
 		}
 	}
@@ -403,6 +416,57 @@ public class DobSOWPage extends TestBase {
 		}
 	}
 	
+	public void addScopeOfWorkSign(String sign_details) {
+		if (!sign_details.equals("")) {
+			test = rep.startTest("signDetails");
+			String[] data = sign_details.split(" :: ");
+			System.out.println(convertedTimestamp() + " **************** SOW addScopeOfWorkSign");
+			test = rep.startTest("Sign Details");
+			click(Constants.scope_of_work_step);
+//			scrollAllWayUp(); // JG 2019-01-08 no need to scroll up?
+//			click(Constants.sow_sg_sign_scope_of_work_accordion); // JG 2019-01-08 accordion already open?
+			click(Constants.add_new_sign_button);
+			email(user);
+			type(Constants.sign_relationship, "Friend");			
+			check(Constants.i_hereby_state);
+			select(Constants.sign_purpose, data[0]);
+			select(Constants.sign_material, data[1]);
+			type(Constants.sign_weight, data[2]);
+			type(Constants.sign_square_feet, data[3]);
+			type(Constants.sign_zoning, data[4]);
+			type(Constants.sign_surface, data[5]);
+			type(Constants.sign_maximum_surface, data[6]);
+			select(Constants.sign_type, data[7]);
+			select(Constants.sign_type_of_illumination, data[8]);
+			select(Constants.sign_location, data[9]);
+			type(Constants.sign_height_above_curb, data[2]);
+			type(Constants.sign_total_surface_area, data[3]);
+			type(Constants.sign_estimated_cost, data[6]);
+			type(Constants.sign_description, convertedTimestamp());
+			radio(Constants.sign_changeable_copy_no);
+			radio(Constants.sign_oak_have_an_interest_no);
+			radio(Constants.sign_arterial_highway_no);
+			radio(Constants.sign_within_view_of_park_no);
+
+			click(Constants.save_button_sign);
+			waitInvisible(Constants.save_button_sign);
+			assertNotification("Sign details added successfully.", "Sign details");
+			clickButton("OK");
+			waitInvisible(Constants.ok_button);
+		
+			click(Constants.global_save_step_button);
+			waitUntilISpinnersInvisible();
+			waitVisible(Constants.ok_button);
+			wait(1);
+			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
+			wait(1);
+			clickButton("OK");
+			waitInvisible(Constants.ok_button);
+			
+			reportPass("signDetails");
+		}
+	}
+
 	public void scopeOfWorkScaffold(String asw) {
 		if (!asw.equals("")) {
 			String[] data = asw.split(" :: ");
@@ -482,6 +546,7 @@ public class DobSOWPage extends TestBase {
 			}
 		}
 	}
+
 	public void scopeOfWorkSidewalk(String asw) {
 		if (!asw.equals("")) {
 			String[] data = asw.split(" :: ");
@@ -491,24 +556,6 @@ public class DobSOWPage extends TestBase {
 			test = rep.startTest("scopeOfWorkSidewalk");
 			click(Constants.scope_of_work_step);
 			for (int i = 1; i <= 5; i++) {
-/*				waitVisible("//span[text()='Supported Scaffold']");
-				if (!data[1].contains("N"))
-					check(Constants.sidewalk_shed);
-				if (!data[2].contains("N"))
-					check(Constants.construction_fence);
-				select(Constants.scaffold_type, data[3]);
-				radio(Constants.scaffold_going_to_extend_no);
-				select(Constants.how_scaffold_supported, data[5]);
-				radio(Constants.scaffold_any_related_equipment_no);
-				wait(1);
-				if (count(Constants.completed_checkmark) > 0) {
-					click(Constants.global_save_step_button);
-					waitUntilISpinnersInvisible();
-					waitVisible(Constants.ok_button);
-					verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
-					clickButton("OK");
-					waitInvisible(Constants.ok_button);
-				}*/
 				scrollAllWayDown();
 				if(count("//span[text()='Sidewalk Shed']") > 0) {
 					select(Constants.shed_type, data[3]);
@@ -529,20 +576,6 @@ public class DobSOWPage extends TestBase {
 						waitInvisible(Constants.ok_button);
 					}
 				}
-/*				scrollAllWayDown();
-				if(count("//span[text()='Construction Fence']") > 0) {
-					type(Constants.fence_height, data[12]);
-					select(Constants.fence_location, data[13]);
-					wait(1);
-					if (count(Constants.completed_checkmark) > 2) {
-						click(Constants.global_save_step_button);
-						waitUntilISpinnersInvisible();
-						waitVisible(Constants.ok_button);
-						verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
-						clickButton("OK");
-						waitInvisible(Constants.ok_button);
-					}
-				}*/
 				if (count(Constants.completed_checkmark) == num_items) {
 					reportPass("scopeOfWorkSidewalk");
 					break;
@@ -550,11 +583,46 @@ public class DobSOWPage extends TestBase {
 			}
 		}
 	}
+	
+	public void enterScopeOfWorkSidewalk(String asw) {
+		if (!asw.equals("")) {
+			String[] data = asw.split(" :: ");
+//			int num_items = Integer.valueOf(data[0]);
+			System.out.println(convertedTimestamp() + " **************** SOW enterScopeOfWorkSidewalk");
+//			filterJob(user);
+			test = rep.startTest("enterScopeOfWorkSidewalk");
+			click(Constants.scope_of_work_step);
+//			for (int i = 1; i <= 5; i++) {
+//				scrollAllWayDown();
+				select(Constants.shed_type, data[3]);
+				radio(Constants.sow_sh_sidewalk_shed_extend_beyond_property_no);
+				select(Constants.how_shed_supported, data[5]);
+				radio(Constants.sow_sh_sidewalk_shed_any_related_equipment_no);
+				if (count("//button[contains(text(),'Select')]") > 0) {
+					click("//button[contains(text(),'Select')]");
+					click("(//a[contains(.,'" + data[7] + "')])[last()]");
+				}
+				wait(1);
+				click(Constants.global_save_step_button);
+				waitUntilISpinnersInvisible();
+				waitVisible(Constants.ok_button);
+				verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
+				clickButton("OK");
+				waitInvisible(Constants.ok_button);
+//			}
+//				if (count(Constants.completed_checkmark) == num_items) {
+//					reportPass("scopeOfWorkSidewalk");
+//					break;
+//			}
+		}
+	}
+	
+
 	public void scopeOfWorkFence(String asw) {
 		if (!asw.equals("")) {
 			String[] data = asw.split(" :: ");
 			int num_items = Integer.valueOf(data[0]);
-			System.out.println(convertedTimestamp() + " **************** scopeOfWorkFence");
+			System.out.println(convertedTimestamp() + " **************** SOW scopeOfWorkFence");
 //			filterJob(user);
 			test = rep.startTest("scopeOfWorkFence");
 			click(Constants.scope_of_work_step);
