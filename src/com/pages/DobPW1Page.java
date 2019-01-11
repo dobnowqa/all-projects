@@ -54,15 +54,17 @@ public class DobPW1Page extends TestBase {
 	public WebElement pw1_16_agencies_required_documents;
 
 	// 0. Enter Filing Information	
-	public void enterFilingInformation(String reviewType) {	
-		if(!reviewType.equals("")){
+	public void enterFilingInformation(String description) {	
+		if(!description.equals("")){
 			System.out.println(convertedTimestamp() + " **************** PW1 enterFilingInformation");
 			test = rep.startTest("enterFilingInformation");
-			if (reviewType.contains("Standard")) {
+			if (description.contains("Boiler")) {
 				select(Constants.pw1_filing_info_select_scope_includes, "Boiler");
 				select(Constants.pw1_filing_info_select_boiler_energy_source, "Gas");
 			}
-			click(Constants.pw1_filing_info_accordion);
+			click(Constants.pw1_filing_info_accordion); // close
+		} else {
+			System.out.println(convertedTimestamp() + " **************** PW1 no enterFilingInformation");
 		}
 	}
 			
@@ -427,6 +429,8 @@ public class DobPW1Page extends TestBase {
 			System.out.println(convertedTimestamp() + " **************** PW1 addBoilerEquipmentDevice");
 			test = rep.startTest("addBoilerEquipmentDevice");
 			String[] data = new_existing_both.split(" :: ");
+			click(Constants.pw1_tab);
+			wait(1);
 			click(Constants.pw1_list_boiler_equipment_accordion); // JG 2019-01-10 need to open because the accordion was closed when entering Additional Considerations
 			for (int i = 1; i <= Integer.valueOf(data[1]); i++) {
 				click(Constants.pw1_tab);
@@ -463,6 +467,8 @@ public class DobPW1Page extends TestBase {
 				clickButton("OK");
 				waitInvisible(Constants.ok_button);
 			}
+		} else {
+			System.out.println(convertedTimestamp() + " **************** PW1 no addBoilerEquipmentDevice");
 		}
 	}
 	

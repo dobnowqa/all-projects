@@ -13,10 +13,10 @@ public class DobPW2Page extends TestBase {
 	public void workPermit(String pw2) {	
 		if(!pw2.equals("")){
 			String[] data = pw2.split(" :: ");
-			System.out.println(convertedTimestamp() + " **************** workPermit");
+			System.out.println(convertedTimestamp() + " **************** PW2 workPermit");
 			filterJob(user);
 			test = rep.startTest("PW2");
-			test.log(LogStatus.INFO, "workPermit PE2");
+			test.log(LogStatus.INFO, "workPermit PW2");
 			click(Constants.pw2_work_permit_step);
 			wait(2);
 			waitVisible("//div[@class='ui-grid-viewport']");
@@ -98,6 +98,89 @@ public class DobPW2Page extends TestBase {
 		}
 		reportPass("workPermit");
 	}
+	
+	// Add PW2 Work Permit
+	public void addWorkPermit(String pw2) {	
+		if(!pw2.equals("")){
+			String[] data = pw2.split(" :: ");
+			System.out.println(convertedTimestamp() + " **************** PW2 addWorkPermit");
+			filterJob(user);
+			test = rep.startTest("PW2");
+			test.log(LogStatus.INFO, "workPermit PW2");
+			click(Constants.pw2_work_permit_step);
+			wait(2);
+			scrollAllWayUp();
+			click(Constants.pw2_add_work_permit);
+			wait(2);
+			
+			click(Constants.pw2_reason_for_filing_accordion); // open
+			click(Constants.pw2_calendar_icon);
+			click(Constants.pw2_calendar_active_day);
+			click(Constants.pw2_reason_for_filing_accordion); // close
+			
+			click(Constants.pw2_type_of_permit_accordion); // open
+//			select(Constants.pw2_select_type_of_permit, "Boilers");
+//			type(Constants.pw2_type_of_permit_job_description, "Job description - type of permit.");
+			click(Constants.pw2_type_of_permit_accordion); // close
+			
+			click(Constants.pw2_applicant_information_accordion); // open			
+			email(data[0]);
+			select(Constants.license_type_list, data[1]);
+			wait(1);
+			select(Constants.pw2_select_business_name, data[2]);
+			type(Constants.pw2_applicant_taxpayer_id, "123456789");
+			type(Constants.pw2_registration_tracking_number, "Track12345");
+			radio(Constants.pw2_applicant_responsible_for_all_work_no);
+			click(Constants.pw2_applicant_information_accordion); // close
+			
+			click(Constants.pw2_filing_representative_accordion); // open
+			email(data[3]);
+			click(Constants.pw2_filing_representative_accordion); // close
+			
+			click(Constants.pw2_statements_signatures_tab);
+			radio(Constants.pw2_work_require_adjacent_property_insurance_no);
+	 		click(Constants.pw2_work_permit_save);
+			waitUntilISpinnersInvisible();
+			waitVisible(Constants.ok_button);
+			wait(1);
+			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("work_permit_saved"));
+			wait(1);
+			clickButton("OK");
+			waitInvisible(Constants.ok_button);
+		
+			test = rep.startTest("PW2 upload docs");
+			System.out.println(convertedTimestamp() + " **************** PW2 uploadDocuments");
+			scrollAllWayUp();
+			for (int i = 1; i < 10; i++) {
+				click(Constants.pw2_documents_tab2);
+				waitVisible("//span[text()='Document Status']");
+				if (count(Constants.document_status_required) == 0)
+					break;
+				click(Constants.upload_document_icon);
+				send(Constants.doc_browse_button, Constants.uploadFolder + "upload.png");
+				click(Constants.doc_upload_button);
+				waitInvisible(Constants.doc_please_wait_message);
+				waitVisible(Constants.doc_upload_succesfull_message);				
+				clickButton("OK");
+				waitInvisible(Constants.ok_button);
+				waitUntilISpinnersInvisible();
+				waitForPageToLoad();	
+		 		click(Constants.pw2_work_permit_save);
+				waitUntilISpinnersInvisible();
+				waitVisible(Constants.ok_button);
+				wait(1);
+				verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("work_permit_saved"));
+				wait(1);
+				clickButton("OK");
+				waitInvisible(Constants.ok_button);
+			}
+			click(Constants.pw2_back_to_filing);
+		} else {
+			System.out.println(convertedTimestamp() + " **************** PW2 no addWorkPermit");
+		}
+		reportPass("addWorkPermit");
+	}
+	
 	public void workPermitPlumbing(String pw2) {	
 		if(!pw2.equals("")){
 //			String[] data = pw2.split(" :: ");
@@ -110,7 +193,7 @@ public class DobPW2Page extends TestBase {
 				wait(2);
 			}
 			test = rep.startTest("PW2");
-			test.log(LogStatus.INFO, "PE2 workPermit");
+			test.log(LogStatus.INFO, "PW2 workPermit");
 			click(Constants.pw2_calendar_icon);
 			click(Constants.pw2_calendar_active_day);
 			select("//select[@id='txtWPPermitType']", "Plumbing");

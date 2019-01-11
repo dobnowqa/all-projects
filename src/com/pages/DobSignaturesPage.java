@@ -155,6 +155,7 @@ public class DobSignaturesPage extends TestBase {
 			System.out.println(convertedTimestamp() + " **************** Statements & Signatures - Owner Signatures");
 			filterJob(OR_PROPERTIES.getProperty("owner_email"));
 			test = rep.startTest("Owner Sign");
+			wait(2);
 			click(Constants.ss_statement_signatures_step);
 			wait(2);
 			if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-14: new PW1 UI

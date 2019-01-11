@@ -381,7 +381,7 @@ public class DobSOWPage extends TestBase {
 			type(Constants.sow_be_proposed_max_allowable_wp, "1000");
 			select(Constants.sow_be_select_proposed_boiler_type, "Hot Water Heating");
 //			select(Constants.sow_be_select_proposed_boiler_energy_source, "Electric"); // JG 2019-01-04 moved to 'Filing Information' section
-			select(Constants.sow_be_select_proposed_boiler_classification, "Conventional(Standard)");
+			select(Constants.sow_be_select_proposed_boiler_classification, "Conventional (Standard)");
 			type(Constants.sow_be_sum_total_rated_input_capacity, "2000");
 			scrollAllWayUp();
 			click(Constants.sow_be_boiler_specifications_accordion);
@@ -395,14 +395,15 @@ public class DobSOWPage extends TestBase {
 			select(Constants.sow_be_select_chimney_lining, "The chimney does not require lining");
 			click(Constants.sow_be_chimney_information_accordion);
 			
-/* comment out until this is implemented, scheduled for 2019-01-03
-			click(Constants.sow_be_oil_burner_lmp_accordion);
+//			click(Constants.sow_be_oil_burner_lmp_accordion); // TODO: choose accordion based on boiler type?
+			click(Constants.sow_be_section8_attestation_accordion); // open
 //			email(Constants.sow_be_select_ob_lmp_email, "boilersoil@gmail.com");
-			email2("boilersoil@gmail.com");
-			select(Constants.sow_be_select_license_type, "Oil Burner Installer");
-//			check(Constants.sow_be_check_licensed_installer);
-			click(Constants.sow_be_oil_burner_lmp_accordion);
-*/
+			email2("ajoetest@gmail.com");
+			select(Constants.sow_be_select_license_type, "Professional Engineer");
+//			check(Constants.sow_be_check_licensed_installer); // TODO: this isn't checkable, even when ajoetest@gmail.com is logged in?
+//			click(Constants.sow_be_oil_burner_lmp_accordion); // TODO: choose accordion based on boiler type?
+			click(Constants.sow_be_section8_attestation_accordion); // close
+
 						
 			click(Constants.global_save_step_button);
 			waitUntilISpinnersInvisible();
