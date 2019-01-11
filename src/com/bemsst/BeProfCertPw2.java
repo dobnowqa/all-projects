@@ -16,6 +16,7 @@ import com.base.TestBase;
 import com.pages.DobDashboardPage;
 import com.pages.DobDocumentsPage;
 import com.pages.DobPW1Page;
+import com.pages.DobPW2Page;
 import com.pages.DobSOWPage;
 import com.pages.DobPW3Page;
 import com.pages.DobTR1Page;
@@ -23,7 +24,7 @@ import com.pages.DobTR8Page;
 import com.pages.DobSignaturesPage;
 import com.relevantcodes.extentreports.LogStatus;
 
-public class BeNew extends TestBase {
+public class BeProfCertPw2 extends TestBase {
 	// This test case uses DOBNOW to create an application/job/filing for new-work for Boiler Equipment (BE).
 	// This test case needs to run with config.properties environment = "bemsst"
 	String testname = this.getClass().getSimpleName();
@@ -71,7 +72,8 @@ public class BeNew extends TestBase {
 		DobSOWPage 			asw  = PageFactory.initElements(driver, DobSOWPage.class);
 		DobPW3Page 			pw3  = PageFactory.initElements(driver, DobPW3Page.class);
 		DobTR1Page 			tr1  = PageFactory.initElements(driver, DobTR1Page.class);
-		DobTR8Page 			tr8  = PageFactory.initElements(driver, DobTR8Page.class); // JG 2018-12-19 comment out due to TR8 not used
+		DobTR8Page 			tr8  = PageFactory.initElements(driver, DobTR8Page.class);
+		DobPW2Page 			pw2  = PageFactory.initElements(driver, DobPW2Page.class);
 		DobSignaturesPage 	signature = PageFactory.initElements(driver, DobSignaturesPage.class);
 		DobDocumentsPage 	docs = PageFactory.initElements(driver, DobDocumentsPage.class);
 		
@@ -106,6 +108,7 @@ public class BeNew extends TestBase {
 		signature.applicantStatementsSignature(data.get("signatures"));
 		docs.uploadDocuments(data.get("documents"));
 		signature.ownerSignature(data.get("owner_signature"));
+		pw2.addWorkPermit(data.get("pw2"));
 //		pw1.previewToFile(data.get("preview_to_file")); // comment-out for Filing Status to remain Pre-Filing
 		successMessage(data.get("description"));
 	}
