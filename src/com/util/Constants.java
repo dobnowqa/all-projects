@@ -594,8 +594,7 @@ public class Constants {
 	public static final String pw1_24_comments = "//textarea[@id='txtPWComments']";
 	public static final String pw1_confirm_save_button = "//button[@ng-click='addressConfirmationModalOk()']";
 	public static final String pw1_confirm_save_button_8085 = "//button[@ng-click='ngDialogData.Save(true)']";
-// WORK PERMIT (PW2)
-	public static final String pw2_work_permit_step = "//a[contains(.,'Work Permit (PW2)')]";
+	
 // DEMOLITION SUBMITTAL (DS1)
 	public static final String ds1_demolition_submittal_step = "//a[contains(.,'Demolition Submittal (DS1)')]";
 	public static final String ds1_tab = "//a[contains(.,'DS1')]"; // JG 2018-11-01
@@ -763,6 +762,7 @@ public class Constants {
 	public static final String sow_be_select_type_of_venting_material = "//select[@id='ddlVentingMaterial']";
 	public static final String sow_be_select_chimney_lining = "//select[@id='ddlChimneyLining']";
 	public static final String sow_be_oil_burner_lmp_accordion = "//div[@slidediv='oilBurnerSpecifications']";
+	public static final String sow_be_section8_attestation_accordion = "//div[@slidediv='section8Attestation']";
 	public static final String sow_be_select_ob_lmp_email = "//input[@ng-model='bindModel.Email']"; // JG 2018-12-10 TODO: make xpath unique
 	public static final String sow_be_select_license_type = "//select[@id='LicBoilerPWAppLicType']";
 	public static final String sow_be_check_licensed_installer = "//input[@id='chkLicensedInstaller']";
@@ -999,39 +999,63 @@ public class Constants {
 	public static final String doc_add_new_document = "//button[@ng-click='uploadDocument()']";
 	public static final String doc_required_document_upload = "(//button[@ng-click='grid.appScope.uploadDocument(row)'])[1]";
 	public static final String doc_save_button = "(//button[contains(.,'Save')])[2]";
-// Work Permit (PW2) 
-	public static final String pw2_ = "//button[@ng-click='AddWorkPermitModal()']";
-	public static final String pw2_documents_tab = "//a[@ng-click='setTab(2)']"; // [contains.,('Documents')]
+
+// WORK PERMIT (PW2)
+	public static final String pw2_work_permit_step = "//a[contains(.,'Work Permit (PW2)')]";
+	public static final String pw2_add_work_permit = "//button[@ng-click='AddWorkPermitModal()']";
+	public static final String pw2_back_to_filing = "//button[contains(@ng-if,'FromFiling')]";
+	public static final String pw2_work_permit_save = "//button[@ng-click='SavePW2()']";
 	
 	
+	// PW2 General Information tab
+	public static final String pw2_general_information_tab = "//a[@ng-click='tab=1']";
 	
+	public static final String pw2_reason_for_filing_accordion = "//div[@slidediv='pw2Section1']";
 	public static final String pw2_calendar_icon = "//button[contains(@ng-click,'event,0)')]";
 	public static final String pw2_calendar_active_day = "//button[@class='btn btn-default btn-sm active']";
 	public static final String pw2_calendar_expected_start_day = "//input[@id='ExpecStartDate']";
+	
+	public static final String pw2_type_of_permit_accordion = "//div[@slidediv='pw2Section3']";
+	public static final String pw2_select_type_of_permit = "//select[@name='ddTypeOfPermit']";
+	public static final String pw2_type_of_permit_job_description = "//textarea[@id='txtPermitJobDesc']";
+		
+	public static final String pw2_applicant_information_accordion = "//div[@slidediv='pw2Section4']";	
 	public static final String pw2_email = "//input[@id='txtPWAppEmail']";
 	public static final String pw2_license_type = "//select[@id='txtPWAppLicType']";
-	
+	public static final String pw2_select_business_name = "//select[@id='txtPWAppbusiness']";
+	public static final String pw2_applicant_taxpayer_id = "//input[@id='txtWPTaxPayerID']";
 	public static final String pw2_registration_tracking_number = "//input[@id='txtWPProviderRegistration']";
-	
-	public static final String incompleted_work_permit = "//*[@id='fixedviews']/div[2]/div/div/div[2]/div/div[2]/div[2]/div/div/div/div[1]/div";
-														  //*[@id="fixedviews"]/div[2]/div/div/div[2]/div/div[2]/div[2]/div/div[1]/div/div[1]/div
-														  //*[@id="fixedviews"]/div[2]/div/div/div[2]/div/div[2]/div[2]/div/div[2]/div/div[1]/div
-// 5. Filing Representative*
-	 
+	public static final String pw2_applicant_responsible_for_all_work_yes = "//input[@id='rdbGC4DIsApplicantResponsibleYes']";
+	public static final String pw2_applicant_responsible_for_all_work_no  = "//input[@id='rdbGC4DIsApplicantResponsibleNo']";
+		
+	// 5. Filing Representative*
+	public static final String pw2_filing_representative_accordion = "//div[@slidediv='pw2Section5']";
 	public static final String pw2_different_from_applicant_yes = "(//input[@name='ddlWPDifferentFileApp'])[1]";
 	public static final String pw2_different_from_applicant_no = "(//input[@name='ddlWPDifferentFileApp'])[2]";
-// 6. 
+
+	// 6. Insurance	
+	public static final String pw2_insurance_accordion = "//div[@slidediv='pw2Section6']";
 	public static final String pw2_liability = "//input[@ng-model='WorkPermitObj.LiabilityInsurance.InsuranceName']";
 //	public static final String pw2_liability_expiration = "//input[@ng-model='WorkPermitObj.LiabilityInsurance.InsuranceExpiryDate']";
 	public static final String pw2_liability_expiration_calendar = "//button[@ng-click='openAppCal($event,1)']";
 	public static final String pw2_calendar_next_month_arrow = "//i[@class='glyphicon glyphicon-chevron-right']";
-	
 	public static final String pw2_workers_compensation = "//input[@ng-model='WorkPermitObj.WorkerCompensationInsurance.InsuranceName ']";
 	public static final String pw2_workers_compensation_expiration_calendar = "//button[@ng-click='openAppCal($event,2)']";
-	
 	public static final String pw2_disability = "//input[@ng-model='WorkPermitObj.DisabilityInsurance.InsuranceName']";
 	public static final String pw2_disability_expiration_calendar = "//button[@ng-click='openAppCal($event,3)']";
-// 7. 
+	
+
+	// PW2 Documents tab
+	public static final String pw2_documents_tab = "//a[@ng-click='setTab(2)']"; // [contains.,('Documents')]
+	public static final String pw2_documents_tab2 = "//a[@ng-click='tab=2']";
+
+	
+	// PW2 Statements & Signatures tab
+	public static final String pw2_statements_signatures_tab = "//a[@ng-click='tab=3']";
+
+
+	// 7. Statements & Signatures
+	public static final String pw2_applicant_contractor_statement_accordion = "//div[@slidediv='pw2Section12']";
 	public static final String pw2_construction_superintendent = "//input[@value='1']";
 	public static final String pw2_site_safety_coordinator = "//input[@value='2']";
 	public static final String pw2_site_safety_manager = "//input[@value='3']";
@@ -1041,6 +1065,8 @@ public class Constants {
 	public static final String pw2_i_undersigned_will_perform_on_behalf  = "//input[@id='chkAntennaApplicantLegalStatementCheck']";
 	
 	public static final String pw2_work_not_require_adjacent_insurance = "//input[@id='chkWPNotRequiredInsuranceTerms1']";
+	public static final String pw2_work_require_adjacent_property_insurance_yes = "//input[@id='chkWPNotRequiredInsuranceTerms1Yes']";
+	public static final String pw2_work_require_adjacent_property_insurance_no  = "//input[@id='chkWPNotRequiredInsuranceTerms2No']";
 	public static final String pw2_information_correct_and_complete = "//input[@id='chkPW2LegalApplicantContractorAcknowledge']";
 //	public static final String pw2_documents_tab = "//a[@ng-click='setTab(2)']";
 	
@@ -1051,6 +1077,14 @@ public class Constants {
 	public static final String pw2_cancel_button = "//button[@ng-click='cancel()']";
 	public static final String pw2_upload_document_button = "//i[@class='fa fa-upload']";
 	public static final String pw2_permit_not_yet_issued = "//*[@id='fixedviews']/div[2]/div/div/div[2]/div/div[2]/div[2]/div/div[2]/div/div[1]/div";
+
+	
+	
+	public static final String incompleted_work_permit = "//*[@id='fixedviews']/div[2]/div/div/div[2]/div/div[2]/div[2]/div/div/div/div[1]/div";
+														  //*[@id="fixedviews"]/div[2]/div/div/div[2]/div/div[2]/div[2]/div/div[1]/div/div[1]/div
+														  //*[@id="fixedviews"]/div[2]/div/div/div[2]/div/div[2]/div[2]/div/div[2]/div/div[1]/div
+
+	
 	public static final String tr1_valid_label = "//i[@ng-if='ShowAgencyvalid']";
 	//public static final String green_valid_label = "//i[@style='color:forestgreen'][text()='Valid']";
 	public static final String green_valid_label = "//i[@style='color:forestgreen']";
