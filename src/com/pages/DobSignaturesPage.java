@@ -7,8 +7,11 @@ public class DobSignaturesPage extends TestBase {
 
 	public void applicantStatementsSignature(String signatures) {
 		if(!signatures.equals("")){
+			String[] data = signatures.split(" :: ");
 			System.out.println(convertedTimestamp() + " **************** Statements & Signatures - Applicant Signatures");
-			filterJob(user);	
+			if (!data[1].equals("AJOETEST@GMAIL.COM")) { // ajoetest is used for speeding up job creation
+				filterJob(user);
+			}
 			test = rep.startTest("applicantStatementsSignature");
 			waitUntilElementVisible(Constants.ss_statement_signatures_step, 30);
 			click(Constants.ss_statement_signatures_step);
@@ -29,14 +32,14 @@ public class DobSignaturesPage extends TestBase {
 				check(Constants.ss_i_havepersonally_reviewed_all_information_8085);
 			}			
 			wait(2); // JG 2018-11-14
-			if (signatures.contains("boiler")) {
+			if (data[0].contains("boiler")) {
 				if (count(Constants.ss_no_boiler_placed_in_operation) > 0) {
 					check(Constants.ss_no_boiler_placed_in_operation);
 				}
 			}
 //			scrollTo("//h3[contains(text(),'Owner - Statements & Signatures')]"); // JG 2018-11-14 //rblPWFeeExceptReqNonPro
 			if (count(Constants.ss_fee_exemption_reques_non_profit_yes) > 0) {
-				if(signatures.contains("profit")) {
+				if(data[0].contains("profit")) {
 					radio(Constants.ss_fee_exemption_reques_non_profit_yes+ "[@value='false']");
 				} else {
 					radio(Constants.ss_fee_exemption_reques_non_profit_yes+ "[@value='true']");
@@ -56,7 +59,11 @@ public class DobSignaturesPage extends TestBase {
 			} else {
 				select(Constants.ss_owner_type, "NYCHA/HHC"); //JG 2018-11-15 new UI uses this to indicate Pay Exempt
 			}
-			email(OR_PROPERTIES.getProperty("owner_email"));
+			if (data[1].equals("AJOETEST@GMAIL.COM")) { // ajoetest is used for speeding up job creation
+				email("AJOETEST@GMAIL.COM");
+			} else {
+				email(OR_PROPERTIES.getProperty("owner_email"));
+			}
 			wait(1); // JG 2018-11-30
 			click(Constants.save_button);
 			waitUntilISpinnersInvisible();
@@ -71,6 +78,7 @@ public class DobSignaturesPage extends TestBase {
 	}
 	public void signatures(String signatures) {	
 		if(!signatures.equals("")){
+			String[] data = signatures.split(" :: ");
 			System.out.println(convertedTimestamp() + " **************** StatementsSignaturesTest");
 			filterJob(user);	
 			test = rep.startTest("signatures");
@@ -153,7 +161,9 @@ public class DobSignaturesPage extends TestBase {
 	public void ownerSignature(String owner_signature) {	
 		if(!owner_signature.equals("")){
 			System.out.println(convertedTimestamp() + " **************** Statements & Signatures - Owner Signatures");
-			filterJob(OR_PROPERTIES.getProperty("owner_email"));
+			if (!owner_signature.equals("AJOETEST@GMAIL.COM")) { // ajoetest is used for speeding up job creation
+				filterJob(OR_PROPERTIES.getProperty("owner_email"));
+			}
 			test = rep.startTest("Owner Sign");
 			wait(2);
 			click(Constants.ss_statement_signatures_step);
@@ -190,7 +200,9 @@ public class DobSignaturesPage extends TestBase {
 			wait(1);  // JG 2019-01-03
 			clickButton("OK");
 			waitInvisible(Constants.ok_button);
-			filterJob(user);
+			if (!owner_signature.equals("AJOETEST@GMAIL.COM")) { // ajoetest is used for speeding up job creation
+				filterJob(user);
+			}
 		}
 	}
 

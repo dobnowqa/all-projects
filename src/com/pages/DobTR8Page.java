@@ -57,18 +57,21 @@ public class DobTR8Page extends TestBase {
 		if (!tr8.equals("")) {
 			String[] data = tr8.split(" :: ");
 			System.out.println(convertedTimestamp() + " **************** TR8 energyCodeProgressInspectionBoilerEquipment");
-			filterJob(OR_PROPERTIES.getProperty("user_email"));
+			if (!data[2].equals("AJOETEST@GMAIL.COM")) { // ajoetest is used for speeding up job creation	
+				filterJob(OR_PROPERTIES.getProperty("user_email")); // stay logged in to speed up job creation
+			}
 			test = rep.startTest("TR8 Energy progressInspectionBoilerEquipment");
 			click(Constants.tr8_technical_report_energy_step);
 			for (int i = 1; i < 100; i++) {
-				waitVisible("//span[text()='Requirement']");
+//				waitVisible("//span[text()='Requirement']"); // this is not becoming visible, thus commenting-out
 				multiClick(Constants.add);
 				click(Constants.tr8_select_requirement_code);
 //				type(Constants.tr8_select_requirement_code_field, data[1]); // JG filtering this way is making the requirement_code_filter not visible
 				wait(1);
 				click(Constants.tr8_select_requirement_code_filter);
 				click(Constants.inspection_label);
-				email(OR_PROPERTIES.getProperty("progress_inspector_email"));
+//				email(OR_PROPERTIES.getProperty("progress_inspector_email"));
+				email(data[2]);
 				click(Constants.tr8_save_progress_inspection_button_8085);
 				waitUntilElementVisible(Constants.ok_button, 30);
 				verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("inspection_requirements_added"));
@@ -139,9 +142,12 @@ public class DobTR8Page extends TestBase {
 		if (!tr8.equals("")) {
 			String[] data = tr8.split(" :: ");
 			System.out.println(convertedTimestamp() + " **************** TR8 energyCodeSignatureMechanicalSystems");
-			filterJob(data[2]);
+			if (!data[2].equals("AJOETEST@GMAIL.COM")) { // ajoetest is used for speeding up job creation
+				filterJob(data[2]);				
+			}
 			test = rep.startTest("TR8 Energy Sign");
 			click(Constants.tr8_technical_report_energy_step);
+			scrollAllWayUp();
 			wait(2);
 			check(Constants.tr8_are_you_progress_inspector);
 			wait(2);
@@ -170,7 +176,10 @@ public class DobTR8Page extends TestBase {
 			click(Constants.ok_button);
 			waitInvisible(Constants.ok_button);
 			reportPass("Success");
-			filterJob(user);
+			if (!data[2].equals("AJOETEST@GMAIL.COM")) { // ajoetest is used for speeding up job creation
+				filterJob(user);				
+			}
+
 		}
 	}
 	

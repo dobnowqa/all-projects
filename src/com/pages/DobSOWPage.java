@@ -397,13 +397,10 @@ public class DobSOWPage extends TestBase {
 			
 //			click(Constants.sow_be_oil_burner_lmp_accordion); // TODO: choose accordion based on boiler type?
 			click(Constants.sow_be_section8_attestation_accordion); // open
-//			email(Constants.sow_be_select_ob_lmp_email, "boilersoil@gmail.com");
-			email2("ajoetest@gmail.com");
-			select(Constants.sow_be_select_license_type, "Professional Engineer");
-//			check(Constants.sow_be_check_licensed_installer); // TODO: this isn't checkable, even when ajoetest@gmail.com is logged in?
-//			click(Constants.sow_be_oil_burner_lmp_accordion); // TODO: choose accordion based on boiler type?
+			email2(data[0]);
+			select(Constants.sow_be_select_license_type, data[1]);
+			check(Constants.sow_be_check_licensed_installer);
 			click(Constants.sow_be_section8_attestation_accordion); // close
-
 						
 			click(Constants.global_save_step_button);
 			waitUntilISpinnersInvisible();
@@ -547,6 +544,33 @@ public class DobSOWPage extends TestBase {
 			}
 		}
 	}
+	
+	// Enter Scope of Work - Supported Scaffold
+	public void enterScopeOfWorkSupportedScaffold(String asw) {
+		if (!asw.equals("")) {
+			String[] data = asw.split(" :: ");
+			System.out.println(convertedTimestamp() + " **************** SOW enterScopeOfWorkSupportedScaffold");
+			test = rep.startTest("enterScopeOfWorkSupportedScaffold");
+			click(Constants.sow_supported_scaffold_tab);
+			wait(1);
+			select(Constants.scaffold_type, data[7]);
+			if (count(Constants.scaffold_going_to_extend_no) > 0 ) {
+				radio(Constants.scaffold_going_to_extend_no);
+			}
+			if (count(Constants.scaffold_going_to_extend_beyond_property_no) > 0) {
+				radio(Constants.scaffold_going_to_extend_beyond_property_no);
+			}
+			select(Constants.how_scaffold_supported, data[9]);
+			if (count(Constants.scaffold_any_related_equipment_no) > 0) {
+				radio(Constants.scaffold_any_related_equipment_no);
+			}
+			if (count(Constants.scaffold_any_related_construction_equipment_no) > 0) {
+				radio(Constants.scaffold_any_related_construction_equipment_no);
+			}
+		} else {
+			System.out.println(convertedTimestamp() + " **************** SOW no enterScopeOfWorkSupportedScaffold");
+		}
+	}
 
 	public void scopeOfWorkSidewalk(String asw) {
 		if (!asw.equals("")) {
@@ -616,8 +640,29 @@ public class DobSOWPage extends TestBase {
 //					break;
 //			}
 		}
-	}
+	}	
 	
+	// Enter Scope of Work - Sidewalk Shed
+	public void enterScopeOfWorkSidewalkShed(String asw) {
+		if (!asw.equals("")) {
+			String[] data = asw.split(" :: ");
+			System.out.println(convertedTimestamp() + " **************** SOW enterScopeOfWorkSidewalkShed");
+			test = rep.startTest("enterScopeOfWorkSidewalkShed");
+			click(Constants.sow_sidewalk_shed_tab);
+			select(Constants.shed_type, data[3]);
+			radio(Constants.sow_sh_sidewalk_shed_extend_beyond_property_no);
+			select(Constants.how_shed_supported, data[5]);
+			radio(Constants.sow_sh_sidewalk_shed_any_related_equipment_no);
+			if (count("//button[contains(text(),'Select')]") > 0) {
+				click("//button[contains(text(),'Select')]");
+				click("(//a[contains(.,'" + data[7] + "')])[last()]");
+			}
+			wait(1);
+		} else {
+			System.out.println(convertedTimestamp() + " **************** SOW no enterScopeOfWorkSidewalkShed");
+		}
+	}	
+
 
 	public void scopeOfWorkFence(String asw) {
 		if (!asw.equals("")) {
@@ -650,4 +695,20 @@ public class DobSOWPage extends TestBase {
 		}
 	}
 
+	// Enter Scope of Work - Construction Fence
+	public void enterScopeOfWorkConstructionFence(String asw) {
+		if (!asw.equals("")) {
+			String[] data = asw.split(" :: ");
+			int num_items = Integer.valueOf(data[0]);
+			System.out.println(convertedTimestamp() + " **************** SOW enterScopeOfWorkConstructionFence");
+			test = rep.startTest("scopeOfWorkFence");
+			click(Constants.sow_construction_fence_tab);
+			type(Constants.fence_height, data[12]);
+			select(Constants.fence_location, data[13]);
+		} else {
+			System.out.println(convertedTimestamp() + " **************** SOW no enterScopeOfWorkConstructionFence");
+		}
+	}
+
+	
 }

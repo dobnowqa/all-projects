@@ -112,6 +112,56 @@ public class DobDashboardPage extends TestBase {
 	}
 	
 //********************************************* end separate methods for each step in the new job filing selection process:********
+	
+public void selectJobFilingWorkType(String worktype) {
+	if(!worktype.equals("")){
+		System.out.println(convertedTimestamp() + " **************** New Filing - selectJobFilingWorkType");
+		String[] data = worktype.split(" :: ");
+		int lengthOfData = data.length;
+//		System.out.println(convertedTimestamp() + " **************** lengthOfData = " + lengthOfData);
+		loginToPortal(data[0]);
+		test = rep.startTest("Dashboard Select Job Filing Work Type");
+		
+		// For 'Job filing includes', select type of work (Antenna, Electrical, Mechanical, etc.)
+		click(Constants.job_filing_button);
+		waitVisible(Constants.filing_next_button);
+		check("//span[contains(text(),'" + data[1] + "')]/../preceding-sibling::div/input[@type='checkbox']");
+		if (lengthOfData > 5) {
+			check("//span[contains(text(),'" + data[5] + "')]/../preceding-sibling::div/input[@type='checkbox']");
+		}
+		if (lengthOfData > 6) {
+			check("//span[contains(text(),'" + data[6] + "')]/../preceding-sibling::div/input[@type='checkbox']");
+		}	
+		click(Constants.filing_next_button);
+		wait(1);
+		
+		// For Mechanical Work, select work type - Mechanical Systems (1) or Boiler Equipment (2)
+//		if (count("(//input[@name='rdNewApp'])[1]") > 0) {
+		if (!data[2].equals("0")) {
+			radio("(//input[@name='rdNewApp'])[" + data[2] + "]");
+			click(Constants.filing_next_button);
+		}
+		
+		// For Boiler Equipment, select what is being done with the tank - New (1), Replacement (2) , Modification (3), etc.
+//		if (count("//input[@name='rdBoilerScopeofWork'][@ng-value='1']") > 0) {
+		if (!data[3].equals("0")) {
+			radio("(//input[@name='rdBoilerScopeofWork'])[" + data[3] + "]");
+			click(Constants.filing_next_button);
+		}
+
+		// Select Standard (1) or Professional Certification (2)
+//		if (count("//input[@ng-model='ProfessionalCertificate'][@value='1']") > 0) {
+		if (!data[4].equals("0")) {
+			radio("(//input[@ng-model='ProfessionalCertificate'])[" + data[4] + "]");
+			click(Constants.job_filing_submit_button);
+		}
+				
+		
+ 		reportPass("selectJobFilingWorkType");
+	} else {
+		System.out.println(convertedTimestamp() + " **************** New Filing - no selectJobFilingWorkType");
+	}
+}
 		
 	public void selectWorkTypePlumbing(String worktype) {	
 		if(!worktype.equals("")){

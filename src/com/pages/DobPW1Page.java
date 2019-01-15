@@ -232,7 +232,11 @@ public class DobPW1Page extends TestBase {
 			if (count(Constants.business_name_list) > 0) {
 				select(Constants.business_name_list, data[2]);
 			}
+			// enter Filing Representative
+			email3(data[3]);
+			
 			click(Constants.pw1_2_stakeholders_accordion); // close
+
 			
 			// TODO: Enter "3. Filing Representative Class I / Preparer", which is also within Stakeholders
 	 	}
@@ -1193,6 +1197,8 @@ public class DobPW1Page extends TestBase {
 				type(Constants.pw1_13_building_dwelling_units_existing, "51");
 				type(Constants.pw1_13_building_dwelling_units_proposed, "52");
 			}
+	 	} else {
+			System.out.println(convertedTimestamp() + " **************** Zoning Information - no enterBuildingCharacteristics");
 	 	}
 	}	
 		
@@ -1227,9 +1233,9 @@ public class DobPW1Page extends TestBase {
 				if (count(Constants.construction_material_sidewalk) > 0) { 
 					type(Constants.construction_material_sidewalk, data[2]);
 				}
-				if (count(Constants.pw1_15_sidewalk_construction_material) > 0) {
-					type(Constants.pw1_15_sidewalk_construction_material, data[2]);
-				}
+//				if (count(Constants.pw1_15_sidewalk_construction_material) > 0) {
+//					type(Constants.pw1_15_sidewalk_construction_material, data[2]);
+//				}
 				if (count(Constants.size_of_shed) > 0) {
 					type(Constants.size_of_shed, data[3]);
 				}
@@ -1405,12 +1411,14 @@ public class DobPW1Page extends TestBase {
 	}
 	
 	// 24. Enter PW1 Comments	
-	public void enterPw1Comments(String sitechar) {	
-		if(!sitechar.equals("")){
+	public void enterPw1Comments(String description) {	
+		if(!description.equals("")){
 			System.out.println(convertedTimestamp() + " **************** PW1 enterPw1Comments");
 			click(Constants.pw1_24_comments_accordion); // open
-			type(Constants.pw1_24_comments, convertedTimestamp());
+			type(Constants.pw1_24_comments, convertedTimestamp() + " " + description);
 			click(Constants.pw1_24_comments_accordion); // close
+		} else {
+			System.out.println(convertedTimestamp() + " **************** PW1 no enterPw1Comments");
 		}
 	}
 	
