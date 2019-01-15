@@ -152,7 +152,7 @@ public class Constants {
 	public static final String job_filing_button_8085 = "//button[@ng-click='NewAppJobOptions()']"; //JG 2018-10-30
 	public static final String job_filing_label = "//span[contains(.,'Job Filing Id')]";
 	public static final String job_filing_modal = "//div[@class='row col-xs-12 col-sm-12 col-md-12 modal-body portal-fonts']";
-	
+	public static final String job_filing_select_work_type = "//span[contains(.,'Select Work Type:')]";
 	public static final String paa_confirm_button_yes = "(//a[@title='Process Payment'])[3]";
 	public static final String work_type_part1 = "//input[@type='checkbox'][@name='rdWorktype'][@ng-model='";
 	public static final String work_type_part2 = "FilingWorktype']";
@@ -467,7 +467,7 @@ public class Constants {
 	public static final String pw1_15_construction_equipment_accordion = "//div[@slidediv='section15Div']"; // JG 2019-01-07
 	public static final String construction_material_fence = "//select[@id='ddlPWConstructionMaterial']";
 	public static final String describe_construction_material = "//input[@id='txtPWConstructionMaterial']";
-	public static final String construction_material_sidewalk = "(//input[@id='txtPWConstructionMaterial'])[last()]";
+	public static final String construction_material_sidewalk = "//input[@id='txtPWSidewalkShedMaterial']";
 	public static final String size_of_shed = "//input[@id='txtPWShedSize']";
 	public static final String pw1_15_sidewalk_construction_material = "//input[@id='txtPWSidewalkShedMaterial']"; // JG 2019-01-08
 	public static final String pw1_15_sidewalk_bsa_mea_otcr_approval_number = "//input[@id='txtPWApprovalNumber']"; // JG 2019-01-08
@@ -647,7 +647,8 @@ public class Constants {
 	public static final String sign_within_view_of_park_no  = "//input[@id='radParkAcre'][@value='0']";
 	
 
-	
+	// Scope Of Work - Supported Scaffold
+	public static final String sow_supported_scaffold_tab = "//a[contains(.,'Supported Scaffold')]";
 	public static final String scaffold_type = "//select[@id='ddlShedType']";
 	public static final String scaffold_going_to_extend_no  = "//input[@id='rdsupportedscaffold'][@value='false']";
 	public static final String scaffold_going_to_extend_beyond_property_yes = "//input[@id='rdsupportedscaffoldYes']";
@@ -659,6 +660,7 @@ public class Constants {
 	
 	// Scope Of Work - Sidewalk Shed
 	public static final String sidewalk_shed = "//input[@id='radParkAcre']";
+	public static final String sow_sidewalk_shed_tab = "//a[contains(.,'Sidewalk Shed')]";
 	public static final String shed_type = "//select[@id='ddlSidewalkShedType']";
 	public static final String sidewalk_going_to_extend_no  = "//input[@id='rdSideWalksupportedscaffold'][@value='false']";
 	public static final String sow_sh_sidewalk_shed_extend_beyond_property_yes = "//input[@id='rdSideWalksupportedscaffoldYes']";
@@ -668,7 +670,9 @@ public class Constants {
 	public static final String sow_sh_sidewalk_shed_any_related_equipment_yes = "//input[@id='rdSideWalkRelatedConstructionYes']";
 	public static final String sow_sh_sidewalk_shed_any_related_equipment_no  = "//input[@id='rdSideWalkRelatedConstructionNo']";
 	
+	// Scope Of Work - Construction Fence
 	public static final String construction_fence = "//input[@id='chkCAWrkTypeSd']";
+	public static final String sow_construction_fence_tab = "//a[contains(.,'Construction Fence')]";
 	public static final String fence_height = "//input[@id='SoWFenceHeight']";
 	public static final String fence_location = "//select[@id='ddlLocationOfFence']";
 	
@@ -982,6 +986,7 @@ public class Constants {
 	public static final String documents_loading_spinner_8085 = "(//div[@ng-show='showLoadingJobInfoGrid'])[2]";
 	public static final String upload_document_icon = "//i[@class='fa fa-upload']";
 	public static final String upload_document_icon_8085 = "//i[@class='fa fa-upload ng-scope']"; // JG 2018-11-13
+	public static final String upload_document_icon_progress_inspection = "(//i[@class='fa fa-upload ng-scope'])[last()]"; // JG 2019-01-15
 //	public static final String upload_document_icon = "//button[@ng-click='grid.appScope.uploadDocument(row)']";
 	public static final String document_status_required = "//*[text()='Required']";
 	public static final String doc_upload_xpath_part1 = "(//button[@ng-click='grid.appScope.uploadDocument(row)'])[";
