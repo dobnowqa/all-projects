@@ -1530,6 +1530,16 @@ public class TestBase {
 		}
 	}
 	
+	public void email3(String email) {
+		email = email.toUpperCase();
+		driver.findElement(By.xpath("//email-lookup[@ng-model='FormObj.FilingRepresentative']/input")).sendKeys(email);
+		wait(2);
+		if (count("//strong[text()='" + email + "']") > 0) {
+			doubleclick("//strong[text()='" + email + "']");
+			wait(3);
+		}
+	}
+
 	public void clickButton(String button_name) {
 		test.log(LogStatus.INFO, "Clicking button " + button_name);
 		WebDriverWait wait = new WebDriverWait(driver, 30);
