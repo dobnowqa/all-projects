@@ -97,8 +97,8 @@ public class MsNewStd extends TestBase {
 		pw3.addCostAffidavit(data.get("pw3"));
 		tr1.specialInspectionMechanicalSystems(data.get("tr1")); // JG 2018-12-07 there's already a TR1 Special Inspection by default.
 		tr1.specialInspectorSignatureMechanicalSystems(data.get("tr1"));
-//		tr8.energyCodeProgressInspection(data.get("tr8")); // JG 2018-12-10 there are already 4 requirement inspections by default for MS
-		tr8.energyCodeSignatureMechanicalSystems(data.get("tr8"));
+//		tr8.energyCodeProgressInspection(data.get("tr8")); // JG 2019-01-17 temporarily do not use
+//		tr8.energyCodeSignatureMechanicalSystems(data.get("tr8")); // JG 2019-01-17 temporarily do not use
 		signature.applicantStatementsSignature(data.get("signatures"));
 		docs.uploadDocuments(data.get("documents"));
 		signature.ownerSignature(data.get("owner_signature"));
