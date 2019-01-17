@@ -23,8 +23,8 @@ import com.pages.DobTR8Page;
 import com.pages.DobSignaturesPage;
 import com.relevantcodes.extentreports.LogStatus;
 
-public class BeNewStd extends TestBase {
-	// This test simulates a registered e-Filing account holder using DOBNOW to create a filing (aka job) for Boiler Equipment (BE); New-install; Standard-plan; Non-legalization
+public class BeNewPro extends TestBase {
+	// This test simulates a registered e-Filing account holder using DOBNOW to create a filing (aka job) for Boiler Equipment (BE); New-install; Prof-cert.; Non-legalization
 	// This test case needs to run with config.properties environment = "bemsst"
 	String testname = this.getClass().getSimpleName();
 	// The following file is used for BE, MS and ST work types:
@@ -75,7 +75,7 @@ public class BeNewStd extends TestBase {
 		DobSignaturesPage 	signature = PageFactory.initElements(driver, DobSignaturesPage.class);
 		DobDocumentsPage 	docs = PageFactory.initElements(driver, DobDocumentsPage.class);
 		
-		dash.selectJobFilingWorkType(data.get("work_type"));		
+		dash.selectJobFilingWorkType(data.get("work_type"));	
 		pw1.enterFilingInformation(data.get("description"));
 		pw1.enterLocationInformation(data.get("address"));
 		pw1.addWorkOnFloors(data.get("work_on_floors"));

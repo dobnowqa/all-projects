@@ -25,7 +25,7 @@ import com.pages.DobSignaturesPage;
 import com.relevantcodes.extentreports.LogStatus;
 
 public class BeNewProPw2 extends TestBase {
-	// This test case uses DOBNOW to create an application/job/filing for new-work for Boiler Equipment (BE).
+	// This test simulates a registered e-Filing account holder using DOBNOW to create a filing (aka job) for Boiler Equipment (BE); New-install; Prof-cert.; Non-legalization; with PW2
 	// This test case needs to run with config.properties environment = "bemsst"
 	String testname = this.getClass().getSimpleName();
 	// The following file is used for BE, MS and ST work types:
@@ -77,11 +77,7 @@ public class BeNewProPw2 extends TestBase {
 		DobSignaturesPage 	signature = PageFactory.initElements(driver, DobSignaturesPage.class);
 		DobDocumentsPage 	docs = PageFactory.initElements(driver, DobDocumentsPage.class);
 		
-		dash.selectJobFilingIncludes(data.get("work_type"));
-		dash.selectMechanicalWorkType(data.get("work_type"));
-		dash.selectBoilerWorkType(data.get("work_type"));
-		dash.selectFilingReviewType(data.get("filing_review_type"));
-		
+		dash.selectJobFilingWorkType(data.get("work_type"));		
 		pw1.enterFilingInformation(data.get("description"));
 		pw1.enterLocationInformation(data.get("address"));
 		pw1.addWorkOnFloors(data.get("work_on_floors"));
