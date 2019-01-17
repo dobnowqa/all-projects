@@ -24,7 +24,7 @@ import com.pages.DobSignaturesPage;
 import com.relevantcodes.extentreports.LogStatus;
 
 public class FnNew extends TestBase {
-	// This test case uses DOBNOW to create an application/job/filing for new-work for Fences (FN).
+	// This test simulates a registered e-Filing account holder using DOBNOW to create a filing (aka job) for Construction Fence (FN); Standard-plan; Non-legalization
 	// This test case needs to run with config.properties environment = "fab4"
 	String testname = this.getClass().getSimpleName();
 	// The following file is used for FN, SF, SG and SH work types:
@@ -74,13 +74,8 @@ public class FnNew extends TestBase {
 		DobTR8Page 			tr8  = PageFactory.initElements(driver, DobTR8Page.class);
 		DobSignaturesPage 	signature = PageFactory.initElements(driver, DobSignaturesPage.class);
 		DobDocumentsPage 	docs = PageFactory.initElements(driver, DobDocumentsPage.class);
-		
-		dash.selectJobFilingIncludes(data.get("work_type"));
-
-		
-		dash.selectFilingReviewType(data.get("filing_review_type"));
-//		dash.selectWorkType(data.get("work_type"));
-		
+				
+		dash.selectJobFilingWorkType(data.get("work_type"));
 		pw1.enterLocationInformation(data.get("address"));
 		pw1.addWorkOnFloors(data.get("work_on_floors"));
 		pw1.enterApplicantInformation(data.get("user_info"));

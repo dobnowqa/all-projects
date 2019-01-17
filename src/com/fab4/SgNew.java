@@ -24,7 +24,7 @@ import com.pages.DobSignaturesPage;
 import com.relevantcodes.extentreports.LogStatus;
 
 public class SgNew extends TestBase {
-	// This test case uses DOBNOW to create an application/job/filing for new-work for Signs (SG).
+	// This test simulates a registered e-Filing account holder using DOBNOW to create a filing (aka job) for Signs (SG); Standard-plan; Non-legalization
 	// This test case needs to run with config.properties environment = "fab4"
 	String testname = this.getClass().getSimpleName();
 	// The following file is used for FN, SF, SG and SH work types:
@@ -75,12 +75,7 @@ public class SgNew extends TestBase {
 		DobSignaturesPage 	signature = PageFactory.initElements(driver, DobSignaturesPage.class);
 		DobDocumentsPage    docs = PageFactory.initElements(driver, DobDocumentsPage.class);
 
-		dash.selectJobFilingIncludes(data.get("work_type"));
-
-		
-		dash.selectFilingReviewType(data.get("filing_review_type"));
-//		dash.selectWorkType(data.get("work_type"));
-		
+		dash.selectJobFilingWorkType(data.get("work_type"));
 		pw1.enterLocationInformation(data.get("address"));
 		pw1.addWorkOnFloors(data.get("work_on_floors"));
 		pw1.enterApplicantInformation(data.get("user_info"));
@@ -103,8 +98,8 @@ public class SgNew extends TestBase {
 //		tr1.specialInspection(data.get("tr1"));  // temp not in use
 //		tr1.specialInspectorSignature(data.get("tr1")); // temp not in use
 
-		tr8.energyCodeProgressPlumbing(data.get("tr8"));
-		tr8.energyCodeSignature(data.get("tr8"));
+//		tr8.energyCodeProgressPlumbing(data.get("tr8"));  // temp not in use
+//		tr8.energyCodeSignature(data.get("tr8"));  // temp not in use
 		
 		signature.applicantStatementsSignature(data.get("signatures"));
 		docs.uploadDocuments(data.get("documents"));
