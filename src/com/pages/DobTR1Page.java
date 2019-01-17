@@ -93,7 +93,9 @@ public class DobTR1Page extends TestBase {
 		if (!tr1.equals("")) {
 			String[] data = tr1.split(" :: ");
 			System.out.println(convertedTimestamp() + " **************** TR1 specialInspectionStructural");
-			filterJob(user);
+			if (!data[1].equals("AJOETEST@GMAIL.COM")) { // ajoetest is used for speeding up job creation
+				filterJob(user);
+			}
 			test = rep.startTest("TR1 Inspection");
 			click(Constants.tr1_technical_report_step);
 			scrollAllWayUp();
@@ -105,7 +107,7 @@ public class DobTR1Page extends TestBase {
 			}			
 			// Edit the Special Inspection row to enter the inspector email:
 			click("(//i[@class='fa fa-edit'])[last()-1]");
-			email(OR_PROPERTIES.getProperty("special_inspector_email"));
+			email(data[1]);
 			select(Constants.tr1_license_type, data[2]);
 			type(Constants.tr1_agency_number, data[3]);
 			wait(2);
@@ -898,7 +900,9 @@ public class DobTR1Page extends TestBase {
 		if (!tr1.equals("")) {
 			String[] data = tr1.split(" :: ");
 			System.out.println(convertedTimestamp() + " **************** TR1 specialInspectorSignatureStructural");
-			filterJob(data[1]);
+			if (!data[1].equals("AJOETEST@GMAIL.COM")) { // ajoetest is used for speeding up job creation
+				filterJob(data[1]);
+			}
 			test = rep.startTest("TR1 specialInspectorSignatureStructural");
 			click(Constants.tr1_technical_report_step);
 			if (count(Constants.tr1_are_you_special_inspector) > 0) {
@@ -913,7 +917,7 @@ public class DobTR1Page extends TestBase {
 			// JG 2018-12-05 Edit the 'Special Inspection...' record.
 			click("(//i[@class='fa fa-edit'])[last()-1]");
 			wait(2);
-			select(Constants.tr1_license_type, OR_PROPERTIES.getProperty("special_inspector_lisence"));
+			select(Constants.tr1_license_type, data[2]);
 			type(Constants.tr1_agency_number, data[3]);
 			wait(2);
 			waitVisible(Constants.tr1_valid_label);
@@ -942,8 +946,8 @@ public class DobTR1Page extends TestBase {
 			scrollAllWayDown();
 			click("(//i[@class='fa fa-edit'])[last()]");
 			wait(2);
-			email(OR_PROPERTIES.getProperty("special_inspector_email"));
-			select(Constants.tr1_license_type, OR_PROPERTIES.getProperty("special_inspector_lisence"));
+			email(data[1]);
+			select(Constants.tr1_license_type, data[2]);
 			wait(1);
 			check(Constants.tr1_i_take_responcibility);
 			check(Constants.tr1_i_understand_my_failure_to_file);
@@ -1016,6 +1020,7 @@ public class DobTR1Page extends TestBase {
 			click("(//i[@class='fa fa-edit'])[last()]");
 			wait(2);
 			email(data[1]);
+			wait(1);
 			select(Constants.tr1_license_type, data[2]);
 			wait(1);
 			check(Constants.tr1_i_take_responcibility);

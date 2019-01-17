@@ -115,7 +115,8 @@ public class DobPW2Page extends TestBase {
 			scrollAllWayUp();
 			click(Constants.pw2_add_work_permit);
 			wait(2);
-			
+			scrollAllWayUp();
+			wait(1);
 			click(Constants.pw2_reason_for_filing_accordion); // open
 			click(Constants.pw2_calendar_icon);
 			click(Constants.pw2_calendar_active_day);
@@ -151,32 +152,34 @@ public class DobPW2Page extends TestBase {
 			clickButton("OK");
 			waitInvisible(Constants.ok_button);
 		
-			test = rep.startTest("PW2 upload docs");
-			System.out.println(convertedTimestamp() + " **************** PW2 uploadDocuments");
-			scrollAllWayUp();
-			for (int i = 1; i < 10; i++) {
-				click(Constants.pw2_documents_tab2);
-				waitVisible("//span[text()='Document Status']");
-				if (count(Constants.document_status_required) == 0)
-					break;
-				click(Constants.upload_document_icon);
-				send(Constants.doc_browse_button, Constants.uploadFolder + "upload.png");
-				click(Constants.doc_upload_button);
-				waitInvisible(Constants.doc_please_wait_message);
-				waitVisible(Constants.doc_upload_succesfull_message);				
-				clickButton("OK");
-				waitInvisible(Constants.ok_button);
-				waitUntilISpinnersInvisible();
-				waitForPageToLoad();	
-		 		click(Constants.pw2_work_permit_save);
-				waitUntilISpinnersInvisible();
-				waitVisible(Constants.ok_button);
-				wait(1);
-				verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("work_permit_saved"));
-				wait(1);
-				clickButton("OK");
-				waitInvisible(Constants.ok_button);
-			}
+			//TODO: Move this to its own method which will be run for the PW2 applicant user.
+//			test = rep.startTest("PW2 upload docs");
+//			System.out.println(convertedTimestamp() + " **************** PW2 uploadDocuments");
+//			scrollAllWayUp();
+//			for (int i = 1; i < 10; i++) {
+//				click(Constants.pw2_documents_tab2);
+//				waitVisible("//span[text()='Document Status']");
+//				if (count(Constants.document_status_required) == 0)
+//					break;
+//				click(Constants.upload_document_icon);
+//				send(Constants.doc_browse_button, Constants.uploadFolder + "upload.png");
+//				click(Constants.doc_upload_button);
+//				waitInvisible(Constants.doc_please_wait_message);
+//				waitVisible(Constants.doc_upload_succesfull_message);				
+//				clickButton("OK");
+//				waitInvisible(Constants.ok_button);
+//				waitUntilISpinnersInvisible();
+//				waitForPageToLoad();	
+//		 		click(Constants.pw2_work_permit_save);
+//				waitUntilISpinnersInvisible();
+//				waitVisible(Constants.ok_button);
+//				wait(1);
+//				verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("work_permit_saved"));
+//				wait(1);
+//				clickButton("OK");
+//				waitInvisible(Constants.ok_button);
+//			}
+//			
 			click(Constants.pw2_back_to_filing);
 		} else {
 			System.out.println(convertedTimestamp() + " **************** PW2 no addWorkPermit");

@@ -235,7 +235,8 @@ public class DobPW1Page extends TestBase {
 			}
 			// enter Filing Representative
 			email3(data[3]);
-			
+			wait(1);
+			scrollAllWayUp();
 			click(Constants.pw1_2_stakeholders_accordion); // close
 
 			
@@ -434,18 +435,18 @@ public class DobPW1Page extends TestBase {
 			System.out.println(convertedTimestamp() + " **************** PW1 addBoilerEquipmentDevice");
 			test = rep.startTest("addBoilerEquipmentDevice");
 			String[] data = new_existing_both.split(" :: ");
-			click(Constants.pw1_tab);
-			wait(1);
-			click(Constants.pw1_list_boiler_equipment_accordion);
+//			click(Constants.pw1_tab);
+//			wait(1);
 			for (int i = 1; i <= Integer.valueOf(data[1]); i++) {
 				click(Constants.pw1_tab);
+				wait(1);
 				scrollAllWayUp();
+				click(Constants.pw1_list_boiler_equipment_accordion);
+				wait(1);
 				click(Constants.pw1_list_boiler_equipment_add);
 				wait(1);
-//				click(Constants.ok_button);
 				click(Constants.pw1_list_boiler_update_device_details_yes);
 				wait(1);
-//				click(Constants.pw1_list_boiler_equipment_edit);
 				select(Constants.pw1_list_boiler_equipment_select_occupancy_type, "Commercial");
 				type(Constants.pw1_list_boiler_equipment_boiler_manufacturer, "Test Boiler Manufacturer");
 				type(Constants.pw1_list_boiler_equipment_boiler_model_number, "Test Boiler Model Number");
@@ -491,9 +492,9 @@ public class DobPW1Page extends TestBase {
 				click(Constants.global_save_form_button_8085);
 				waitUntilISpinnersInvisible();
 				waitVisible(Constants.ok_button);
-				wait(1);
+				wait(2);
 				verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("job_filing_saved"));
-				wait(1);
+				wait(2);
 				clickButton("OK");
 				waitInvisible(Constants.ok_button);
 			}
@@ -1059,6 +1060,8 @@ public class DobPW1Page extends TestBase {
 				}
 				click(Constants.pw1_10_nycecc_compliance_accordion); // close
 			}
+	 	} else {
+	 		System.out.println(convertedTimestamp() + " **************** PW1 no enterNYCECCCompliance");
 	 	}
 	}
 

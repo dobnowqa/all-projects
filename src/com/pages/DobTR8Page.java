@@ -90,7 +90,9 @@ public class DobTR8Page extends TestBase {
 		if (!tr8.equals("")) {
 			System.out.println(convertedTimestamp() + " **************** TR8 energyCodeSignature");
 			for (int i = 1; i < 100; i++) {
-				filterJob(OR_PROPERTIES.getProperty("energy_code_inspector_email"));
+				if (!data[2].equals("AJOETEST@GMAIL.COM")) { // ajoetest is used for speeding up job creation
+					filterJob(OR_PROPERTIES.getProperty("energy_code_inspector_email"));
+				}
 				test = rep.startTest("TR8 Energy Sign");
 				click(Constants.tr8_technical_report_energy_step);
 				check(Constants.tr8_are_you_progress_inspector);
@@ -190,7 +192,9 @@ public class DobTR8Page extends TestBase {
 		if (!tr8.equals("")) {
 			String[] data = tr8.split(" :: ");
 			System.out.println(convertedTimestamp() + " **************** TR8 energyCodeProgressPlumbing");
-			filterJob(user);
+			if (!data[2].equals("AJOETEST@GMAIL.COM")) { // ajoetest is used for speeding up job creation
+				filterJob(user);
+			}
 			test = rep.startTest("energyCodeProgressPlumbing");
 			click(Constants.tr8_technical_report_energy_step);
 			check(Constants.tr8_are_you_progress_inspector);
