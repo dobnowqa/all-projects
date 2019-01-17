@@ -8,12 +8,13 @@ public class DobSignaturesPage extends TestBase {
 	public void applicantStatementsSignature(String signatures) {
 		if(!signatures.equals("")){
 			String[] data = signatures.split(" :: ");
-			System.out.println(convertedTimestamp() + " **************** Statements & Signatures - Applicant Signatures");
+			System.out.println(convertedTimestamp() + " **************** Signatures applicantStatementsSignature");
 			if (!data[1].equals("AJOETEST@GMAIL.COM")) { // ajoetest is used for speeding up job creation
 				filterJob(user);
 			}
 			test = rep.startTest("applicantStatementsSignature");
 			waitUntilElementVisible(Constants.ss_statement_signatures_step, 30);
+			wait(1);
 			click(Constants.ss_statement_signatures_step);
 			waitUntilISpinnersInvisible();
 			if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-14: new PW1 UI
@@ -74,6 +75,8 @@ public class DobSignaturesPage extends TestBase {
 			clickButton("OK");
 			waitInvisible(Constants.ok_button);
 			reportPass("applicantStatementsSignature");
+		} else {
+			System.out.println(convertedTimestamp() + " **************** Signatures no applicantStatementsSignature");
 		}
 	}
 	public void signatures(String signatures) {	
@@ -158,9 +161,9 @@ public class DobSignaturesPage extends TestBase {
 			waitInvisible(Constants.global_notification_ok_button);
 		}
 	}
-	public void ownerSignature(String owner_signature) {	
+	public void ownerSignature(String owner_signature) {
 		if(!owner_signature.equals("")){
-			System.out.println(convertedTimestamp() + " **************** Statements & Signatures - Owner Signatures");
+			System.out.println(convertedTimestamp() + " **************** Signatures ownerSignature");
 			if (!owner_signature.equals("AJOETEST@GMAIL.COM")) { // ajoetest is used for speeding up job creation
 				filterJob(OR_PROPERTIES.getProperty("owner_email"));
 			}
@@ -203,6 +206,8 @@ public class DobSignaturesPage extends TestBase {
 			if (!owner_signature.equals("AJOETEST@GMAIL.COM")) { // ajoetest is used for speeding up job creation
 				filterJob(user);
 			}
+		} else {
+			System.out.println(convertedTimestamp() + " **************** Signatures no ownerSignature");
 		}
 	}
 

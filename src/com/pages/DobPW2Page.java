@@ -104,9 +104,12 @@ public class DobPW2Page extends TestBase {
 		if(!pw2.equals("")){
 			String[] data = pw2.split(" :: ");
 			System.out.println(convertedTimestamp() + " **************** PW2 addWorkPermit");
-			filterJob(user);
+			if (!data[4].equals("AJOETEST@GMAIL.COM")) { // ajoetest is used for speeding up job creation
+				filterJob(user);
+			}
 			test = rep.startTest("PW2");
 			test.log(LogStatus.INFO, "workPermit PW2");
+			wait(1);
 			click(Constants.pw2_work_permit_step);
 			wait(2);
 			scrollAllWayUp();

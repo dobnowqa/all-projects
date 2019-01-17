@@ -55,12 +55,13 @@ public class DobPW1Page extends TestBase {
 
 	// 0. Enter Filing Information	
 	public void enterFilingInformation(String description) {	
-		if(!description.equals("")){
+		if (description.contains("Boiler")) {
 			System.out.println(convertedTimestamp() + " **************** PW1 enterFilingInformation");
 			test = rep.startTest("enterFilingInformation");
-			if (description.contains("Boiler")) {
-				select(Constants.pw1_filing_info_select_scope_includes, "Boiler");
-				select(Constants.pw1_filing_info_select_boiler_energy_source, "Gas");
+			select(Constants.pw1_filing_info_select_scope_includes, "Boiler");
+			select(Constants.pw1_filing_info_select_boiler_energy_source, "Oil & Gas(Dual)");
+			if (count(Constants.pw1_filing_info_associated_job_number) > 0) {
+			 	type(Constants.pw1_filing_info_associated_job_number,"M00029074");
 			}
 			click(Constants.pw1_filing_info_accordion); // close
 		} else {
@@ -435,15 +436,16 @@ public class DobPW1Page extends TestBase {
 			String[] data = new_existing_both.split(" :: ");
 			click(Constants.pw1_tab);
 			wait(1);
-			click(Constants.pw1_list_boiler_equipment_accordion); // JG 2019-01-10 need to open because the accordion was closed when entering Additional Considerations
+			click(Constants.pw1_list_boiler_equipment_accordion);
 			for (int i = 1; i <= Integer.valueOf(data[1]); i++) {
 				click(Constants.pw1_tab);
 				scrollAllWayUp();
 				click(Constants.pw1_list_boiler_equipment_add);
 				wait(1);
-				click(Constants.ok_button);
+//				click(Constants.ok_button);
+				click(Constants.pw1_list_boiler_update_device_details_yes);
 				wait(1);
-				click(Constants.pw1_list_boiler_equipment_edit);
+//				click(Constants.pw1_list_boiler_equipment_edit);
 				select(Constants.pw1_list_boiler_equipment_select_occupancy_type, "Commercial");
 				type(Constants.pw1_list_boiler_equipment_boiler_manufacturer, "Test Boiler Manufacturer");
 				type(Constants.pw1_list_boiler_equipment_boiler_model_number, "Test Boiler Model Number");
@@ -462,6 +464,30 @@ public class DobPW1Page extends TestBase {
 				type(Constants.pw1_list_boiler_equipment_servicing_location_address, "123 Main Street");
 				type(Constants.pw1_list_boiler_equipment_servicing_location_floor, "Test servicing location floor");
 				type(Constants.pw1_list_boiler_equipment_comments, "Test boiler equipment comments");
+				radio(Constants.pw1_list_boiler_equipment_same_work_on_fuel_burner_yes);
+				radio(Constants.pw1_list_boiler_equipment_same_work_on_fuel_storage_yes);
+				
+				scrollAllWayUp();
+				click(Constants.pw1_list_boiler_equipment_fuel_burner_details_tab);
+				select(Constants.pw1_list_boiler_equipment_select_fuel_burner_type, "External");
+				type(Constants.pw1_list_boiler_equipment_burner_manufacturer, "Test Burner Manufacturer");
+				select(Constants.pw1_list_boiler_equipment_select_burner_agency_name, "CSA");
+				type(Constants.pw1_list_boiler_equipment_burner_certification_number, "123456");
+				type(Constants.pw1_list_boiler_equipment_burner_model_number, "FuelBurnerModel 123456");
+				radio(Constants.pw1_list_boiler_equipment_burner_dual_burning_no);
+				type(Constants.pw1_list_boiler_equipment_burner_input_capacity, "55000");
+				type(Constants.pw1_list_boiler_equipment_fuel_burner_comments, "Fuel Burner comments");
+				
+				scrollAllWayUp();
+				click(Constants.pw1_list_boiler_equipment_fuel_storage_details_tab);
+				select(Constants.pw1_list_boiler_equipment_select_fuel_storage_location, "Above Ground");
+				type(Constants.pw1_list_boiler_equipment_fuel_storage_floor_number, "123");
+				select(Constants.pw1_list_boiler_equipment_select_fuel_storage_installed, "Enclosed");
+				radio(Constants.pw1_list_boiler_equipment_tank_adjacent_to_subway_no);
+				type(Constants.pw1_list_boiler_equipment_storage_fdny_permit_number, "123456789");
+				select(Constants.pw1_list_boiler_equipment_select_grade_of_oil, "Bio");
+				type(Constants.pw1_list_boiler_equipment_storage_total_tank_capacity, "862000");
+				
 				click(Constants.global_save_form_button_8085);
 				waitUntilISpinnersInvisible();
 				waitVisible(Constants.ok_button);
@@ -836,8 +862,17 @@ public class DobPW1Page extends TestBase {
 			String[] data = additional_conciderations.split(" :: ");
 			scrollAllWayUp();
 			wait(1);
-			 if (count(Constants.pw1_list_boiler_equipment_accordion) > 0) {
-				 click(Constants.pw1_list_boiler_equipment_accordion); // close
+//			 if (count(Constants.pw1_list_boiler_equipment_accordion) > 0) { // JG 2019-01-17 List of Devices is not open, so no need to close.
+//				 click(Constants.pw1_list_boiler_equipment_accordion); // 
+			if (count(Constants.pw1_filing_info_accordion) > 0) { // 
+				click(Constants.pw1_filing_info_accordion); // open
+				if (count(Constants.pw1_filing_info_associated_job_number) > 0) {
+					type(Constants.pw1_filing_info_associated_job_number,"M00029074");
+				}
+				wait(1);
+				scrollAllWayUp();
+				wait(1);
+				click(Constants.pw1_filing_info_accordion); // close
 			}
 			scrollDown();
 			click(Constants.pw1_9_additional_considerations_accordion); // open
@@ -1055,7 +1090,7 @@ public class DobPW1Page extends TestBase {
 	// 12. Enter Zoning Characteristics
 	public void enterZoningCharacteristics(String characteristics) {
 		if(!characteristics.equals("")){
-			System.out.println(convertedTimestamp() + " **************** Zoning Information - enterZoningCharacteristics");
+			System.out.println(convertedTimestamp() + " **************** PW1 (Zoning Information tab) enterZoningCharacteristics");
 			test = rep.startTest("enterZoningCharacteristics");
 			click(Constants.zoning_information_tab);
 			scrollAllWayUp();
@@ -1063,6 +1098,8 @@ public class DobPW1Page extends TestBase {
 			type(Constants.pw1_12_overlay, "2");
 			type(Constants.pw1_12_special_district, "3");
 			type(Constants.pw1_12_map_number, "4");
+		} else {
+			System.out.println(convertedTimestamp() + " **************** PW1 (Zoning Information tab) no enterZoningCharacteristics");
 		}
 	}
 
@@ -1138,7 +1175,7 @@ public class DobPW1Page extends TestBase {
 	// 13. Zoning Information - Enter Building Characteristics
 	public void enterBuildingCharacteristics(String building_charcteristics) {
 		if(!building_charcteristics.equals("")){
-			System.out.println(convertedTimestamp() + " **************** Zoning Information - enterBuildingCharacteristics");
+			System.out.println(convertedTimestamp() + " **************** PW1 (Zoning Information tab) enterBuildingCharacteristics");
 			test = rep.startTest("enterBuildingCharacteristics");
 			click(Constants.zoning_information_tab);
 			scrollAllWayUp();
@@ -1198,7 +1235,7 @@ public class DobPW1Page extends TestBase {
 				type(Constants.pw1_13_building_dwelling_units_proposed, "52");
 			}
 	 	} else {
-			System.out.println(convertedTimestamp() + " **************** Zoning Information - no enterBuildingCharacteristics");
+			System.out.println(convertedTimestamp() + " **************** PW1 (Zoning Information tab) no enterBuildingCharacteristics");
 	 	}
 	}	
 		
@@ -1246,7 +1283,7 @@ public class DobPW1Page extends TestBase {
 					click(Constants.pw1_15_construction_equipment_accordion); // close
 				}
 		 	} else {
-		 		System.out.println(convertedTimestamp() + " **************** No Construction Equipment entered");
+		 		System.out.println(convertedTimestamp() + " **************** PW1 no constructionEquipment");
 		 	}
 		}
 		

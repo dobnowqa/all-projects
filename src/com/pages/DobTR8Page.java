@@ -75,7 +75,8 @@ public class DobTR8Page extends TestBase {
 				click(Constants.tr8_save_progress_inspection_button_8085);
 				waitUntilElementVisible(Constants.ok_button, 30);
 				verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("inspection_requirements_added"));
-				click(Constants.ok_button);
+				wait(1);
+				clickButton("OK");
 				waitInvisible(Constants.ok_button);
 				if (count(Constants.identified_no_label) > 0) {
 					break;
@@ -151,6 +152,8 @@ public class DobTR8Page extends TestBase {
 			wait(2);
 			check(Constants.tr8_are_you_progress_inspector);
 			wait(2);
+			
+			// JG 2019-01-17 As of now, there is 1 Energy inspections by default:
 			click("(//i[@class='fa fa-edit'])[last()]");
 			wait(2);
 			email(data[2]);
@@ -164,7 +167,6 @@ public class DobTR8Page extends TestBase {
 			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_saved_success"));
 			click(Constants.ok_button);
 			waitInvisible(Constants.ok_button);
-//			click(Constants.upload_document_icon_8085);
 			click("(//i[@class='fa fa-upload ng-scope'])[last()]");
 			send(Constants.tr1_browse_button, Constants.uploadFolder + "upload.png");
 			wait(1);
@@ -175,6 +177,7 @@ public class DobTR8Page extends TestBase {
 			waitVisible(Constants.ok_button);
 			click(Constants.ok_button);
 			waitInvisible(Constants.ok_button);
+			
 			reportPass("Success");
 			if (!data[2].equals("AJOETEST@GMAIL.COM")) { // ajoetest is used for speeding up job creation
 				filterJob(user);				

@@ -60,7 +60,9 @@ public class DobTR1Page extends TestBase {
 		if (!tr1.equals("")) {
 			String[] data = tr1.split(" :: ");
 			System.out.println(convertedTimestamp() + " **************** TR1 specialInspectionMechanicalSystems");
-			filterJob(user);
+			if (!data[1].equals("AJOETEST@GMAIL.COM")) { // ajoetest is used for speeding up job creation
+				filterJob(user);
+			}
 			test = rep.startTest("TR1 Inspection");
 			click(Constants.tr1_technical_report_step);
 			scrollAllWayUp();
@@ -142,6 +144,7 @@ public class DobTR1Page extends TestBase {
 			waitInvisible(Constants.tr1_save_progress_inspection_button_8085);
 			waitUntilISpinnersInvisible();
 			waitVisible(Constants.ok_button);
+			wait(1);
 			clickButton("OK");
 			waitInvisible(Constants.ok_button);
 			reportPass("Success");
@@ -898,10 +901,12 @@ public class DobTR1Page extends TestBase {
 			filterJob(data[1]);
 			test = rep.startTest("TR1 specialInspectorSignatureStructural");
 			click(Constants.tr1_technical_report_step);
-			waitVisible(Constants.tr1_are_you_special_inspector);
-			waitVisible(Constants.tr1_are_you_progress_inspector);
-			check(Constants.tr1_are_you_special_inspector);
-			check(Constants.tr1_are_you_progress_inspector);
+			if (count(Constants.tr1_are_you_special_inspector) > 0) {
+				check(Constants.tr1_are_you_special_inspector);
+			}
+			if (count(Constants.tr1_are_you_progress_inspector) > 0) {
+				check(Constants.tr1_are_you_progress_inspector);
+			}
 			wait(3);
 			test.log(LogStatus.INFO, " specialInspectorSignatureStructural");
 			
@@ -968,13 +973,17 @@ public class DobTR1Page extends TestBase {
 		if (!tr1.equals("")) {
 			String[] data = tr1.split(" :: ");
 			System.out.println(convertedTimestamp() + " **************** TR1 specialInspectorSignatureMechanicalSystems");
-			filterJob(data[1]);
+			if (!data[1].equals("AJOETEST@GMAIL.COM")) { // ajoetest is used for speeding up job creation
+				filterJob(data[1]);
+			}
 			test = rep.startTest("TR1 specialInspectorSignatureMechanicalSystems");
 			click(Constants.tr1_technical_report_step);
-			waitVisible(Constants.tr1_are_you_special_inspector);
-			waitVisible(Constants.tr1_are_you_progress_inspector);
-			check(Constants.tr1_are_you_special_inspector);
-			check(Constants.tr1_are_you_progress_inspector);
+			if (count(Constants.tr1_are_you_special_inspector) > 0) {
+				check(Constants.tr1_are_you_special_inspector);
+			}
+			if (count(Constants.tr1_are_you_progress_inspector) > 0) {
+				check(Constants.tr1_are_you_progress_inspector);
+			}
 			wait(3);
 			test.log(LogStatus.INFO, " specialInspectorSignatureMechanicalSystems");
 			
@@ -1054,6 +1063,7 @@ public class DobTR1Page extends TestBase {
 			test.log(LogStatus.INFO, " specialInspectorSignatureBoilerEquipment");		
 			// JG 2018-12-10 Edit the 'Special Inspection...' record.
 			click("(//i[@class='fa fa-edit'])[last()]");
+			waitUntilISpinnersInvisible();
 			wait(2);
 			check(Constants.tr1_i_take_responcibility);
 			check(Constants.tr1_i_understand_my_failure_to_file);

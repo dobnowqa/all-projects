@@ -56,7 +56,7 @@ public class DobDashboardPage extends TestBase {
 			if (worktype.contains("Mechanical Work")) {
 				includesValue = "Mechanical Work";
 			}
-			System.out.println(convertedTimestamp() + " **************** New Filing - selectJobFilingIncludes " + includesValue);
+			System.out.println(convertedTimestamp() + " **************** Dashboard selectJobFilingIncludes " + includesValue);
 			loginToPortal(OR_PROPERTIES.getProperty("user_email"));
 			test = rep.startTest("Dashboard Select Job Filing Includes");
 			
@@ -69,7 +69,7 @@ public class DobDashboardPage extends TestBase {
 	
 	public void selectMechanicalWorkType(String worktype) {	
 		if(!worktype.equals("")){
-			System.out.println(convertedTimestamp() + " **************** Dashboard - selectMechanicalWorkType");
+			System.out.println(convertedTimestamp() + " **************** Dashboard selectMechanicalWorkType");
 
 			if (worktype.contains("Mechanical Systems")) {
 				radio("(//input[@name='rdNewApp'])[1]"); // Mechanical Systems 
@@ -82,7 +82,7 @@ public class DobDashboardPage extends TestBase {
 	
 	public void selectBoilerWorkType(String worktype) {	
 		if(!worktype.equals("")){
-			System.out.println(convertedTimestamp() + " **************** Dashboard - selectBoilerWorkType");
+			System.out.println(convertedTimestamp() + " **************** Dashboard selectBoilerWorkType");
 			if (worktype.contains("New")) {
 				radio("(//input[@name='rdBoilerScopeofWork'])[1]"); 
 			} else if (worktype.contains("Replacement")) {
@@ -101,7 +101,7 @@ public class DobDashboardPage extends TestBase {
 	
 	public void selectFilingReviewType(String reviewType) {	
 		if(!reviewType.equals("")){
-			System.out.println(convertedTimestamp() + " **************** Dashboard - selectFilingReviewType");
+			System.out.println(convertedTimestamp() + " **************** Dashboard selectFilingReviewType");
 			if (reviewType.contains("Standard")) {
 				radio(Constants.job_filing_review_type_standard); // Standard Plan Examination or Review
 			} else {
@@ -115,14 +115,14 @@ public class DobDashboardPage extends TestBase {
 	
 public void selectJobFilingWorkType(String worktype) {
 	if(!worktype.equals("")){
-		System.out.println(convertedTimestamp() + " **************** New Filing - selectJobFilingWorkType");
+		System.out.println(convertedTimestamp() + " **************** Dashboard selectJobFilingWorkType");
 		String[] data = worktype.split(" :: ");
 		int lengthOfData = data.length;
 //		System.out.println(convertedTimestamp() + " **************** lengthOfData = " + lengthOfData);
 		loginToPortal(data[0]);
 		test = rep.startTest("Dashboard Select Job Filing Work Type");
 		
-		// For 'Job filing includes', select type of work (Antenna, Electrical, Mechanical, etc.)
+		// For 'Job filing includes', select type of work (Antenna, Electrical, Mechanical, etc.) NOTE: Combined types are in data[5] & [6]
 		click(Constants.job_filing_button);
 		waitVisible(Constants.filing_next_button);
 		check("//span[contains(text(),'" + data[1] + "')]/../preceding-sibling::div/input[@type='checkbox']");
@@ -159,13 +159,13 @@ public void selectJobFilingWorkType(String worktype) {
 		
  		reportPass("selectJobFilingWorkType");
 	} else {
-		System.out.println(convertedTimestamp() + " **************** New Filing - no selectJobFilingWorkType");
+		System.out.println(convertedTimestamp() + " **************** Dashboard no selectJobFilingWorkType");
 	}
 }
 		
 	public void selectWorkTypePlumbing(String worktype) {	
 		if(!worktype.equals("")){
-			System.out.println(convertedTimestamp() + " **************** New Filing - selectWorkTypePlumbing");
+			System.out.println(convertedTimestamp() + " **************** Dashboard selectWorkTypePlumbing");
 			loginToPortal(user);
 			test = rep.startTest("Dash Select Work Type");
 			
@@ -200,7 +200,7 @@ public void selectJobFilingWorkType(String worktype) {
 	}
 	public void jobFilingElev(String work_type) {	
 		if(!work_type.equals("")){
-			System.out.println(convertedTimestamp() + " **************** jobFilingElev");
+			System.out.println(convertedTimestamp() + " **************** Dashboard jobFilingElev");
 			loginToPortal(OR_PROPERTIES.getProperty("elevator_applicant_email"));
 			test = rep.startTest("Dash New Filing 'Select Work Type'");
 	 		click(Constants.job_filing_button);
@@ -230,7 +230,7 @@ public void selectJobFilingWorkType(String worktype) {
 
 	public void selectWorkTypeTp(String worktype) {
 		if (!worktype.equals("")) {
-			System.out.println(convertedTimestamp() + " **************** New Filing - selectWorkTypeTp");
+			System.out.println(convertedTimestamp() + " **************** Dashboard selectWorkTypeTp");
 			loginToPortal(OR_PROPERTIES.getProperty("user_email"));
 			test = rep.startTest("Dash Select Work Type");
 			if (CONFIG.getProperty("env").contains("8085")) { //JG 2018-10-30 Job Filing button is different now

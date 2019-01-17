@@ -5,14 +5,10 @@ import com.util.Constants;
 import org.openqa.selenium.By;
 
 public class DobDocumentsPage extends TestBase {
-/*	WebDriver driver;
-	public DobDocumentsPage(WebDriver dr) {
-		driver = dr;
-	}*/
 
 	public void uploadDocuments(String upload_file) {
 		if (!upload_file.equals("")) {
-			System.out.println(convertedTimestamp() + " **************** Documents - uploadDocuments");
+			System.out.println(convertedTimestamp() + " **************** Documents uploadDocuments");
 //			filterJob(user);
 			test = rep.startTest("Upload Documents");
 			click(Constants.documents_step);
@@ -79,7 +75,9 @@ public class DobDocumentsPage extends TestBase {
 				}
 			}
 			reportPass("uploadDocuments");
+		} else {
+			System.out.println(convertedTimestamp() + " **************** Documents no uploadDocuments");
 		}
 	}
 	
-}
+} // end of class
