@@ -188,11 +188,14 @@ public class Constants {
 	public static final String pw1_filing_info_select_scope_of_work = "//select[@id='ddlBurnerSoWFI']";
 	public static final String pw1_filing_info_select_scope_includes = "//select[@id='rdWorktype']";
 	public static final String pw1_filing_info_select_boiler_energy_source = "//select[@id='ddlPropEnergySource']";
+	public static final String pw1_filing_info_associated_job_number = "//input[@id='txtJobNumber']"; 
 
-	//	   0. List of Boiler Equipment
+	//	   0. List of Boiler Equipment	 
 	public static final String pw1_list_boiler_equipment_accordion = "//div[@slidediv='boilerEquipmentList']";
 	public static final String pw1_list_boiler_equipment_add = "//button[@ng-click='AddBoilerDevice()']";
 	public static final String pw1_list_boiler_equipment_edit = "(//i[@class='glyphicon glyphicon-edit'])[last()]";
+	public static final String pw1_list_boiler_update_device_details_yes = "//button[contains(.,'Yes')]";
+	
 	public static final String pw1_list_boiler_equipment_select_occupancy_type = "(//select[@id='ddlOccupancySoW'])[last()]";
 	public static final String pw1_list_boiler_equipment_boiler_manufacturer = "(//input[@id='txtBoilerManufacturer'])[last()]";
 	public static final String pw1_list_boiler_equipment_boiler_model_number = "(//input[@id='txtModelNo'])[last()]";
@@ -212,6 +215,31 @@ public class Constants {
 	public static final String pw1_list_boiler_equipment_servicing_location_address = "(//input[@id='txtServicingLoc'])[last()]";
 	public static final String pw1_list_boiler_equipment_servicing_location_floor = "(//input[@id='txtServicingLocFloor'])[last()]";
 	public static final String pw1_list_boiler_equipment_comments = "(//textarea[@id='Comments'])[last()]";
+	public static final String pw1_list_boiler_equipment_same_work_on_fuel_burner_yes = "(//input[@id='rdSWSowFuelBurner1'])[last()]";
+	public static final String pw1_list_boiler_equipment_same_work_on_fuel_burner_no  = "(//input[@id='rdSWSowFuelBurner2'])[last()]";
+	public static final String pw1_list_boiler_equipment_same_work_on_fuel_storage_yes = "(//input[@id='rdSWSowFuelBurner21'])[last()]";
+	public static final String pw1_list_boiler_equipment_same_work_on_fuel_storage_no  = "(//input[@id='rdSWSowFuelBurner22'])[last()]";
+	
+	public static final String pw1_list_boiler_equipment_fuel_burner_details_tab = "(//a[@class='nav-link ng-binding'][contains(text(),'Fuel Burner Details')])[last()]";
+	public static final String pw1_list_boiler_equipment_select_fuel_burner_type = "(//select[@id='ddlBurnerType'])[last()]";
+	public static final String pw1_list_boiler_equipment_burner_manufacturer = "(//input[@id='txtBurnerManufacturer'])[last()]";
+	public static final String pw1_list_boiler_equipment_select_burner_agency_name = "(//select[@id='BurnerListingAgencyName'])[last()]";
+	public static final String pw1_list_boiler_equipment_burner_certification_number = "(//input[@id='BurnerCertificationNumber'])[last()]";
+	public static final String pw1_list_boiler_equipment_burner_model_number = "(//input[@id='txtBurnerModelNo'])[last()]";
+	public static final String pw1_list_boiler_equipment_burner_dual_burning_yes = "(//input[@id='rdDualBurningCapacity1'])[last()]";
+	public static final String pw1_list_boiler_equipment_burner_dual_burning_no  = "(//input[@id='rdDualBurningCapacity2'])[last()]";
+	public static final String pw1_list_boiler_equipment_burner_input_capacity = "(//input[@id='txtInputCapacityFR1'])[last()]";
+	public static final String pw1_list_boiler_equipment_fuel_burner_comments = "(//textarea[@id='txtBurnerComments'])[last()]";
+	
+	public static final String pw1_list_boiler_equipment_fuel_storage_details_tab = "(//a[@class='nav-link ng-binding'][contains(text(),'Fuel Storage Details')])[last()]";
+	public static final String pw1_list_boiler_equipment_select_fuel_storage_location = "(//select[@id='ddlFSLocation'])[last()]";
+	public static final String pw1_list_boiler_equipment_fuel_storage_floor_number = "(//input[@id='txtFSFloorNo'])[last()]";
+	public static final String pw1_list_boiler_equipment_select_fuel_storage_installed = "(//select[@id='ddlTanksInstalled'])[last()]";
+	public static final String pw1_list_boiler_equipment_tank_adjacent_to_subway_yes = "(//input[@id='rdTankAdjSubway1'])[last()]";
+	public static final String pw1_list_boiler_equipment_tank_adjacent_to_subway_no  = "(//input[@id='rdTankAdjSubway2'])[last()]";
+	public static final String pw1_list_boiler_equipment_storage_fdny_permit_number = "(//input[@id='txtFDNYPermitNo'])[last()]";
+	public static final String pw1_list_boiler_equipment_select_grade_of_oil = "(//select[@id='ddlProposedOilGrade'])[last()]";
+	public static final String pw1_list_boiler_equipment_storage_total_tank_capacity = "(//input[@id='txtTotalTankCapacity'])[last()]";
 	
 	//     1. Location Information
 	public static final String pw1_1_location_information_accordion = "//div[@slidediv='locationInformationDiv']"; // JG 2018-11-29  
