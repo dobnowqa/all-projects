@@ -68,6 +68,33 @@ public class DobPW1Page extends TestBase {
 			System.out.println(convertedTimestamp() + " **************** PW1 no enterFilingInformation");
 		}
 	}
+
+	// Select Device	
+	public void selectDevice(String device) {
+		if (!device.equals("")) {
+			System.out.println(convertedTimestamp() + " **************** PW1 enterDevice");
+			test = rep.startTest("enterDevice");
+			String[] data = device.split(" :: ");
+			click(Constants.pw1_list_boiler_equipment_accordion); // open List of Devices
+			if (data[0].equals("1")) {
+				radio(Constants.pw1_list_boiler_search_by_bin);
+				type(Constants.pw1_list_boiler_search_bin, data[1]);
+			}
+			if (data[0].equals("2")) {
+				radio(Constants.pw1_list_boiler_search_by_address);
+			}
+			if (data[0].equals("3")) {
+				radio(Constants.pw1_list_boiler_search_by_id);
+				type(Constants.pw1_list_boiler_search_id, data[1]);
+			}
+			click(Constants.pw1_list_boiler_search_and_add_button);
+			check(Constants.pw1_list_boiler_device_list_checkbox);
+			click(Constants.pw1_list_boiler_device_list_add_button);
+			click(Constants.pw1_list_boiler_equipment_accordion); // close List of Devices
+		} else {
+			System.out.println(convertedTimestamp() + " **************** PW1 no enterDevice");
+		}
+	}
 			
 	// 1. Location Imfo	
 	public void locationImfo(String address) {	
@@ -99,6 +126,8 @@ public class DobPW1Page extends TestBase {
 			type(Constants.pw1_1_lot, data[4]);
 			type(Constants.pw1_1_apt_suite_number, data[5]); 
 			click(Constants.pw1_1_location_information_accordion); // TODO: routine to close accordion
+		} else {
+			System.out.println(convertedTimestamp() + " **************** PW1 no enterLocationInformation");
 		}
 	}
 
@@ -392,11 +421,16 @@ public class DobPW1Page extends TestBase {
 			System.out.println(convertedTimestamp() + " **************** PW1 enterWorkTypes");
 			test = rep.startTest("enterWorkTypes");
 			String[] data = new_existing_both.split(" :: ");
-			click(Constants.pw1_6_work_types_accordion);
+			click(Constants.pw1_6_work_types_accordion); // open
 			if (!data[0].equals("N")) {
-				radio("//input[@type='radio'][@name='rdNewApp'][@value='" + data[0] + "']"); // New Work
+				radio("//input[@type='radio'][@name='rdNewApp'][@value='" + data[0] + "']"); // 1-New Work or 2-Legalization
+				if (count("//input[@type='radio'][@name='radPWDirective14Accept'][@ng-value='false']") > 0) {
+					radio("//input[@type='radio'][@name='radPWDirective14Accept'][@ng-value='false']");
+				}
 			}
 			click(Constants.pw1_6_work_types_accordion); // close
+		} else {
+			System.out.println(convertedTimestamp() + " **************** PW1 no enterWorkTypes");
 		}
 	}
 

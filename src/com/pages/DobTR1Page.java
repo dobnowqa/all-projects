@@ -833,13 +833,17 @@ public class DobTR1Page extends TestBase {
 		if (!tr1.equals("")) {
 			String[] data = tr1.split(" :: ");
 			System.out.println(convertedTimestamp() + " **************** TR1 specialInspectorSignaturePlumbing");
-			filterJob(data[1]);
+			if (!data[1].equals("AJOETEST@GMAIL.COM")) { // ajoetest is used for speeding up job creation
+				filterJob(data[1]);
+			}	
 			test = rep.startTest("TR1 specialInspectorSignaturePlumbing");
 			click(Constants.tr1_technical_report_step);
-			waitVisible(Constants.tr1_are_you_special_inspector);
-			waitVisible(Constants.tr1_are_you_progress_inspector);
-			check(Constants.tr1_are_you_special_inspector);
-			check(Constants.tr1_are_you_progress_inspector);
+			if (count(Constants.tr1_are_you_special_inspector) > 0) {
+				check(Constants.tr1_are_you_special_inspector);
+			}
+			if (count(Constants.tr1_are_you_progress_inspector) > 0) {
+				check(Constants.tr1_are_you_progress_inspector);
+			}
 			wait(3);
 			int number_of_boxes = count(Constants.edit_icon);
 			for (int i = 1; i <= number_of_boxes; i++) {
