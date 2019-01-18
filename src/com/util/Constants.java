@@ -195,6 +195,17 @@ public class Constants {
 	public static final String pw1_list_boiler_equipment_add = "//button[@ng-click='AddBoilerDevice()']";
 	public static final String pw1_list_boiler_equipment_edit = "(//i[@class='glyphicon glyphicon-edit'])[last()]";
 	public static final String pw1_list_boiler_update_device_details_yes = "//button[contains(.,'Yes')]";
+	public static final String pw1_list_boiler_search_by_bin = "//input[@id='schByBin']";
+	public static final String pw1_list_boiler_search_by_address = "//input[@id='schByAddress']";
+	public static final String pw1_list_boiler_search_by_id = "//input[@id='schByDeviceID']";
+	public static final String pw1_list_boiler_search_bin = "//input[@id='txtBinSearch']";
+	public static final String pw1_list_boiler_search_house_number = "//input[@id='txtSchObjAddressHouse']";
+	public static final String pw1_list_boiler_search_street_name = "//input[@id='txtSchObjAddressStreet']";
+	public static final String pw1_list_boiler_search_bin_borough = "//select[@id='txtSchObjAddressBoroughNYC']";
+	public static final String pw1_list_boiler_search_id = "//input[@id='txtDeviceSearch']";
+	public static final String pw1_list_boiler_search_and_add_button = "//button[contains(.,'Search & Add')]";
+	public static final String pw1_list_boiler_device_list_checkbox = "//input[@type='checkbox'][@ng-model='boiler.IsSelected']";
+	public static final String pw1_list_boiler_device_list_add_button = "//button[contains(.,'Add Device(s)')]";
 	
 	public static final String pw1_list_boiler_equipment_select_occupancy_type = "(//select[@id='ddlOccupancySoW'])[last()]";
 	public static final String pw1_list_boiler_equipment_boiler_manufacturer = "(//input[@id='txtBoilerManufacturer'])[last()]";
@@ -256,8 +267,8 @@ public class Constants {
 	public static final String proposed_work_summary = "//textarea[@id='txtPWLocCBNo']";
 	// Work on floors
 	public static final String plumbing_work_on_floors = "//input[@id='txtPWLocWorkFloor']";
-	public static final String pw1_1_add_work_floors_button = "//button[contains(.,'Add')]";//button[contains(.,' Add')]
-	public static final String pw1_1_add_work_on_floors_button = "(//button[contains(.,'Add')])[1]"; // JG 2018-12-21
+	public static final String pw1_1_add_work_floors_button = "//button[contains(.,'Add')]";
+	public static final String pw1_1_add_work_on_floors_button = "//div[contains(.,'Work on Floor')]/button[contains(.,' Add')]";
 	public static final String pw1_1_add_work_floors_button_subs = "//button[@ng-click='PlanWorkAntennaLocationModal()']";
 	public static final String pw1_work_on_floors_location = "//select[@id='ddlCADescWork']";
 	public static final String pw1_1_work_on_floors_select_code_and_description = "//select[@id='ddlCADescWork']";
@@ -869,7 +880,8 @@ public class Constants {
 	public static final String pw3_area_units_sign = "//input[@id='txtArea']";
 	public static final String pw3_unit_cost = "//input[@id='Text2']";
 	public static final String pw3_unit_cost_sign = "//input[@id='txtUnitCost']";
-	public static final String pw3_cost_details_description_sign = "(//textarea[@id='txtPWJobDesc'])[2]";
+//	public static final String pw3_cost_details_description_sign = "(//textarea[@id='txtPWJobDesc'])[2]"; // JG 2019-01-18 not found for legalization
+	public static final String pw3_cost_details_description_sign = "//div[contains(.,'Description of Work')]/textarea";
 	public static final String save_button_sign = "//span[@class='glyphicon glyphicon-ok-sign']";
 	public static final String pw3_cost_details_save_button= "//button[@class='btn btn-primary btnCustom']";
 	public static final String pw3_save_button = "//button[contains(.,'Save')]";
