@@ -170,7 +170,7 @@ public class TestBase {
 				options.addArguments("--disable-web-security");
 				options.addArguments("--no-proxy-server");
 				options.addArguments("--disable-default-apps");
-//				options.addArguments("disable-infobars");
+				options.addArguments("disable-infobars"); // JG 2019-01-18 Need to disable, otherwise more scrolling is needed.
 				options.addArguments("test-type");
 				options.addArguments("no-sandbox");
 				options.addArguments("--allow-running-insecure-content");
