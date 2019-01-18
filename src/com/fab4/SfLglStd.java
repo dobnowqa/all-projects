@@ -4,7 +4,6 @@ import com.util.Constants;
 import com.util.TestUtil;
 import com.util.Xls_Reader;
 import java.util.Hashtable;
-
 import org.testng.SkipException;
 import org.testng.annotations.Test;
 import org.testng.annotations.AfterMethod;
@@ -13,20 +12,19 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.openqa.selenium.support.PageFactory;
-
 import com.base.TestBase;
 import com.pages.DobDashboardPage;
 import com.pages.DobDocumentsPage;
 import com.pages.DobPW1Page;
-import com.pages.DobPW3Page;
 import com.pages.DobSOWPage;
+import com.pages.DobPW3Page;
 import com.pages.DobTR1Page;
 import com.pages.DobTR8Page;
 import com.pages.DobSignaturesPage;
 import com.relevantcodes.extentreports.LogStatus;
 
-public class SfShFnNew extends TestBase {
-    // This test case uses DOBNOW to create an application/job/filing for new-work for a combination of Scaffold (SF), Sidewalk Shed (SH) and Fence (FN).
+public class SfLglStd extends TestBase {
+	// This test simulates a registered e-Filing account holder using DOBNOW to create a filing (aka job) for Supported Scaffold (SF); Standard-plan; Legalization
 	// This test case needs to run with config.properties environment = "fab4"
 	String testname = this.getClass().getSimpleName();
 	// The following file is used for FN, SF, SG and SH work types:
@@ -76,9 +74,8 @@ public class SfShFnNew extends TestBase {
 		DobTR8Page 			tr8  = PageFactory.initElements(driver, DobTR8Page.class);
 		DobSignaturesPage 	signature = PageFactory.initElements(driver, DobSignaturesPage.class);
 		DobDocumentsPage 	docs = PageFactory.initElements(driver, DobDocumentsPage.class);
-
-		dash.selectJobFilingWorkType(data.get("work_type"));		
-//		pw1.enterFilingInformation(data.get("description")); // no filing info for this worktype
+		
+		dash.selectJobFilingWorkType(data.get("work_type"));	
 		pw1.enterLocationInformation(data.get("address"));
 		pw1.addWorkOnFloors(data.get("work_on_floors"));
 		pw1.enterApplicantInformation(data.get("user_info"));
@@ -86,27 +83,24 @@ public class SfShFnNew extends TestBase {
 		pw1.enterAdditionalInformation(data.get("additional_info"));
 		pw1.enterNYCECCCompliance(data.get("nycecc"));
 		pw1.enterJobDescription();
-		pw1.enterSiteCharacteristics(data.get("site_characteristics"));
-		pw1.enterAsbestosAbatementCompliance(data.get("site_characteristics"));
+//		pw1.enterSiteCharacteristics(data.get("site_characteristics"));
+//		pw1.enterAsbestosAbatementCompliance(data.get("site_characteristics"));
 		pw1.constructionEquipment(data.get("equipment"));
-		pw1.enterPw1Comments(data.get("description"));	
+		pw1.enterPw1Comments(data.get("site_characteristics"));
 		pw1.saveJob("get_number");
 		pw1.enterAdditionalConsiderations(data.get("additional_conciderations"));
 		pw1.enterBuildingCharacteristics(data.get("building_charcteristics")); // Zoning Info
 		pw1.saveJob("skip_number");
-		
-		asw.enterScopeOfWorkConstructionFence(data.get("asw"));
-		asw.enterScopeOfWorkSidewalkShed(data.get("asw"));
-		asw.enterScopeOfWorkSupportedScaffold(data.get("asw"));
-				
+		asw.scopeOfWorkScaffold(data.get("asw"));
+//		pw1.addBoilerEquipmentDevice("new_existing_both"); // no equipment device for this work type
 		pw3.addCostAffidavit(data.get("pw3"));
-				
-//		tr1.addSpecialInspection(data.get("tr1"));
-		tr1.enterProgressInspectionSignature(data.get("tr1"));
+//		tr1.specialInspection(data.get("tr1"));  // temp not in use
+//		tr1.specialInspectorSignature(data.get("tr1")); // temp not in use
+		
 		
 		signature.applicantStatementsSignature(data.get("signatures"));
-		signature.ownerSignature(data.get("owner_signature"));
 		docs.uploadDocuments(data.get("documents"));
+		signature.ownerSignature(data.get("owner_signature"));		
 //		pw1.previewToFile(data.get("preview_to_file"));
 		successMessage(data.get("description"));
 	}
