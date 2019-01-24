@@ -57,7 +57,7 @@ public class MsNewStd extends TestBase {
 	}
 
 	// Execute the Base test, using the data defined above, to create the number of jobs equal to invocationCount.
-	@Test(dataProvider = "getTestData",invocationCount = 4)
+	@Test(dataProvider = "getTestData",invocationCount = 1)
 	public void Base(Hashtable<String, String> data) {
 		if (!TestUtil.isExecutable(testname, xlsx) || data.get("Runmode").equals("N"))
 			throw new SkipException("Skipping test");
@@ -89,6 +89,7 @@ public class MsNewStd extends TestBase {
 		pw1.constructionEquipment(data.get("equipment"));
 		pw1.enterPw1Comments(data.get("site_characteristics"));
 		pw1.saveJob("get_number");
+		pw1.addDelegatedAssociate(data.get("user_info"));
 		pw1.enterAdditionalConsiderations(data.get("additional_conciderations"));
 		pw1.enterBuildingCharacteristics(data.get("building_charcteristics")); // Zoning Info
 		pw1.saveJob("skip_number");

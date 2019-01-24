@@ -82,7 +82,7 @@ public class StNewProPw2 extends TestBase {
 		pw1.enterLocationInformation(data.get("address"));
 		pw1.addWorkOnFloors(data.get("work_on_floors"));
 		pw1.enterApplicantInformation(data.get("user_info"));
-		pw1.enterWorkTypesMechanicalSystems(data.get("new_existing_both"));
+		pw1.enterWorkTypes(data.get("new_existing_both"));
 		pw1.enterAdditionalInformation(data.get("additional_info"));
 		pw1.enterNYCECCCompliance(data.get("nycecc"));
 		pw1.enterJobDescription();

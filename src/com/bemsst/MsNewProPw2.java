@@ -96,7 +96,7 @@ public class MsNewProPw2 extends TestBase {
 		pw1.enterBuildingCharacteristics(data.get("building_charcteristics")); // Zoning Info
 		pw1.saveJob("skip_number");
 		asw.addScopeOfWorkMechanicalSystems(data.get("asw"));
-		pw1.addBoilerEquipmentDevice("new_existing_both"); // no equipment device for this work type
+//		pw1.addBoilerEquipmentDevice("new_existing_both"); // no equipment device for this work type
 		pw3.addCostAffidavit(data.get("pw3"));
 		tr1.specialInspectionMechanicalSystems(data.get("tr1"));
 		tr1.specialInspectorSignatureMechanicalSystems(data.get("tr1"));
