@@ -57,7 +57,7 @@ public class BeNewStd extends TestBase {
 	}
 
 	// Execute the Base test, using the data defined above, to create the number of jobs equal to invocationCount.
-	@Test(dataProvider = "getTestData",invocationCount = 1)
+	@Test(dataProvider = "getTestData",invocationCount = 10)
 	public void Base(Hashtable<String, String> data) {
 		if (!TestUtil.isExecutable(testname, xlsx) || data.get("Runmode").equals("N"))
 			throw new SkipException("Skipping test");
@@ -98,7 +98,7 @@ public class BeNewStd extends TestBase {
 		tr1.addSpecialInspectionBoilerEquipment(data.get("tr1"));
 		tr1.addProgressInspectionBoilerEquipment(data.get("tr1"));
 		tr8.energyCodeProgressInspectionBoilerEquipment(data.get("tr8"));
-		tr8.enterProgressSignatureMechanicalSystems(data.get("tr8"));
+		tr8.enterProgressSignatureBoilerEquipment(data.get("tr8"));
 		signature.applicantStatementsSignature(data.get("signatures"));
 		docs.uploadDocuments(data.get("documents"));
 		signature.ownerSignature(data.get("owner_signature"));
