@@ -23,9 +23,9 @@ import com.pages.DobTR8Page;
 import com.pages.DobSignaturesPage;
 import com.relevantcodes.extentreports.LogStatus;
 
-public class StNewStd extends TestBase {
-	// This test simulates a registered e-Filing account holder using DOBNOW to create a filing (aka job) for Structural (ST); Standard-plan; Non-legalization
-	// This test case needs to run with config.properties environment = "bemsst"	
+public class StNewPro extends TestBase {
+	// This test simulates a registered e-Filing account holder using DOBNOW to create a filing (aka job) for Structural (ST); Prof-cert.; Non-legalization
+	// This test case needs to run with config.properties environment = "bemsst"
 	String testname = this.getClass().getSimpleName();
 	// The following file is used for BE, MS and ST work types:
 	Xls_Reader xlsx = new Xls_Reader(Constants.testCasesBEMSST); 
@@ -57,7 +57,7 @@ public class StNewStd extends TestBase {
 	}
 
 	// Execute the Base test, using the data defined above, to create the number of jobs equal to invocationCount.
-	@Test(dataProvider = "getTestData",invocationCount = 4)
+	@Test(dataProvider = "getTestData",invocationCount = 3)
 	public void Base(Hashtable<String, String> data) {
 		if (!TestUtil.isExecutable(testname, xlsx) || data.get("Runmode").equals("N"))
 			throw new SkipException("Skipping test");

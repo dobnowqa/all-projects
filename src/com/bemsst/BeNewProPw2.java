@@ -91,16 +91,17 @@ public class BeNewProPw2 extends TestBase {
 		pw1.constructionEquipment(data.get("equipment"));
 		pw1.enterPw1Comments(data.get("site_characteristics"));	
 		pw1.saveJob("get_number");
+//		pw1.addDelegatedAssociate(data.get("user_info"));
 		pw1.enterAdditionalConsiderations(data.get("additional_conciderations"));
 		pw1.enterBuildingCharacteristics(data.get("building_charcteristics")); // Zoning Info
 		pw1.saveJob("skip_number");
 		asw.enterScopeOfWorkBoilerEquipment(data.get("asw"));
 		pw1.addBoilerEquipmentDevice(data.get("new_existing_both"));
 		pw3.addCostAffidavit(data.get("pw3"));
-		tr1.specialInspectionBoilerEquipment(data.get("tr1"));
-		tr1.specialInspectorSignatureBoilerEquipment(data.get("tr1"));
+		tr1.addSpecialInspectionBoilerEquipment(data.get("tr1"));
+		tr1.addProgressInspectionBoilerEquipment(data.get("tr1"));
 		tr8.energyCodeProgressInspectionBoilerEquipment(data.get("tr8"));
-		tr8.energyCodeSignatureMechanicalSystems(data.get("tr8"));
+		tr8.enterProgressSignatureMechanicalSystems(data.get("tr8"));
 		signature.applicantStatementsSignature(data.get("signatures"));
 		docs.uploadDocuments(data.get("documents"));
 		signature.ownerSignature(data.get("owner_signature"));

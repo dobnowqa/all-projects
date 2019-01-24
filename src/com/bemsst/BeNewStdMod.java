@@ -96,10 +96,10 @@ public class BeNewStdMod extends TestBase {
 		asw.enterScopeOfWorkBoilerEquipment(data.get("asw"));
 		pw1.addBoilerEquipmentDevice(data.get("new_existing_both"));
 		pw3.addCostAffidavit(data.get("pw3"));
-		tr1.specialInspectionBoilerEquipment(data.get("tr1"));
-		tr1.specialInspectorSignatureBoilerEquipment(data.get("tr1"));
+		tr1.addSpecialInspectionBoilerEquipment(data.get("tr1"));
+		tr1.addProgressInspectionBoilerEquipment(data.get("tr1"));
 		tr8.energyCodeProgressInspectionBoilerEquipment(data.get("tr8"));
-		tr8.energyCodeSignatureMechanicalSystems(data.get("tr8"));
+		tr8.enterProgressSignatureMechanicalSystems(data.get("tr8"));
 		signature.applicantStatementsSignature(data.get("signatures"));
 		docs.uploadDocuments(data.get("documents"));
 		signature.ownerSignature(data.get("owner_signature"));

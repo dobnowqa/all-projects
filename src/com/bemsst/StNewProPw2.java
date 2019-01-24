@@ -16,6 +16,7 @@ import com.base.TestBase;
 import com.pages.DobDashboardPage;
 import com.pages.DobDocumentsPage;
 import com.pages.DobPW1Page;
+import com.pages.DobPW2Page;
 import com.pages.DobSOWPage;
 import com.pages.DobPW3Page;
 import com.pages.DobTR1Page;
@@ -23,8 +24,8 @@ import com.pages.DobTR8Page;
 import com.pages.DobSignaturesPage;
 import com.relevantcodes.extentreports.LogStatus;
 
-public class MsNewStd extends TestBase {
-	// This test simulates a registered e-Filing account holder using DOBNOW to create a filing (aka job) for Mechanical Systems (MS); Standard-plan; Non-legalization
+public class StNewProPw2 extends TestBase {
+	// This test simulates a registered e-Filing account holder using DOBNOW to create a filing (aka job) for Structural (ST); Prof. Cert.; Non-legalization; PW2
 	// This test case needs to run with config.properties environment = "bemsst"
 	String testname = this.getClass().getSimpleName();
 	// The following file is used for BE, MS and ST work types:
@@ -57,7 +58,7 @@ public class MsNewStd extends TestBase {
 	}
 
 	// Execute the Base test, using the data defined above, to create the number of jobs equal to invocationCount.
-	@Test(dataProvider = "getTestData",invocationCount = 4)
+	@Test(dataProvider = "getTestData",invocationCount = 1)
 	public void Base(Hashtable<String, String> data) {
 		if (!TestUtil.isExecutable(testname, xlsx) || data.get("Runmode").equals("N"))
 			throw new SkipException("Skipping test");
@@ -72,6 +73,7 @@ public class MsNewStd extends TestBase {
 		DobPW3Page 			pw3  = PageFactory.initElements(driver, DobPW3Page.class);
 		DobTR1Page 			tr1  = PageFactory.initElements(driver, DobTR1Page.class);
 		DobTR8Page 			tr8  = PageFactory.initElements(driver, DobTR8Page.class); // JG 2018-12-19 comment out due to TR8 not used
+		DobPW2Page 			pw2  = PageFactory.initElements(driver, DobPW2Page.class);
 		DobSignaturesPage 	signature = PageFactory.initElements(driver, DobSignaturesPage.class);
 		DobDocumentsPage 	docs = PageFactory.initElements(driver, DobDocumentsPage.class);
 		
@@ -89,19 +91,21 @@ public class MsNewStd extends TestBase {
 		pw1.constructionEquipment(data.get("equipment"));
 		pw1.enterPw1Comments(data.get("site_characteristics"));
 		pw1.saveJob("get_number");
+		pw1.addDelegatedAssociate(data.get("user_info"));
 		pw1.enterAdditionalConsiderations(data.get("additional_conciderations"));
 		pw1.enterBuildingCharacteristics(data.get("building_charcteristics")); // Zoning Info
 		pw1.saveJob("skip_number");
 		asw.addScopeOfWorkMechanicalSystems(data.get("asw"));
 //		pw1.addBoilerEquipmentDevice("new_existing_both"); // no equipment device for this work type
 		pw3.addCostAffidavit(data.get("pw3"));
-		tr1.specialInspectionMechanicalSystems(data.get("tr1")); // JG 2018-12-07 there's already a TR1 Special Inspection by default.
+		tr1.specialInspectionMechanicalSystems(data.get("tr1"));
 		tr1.specialInspectorSignatureMechanicalSystems(data.get("tr1"));
-//		tr8.energyCodeProgressInspection(data.get("tr8")); // JG 2019-01-17 temporarily do not use
-//		tr8.energyCodeSignatureMechanicalSystems(data.get("tr8")); // JG 2019-01-17 temporarily do not use
+		tr8.enterProgressInspectorMechanicalSystems(data.get("tr8"));
+		tr8.enterProgressSignatureMechanicalSystems(data.get("tr8"));
 		signature.applicantStatementsSignature(data.get("signatures"));
 		docs.uploadDocuments(data.get("documents"));
 		signature.ownerSignature(data.get("owner_signature"));
+		pw2.addWorkPermit(data.get("pw2"));
 //		pw1.previewToFile(data.get("preview_to_file")); // comment-out for Filing Status to remain Pre-Filing
 		successMessage(data.get("description"));
 	}
