@@ -963,9 +963,8 @@ public class TestBase {
 					doubleclick(Constants.welcome_login_button);
 				}
 				click(Constants.dob_now_build_component);
-				//new BUILD sub-menu with "Cranes" & "Others" //JG 2018-11-16
-				if(CONFIG.getProperty("env").contains("8085")) {
-					waitVisible(Constants.build_others_link);					
+				//new BUILD sub-menu with "Cranes" & "Others" // JG 2019-01-23 try to click 'others' if it's there.
+				if (count(Constants.build_others_link) > 0) {					
 					click(Constants.build_others_link);
 				}
 				waitInvisible(Constants.dob_now_build_component);
