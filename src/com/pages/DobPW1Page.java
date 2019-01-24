@@ -283,6 +283,7 @@ public class DobPW1Page extends TestBase {
 			scrollDown();
 			click(Constants.pw1_3a_add_button);
 			email(data[4]);
+			wait(1);
 			select(Constants.pw1_3a_select_license_type, data[5]);
 			wait(1);
 			select(Constants.pw1_3a_select_business_name, data[6]);
