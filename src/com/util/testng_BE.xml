@@ -1,8 +1,8 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="BE MS ST" allow-return-values="true">
+<suite name="BE" allow-return-values="true">
 
 <!--
-This suite executes all 7 'new job' tests that use ENV=bemsst 
+This suite executes all 5 'BE' tests that use ENV=bemsst 
 -->
 
 <listeners>
@@ -39,20 +39,6 @@ This suite executes all 7 'new job' tests that use ENV=bemsst
 <test name="BeNewStdRep">
     <classes>
      <class name="com.bemsst.BeNewStdRep" />
-    </classes>
-</test>
-
-<test name="MsNewStd">
-    <classes>
-     <class name="com.bemsst.MsNewStd" />
-    </classes>
-</test>
-
-<!--
--->
-<test name="StNewStd">
-    <classes>
-     <class name="com.bemsst.StNewStd" />
     </classes>
 </test>
 

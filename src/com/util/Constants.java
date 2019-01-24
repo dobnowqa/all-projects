@@ -80,8 +80,8 @@ public class Constants {
 	public static final String job_label_subs_part_2 = "')])[1]";
 	public static final String job_label_subs_xpath_elec = "//*[@id='fixedSideNav']/nav/div[2]/div/h3/span/strong";
 
-	public static final String click_to_view_icon = "//i[@class='glyphicon glyphicon-new-window window-icon']"; 
-			//span[@class='window-icon-text'][contains(.,'Click to View')]";
+//	public static final String click_to_view_icon = "//i[@class='glyphicon glyphicon-new-window window-icon']"; // JG 2019-01-23 old UI
+	public static final String click_to_view_icon = "//span[@class='glyphicon glyphicon-edit']";
 	public static final String click_to_view_icon_8085 = "//span[@class='glyphicon glyphicon glyphicon  glyphicon-edit']"; // JG 2018-11-01
 	public static final String global_email_preview_dropdown = "//*[@id='typeahead-405-1214-option-0']/a/strong";
 //	public static final String job_label = "//*[@id='frmportal']/div[1]/span/b";
@@ -310,6 +310,11 @@ public class Constants {
 	public static final String pw1_3_city = "//input[@name='txtPWFRepCity']";
 	public static final String pw1_3_state = "//input[@name='txtPWFRepState']";
 	public static final String pw1_3_mobile = "//input[@name='txtPWFRepMobileTelephone']";
+	//     3A. Delegated Associates
+	public static final String pw1_3a_add_button = "//div[@id='DelegatedAssociatesSection']//button[contains(.,'Add')]";
+	public static final String pw1_3a_select_license_type = "(//select[contains(@id, 'LicType')])[2]";
+	public static final String pw1_3a_select_business_name = "(//select[contains(@id,'BusinessName')])[2]";
+	public static final String pw1_3a_save_button = "//form//button[contains(.,'Save')]";
 	//     4. Filing Review Type
 	public static final String pw1_4_filling_review_type_accordion = "//div[@slidediv='section4Div']"; // JG 2018-11-29
 	public static final String pw1_4_filling_review_type_list = "//select[@id='ddlPWProfCertificate']";
@@ -1015,7 +1020,11 @@ public class Constants {
 	public static final String ss_owner_agreement_with_statements_signatures_terms = "//input[@ng-model='FormObj.OwnerSealAndSignature.OwnerStatementsMainCheckPW1']"; // JG 2018-12-28
 	
 // Documents 
-	public static final String documents_step = "//a[contains(.,'Documents')]";
+	public static final String docs_documents_tab = "//a[contains(.,'Documents')]";
+	public static final String docs_additional_supporting_documents_accordion = "//div[@slidediv='additonalDocs']";
+	public static final String docs_required_documents_accordion = "//div[@slidediv='documentUploader']";
+	public static final String docs_add_new_document_button = "//span[contains(.,'Add New Document')]";
+	public static final String docs_search_documents_textbox = "//input[@id='txtsearchdocs']";
 	
 	
 	public static final String no_documents_found_message = "//td[@class='ms-crm-List-MessageText-Lite'][text()='No Document List records found.']";
@@ -1081,12 +1090,15 @@ public class Constants {
 	// 6. Insurance	
 	public static final String pw2_insurance_accordion = "//div[@slidediv='pw2Section6']";
 	public static final String pw2_liability = "//input[@ng-model='WorkPermitObj.LiabilityInsurance.InsuranceName']";
+	public static final String pw2_liability_name = "//textarea[@id='txtLiabInsName']";
 //	public static final String pw2_liability_expiration = "//input[@ng-model='WorkPermitObj.LiabilityInsurance.InsuranceExpiryDate']";
 	public static final String pw2_liability_expiration_calendar = "//button[@ng-click='openAppCal($event,1)']";
 	public static final String pw2_calendar_next_month_arrow = "//i[@class='glyphicon glyphicon-chevron-right']";
 	public static final String pw2_workers_compensation = "//input[@ng-model='WorkPermitObj.WorkerCompensationInsurance.InsuranceName ']";
+	public static final String pw2_workers_compensation_name = "//textarea[@id='txtWPInsuranceName']";
 	public static final String pw2_workers_compensation_expiration_calendar = "//button[@ng-click='openAppCal($event,2)']";
 	public static final String pw2_disability = "//input[@ng-model='WorkPermitObj.DisabilityInsurance.InsuranceName']";
+	public static final String pw2_disability_name = "//textarea[@id='txtDisabilityInsuranceName']";
 	public static final String pw2_disability_expiration_calendar = "//button[@ng-click='openAppCal($event,3)']";
 	
 
@@ -1755,7 +1767,8 @@ public class Constants {
 	public static final String el_confirm_yes_button = "//button[contains(.,'Yes')]";
 	public static final String paa_confirm_yes_button = "//button[contains(.,'Yes')]";
 	public static final String global_create_subsequent_button = "//button[contains(.,'Create Subsequent')]";
-	public static final String job_number_filter = "//span[text()='Job Number']/following::input[@ng-model='colFilter.term']";
+//	public static final String job_number_filter = "//span[text()='Job Number']/following::input[@ng-model='colFilter.term']"; // JG 2019-01-23 old UI
+	public static final String job_number_filter = "//span[text()='Job#']/following::input[@ng-model='colFilter.term']";
 	public static final String job_filing_number_filter = "(//input[@ng-model='colFilter.term'])[2]";
 	
 /*	public static final String job_filing_number_filter1 = "(//input[@ng-model='colFilter.term'])[1]";

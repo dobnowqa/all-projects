@@ -1,0 +1,27 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="ST" allow-return-values="true">
+
+<!--
+This suite executes both ST tests 
+-->
+
+<listeners>
+    <listener class-name="listener.TestsListenerAdapter" />
+</listeners>
+
+<!--
+-->
+
+<test name="StNewStd">
+    <classes>
+     <class name="com.bemsst.StNewStd" />
+    </classes>
+</test>
+
+<test name="StNewPro">
+    <classes>
+     <class name="com.bemsst.StNewPro" />
+    </classes>
+</test>
+
+</suite>
