@@ -171,6 +171,53 @@ public class DobTR8Page extends TestBase {
 		}
 	}
 
+	public void enterProgressSignatureBoilerEquipment(String tr8) {
+		if (!tr8.equals("")) {
+			String[] data = tr8.split(" :: ");
+			System.out.println(convertedTimestamp() + " **************** TR8 enterProgressSignatureBoilerEquipment");
+			if (!data[2].equals("AJOETEST@GMAIL.COM")) { // ajoetest is used for speeding up job creation
+				filterJob(data[2]);				
+			}
+			test = rep.startTest("enterProgressSignatureBoilerEquipment");
+			click(Constants.tr8_technical_report_energy_step);
+			scrollAllWayUp();
+			wait(2);
+			check(Constants.tr8_are_you_progress_inspector);
+			wait(2);
+			
+			for (int i = 0; i >= 0; i--) {// JG 2019-01-24 for now, there are 1 Progress Inspections by default.
+				click("(//i[@class='fa fa-edit'])[last()-" + i + "]");
+				wait(2);
+				check(Constants.tr8_i_take_responcibility);
+				check(Constants.tr8_i_understand_and_agree);
+				wait(1);
+				click(Constants.tr8_save_progress_inspection_button_8085);
+				waitInvisible(Constants.tr8_save_progress_inspection_button_8085);				
+				waitUntilISpinnersInvisible();
+				waitVisible(Constants.ok_button);
+				wait(1);
+				verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_saved_success"));
+				wait(1);
+				click(Constants.ok_button);
+				waitInvisible(Constants.ok_button);
+				
+				click("(//i[@class='fa fa-upload ng-scope'])[last()-" + i + "]");
+				send(Constants.tr1_browse_button, Constants.uploadFolder + "upload.png");
+				wait(1);
+				click(Constants.tr1_upload_button);
+				waitInvisible(Constants.tr1_please_wait_message);
+				waitVisible(Constants.tr1_upload_succesfull_message);
+				waitUntilISpinnersInvisible();
+				waitVisible(Constants.ok_button);
+				click(Constants.ok_button);
+				waitInvisible(Constants.ok_button);
+			}
+			reportPass("Success");
+		} else {
+			System.out.println(convertedTimestamp() + " **************** TR8 no enterProgressSignatureBoilerEquipment");
+		}
+	}
+
 	public void enterProgressSignatureMechanicalSystems(String tr8) {
 		if (!tr8.equals("")) {
 			String[] data = tr8.split(" :: ");
