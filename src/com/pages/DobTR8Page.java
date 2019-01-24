@@ -188,6 +188,7 @@ public class DobTR8Page extends TestBase {
 			for (int i = 0; i >= 0; i--) {// JG 2019-01-24 for now, there are 1 Progress Inspections by default.
 				click("(//i[@class='fa fa-edit'])[last()-" + i + "]");
 				wait(2);
+				select(Constants.tr1_license_type, data[3]);
 				check(Constants.tr8_i_take_responcibility);
 				check(Constants.tr8_i_understand_and_agree);
 				wait(1);
