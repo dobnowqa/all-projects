@@ -146,21 +146,23 @@ public class DobPW2Page extends TestBase {
 			scrollAllWayUp();
 			click(Constants.pw2_filing_representative_accordion); // close
 			
-			click(Constants.pw2_insurance_accordion); // open
-			type(Constants.pw2_liability_name, "Liability Insurance name 1");
-			click(Constants.pw2_liability_expiration_calendar);
-			click(Constants.pw2_calendar_next_month_arrow);
-			click(Constants.pw2_calendar_active_day);
-	 		type(Constants.pw2_workers_compensation_name, "Workers Compensation Insurance name 2");
-	 		click(Constants.pw2_workers_compensation_expiration_calendar);
-			click(Constants.pw2_calendar_next_month_arrow);
-			click(Constants.pw2_calendar_active_day);
-			type(Constants.pw2_disability_name, "Disability Insurance name 3");
-			click(Constants.pw2_disability_expiration_calendar);
-			click(Constants.pw2_calendar_next_month_arrow);
-			click(Constants.pw2_calendar_active_day);
-			scrollAllWayUp();
-			click(Constants.pw2_insurance_accordion); // close
+			if (!data[7].equals("skip insurance")) {
+				click(Constants.pw2_insurance_accordion); // open
+				type(Constants.pw2_liability_name, data[7]);
+				click(Constants.pw2_liability_expiration_calendar);
+				click(Constants.pw2_calendar_next_month_arrow);
+				click(Constants.pw2_calendar_active_day);
+		 		type(Constants.pw2_workers_compensation_name, data[8]);
+		 		click(Constants.pw2_workers_compensation_expiration_calendar);
+				click(Constants.pw2_calendar_next_month_arrow);
+				click(Constants.pw2_calendar_active_day);
+				type(Constants.pw2_disability_name, data[9]);
+				click(Constants.pw2_disability_expiration_calendar);
+				click(Constants.pw2_calendar_next_month_arrow);
+				click(Constants.pw2_calendar_active_day);
+				scrollAllWayUp();
+				click(Constants.pw2_insurance_accordion); // close
+			}
 			
 			click(Constants.pw2_statements_signatures_tab);
 			radio(Constants.pw2_work_require_adjacent_property_insurance_no);
@@ -174,17 +176,19 @@ public class DobPW2Page extends TestBase {
 			clickButton("OK");
 			waitInvisible(Constants.ok_button);
 		
-			click(Constants.pw2_documents_tab2);
-			waitVisible("//span[text()='Document Status']");
-			click(Constants.upload_document_icon);
-			send(Constants.doc_browse_button, Constants.uploadFolder + "upload.png");
-			click(Constants.doc_upload_button);
-			waitInvisible(Constants.doc_please_wait_message);
-			waitVisible(Constants.doc_upload_succesfull_message);				
-			clickButton("OK");
-			waitInvisible(Constants.ok_button);
-			waitUntilISpinnersInvisible();
-			waitForPageToLoad();	
+			// Move the following to a separate method, run with PW2 Applicant user.
+//			click(Constants.pw2_documents_tab2);
+//			waitVisible("//span[text()='Document Status']");
+//			click(Constants.upload_document_icon);
+//			send(Constants.doc_browse_button, Constants.uploadFolder + "upload.png");
+//			click(Constants.doc_upload_button);
+//			waitInvisible(Constants.doc_please_wait_message);
+//			waitVisible(Constants.doc_upload_succesfull_message);				
+//			clickButton("OK");
+//			waitInvisible(Constants.ok_button);
+//			waitUntilISpinnersInvisible();
+//			waitForPageToLoad();
+			
 	 		click(Constants.pw2_work_permit_save);
 			waitUntilISpinnersInvisible();
 			waitVisible(Constants.ok_button);
