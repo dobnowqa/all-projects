@@ -358,6 +358,7 @@ public class DobSOWPage extends TestBase {
 			click(Constants.sow_ms_mechanical_information_add);
 			type(Constants.sow_ms_sum_total_heating, "1000");
 			type(Constants.sow_ms_sum_total_cooling, "20000");
+			wait(1);
 			click(Constants.global_save_step_button);
 			waitUntilISpinnersInvisible();
 			waitVisible(Constants.ok_button);

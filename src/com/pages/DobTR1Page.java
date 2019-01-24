@@ -207,7 +207,115 @@ public class DobTR1Page extends TestBase {
 		}
 	}
 
+	public void addSpecialInspectionBoilerEquipment(String tr1) {
+		if (!tr1.equals("")) {
+			String[] data = tr1.split(" :: ");
+			System.out.println(convertedTimestamp() + " **************** TR1 addSpecialInspectionBoilerEquipment");
+			if (!data[1].equals("AJOETEST@GMAIL.COM")) { // ajoetest is used for speeding up job creation
+				filterJob(user);
+			}
+			test = rep.startTest("addSpecialInspectionBoilerEquipment");
+			click(Constants.tr1_technical_report_step);
+			wait(1);
+			// Add a new Special Inspection row:
+			click("(//div/span[contains(text(),'Add')])[last()-4]");
+			click(Constants.tr1_select_requirement_code);
+			type(Constants.tr1_select_requirement_code_field, data[4]);
+			click(Constants.tr1_select_requirement_code_filter);
+			click(Constants.inspection_label);
+			
+			email(data[1]);
+			select(Constants.tr1_license_type, data[2]);
+			type(Constants.tr1_agency_number, data[3]);
+			wait(2);
+			
+			check(Constants.tr1_i_take_responcibility);
+			check(Constants.tr1_i_understand_my_failure_to_file);
+			check(Constants.tr1_i_understand_and_agree);
+			
+			click(Constants.tr1_save_progress_inspection_button_8085);
+			waitInvisible(Constants.tr1_save_progress_inspection_button_8085);
+			waitUntilISpinnersInvisible();
+			
+			waitVisible(Constants.ok_button);
+			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_saved_success"));
+			clickButton("OK");
+			waitInvisible(Constants.ok_button);
+			waitInvisible(Constants.tr1_save_progress_inspection_button_8085);	
+			
+			if(count(Constants.upload_document_icon_8085) > 0) {
+				click(Constants.upload_document_icon_8085); // DO NOT CAHNGE TO LAST()
+				waitVisible(Constants.tr1_browse_button);
+				send(Constants.tr1_browse_button, Constants.uploadFolder + "upload.png");
+				wait(1);
+				click(Constants.tr1_upload_button);
+				waitInvisible(Constants.tr1_please_wait_message);
+				waitVisible(Constants.tr1_upload_succesfull_message);
+				waitUntilISpinnersInvisible();
+				waitVisible(Constants.ok_button);
+				clickButton("OK");
+				waitInvisible(Constants.ok_button);
+			}			
+			reportPass("Success");
+		} else {
+			System.out.println(convertedTimestamp() + " **************** TR1 no addSpecialInspectionBoilerEquipment");
+		}
+	}
 
+	public void addProgressInspectionBoilerEquipment(String tr1) {
+		if (!tr1.equals("")) {
+			String[] data = tr1.split(" :: ");
+			System.out.println(convertedTimestamp() + " **************** TR1 addProgressInspectionBoilerEquipment");
+			if (!data[1].equals("AJOETEST@GMAIL.COM")) { // ajoetest is used for speeding up job creation
+				filterJob(user);
+			}
+			test = rep.startTest("addProgressInspectionBoilerEquipment");
+			click(Constants.tr1_technical_report_step);
+			wait(1);
+			// Add a new Progress Inspection row:
+			click("(//div/span[contains(text(),'Add')])[last()-3]");
+			click(Constants.tr1_select_requirement_code);
+			type(Constants.tr1_select_requirement_code_field, data[5]);
+			click(Constants.tr1_select_requirement_code_filter);
+			click(Constants.inspection_label);
+			
+			email(data[1]);
+			select(Constants.tr1_license_type, data[2]);
+			wait(2);
+			
+			check(Constants.tr1_i_take_responcibility);
+			check(Constants.tr1_i_understand_my_failure_to_file);
+			check(Constants.tr1_i_understand_and_agree);
+			
+			click(Constants.tr1_save_progress_inspection_button_8085);
+			waitInvisible(Constants.tr1_save_progress_inspection_button_8085);
+			waitUntilISpinnersInvisible();
+			
+			waitVisible(Constants.ok_button);
+			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_saved_success"));
+			clickButton("OK");
+			waitInvisible(Constants.ok_button);
+			waitInvisible(Constants.tr1_save_progress_inspection_button_8085);	
+			
+			if(count(Constants.upload_document_icon_8085) > 0) {
+				click(Constants.upload_document_icon_8085); // DO NOT CAHNGE TO LAST()
+				waitVisible(Constants.tr1_browse_button);
+				send(Constants.tr1_browse_button, Constants.uploadFolder + "upload.png");
+				wait(1);
+				click(Constants.tr1_upload_button);
+				waitInvisible(Constants.tr1_please_wait_message);
+				waitVisible(Constants.tr1_upload_succesfull_message);
+				waitUntilISpinnersInvisible();
+				waitVisible(Constants.ok_button);
+				clickButton("OK");
+				waitInvisible(Constants.ok_button);
+			}			
+			reportPass("Success");
+		} else {
+			System.out.println(convertedTimestamp() + " **************** TR1 no addProgressInspectionBoilerEquipment");
+		}
+	}
+	
 	public void enterProgressInspectionSignature(String tr1) {
 		if (!tr1.equals("")) {
 			String[] data = tr1.split(" :: ");
@@ -1004,7 +1112,9 @@ public class DobTR1Page extends TestBase {
 			click(Constants.tr1_save_progress_inspection_button_8085);
 			waitInvisible(Constants.tr1_save_progress_inspection_button_8085);					
 			waitVisible(Constants.ok_button);
+			wait(1);
 			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("tr_saved_success"));
+			wait(1);
 			clickButton("OK");
 			waitInvisible(Constants.ok_button);
 			wait(1);

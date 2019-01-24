@@ -11,7 +11,7 @@ public class DobDocumentsPage extends TestBase {
 			System.out.println(convertedTimestamp() + " **************** Documents uploadDocuments");
 //			filterJob(user);
 			test = rep.startTest("Upload Documents");
-			click(Constants.documents_step);
+			click(Constants.docs_documents_tab);
 			waitUntilISpinnersInvisible();
 			waitForPageToLoad();
 			if (!CONFIG.getProperty("env").contains("8085")) { //JG 2018-11-15 
@@ -80,4 +80,40 @@ public class DobDocumentsPage extends TestBase {
 		}
 	}
 	
+	public void addSupportingDocuments(String upload_file) {
+		if (!upload_file.equals("")) {
+			System.out.println(convertedTimestamp() + " **************** Documents addSupportingDocuments");
+			test = rep.startTest("addSupportingDocuments");
+			click(Constants.docs_documents_tab);			
+			waitUntilISpinnersInvisible();
+			waitForPageToLoad();
+			if (driver.findElement(By.xpath(Constants.documents_loading_spinner_8085)).isDisplayed()) {
+				refreshPage();
+				waitForPageToLoad();
+				wait(3);
+			}
+			scrollAllWayUp();
+			click(Constants.docs_additional_supporting_documents_accordion); // open
+			click(Constants.docs_add_new_document_button);
+			type(Constants.docs_search_documents_textbox, "Landmark Approval");
+			wait(1);
+			send(Constants.doc_browse_button, Constants.uploadFolder + "upload.png");
+			click(Constants.doc_upload_button);
+			waitInvisible(Constants.doc_please_wait_message);
+			waitVisible(Constants.doc_upload_succesfull_message);				
+			clickButton("OK");
+			waitInvisible(Constants.ok_button);
+			waitUntilISpinnersInvisible();
+			waitForPageToLoad();
+			if (driver.findElement(By.xpath(Constants.documents_loading_spinner_8085)).isDisplayed()) {
+				refreshPage();
+				waitForPageToLoad();
+				wait(5);
+			}
+			reportPass("addSupportingDocuments");
+		} else {
+			System.out.println(convertedTimestamp() + " **************** Documents no addSupportingDocuments");
+		}
+	}
+
 } // end of class

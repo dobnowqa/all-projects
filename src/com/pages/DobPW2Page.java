@@ -104,7 +104,7 @@ public class DobPW2Page extends TestBase {
 		if(!pw2.equals("")){
 			String[] data = pw2.split(" :: ");
 			System.out.println(convertedTimestamp() + " **************** PW2 addWorkPermit");
-			if (!data[4].equals("AJOETEST@GMAIL.COM")) { // ajoetest is used for speeding up job creation
+			if (!data[6].equals("AJOETEST@GMAIL.COM")) { // ajoetest is used for speeding up job creation
 				filterJob(user);
 			}
 			test = rep.startTest("PW2");
@@ -115,8 +115,9 @@ public class DobPW2Page extends TestBase {
 			scrollAllWayUp();
 			click(Constants.pw2_add_work_permit);
 			wait(2);
-			scrollAllWayUp();
+			
 			wait(1);
+			
 			click(Constants.pw2_reason_for_filing_accordion); // open
 			click(Constants.pw2_calendar_icon);
 			click(Constants.pw2_calendar_active_day);
@@ -132,17 +133,38 @@ public class DobPW2Page extends TestBase {
 			select(Constants.license_type_list, data[1]);
 			wait(1);
 			select(Constants.pw2_select_business_name, data[2]);
-			type(Constants.pw2_applicant_taxpayer_id, "123456789");
-			type(Constants.pw2_registration_tracking_number, "Track12345");
-			radio(Constants.pw2_applicant_responsible_for_all_work_no);
+			type(Constants.pw2_applicant_taxpayer_id, data[3]);
+			type(Constants.pw2_registration_tracking_number, data[4]);
+			if (count(Constants.pw2_applicant_responsible_for_all_work_no) > 0) {
+				radio(Constants.pw2_applicant_responsible_for_all_work_no);
+			}
+			scrollAllWayUp();
 			click(Constants.pw2_applicant_information_accordion); // close
 			
 			click(Constants.pw2_filing_representative_accordion); // open
-			email(data[3]);
+			email(data[5]);
+			scrollAllWayUp();
 			click(Constants.pw2_filing_representative_accordion); // close
+			
+			click(Constants.pw2_insurance_accordion); // open
+			type(Constants.pw2_liability_name, "Liability Insurance name 1");
+			click(Constants.pw2_liability_expiration_calendar);
+			click(Constants.pw2_calendar_next_month_arrow);
+			click(Constants.pw2_calendar_active_day);
+	 		type(Constants.pw2_workers_compensation_name, "Workers Compensation Insurance name 2");
+	 		click(Constants.pw2_workers_compensation_expiration_calendar);
+			click(Constants.pw2_calendar_next_month_arrow);
+			click(Constants.pw2_calendar_active_day);
+			type(Constants.pw2_disability_name, "Disability Insurance name 3");
+			click(Constants.pw2_disability_expiration_calendar);
+			click(Constants.pw2_calendar_next_month_arrow);
+			click(Constants.pw2_calendar_active_day);
+			scrollAllWayUp();
+			click(Constants.pw2_insurance_accordion); // close
 			
 			click(Constants.pw2_statements_signatures_tab);
 			radio(Constants.pw2_work_require_adjacent_property_insurance_no);
+			check(Constants.pw2_information_correct_and_complete);
 	 		click(Constants.pw2_work_permit_save);
 			waitUntilISpinnersInvisible();
 			waitVisible(Constants.ok_button);
@@ -152,34 +174,25 @@ public class DobPW2Page extends TestBase {
 			clickButton("OK");
 			waitInvisible(Constants.ok_button);
 		
-			//TODO: Move this to its own method which will be run for the PW2 applicant user.
-//			test = rep.startTest("PW2 upload docs");
-//			System.out.println(convertedTimestamp() + " **************** PW2 uploadDocuments");
-//			scrollAllWayUp();
-//			for (int i = 1; i < 10; i++) {
-//				click(Constants.pw2_documents_tab2);
-//				waitVisible("//span[text()='Document Status']");
-//				if (count(Constants.document_status_required) == 0)
-//					break;
-//				click(Constants.upload_document_icon);
-//				send(Constants.doc_browse_button, Constants.uploadFolder + "upload.png");
-//				click(Constants.doc_upload_button);
-//				waitInvisible(Constants.doc_please_wait_message);
-//				waitVisible(Constants.doc_upload_succesfull_message);				
-//				clickButton("OK");
-//				waitInvisible(Constants.ok_button);
-//				waitUntilISpinnersInvisible();
-//				waitForPageToLoad();	
-//		 		click(Constants.pw2_work_permit_save);
-//				waitUntilISpinnersInvisible();
-//				waitVisible(Constants.ok_button);
-//				wait(1);
-//				verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("work_permit_saved"));
-//				wait(1);
-//				clickButton("OK");
-//				waitInvisible(Constants.ok_button);
-//			}
-//			
+			click(Constants.pw2_documents_tab2);
+			waitVisible("//span[text()='Document Status']");
+			click(Constants.upload_document_icon);
+			send(Constants.doc_browse_button, Constants.uploadFolder + "upload.png");
+			click(Constants.doc_upload_button);
+			waitInvisible(Constants.doc_please_wait_message);
+			waitVisible(Constants.doc_upload_succesfull_message);				
+			clickButton("OK");
+			waitInvisible(Constants.ok_button);
+			waitUntilISpinnersInvisible();
+			waitForPageToLoad();	
+	 		click(Constants.pw2_work_permit_save);
+			waitUntilISpinnersInvisible();
+			waitVisible(Constants.ok_button);
+			wait(1);
+			verifyNotification(Constants.notification, TEXT_PROPERTIES.getProperty("work_permit_saved"));
+			wait(1);
+			clickButton("OK");
+			waitInvisible(Constants.ok_button);
 			click(Constants.pw2_back_to_filing);
 		} else {
 			System.out.println(convertedTimestamp() + " **************** PW2 no addWorkPermit");

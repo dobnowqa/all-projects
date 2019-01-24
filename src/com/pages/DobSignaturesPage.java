@@ -203,9 +203,6 @@ public class DobSignaturesPage extends TestBase {
 			wait(1);  // JG 2019-01-03
 			clickButton("OK");
 			waitInvisible(Constants.ok_button);
-			if (!owner_signature.equals("AJOETEST@GMAIL.COM")) { // ajoetest is used for speeding up job creation
-				filterJob(user);
-			}
 		} else {
 			System.out.println(convertedTimestamp() + " **************** Signatures no ownerSignature");
 		}

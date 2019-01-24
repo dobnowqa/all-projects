@@ -124,7 +124,7 @@ public class DobPW1Page extends TestBase {
 			select(Constants.pw1_1_borough, data[2]);
 			type(Constants.pw1_1_block, data[3]);
 			type(Constants.pw1_1_lot, data[4]);
-			type(Constants.pw1_1_apt_suite_number, data[5]); 
+			type(Constants.pw1_1_apt_suite_number, data[5]);
 			click(Constants.pw1_1_location_information_accordion); // TODO: routine to close accordion
 		} else {
 			System.out.println(convertedTimestamp() + " **************** PW1 no enterLocationInformation");
@@ -249,8 +249,8 @@ public class DobPW1Page extends TestBase {
 	 	}
 	}
 
-	// 2. Enter Applicant Information (within Stakeholders)
-	public void enterApplicantInformation(String user_info) {	
+	// 2. Enter Applicant Information (within Stakeholders accordion)
+	public void enterApplicantInformation(String user_info) {
 		if (!user_info.equals("")) {
 			System.out.println(convertedTimestamp() + " **************** PW1 enterApplicantInformation");
 			String[] data = user_info.split(" :: ");
@@ -262,14 +262,41 @@ public class DobPW1Page extends TestBase {
 			if (count(Constants.business_name_list) > 0) {
 				select(Constants.business_name_list, data[2]);
 			}
-			// enter Filing Representative
+			// 3. Enter Filing Representative Class I / Preparer (within Stakeholders accordion)
 			email3(data[3]);
 			wait(1);
 			scrollAllWayUp();
 			click(Constants.pw1_2_stakeholders_accordion); // close
-
-			
-			// TODO: Enter "3. Filing Representative Class I / Preparer", which is also within Stakeholders
+	 	} else {
+	 		System.out.println(convertedTimestamp() + " **************** PW1 no enterApplicantInformation");
+	 	}
+	}
+	
+	// 3A. Add Delegated Associate (within Stakeholders accordion)
+	public void addDelegatedAssociate(String user_info) {
+		if (!user_info.equals("")) {
+			System.out.println(convertedTimestamp() + " **************** PW1 addDelegatedAssociate");
+			String[] data = user_info.split(" :: ");
+			test = rep.startTest("Applicant Info");
+			scrollAllWayUp();
+			click(Constants.pw1_2_stakeholders_accordion); // open
+			scrollDown();
+			click(Constants.pw1_3a_add_button);
+			email(data[4]);
+			select(Constants.pw1_3a_select_license_type, data[5]);
+			wait(1);
+			select(Constants.pw1_3a_select_business_name, data[6]);
+			click(Constants.pw1_3a_save_button);
+			waitUntilElementVisible(Constants.ok_button, 30);
+			wait(1);
+//			assertNotification(TEXT_PROPERTIES.getProperty("job_filing_saved"), "pw1 saved");
+			wait(1);
+			clickButton("OK");
+			waitInvisible(Constants.ok_button);
+			scrollAllWayUp();
+			click(Constants.pw1_2_stakeholders_accordion); // close
+	 	} else {
+	 		System.out.println(convertedTimestamp() + " **************** PW1 no addDelegatedAssociate");
 	 	}
 	}
 	
@@ -902,7 +929,7 @@ public class DobPW1Page extends TestBase {
 			if (count(Constants.pw1_filing_info_accordion) > 0) { // 
 				click(Constants.pw1_filing_info_accordion); // open
 				if (count(Constants.pw1_filing_info_associated_job_number) > 0) {
-					type(Constants.pw1_filing_info_associated_job_number,"M00029074");
+					type(Constants.pw1_filing_info_associated_job_number,data[9]);
 				}
 				wait(1);
 				scrollAllWayUp();

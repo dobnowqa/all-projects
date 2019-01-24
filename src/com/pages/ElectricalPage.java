@@ -692,7 +692,7 @@ public class ElectricalPage extends TestBase {
 				test = rep.startTest("uploadDocuments");
 				waitUntilISpinnersInvisible();
 				waitForPageToLoad();
-				click(Constants.documents_step);
+				click(Constants.docs_documents_tab);
 				scrollUp();
 				waitUntilElementVisible(Constants.el_first_document, 30);
 				waitUntilElementVisible(Constants.upload_document_icon, 30);
